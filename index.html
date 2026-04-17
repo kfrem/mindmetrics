@@ -1,0 +1,2440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindMetrics — Intelligence & Emotional Assessment Suite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Space+Mono:wght@400;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #08101e;
+    --navy2: #0e1928;
+    --navy3: #162237;
+    --gold: #c8962a;
+    --gold-light: #e8b84b;
+    --gold-pale: #f5dfa0;
+    --cream: #f0ead8;
+    --steel: #7a8fa8;
+    --steel-light: #a8bcd0;
+    --white: #f4f0e8;
+    --red: #c94040;
+    --green: #3a9e6e;
+    --teal: #2a8fa0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Background texture ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 15% 20%, rgba(200,150,42,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 85% 80%, rgba(42,143,160,0.05) 0%, transparent 60%),
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.012) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.012) 40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Screens ── */
+  .screen { display: none; position: relative; z-index: 1; }
+  .screen.active { display: block; }
+
+  /* ══════════════ LANDING ══════════════ */
+  #landing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+  }
+  #landing.active { display: flex; }
+
+  .brand-line {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+
+  h1.main-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+
+  h1.main-title span {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .subtitle {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    color: var(--steel-light);
+    letter-spacing: 0.15em;
+    margin-bottom: 3.5rem;
+  }
+
+  .divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 3.5rem;
+  }
+
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.2rem;
+    max-width: 960px;
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+
+  .test-card {
+    background: var(--navy2);
+    border: 1px solid rgba(200,150,42,0.2);
+    border-radius: 4px;
+    padding: 2rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .test-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--gold);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+    transform-origin: top;
+  }
+
+  .test-card:hover {
+    border-color: rgba(200,150,42,0.5);
+    background: var(--navy3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+
+  .test-card:hover::before { transform: scaleY(1); }
+
+  .card-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .card-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 0.6rem;
+  }
+
+  .card-desc {
+    font-size: 0.8rem;
+    color: var(--steel-light);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .card-meta {
+    display: flex;
+    gap: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--steel);
+  }
+
+  .card-meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+  .start-all-btn {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 1rem 3rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .start-all-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ══════════════ QUIZ SCREEN ══════════════ */
+  #quiz {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+  #quiz.active { display: flex; }
+
+  .quiz-header {
+    background: var(--navy2);
+    border-bottom: 1px solid rgba(200,150,42,0.15);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .quiz-brand {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+  }
+
+  .quiz-test-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--cream);
+  }
+
+  .quiz-timer {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    min-width: 60px;
+    text-align: right;
+  }
+
+  .quiz-timer.warning { color: var(--red); animation: pulse 1s infinite; }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .progress-bar-wrap {
+    height: 3px;
+    background: rgba(255,255,255,0.05);
+    position: relative;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transition: width 0.4s ease;
+  }
+
+  .quiz-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .question-wrap {
+    max-width: 720px;
+    width: 100%;
+  }
+
+  .q-counter {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: var(--steel);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .q-category {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
+  }
+
+  .question-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--cream);
+    margin-bottom: 2.5rem;
+    min-height: 80px;
+  }
+
+  .sequence-box {
+    background: var(--navy3);
+    border: 1px solid rgba(200,150,42,0.2);
+    border-radius: 4px;
+    padding: 1.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.4rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-light);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .options-grid.single-col { grid-template-columns: 1fr; }
+  .options-grid.likert { grid-template-columns: repeat(5, 1fr); }
+
+  .option-btn {
+    background: rgba(14,25,40,0.8);
+    border: 1px solid rgba(120,143,168,0.25);
+    border-radius: 3px;
+    padding: 1rem 1.2rem;
+    color: var(--steel-light);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    line-height: 1.4;
+  }
+
+  .option-btn:hover {
+    border-color: var(--gold);
+    color: var(--cream);
+    background: rgba(200,150,42,0.08);
+  }
+
+  .option-btn.selected {
+    border-color: var(--gold);
+    background: rgba(200,150,42,0.15);
+    color: var(--gold-light);
+  }
+
+  .option-btn.correct {
+    border-color: var(--green);
+    background: rgba(58,158,110,0.15);
+    color: #6ecfa0;
+  }
+
+  .option-btn.wrong {
+    border-color: var(--red);
+    background: rgba(201,64,64,0.12);
+    color: #e07070;
+  }
+
+  /* Likert labels */
+  .likert-labels {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.8rem;
+    margin-bottom: 0.4rem;
+    text-align: center;
+  }
+
+  .likert-labels span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    color: var(--steel);
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+  }
+
+  .option-btn.likert-btn {
+    text-align: center;
+    padding: 0.8rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .nav-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+
+  .btn-next {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 0.8rem 2.5rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .btn-next.ready { opacity: 1; pointer-events: all; }
+  .btn-next.ready:hover { background: var(--gold-light); }
+
+  /* ══════════════ RESULTS ══════════════ */
+  #results {
+    min-height: 100vh;
+    padding: 3rem 2rem;
+  }
+  #results.active { display: block; }
+
+  .results-inner { max-width: 900px; margin: 0 auto; }
+
+  .results-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .results-header .brand-line { margin-bottom: 1rem; }
+
+  h2.results-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .results-sub {
+    font-size: 0.85rem;
+    color: var(--steel);
+    letter-spacing: 0.05em;
+  }
+
+  .scores-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 3rem;
+  }
+
+  .score-card {
+    background: var(--navy2);
+    border: 1px solid rgba(200,150,42,0.2);
+    border-radius: 4px;
+    padding: 1.8rem 1.5rem;
+    text-align: center;
+  }
+
+  .score-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .score-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 2.5rem;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .score-max {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--steel);
+    margin-bottom: 1rem;
+  }
+
+  .score-band {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--cream);
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .score-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1.5s ease;
+  }
+
+  /* Result sections */
+  .result-section {
+    background: var(--navy2);
+    border: 1px solid rgba(120,143,168,0.15);
+    border-radius: 4px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .result-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .result-section-title span.badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    padding: 0.3rem 0.6rem;
+    border-radius: 2px;
+    background: rgba(200,150,42,0.15);
+    color: var(--gold);
+  }
+
+  .result-section p {
+    font-size: 0.9rem;
+    color: var(--steel-light);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .trait-bars { margin-top: 1.2rem; }
+
+  .trait-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .trait-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--steel-light);
+    min-width: 130px;
+  }
+
+  .trait-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .trait-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1.5s ease;
+  }
+
+  .trait-score {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--gold);
+    min-width: 35px;
+    text-align: right;
+  }
+
+  /* ── EQ sub-domains ── */
+  .eq-domains {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .eq-domain {
+    background: rgba(8,16,30,0.6);
+    border: 1px solid rgba(200,150,42,0.1);
+    border-radius: 3px;
+    padding: 1rem;
+  }
+
+  .eq-domain-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  .eq-domain-score {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 0.4rem;
+  }
+
+  .eq-domain-desc {
+    font-size: 0.75rem;
+    color: var(--steel);
+    line-height: 1.5;
+  }
+
+  .disclaimer {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(120,143,168,0.1);
+    border-radius: 4px;
+  }
+
+  .disclaimer p {
+    font-size: 0.75rem;
+    color: var(--steel);
+    line-height: 1.7;
+  }
+
+  .retake-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-retake {
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    padding: 0.8rem 2rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .btn-retake:hover { background: rgba(200,150,42,0.1); }
+
+  .btn-print {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 0.8rem 2rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .btn-print:hover { background: var(--gold-light); }
+
+  /* ── Transition ── */
+  .test-transition {
+    position: fixed;
+    inset: 0;
+    background: var(--navy);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  }
+
+  .test-transition.show { opacity: 1; pointer-events: all; }
+  .test-transition h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--cream); }
+  .test-transition p { color: var(--steel-light); font-size: 0.9rem; }
+  .transition-btn {
+    margin-top: 1rem;
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 0.8rem 2.5rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 600px) {
+    .options-grid { grid-template-columns: 1fr; }
+    .options-grid.likert { grid-template-columns: repeat(5, 1fr); }
+    .eq-domains { grid-template-columns: 1fr; }
+    .scores-row { grid-template-columns: 1fr 1fr; }
+    .trait-name { min-width: 90px; font-size: 0.5rem; }
+  }
+
+  /* ── Entrepreneur module extras ── */
+  .archetype-card {
+    background: linear-gradient(135deg, rgba(22,34,55,0.95) 0%, rgba(14,25,40,0.98) 100%);
+    border: 1px solid rgba(200,150,42,0.4);
+    border-radius: 4px;
+    padding: 2.5rem 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .archetype-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+  }
+  .archetype-icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
+  .archetype-type {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .archetype-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  .archetype-tagline {
+    font-size: 0.9rem;
+    color: var(--steel-light);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto 1.5rem;
+  }
+  .dna-score-ring {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px; height: 90px;
+    border: 2px solid rgba(200,150,42,0.3);
+    border-radius: 50%;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+  .dna-score-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.6rem;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+  .dna-score-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.1em;
+    color: var(--steel);
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  .readiness-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .readiness-box {
+    background: rgba(8,16,30,0.6);
+    border: 1px solid rgba(120,143,168,0.15);
+    border-radius: 4px;
+    padding: 1.2rem;
+    text-align: center;
+  }
+  .readiness-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.25em;
+    color: var(--steel);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .readiness-indicator {
+    font-size: 1.8rem;
+    margin-bottom: 0.4rem;
+  }
+  .readiness-verdict {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-style: italic;
+  }
+  .readiness-note { font-size: 0.75rem; color: var(--steel); margin-top: 0.4rem; line-height: 1.4; }
+
+  .biz-match-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+  }
+  .biz-card {
+    background: rgba(8,16,30,0.6);
+    border: 1px solid rgba(120,143,168,0.15);
+    border-radius: 4px;
+    padding: 1.2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .biz-card.top-match { border-color: rgba(200,150,42,0.4); }
+  .biz-card.top-match::before {
+    content: 'Best Fit';
+    position: absolute; top: 0; right: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.2em;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 3px 8px;
+    font-weight: 700;
+  }
+  .biz-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .biz-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 0.4rem;
+  }
+  .biz-fit-bar { height: 3px; background: rgba(255,255,255,0.07); border-radius: 2px; margin-bottom: 0.5rem; overflow: hidden; }
+  .biz-fit-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width 1.5s ease; }
+  .biz-desc { font-size: 0.78rem; color: var(--steel-light); line-height: 1.5; }
+  .biz-fit-pct { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--gold); margin-bottom: 0.4rem; }
+
+  .action-plan { margin-top: 1.2rem; }
+  .action-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    align-items: flex-start;
+  }
+  .action-item:last-child { border-bottom: none; }
+  .action-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold);
+    min-width: 28px;
+    padding-top: 2px;
+  }
+  .action-content {}
+  .action-title {
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+  }
+  .action-detail { font-size: 0.8rem; color: var(--steel-light); line-height: 1.6; }
+
+  .entr-card { position: relative; }
+  .entr-card .card-icon { color: var(--gold); }
+
+  .entr-section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 600px) {
+    .readiness-row { grid-template-columns: 1fr; }
+    .biz-match-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ══ CAREER MATCH MODAL ══ */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 500;
+    background: rgba(4,8,16,0.88); overflow-y: auto; padding: 2rem 1rem;
+  }
+  .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+  .modal-box {
+    background: var(--navy2); border: 1px solid rgba(200,150,42,0.25);
+    border-radius: 6px; width: 100%; max-width: 820px;
+    padding: 2rem; position: relative; margin: auto;
+  }
+  .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--steel); font-size: 1.4rem; cursor: pointer; line-height: 1; }
+  .modal-close:hover { color: var(--cream); }
+  .modal-title { font-family: "Cormorant Garamond", serif; font-size: 2rem; font-weight: 300; color: var(--cream); margin-bottom: 0.3rem; }
+  .modal-sub { font-size: 0.8rem; color: var(--steel); margin-bottom: 1.5rem; }
+  .career-filter-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .filter-btn { font-family: "Space Mono", monospace; font-size: 0.55rem; letter-spacing: 0.2em; padding: 0.4rem 0.8rem; border-radius: 2px; border: 1px solid rgba(120,143,168,0.3); background: transparent; color: var(--steel-light); cursor: pointer; text-transform: uppercase; transition: all 0.15s; }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(200,150,42,0.08); }
+  .careers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.8rem; margin-top: 0.5rem; }
+  .career-card { background: rgba(8,16,30,0.7); border: 1px solid rgba(120,143,168,0.15); border-radius: 4px; padding: 1rem; transition: border-color 0.2s; }
+  .career-card:hover { border-color: rgba(200,150,42,0.3); }
+  .career-card.top-career { border-color: rgba(200,150,42,0.5); }
+  .career-fit-pct { font-family: "Space Mono", monospace; font-size: 1.1rem; color: var(--gold-light); margin-bottom: 0.2rem; }
+  .career-name { font-family: "Cormorant Garamond", serif; font-size: 1rem; font-weight: 600; color: var(--cream); margin-bottom: 0.3rem; }
+  .career-sector { font-family: "Space Mono", monospace; font-size: 0.5rem; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .career-bar { height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 0.5rem; }
+  .career-bar-fill { height: 100%; background: var(--gold); border-radius: 2px; }
+  .career-why { font-size: 0.75rem; color: var(--steel); line-height: 1.5; }
+
+  /* ══ SHARE PANEL ══ */
+  .share-panel { background: var(--navy3); border: 1px solid rgba(200,150,42,0.2); border-radius: 4px; padding: 1.5rem; margin-top: 1.5rem; }
+  .share-panel-title { font-family: "Space Mono", monospace; font-size: 0.55rem; letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+  .share-row { display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap; }
+  .share-url-box { flex: 1; min-width: 0; background: rgba(8,16,30,0.8); border: 1px solid rgba(120,143,168,0.2); border-radius: 3px; padding: 0.7rem 1rem; font-family: "Space Mono", monospace; font-size: 0.6rem; color: var(--steel-light); word-break: break-all; line-height: 1.6; }
+  .share-actions { display: flex; flex-direction: column; gap: 0.5rem; }
+  .btn-share { display: flex; align-items: center; justify-content: center; padding: 0.5rem 1rem; border-radius: 2px; font-family: "Space Mono", monospace; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.15s; white-space: nowrap; background: transparent; border: 1px solid var(--gold); color: var(--gold); }
+  .btn-share:hover { background: rgba(200,150,42,0.12); }
+  .btn-share.primary { background: var(--gold); color: var(--navy); border: none; }
+  .btn-share.primary:hover { background: var(--gold-light); }
+  #qr-canvas { display: block; margin-top: 1rem; border: 4px solid white; border-radius: 2px; }
+
+  /* ══ INTERVIEW PREP ══ */
+  .prep-section { margin-bottom: 1.5rem; }
+  .prep-domain-title { font-family: "Cormorant Garamond", serif; font-size: 1.3rem; font-weight: 600; color: var(--cream); margin-bottom: 0.8rem; }
+  .prep-score-note { font-family: "Space Mono", monospace; font-size: 0.5rem; letter-spacing: 0.2em; color: var(--red); text-transform: uppercase; margin-bottom: 0.6rem; opacity: 0.9; }
+  .prep-q { background: rgba(8,16,30,0.6); border-left: 3px solid var(--gold); border-radius: 0 4px 4px 0; padding: 0.9rem 1rem; margin-bottom: 0.6rem; }
+  .prep-q-text { color: var(--cream); font-size: 0.9rem; margin-bottom: 0.4rem; }
+  .prep-q-tip { font-size: 0.78rem; color: var(--steel-light); line-height: 1.6; }
+
+  /* ══ PREMIUM ACTION BUTTONS ══ */
+  .premium-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; margin: 1.5rem 0; }
+  .btn-premium { display: flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.4rem; border-radius: 3px; font-family: "Jost", sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s; border: none; }
+  .btn-premium.gold { background: var(--gold); color: var(--navy); }
+  .btn-premium.gold:hover { background: var(--gold-light); }
+  .btn-premium.outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
+  .btn-premium.outline:hover { background: rgba(200,150,42,0.1); }
+  .btn-premium.teal-btn { background: rgba(42,143,160,0.15); border: 1px solid var(--teal); color: var(--teal); }
+  .btn-premium.teal-btn:hover { background: rgba(42,143,160,0.25); }
+
+  @media (max-width: 600px) {
+    .readiness-row { grid-template-columns: 1fr; }
+    .biz-match-grid { grid-template-columns: 1fr; }
+    .cert-scores-grid { grid-template-columns: repeat(3,1fr); }
+  }
+
+  /* ══ PRINT / CERTIFICATE ══ */
+  @media print {
+    body { background: white !important; color: #111 !important; }
+    body::before { display: none !important; }
+    #quiz, #landing, .modal-overlay, .test-transition { display: none !important; }
+    #results { display: block !important; }
+    .retake-row, .premium-actions { display: none !important; }
+    .result-section { border-color: #ddd !important; background: white !important; }
+    .score-card { background: #f5f5f5 !important; border-color: #ddd !important; }
+    #certificate-page { display: block !important; page-break-before: always; }
+  }
+
+  #certificate-page { display: none; font-family: "Jost", sans-serif; }
+  .cert-wrap { max-width: 780px; margin: 0 auto; padding: 40px; border: 3px double #c8962a; text-align: center; }
+  .cert-logo { font-family: "Space Mono", monospace; font-size: 11px; letter-spacing: 0.5em; color: #c8962a; text-transform: uppercase; margin-bottom: 16px; }
+  .cert-title { font-family: "Cormorant Garamond", serif; font-size: 42px; font-weight: 300; color: #08101e; line-height: 1; margin-bottom: 6px; }
+  .cert-subtitle { font-size: 13px; color: #666; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 28px; }
+  .cert-divider { width: 120px; height: 2px; background: #c8962a; margin: 0 auto 24px; }
+  .cert-presented { font-size: 13px; color: #555; margin-bottom: 6px; }
+  .cert-name { font-family: "Cormorant Garamond", serif; font-size: 32px; font-style: italic; color: #08101e; margin-bottom: 20px; }
+  .cert-scores-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; max-width: 600px; margin: 0 auto 24px; }
+  .cert-score-item { background: #f8f4ec; border: 1px solid #e8d9b8; border-radius: 4px; padding: 10px 6px; }
+  .cert-score-val { font-family: "Space Mono", monospace; font-size: 20px; font-weight: 700; color: #c8962a; }
+  .cert-score-label { font-size: 9px; color: #888; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 3px; }
+  .cert-body { font-size: 13px; color: #444; line-height: 1.8; max-width: 560px; margin: 0 auto 24px; }
+  .cert-footer { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid #e8d9b8; padding-top: 20px; margin-top: 10px; }
+  .cert-sig-name { font-family: "Cormorant Garamond", serif; font-size: 18px; font-style: italic; color: #08101e; }
+  .cert-sig-role { font-size: 10px; color: #888; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3px; }
+  .cert-date-val { font-family: "Space Mono", monospace; font-size: 11px; color: #666; text-align:right; }
+  .cert-id { font-family: "Space Mono", monospace; font-size: 9px; color: #aaa; margin-top: 4px; }
+  .cert-seal { font-size: 48px; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ LANDING ══════════════ -->
+<div id="landing" class="screen active">
+  <div class="brand-line">MindMetrics Assessment Suite</div>
+  <h1 class="main-title">Know Your <span>Mind</span></h1>
+  <p class="subtitle">Four Scientific Assessments — Instant Results — No Account Required</p>
+  <div class="divider"></div>
+
+  <div class="test-grid">
+    <div class="test-card" onclick="startSingle('iq')">
+      <span class="card-icon">🧩</span>
+      <div class="card-label">Assessment 01</div>
+      <div class="card-title">IQ Test</div>
+      <div class="card-desc">Logic sequences, numerical patterns, verbal analogies, and spatial reasoning across 20 calibrated questions.</div>
+      <div class="card-meta">
+        <span>⏱ 12 min</span>
+        <span>📋 20 questions</span>
+      </div>
+    </div>
+
+    <div class="test-card" onclick="startSingle('eq')">
+      <span class="card-icon">💡</span>
+      <div class="card-label">Assessment 02</div>
+      <div class="card-title">EQ Test</div>
+      <div class="card-desc">Emotional intelligence across four domains: self-awareness, self-regulation, empathy, and social skills.</div>
+      <div class="card-meta">
+        <span>⏱ 8 min</span>
+        <span>📋 20 questions</span>
+      </div>
+    </div>
+
+    <div class="test-card" onclick="startSingle('big5')">
+      <span class="card-icon">🔬</span>
+      <div class="card-label">Assessment 03</div>
+      <div class="card-title">Big Five Personality</div>
+      <div class="card-desc">The gold-standard OCEAN model — Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism.</div>
+      <div class="card-meta">
+        <span>⏱ 6 min</span>
+        <span>📋 25 questions</span>
+      </div>
+    </div>
+
+    <div class="test-card" onclick="startSingle('stress')">
+      <span class="card-icon">⚡</span>
+      <div class="card-label">Assessment 04</div>
+      <div class="card-title">Stress Index</div>
+      <div class="card-desc">Perceived stress scale measuring how often you feel overwhelmed, uncontrolled, and overloaded.</div>
+      <div class="card-meta">
+        <span>⏱ 3 min</span>
+        <span>📋 10 questions</span>
+      </div>
+    </div>
+
+    <div class="test-card entr-card" onclick="startSingle('entrepreneur')" style="border-color:rgba(200,150,42,0.35);background:rgba(22,34,55,0.9)">
+      <span class="card-icon">🚀</span>
+      <div class="card-label" style="color:var(--gold-light)">Assessment 05 · New</div>
+      <div class="card-title">Entrepreneur DNA</div>
+      <div class="card-desc">Discover your entrepreneur archetype, business model fit, readiness to go solo, and a personalised action plan across 7 dimensions.</div>
+      <div class="card-meta">
+        <span>⏱ 7 min</span>
+        <span>📋 20 questions</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:1rem">
+    <button class="start-all-btn" onclick="startAll()">Complete Full Assessment Suite →</button>
+    <button class="start-all-btn" onclick="startEntrepreneurSuite()" style="background:transparent;border:1px solid var(--gold);color:var(--gold)">Entrepreneur + Personality Suite →</button>
+  </div>
+</div>
+
+<!-- ══════════════ QUIZ SCREEN ══════════════ -->
+<div id="quiz" class="screen">
+  <div class="quiz-header">
+    <div class="quiz-brand">MINDMETRICS</div>
+    <div class="quiz-test-name" id="quiz-test-name">IQ Test</div>
+    <div class="quiz-timer" id="quiz-timer"></div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+  <div class="quiz-body">
+    <div class="question-wrap">
+      <div class="q-category" id="q-category"></div>
+      <div class="q-counter" id="q-counter">Question 1 of 20</div>
+      <div class="question-text" id="q-text"></div>
+      <div class="sequence-box" id="sequence-box" style="display:none"></div>
+      <div class="likert-labels" id="likert-labels" style="display:none">
+        <span>Strongly Disagree</span><span>Disagree</span><span>Neutral</span><span>Agree</span><span>Strongly Agree</span>
+      </div>
+      <div class="options-grid" id="options-grid"></div>
+      <div class="nav-row">
+        <button class="btn-next" id="btn-next" onclick="nextQuestion()">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ RESULTS ══════════════ -->
+<div id="results" class="screen">
+  <div class="results-inner">
+    <div class="results-header">
+      <div class="brand-line">MindMetrics — Your Results</div>
+      <h2 class="results-title">Assessment Complete</h2>
+      <p class="results-sub" id="results-date"></p>
+    </div>
+    <div class="scores-row" id="scores-row"></div>
+    <div id="detail-sections"></div>
+    <div class="disclaimer">
+      <p>These assessments are for educational and self-reflection purposes only. They are not clinical diagnostic instruments and should not replace evaluation by a qualified psychologist or medical professional. IQ scores are estimates based on a condensed test; standardised IQ tests administered by professionals are more accurate.</p>
+    </div>
+    <div class="premium-actions" id="premium-actions" style="display:none">
+      <button class="btn-premium gold" onclick="openCareerMatch()">🎯 Career Match — 60+ Roles</button>
+      <button class="btn-premium outline" onclick="openInterviewPrep()">📝 Interview Prep Guide</button>
+      <button class="btn-premium teal-btn" onclick="printCertificate()">🏅 Download Certificate</button>
+    </div>
+
+    <div class="share-panel" id="share-panel" style="display:none">
+      <div class="share-panel-title">Share Your Profile</div>
+      <div class="share-row">
+        <div class="share-url-box" id="share-url-box">Generating your profile link…</div>
+        <div class="share-actions">
+          <button class="btn-share primary" onclick="copyShareUrl()">📋 Copy Link</button>
+          <button class="btn-share" onclick="toggleQR()">📱 Show QR Code</button>
+        </div>
+      </div>
+      <canvas id="qr-canvas" width="150" height="150" style="display:none"></canvas>
+    </div>
+
+    <div class="retake-row">
+      <button class="btn-retake" onclick="goHome()">← Take Another Test</button>
+      <button class="btn-print" onclick="window.print()">🖨 Print / Save Results</button>
+    </div>
+  </div>
+</div>
+
+<!-- Transition overlay -->
+<div class="test-transition" id="test-transition">
+  <div class="brand-line">MINDMETRICS</div>
+  <h3 id="tr-title">Next: EQ Test</h3>
+  <p id="tr-desc">Emotional Intelligence — 20 questions — approx. 8 minutes</p>
+  <button class="transition-btn" id="tr-btn" onclick="continueNext()">Begin →</button>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+//  DATA — ALL TESTS
+// ══════════════════════════════════════════════════════════
+
+const TESTS = {
+
+// ─── IQ TEST ─────────────────────────────────────────────
+iq: {
+  name: 'IQ Test', label: 'Intelligence Quotient', timed: true, timeLimit: 720,
+  questions: [
+    { cat:'Numerical Sequences', text:'What comes next in the sequence?', seq:'2, 4, 8, 16, ?', options:['24','32','30','28'], answer:1 },
+    { cat:'Numerical Sequences', text:'Find the missing number.', seq:'3, 6, 11, 18, 27, ?', options:['36','38','37','35'], answer:1 },
+    { cat:'Numerical Sequences', text:'What number completes the pattern?', seq:'100, 91, 83, 76, 70, ?', options:['65','64','66','63'], answer:0 },
+    { cat:'Verbal Analogies', text:'BOOK is to LIBRARY as PAINTING is to:', options:['Canvas','Gallery','Artist','Frame'], answer:1 },
+    { cat:'Verbal Analogies', text:'SURGEON is to SCALPEL as CARPENTER is to:', options:['Wood','Saw','Hammer','Nail'], answer:1 },
+    { cat:'Verbal Analogies', text:'COLD is to ICE as HEAT is to:', options:['Fire','Warm','Steam','Sun'], answer:2 },
+    { cat:'Logical Reasoning', text:'All Bloops are Razzies. All Razzies are Lazzies. Therefore:', options:['All Bloops are Lazzies','Some Lazzies are not Bloops','No Lazzies are Bloops','None of the above'], answer:0 },
+    { cat:'Logical Reasoning', text:'If all doctors are professionals, and some professionals are scientists, which must be true?', options:['All doctors are scientists','Some scientists are doctors','Some doctors may be scientists','Doctors are not scientists'], answer:2 },
+    { cat:'Logical Reasoning', text:'A is taller than B. C is shorter than A. B is taller than C. Who is tallest?', options:['A','B','C','Cannot be determined'], answer:0 },
+    { cat:'Numerical Reasoning', text:'A train travels 180 km in 2 hours. How many km does it travel in 5 hours at the same speed?', options:['360','450','400','540'], answer:1 },
+    { cat:'Numerical Reasoning', text:'If 5 workers complete a task in 8 days, how many days for 10 workers?', options:['16','4','8','2'], answer:1 },
+    { cat:'Numerical Reasoning', text:'What percentage of 250 is 75?', options:['25%','30%','35%','20%'], answer:1 },
+    { cat:'Pattern Recognition', text:'Which number does NOT belong?', seq:'2, 3, 5, 7, 11, 15, 17', options:['11','15','7','3'], answer:1 },
+    { cat:'Pattern Recognition', text:'Complete the pattern.', seq:'Z, Y, X, W, ?', options:['V','U','T','S'], answer:0 },
+    { cat:'Pattern Recognition', text:'Which comes next in the series?', seq:'1, 1, 2, 3, 5, 8, ?', options:['12','13','11','14'], answer:1 },
+    { cat:'Spatial Reasoning', text:'A cube is painted red on all sides then cut into 27 equal pieces. How many pieces have exactly 2 red faces?', options:['6','8','12','16'], answer:2 },
+    { cat:'Spatial Reasoning', text:'If you fold a square paper in half twice then cut a triangle from the folded corner, how many triangles appear when unfolded?', options:['2','4','8','1'], answer:1 },
+    { cat:'Working Memory', text:'Reverse the order of this sequence: 7, 3, 9, 1, 5. What is the third number?', options:['9','1','5','3'], answer:0 },
+    { cat:'Critical Thinking', text:'Some months have 30 days, some have 31. How many months have 28 days?', options:['1','2','All of them','6'], answer:2 },
+    { cat:'Critical Thinking', text:'A farmer has 17 sheep. All but 9 die. How many sheep remain?', options:['8','17','9','0'], answer:2 },
+  ]
+},
+
+// ─── EQ TEST ─────────────────────────────────────────────
+eq: {
+  name: 'EQ Test', label: 'Emotional Quotient', timed: false,
+  questions: [
+    { cat:'Self-Awareness', text:'I can accurately identify what emotion I am feeling in the moment.', domain:'awareness', options:['1','2','3','4','5'], likert:true },
+    { cat:'Self-Awareness', text:'I understand how my mood affects my behaviour and decisions.', domain:'awareness', options:['1','2','3','4','5'], likert:true },
+    { cat:'Self-Awareness', text:'I recognise my personal strengths and limitations without bias.', domain:'awareness', options:['1','2','3','4','5'], likert:true },
+    { cat:'Self-Awareness', text:'I notice when my emotions are influencing my thinking or judgment.', domain:'awareness', options:['1','2','3','4','5'], likert:true },
+    { cat:'Self-Awareness', text:'I can distinguish between feeling anxious and feeling excited.', domain:'awareness', options:['1','2','3','4','5'], likert:true },
+    { cat:'Self-Regulation', text:'When I am frustrated, I can calm myself down before reacting.', domain:'regulation', options:['1','2','3','4','5'], likert:true },
+    { cat:'Self-Regulation', text:'I can delay immediate gratification for longer-term goals.', domain:'regulation', options:['1','2','3','4','5'], likert:true },
+    { cat:'Self-Regulation', text:'I manage stress without becoming overwhelmed.', domain:'regulation', options:['1','2','3','4','5'], likert:true },
+    { cat:'Self-Regulation', text:'I recover quickly after disappointments or setbacks.', domain:'regulation', options:['1','2','3','4','5'], likert:true },
+    { cat:'Self-Regulation', text:'I can adjust my behaviour when a situation demands it.', domain:'regulation', options:['1','2','3','4','5'], likert:true },
+    { cat:'Empathy', text:'I can sense how someone is feeling even if they do not say it.', domain:'empathy', options:['1','2','3','4','5'], likert:true },
+    { cat:'Empathy', text:'I genuinely care about the wellbeing of people around me.', domain:'empathy', options:['1','2','3','4','5'], likert:true },
+    { cat:'Empathy', text:'I put myself in others' shoes when making decisions that affect them.', domain:'empathy', options:['1','2','3','4','5'], likert:true },
+    { cat:'Empathy', text:'I listen actively without interrupting or forming judgments.', domain:'empathy', options:['1','2','3','4','5'], likert:true },
+    { cat:'Empathy', text:'I notice subtle changes in others' moods or body language.', domain:'empathy', options:['1','2','3','4','5'], likert:true },
+    { cat:'Social Skills', text:'I can resolve conflicts in a way that satisfies both parties.', domain:'social', options:['1','2','3','4','5'], likert:true },
+    { cat:'Social Skills', text:'I communicate clearly and effectively in emotionally charged situations.', domain:'social', options:['1','2','3','4','5'], likert:true },
+    { cat:'Social Skills', text:'I inspire or motivate others around me naturally.', domain:'social', options:['1','2','3','4','5'], likert:true },
+    { cat:'Social Skills', text:'I build and maintain meaningful relationships with ease.', domain:'social', options:['1','2','3','4','5'], likert:true },
+    { cat:'Social Skills', text:'I collaborate well even with people who have different styles.', domain:'social', options:['1','2','3','4','5'], likert:true },
+  ]
+},
+
+// ─── BIG FIVE ─────────────────────────────────────────────
+big5: {
+  name: 'Big Five Personality', label: 'OCEAN Model', timed: false,
+  questions: [
+    { cat:'Openness', text:'I enjoy thinking about abstract concepts and ideas.', trait:'O', options:['1','2','3','4','5'], likert:true },
+    { cat:'Openness', text:'I actively seek out new experiences and adventures.', trait:'O', options:['1','2','3','4','5'], likert:true },
+    { cat:'Openness', text:'I appreciate art, music, and literature deeply.', trait:'O', options:['1','2','3','4','5'], likert:true },
+    { cat:'Openness', text:'I enjoy imagining and daydreaming.', trait:'O', options:['1','2','3','4','5'], likert:true },
+    { cat:'Openness', text:'I find routine and predictability comfortable.', trait:'O', rev:true, options:['1','2','3','4','5'], likert:true },
+    { cat:'Conscientiousness', text:'I plan tasks carefully and follow through to completion.', trait:'C', options:['1','2','3','4','5'], likert:true },
+    { cat:'Conscientiousness', text:'I am organised and keep my surroundings tidy.', trait:'C', options:['1','2','3','4','5'], likert:true },
+    { cat:'Conscientiousness', text:'I work hard and push myself to achieve.', trait:'C', options:['1','2','3','4','5'], likert:true },
+    { cat:'Conscientiousness', text:'I tend to procrastinate on tasks.', trait:'C', rev:true, options:['1','2','3','4','5'], likert:true },
+    { cat:'Conscientiousness', text:'I am reliable and can be counted on.', trait:'C', options:['1','2','3','4','5'], likert:true },
+    { cat:'Extraversion', text:'I feel energised around other people.', trait:'E', options:['1','2','3','4','5'], likert:true },
+    { cat:'Extraversion', text:'I enjoy being the centre of attention.', trait:'E', options:['1','2','3','4','5'], likert:true },
+    { cat:'Extraversion', text:'I find it easy to start conversations with strangers.', trait:'E', options:['1','2','3','4','5'], likert:true },
+    { cat:'Extraversion', text:'I prefer spending time alone to recharge.', trait:'E', rev:true, options:['1','2','3','4','5'], likert:true },
+    { cat:'Extraversion', text:'I have a lively and enthusiastic personality.', trait:'E', options:['1','2','3','4','5'], likert:true },
+    { cat:'Agreeableness', text:'I genuinely care about others and want to help.', trait:'A', options:['1','2','3','4','5'], likert:true },
+    { cat:'Agreeableness', text:'I tend to trust people and assume good intentions.', trait:'A', options:['1','2','3','4','5'], likert:true },
+    { cat:'Agreeableness', text:'I avoid arguments and seek harmony.', trait:'A', options:['1','2','3','4','5'], likert:true },
+    { cat:'Agreeableness', text:'I can be critical or demanding of others.', trait:'A', rev:true, options:['1','2','3','4','5'], likert:true },
+    { cat:'Agreeableness', text:'I am patient with people who irritate me.', trait:'A', options:['1','2','3','4','5'], likert:true },
+    { cat:'Neuroticism', text:'I frequently feel anxious or worried.', trait:'N', options:['1','2','3','4','5'], likert:true },
+    { cat:'Neuroticism', text:'My emotions can shift quickly without much reason.', trait:'N', options:['1','2','3','4','5'], likert:true },
+    { cat:'Neuroticism', text:'I feel calm and stable under pressure.', trait:'N', rev:true, options:['1','2','3','4','5'], likert:true },
+    { cat:'Neuroticism', text:'I often feel sad or downhearted.', trait:'N', options:['1','2','3','4','5'], likert:true },
+    { cat:'Neuroticism', text:'I bounce back quickly from difficult situations.', trait:'N', rev:true, options:['1','2','3','4','5'], likert:true },
+  ]
+},
+
+// ─── STRESS INDEX ──────────────────────────────────────────
+stress: {
+  name: 'Stress Index', label: 'Perceived Stress Scale', timed: false,
+  questions: [
+    { cat:'Perceived Stress', text:'In the last month, how often have you felt upset because of something that happened unexpectedly?', options:['Never','Almost Never','Sometimes','Fairly Often','Very Often'], likert:true },
+    { cat:'Perceived Stress', text:'In the last month, how often have you felt unable to control the important things in your life?', options:['Never','Almost Never','Sometimes','Fairly Often','Very Often'], likert:true },
+    { cat:'Perceived Stress', text:'In the last month, how often have you felt nervous and stressed?', options:['Never','Almost Never','Sometimes','Fairly Often','Very Often'], likert:true },
+    { cat:'Perceived Stress', text:'In the last month, how often have you felt confident about your ability to handle your personal problems?', rev:true, options:['Never','Almost Never','Sometimes','Fairly Often','Very Often'], likert:true },
+    { cat:'Perceived Stress', text:'In the last month, how often have you felt that things were going your way?', rev:true, options:['Never','Almost Never','Sometimes','Fairly Often','Very Often'], likert:true },
+    { cat:'Perceived Stress', text:'In the last month, how often have you found that you could not cope with all the things you had to do?', options:['Never','Almost Never','Sometimes','Fairly Often','Very Often'], likert:true },
+    { cat:'Perceived Stress', text:'In the last month, how often have you been able to control irritations in your life?', rev:true, options:['Never','Almost Never','Sometimes','Fairly Often','Very Often'], likert:true },
+    { cat:'Perceived Stress', text:'In the last month, how often have you felt that you were on top of things?', rev:true, options:['Never','Almost Never','Sometimes','Fairly Often','Very Often'], likert:true },
+    { cat:'Perceived Stress', text:'In the last month, how often have you been angered because of things that were outside of your control?', options:['Never','Almost Never','Sometimes','Fairly Often','Very Often'], likert:true },
+    { cat:'Perceived Stress', text:'In the last month, how often have you felt difficulties were piling up so high that you could not overcome them?', options:['Never','Almost Never','Sometimes','Fairly Often','Very Often'], likert:true },
+  ]
+},
+
+// ─── ENTREPRENEUR DNA ──────────────────────────────────────
+entrepreneur: {
+  name: 'Entrepreneur DNA', label: 'Self-Employment Readiness', timed: false,
+  questions: [
+    // Risk Tolerance
+    { cat:'Risk Tolerance', dim:'risk', text:'I am comfortable making important decisions when I do not have all the information I need.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Risk Tolerance', dim:'risk', text:'The idea of leaving a steady income to build something of my own genuinely excites me.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Risk Tolerance', dim:'risk', text:'I can accept the possibility of losing money on a venture if the upside is large enough.', options:['1','2','3','4','5'], likert:true },
+    // Self-Drive & Discipline
+    { cat:'Self-Drive & Discipline', dim:'drive', text:'I consistently complete tasks and projects without needing someone else to hold me accountable.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Self-Drive & Discipline', dim:'drive', text:'I set personal goals, review my progress, and adjust my approach regularly.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Self-Drive & Discipline', dim:'drive', text:'I can stay productive and focused even when my work has no structure or clear direction from others.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Self-Drive & Discipline', dim:'drive', text:'I have the energy and motivation to work on something I believe in, even when it is difficult.', options:['1','2','3','4','5'], likert:true },
+    // Resilience
+    { cat:'Resilience & Grit', dim:'resilience', text:'When things go wrong in my work or plans, I analyse what happened and move forward without dwelling on it.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Resilience & Grit', dim:'resilience', text:'Criticism of my ideas or work motivates me to improve rather than discourages me.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Resilience & Grit', dim:'resilience', text:'I can maintain belief in what I am doing even when results are slow or people around me are sceptical.', options:['1','2','3','4','5'], likert:true },
+    // Commercial Instinct
+    { cat:'Commercial Instinct', dim:'commercial', text:'I naturally think about how ideas, skills, or problems could be turned into income.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Commercial Instinct', dim:'commercial', text:'I am comfortable asking people to pay a fair price for something I have created or delivered.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Commercial Instinct', dim:'commercial', text:'I enjoy finding deals, negotiating terms, and spotting value that others have missed.', options:['1','2','3','4','5'], likert:true },
+    // Creativity & Innovation
+    { cat:'Creativity & Innovation', dim:'creative', text:'I regularly generate new ideas for products, services, or ways to solve problems.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Creativity & Innovation', dim:'creative', text:'When I face a challenge, I tend to find unconventional approaches that others have not tried.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Creativity & Innovation', dim:'creative', text:'I can identify market gaps or unmet needs that others walk past without noticing.', options:['1','2','3','4','5'], likert:true },
+    // People & Network
+    { cat:'People & Network', dim:'people', text:'I naturally build relationships over time that eventually lead to new opportunities.', options:['1','2','3','4','5'], likert:true },
+    { cat:'People & Network', dim:'people', text:'I find it straightforward to talk about what I do, promote my work, and ask for referrals.', options:['1','2','3','4','5'], likert:true },
+    // Financial Mindset
+    { cat:'Financial Mindset', dim:'financial', text:'I understand how to track income, manage costs, and know whether a business is actually profitable.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Financial Mindset', dim:'financial', text:'I am comfortable with periods of uncertain or irregular income in exchange for long-term growth.', options:['1','2','3','4','5'], likert:true },
+  ]
+}
+
+};
+
+// ══════════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════════
+
+let state = {
+  mode: null,        // 'single' | 'all'
+  queue: [],         // test keys remaining
+  currentTest: null, // key
+  currentQ: 0,
+  answers: [],
+  allAnswers: {},    // testKey -> answers[]
+  timerInterval: null,
+  secondsLeft: 0,
+  selectedOption: null,
+};
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ══════════════════════════════════════════════════════════
+//  START
+// ══════════════════════════════════════════════════════════
+
+function startAll() {
+  state.mode = 'all';
+  state.queue = ['iq','eq','big5','stress','entrepreneur'];
+  state.allAnswers = {};
+  launchTest(state.queue.shift());
+}
+
+function startEntrepreneurSuite() {
+  state.mode = 'all';
+  state.queue = ['big5','eq','entrepreneur'];
+  state.allAnswers = {};
+  launchTest(state.queue.shift());
+}
+
+function startSingle(key) {
+  state.mode = 'single';
+  state.queue = [];
+  state.allAnswers = {};
+  launchTest(key);
+}
+
+function launchTest(key) {
+  state.currentTest = key;
+  state.currentQ = 0;
+  state.answers = [];
+  state.selectedOption = null;
+
+  const test = TESTS[key];
+  document.getElementById('quiz-test-name').textContent = test.name;
+
+  if (test.timed) {
+    state.secondsLeft = test.timeLimit;
+    startTimer();
+  } else {
+    if (state.timerInterval) clearInterval(state.timerInterval);
+    document.getElementById('quiz-timer').textContent = '';
+  }
+
+  showScreen('quiz');
+  renderQuestion();
+}
+
+// ══════════════════════════════════════════════════════════
+//  TIMER
+// ══════════════════════════════════════════════════════════
+
+function startTimer() {
+  if (state.timerInterval) clearInterval(state.timerInterval);
+  updateTimerDisplay();
+  state.timerInterval = setInterval(() => {
+    state.secondsLeft--;
+    updateTimerDisplay();
+    if (state.secondsLeft <= 0) {
+      clearInterval(state.timerInterval);
+      finishTest();
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('quiz-timer');
+  const m = Math.floor(state.secondsLeft / 60);
+  const s = state.secondsLeft % 60;
+  el.textContent = `${m}:${s.toString().padStart(2,'0')}`;
+  el.classList.toggle('warning', state.secondsLeft <= 60);
+}
+
+// ══════════════════════════════════════════════════════════
+//  RENDER QUESTION
+// ══════════════════════════════════════════════════════════
+
+function renderQuestion() {
+  const test = TESTS[state.currentTest];
+  const q = test.questions[state.currentQ];
+  const total = test.questions.length;
+
+  document.getElementById('q-counter').textContent = `Question ${state.currentQ+1} of ${total}`;
+  document.getElementById('q-category').textContent = q.cat || '';
+  document.getElementById('q-text').textContent = q.text;
+
+  // Sequence box
+  const seqBox = document.getElementById('sequence-box');
+  if (q.seq) { seqBox.textContent = q.seq; seqBox.style.display = 'block'; }
+  else seqBox.style.display = 'none';
+
+  // Likert labels
+  const ll = document.getElementById('likert-labels');
+  if (q.likert && q.options[0] === '1') { ll.style.display = 'grid'; }
+  else ll.style.display = 'none';
+
+  // Options
+  const grid = document.getElementById('options-grid');
+  const isLikert = !!q.likert;
+  grid.className = 'options-grid';
+  if (isLikert) grid.classList.add('likert');
+  else if (q.options.length > 2 && q.options.join('').length > 30) {
+    // two-col default
+  } else {
+    // keep two-col
+  }
+
+  grid.innerHTML = '';
+  state.selectedOption = null;
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn' + (isLikert ? ' likert-btn' : '');
+    btn.textContent = isLikert ? (i + 1) : opt;
+    btn.onclick = () => selectOption(i, btn);
+    grid.appendChild(btn);
+  });
+
+  // If stress test, swap label row
+  const ll2 = document.getElementById('likert-labels');
+  if (q.likert && q.options[0] !== '1') {
+    ll2.style.display = 'grid';
+    ll2.innerHTML = q.options.map(o => `<span>${o}</span>`).join('');
+    grid.querySelectorAll('.option-btn').forEach((b, i) => b.textContent = i + 1);
+  }
+
+  // Progress
+  const pct = (state.currentQ / total) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+
+  // Next button
+  const nb = document.getElementById('btn-next');
+  nb.classList.remove('ready');
+  nb.textContent = state.currentQ === total - 1 ? 'Finish Test ✓' : 'Next →';
+}
+
+function selectOption(idx, btn) {
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  state.selectedOption = idx;
+  document.getElementById('btn-next').classList.add('ready');
+}
+
+// ══════════════════════════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════════════════════════
+
+function nextQuestion() {
+  if (state.selectedOption === null) return;
+  state.answers.push(state.selectedOption);
+  state.currentQ++;
+
+  const test = TESTS[state.currentTest];
+  if (state.currentQ >= test.questions.length) {
+    finishTest();
+  } else {
+    renderQuestion();
+  }
+}
+
+function finishTest() {
+  if (state.timerInterval) clearInterval(state.timerInterval);
+  state.allAnswers[state.currentTest] = [...state.answers];
+
+  if (state.mode === 'all' && state.queue.length > 0) {
+    showTransition(state.queue[0]);
+  } else {
+    showResults();
+  }
+}
+
+// Transition screen
+function showTransition(nextKey) {
+  const test = TESTS[nextKey];
+  const times = {iq:'12 min · 20 questions', eq:'8 min · 20 questions', big5:'6 min · 25 questions', stress:'3 min · 10 questions', entrepreneur:'7 min · 20 questions'};
+  document.getElementById('tr-title').textContent = `Next: ${test.name}`;
+  document.getElementById('tr-desc').textContent = `${test.label} — ${times[nextKey]}`;
+  document.getElementById('test-transition').classList.add('show');
+}
+
+function continueNext() {
+  document.getElementById('test-transition').classList.remove('show');
+  const key = state.queue.shift();
+  launchTest(key);
+}
+
+// ══════════════════════════════════════════════════════════
+//  SCORING
+// ══════════════════════════════════════════════════════════
+
+function scoreIQ(answers) {
+  const qs = TESTS.iq.questions;
+  let correct = 0;
+  answers.forEach((a, i) => { if (i < qs.length && a === qs[i].answer) correct++; });
+  // Map 0-20 correct to IQ 60-145
+  const iq = Math.round(60 + (correct / 20) * 85);
+  return { raw: correct, iq, max: 20 };
+}
+
+function scoreEQ(answers) {
+  const qs = TESTS.eq.questions;
+  const domains = { awareness: [], regulation: [], empathy: [], social: [] };
+  qs.forEach((q, i) => {
+    if (i < answers.length) domains[q.domain].push(answers[i] + 1);
+  });
+  const avg = arr => arr.length ? Math.round((arr.reduce((a,b)=>a+b,0)/arr.length)*20) : 0;
+  const d = {};
+  for (const k in domains) d[k] = avg(domains[k]);
+  const total = Math.round(Object.values(d).reduce((a,b)=>a+b,0)/4);
+  return { total, domains: d };
+}
+
+function scoreBig5(answers) {
+  const qs = TESTS.big5.questions;
+  const traits = { O:[], C:[], E:[], A:[], N:[] };
+  qs.forEach((q, i) => {
+    if (i >= answers.length) return;
+    let val = answers[i] + 1;
+    if (q.rev) val = 6 - val;
+    traits[q.trait].push(val);
+  });
+  const pct = arr => arr.length ? Math.round((arr.reduce((a,b)=>a+b,0)/(arr.length*5))*100) : 50;
+  const result = {};
+  for (const k in traits) result[k] = pct(traits[k]);
+  return result;
+}
+
+function scoreStress(answers) {
+  const qs = TESTS.stress.questions;
+  let total = 0;
+  qs.forEach((q, i) => {
+    if (i >= answers.length) return;
+    let val = answers[i]; // 0-4
+    if (q.rev) val = 4 - val;
+    total += val;
+  });
+  return { raw: total, max: 40 };
+}
+
+// ══════════════════════════════════════════════════════════
+//  RESULTS
+// ══════════════════════════════════════════════════════════
+
+function iqBand(iq) {
+  if (iq >= 140) return { label:'Profoundly Gifted', color:'#d4a017' };
+  if (iq >= 130) return { label:'Highly Gifted', color:'#c8962a' };
+  if (iq >= 120) return { label:'Superior', color:'#3a9e6e' };
+  if (iq >= 110) return { label:'Above Average', color:'#3a9e6e' };
+  if (iq >= 90) return { label:'Average', color:'#2a8fa0' };
+  if (iq >= 80) return { label:'Low Average', color:'#7a8fa8' };
+  return { label:'Below Average', color:'#c94040' };
+}
+
+function eqBand(pct) {
+  if (pct >= 85) return 'Exceptional';
+  if (pct >= 70) return 'High';
+  if (pct >= 55) return 'Above Average';
+  if (pct >= 40) return 'Average';
+  return 'Developing';
+}
+
+function stressBand(raw) {
+  if (raw <= 13) return { label:'Low Stress', color:'#3a9e6e', desc:'You are managing life\'s demands well. Your coping mechanisms are strong.' };
+  if (raw <= 26) return { label:'Moderate Stress', color:'#c8962a', desc:'You experience typical life stress. Mindfulness or exercise could be beneficial.' };
+  return { label:'High Stress', color:'#c94040', desc:'You are experiencing significant stress. Consider speaking with a professional or counsellor.' };
+}
+
+function big5Desc(trait, score) {
+  const descs = {
+    O: score >= 60 ? 'Intellectually curious, creative, and open to new experiences.' : 'You prefer familiarity, routine, and conventional approaches.',
+    C: score >= 60 ? 'Organised, disciplined, and goal-oriented — a strong finisher.' : 'You are flexible and spontaneous, though may benefit from more structure.',
+    E: score >= 60 ? 'Energised by social interaction, enthusiastic, and assertive.' : 'You recharge through solitude and prefer depth over breadth in connections.',
+    A: score >= 60 ? 'Warm, cooperative, and considerate of others\' feelings.' : 'You are independent and analytical; relationships require more deliberate effort.',
+    N: score >= 60 ? 'Emotionally reactive; may experience more frequent negative emotions.' : 'Emotionally stable and resilient under pressure.',
+  };
+  return descs[trait];
+}
+
+function showResults() {
+  const aa = state.allAnswers;
+  const testsRun = Object.keys(aa);
+
+  showScreen('results');
+  document.getElementById('results-date').textContent = new Date().toLocaleDateString('en-GB', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+
+  const scoresRow = document.getElementById('scores-row');
+  const detailSections = document.getElementById('detail-sections');
+  scoresRow.innerHTML = '';
+  detailSections.innerHTML = '';
+
+  // ── IQ CARD ──
+  if (aa.iq) {
+    const r = scoreIQ(aa.iq);
+    const band = iqBand(r.iq);
+    scoresRow.innerHTML += `
+      <div class="score-card">
+        <div class="score-label">IQ Score</div>
+        <div class="score-number">${r.iq}</div>
+        <div class="score-max">${r.raw}/${r.max} correct</div>
+        <div class="score-band" style="color:${band.color}">${band.label}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${Math.min(100,(r.iq-60)/85*100)}%;background:${band.color}"></div></div>
+      </div>`;
+
+    detailSections.innerHTML += `
+      <div class="result-section">
+        <div class="result-section-title">Intelligence Quotient <span class="badge">IQ ${r.iq}</span></div>
+        <p>You answered <strong style="color:var(--gold-light)">${r.raw} out of ${r.max}</strong> questions correctly across logic, numerical reasoning, verbal analogies, and spatial tasks. This places you in the <strong style="color:${band.color}">${band.label}</strong> range.</p>
+        <p>${iqInterpretation(r.iq)}</p>
+        <p style="font-size:0.75rem;color:var(--steel)"><em>Note: This condensed test provides an estimate. A full standardised IQ assessment takes 60–90 minutes and is administered by a psychologist.</em></p>
+      </div>`;
+  }
+
+  // ── EQ CARD ──
+  if (aa.eq) {
+    const r = scoreEQ(aa.eq);
+    const band = eqBand(r.total);
+    scoresRow.innerHTML += `
+      <div class="score-card">
+        <div class="score-label">EQ Score</div>
+        <div class="score-number">${r.total}</div>
+        <div class="score-max">out of 100</div>
+        <div class="score-band">${band}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${r.total}%;background:var(--teal)"></div></div>
+      </div>`;
+
+    const dLabels = {awareness:'Self-Awareness', regulation:'Self-Regulation', empathy:'Empathy', social:'Social Skills'};
+    const dDescs = {
+      awareness:'Recognising your own emotions, moods, and how they drive behaviour.',
+      regulation:'Managing your emotional reactions and impulses constructively.',
+      empathy:'Understanding and sharing the feelings of others around you.',
+      social:'Navigating relationships, resolving conflict, and inspiring others.'
+    };
+    const domainHTML = Object.entries(r.domains).map(([k,v]) => `
+      <div class="eq-domain">
+        <div class="eq-domain-name">${dLabels[k]}</div>
+        <div class="eq-domain-score">${v}<small style="font-size:0.8rem;color:var(--steel)">/100</small></div>
+        <div class="score-bar" style="margin-bottom:0.5rem"><div class="score-bar-fill" style="width:${v}%;background:var(--teal)"></div></div>
+        <div class="eq-domain-desc">${dDescs[k]}</div>
+      </div>`).join('');
+
+    detailSections.innerHTML += `
+      <div class="result-section">
+        <div class="result-section-title">Emotional Intelligence <span class="badge">EQ ${r.total}</span></div>
+        <p>Your overall EQ is <strong style="color:var(--gold-light)">${r.total}/100</strong> — rated <strong>${band}</strong>. Emotional intelligence predicts leadership effectiveness, relationship quality, and resilience under pressure.</p>
+        <div class="eq-domains">${domainHTML}</div>
+      </div>`;
+  }
+
+  // ── BIG 5 ──
+  if (aa.big5) {
+    const r = scoreBig5(aa.big5);
+    const traits = [
+      {key:'O', name:'Openness', color:'#9b59b6'},
+      {key:'C', name:'Conscientiousness', color:'#e8b84b'},
+      {key:'E', name:'Extraversion', color:'#e74c3c'},
+      {key:'A', name:'Agreeableness', color:'#3a9e6e'},
+      {key:'N', name:'Neuroticism', color:'#2a8fa0'},
+    ];
+    const avgScore = Math.round(Object.values(r).reduce((a,b)=>a+b,0)/5);
+    scoresRow.innerHTML += `
+      <div class="score-card">
+        <div class="score-label">Personality</div>
+        <div class="score-number">OCEAN</div>
+        <div class="score-max">Big Five Model</div>
+        <div class="score-band">5 Traits Mapped</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${avgScore}%;background:var(--gold)"></div></div>
+      </div>`;
+
+    const barsHTML = traits.map(t => `
+      <div class="trait-row">
+        <div class="trait-name">${t.name}</div>
+        <div class="trait-bar"><div class="trait-bar-fill" style="width:${r[t.key]}%;background:${t.color}"></div></div>
+        <div class="trait-score">${r[t.key]}%</div>
+      </div>
+      <p style="font-size:0.78rem;color:var(--steel);margin-left:140px;margin-top:-0.4rem;margin-bottom:0.6rem;line-height:1.5">${big5Desc(t.key, r[t.key])}</p>
+    `).join('');
+
+    detailSections.innerHTML += `
+      <div class="result-section">
+        <div class="result-section-title">Big Five Personality <span class="badge">OCEAN</span></div>
+        <p>Your personality profile across the five universal dimensions of personality science. Higher scores indicate stronger expression of each trait.</p>
+        <div class="trait-bars">${barsHTML}</div>
+      </div>`;
+  }
+
+  // ── STRESS ──
+  if (aa.stress) {
+    const r = scoreStress(aa.stress);
+    const band = stressBand(r.raw);
+    const pct = Math.round((r.raw / r.max) * 100);
+    scoresRow.innerHTML += `
+      <div class="score-card">
+        <div class="score-label">Stress Index</div>
+        <div class="score-number">${r.raw}</div>
+        <div class="score-max">out of ${r.max}</div>
+        <div class="score-band" style="color:${band.color}">${band.label}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${pct}%;background:${band.color}"></div></div>
+      </div>`;
+
+    detailSections.innerHTML += `
+      <div class="result-section">
+        <div class="result-section-title">Perceived Stress <span class="badge">${r.raw}/${r.max}</span></div>
+        <p>Your perceived stress score is <strong style="color:${band.color}">${r.raw} — ${band.label}</strong>.</p>
+        <p>${band.desc}</p>
+        <p style="font-size:0.78rem;color:var(--steel)">Scores: 0–13 = Low · 14–26 = Moderate · 27–40 = High. Based on the Perceived Stress Scale (Cohen et al., 1983).</p>
+      </div>`;
+  }
+
+  // ── ENTREPRENEUR DNA ──
+  if (aa.entrepreneur) {
+    const r = scoreEntrepreneur(aa.entrepreneur);
+    const archetype = getArchetype(r.dims);
+    scoresRow.innerHTML += `
+      <div class="score-card">
+        <div class="score-label">Entrepreneur DNA</div>
+        <div class="score-number">${r.dnaScore}</div>
+        <div class="score-max">out of 100</div>
+        <div class="score-band" style="color:var(--gold-light)">${archetype.name}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${r.dnaScore}%;background:var(--gold)"></div></div>
+      </div>`;
+    detailSections.innerHTML += buildEntrepreneurSection(r, archetype, aa);
+  }
+
+  // Trigger bar animations
+  setTimeout(() => {
+    document.querySelectorAll('.score-bar-fill, .trait-bar-fill, .biz-fit-fill').forEach(el => {
+      const w = el.style.width;
+      el.style.width = '0';
+      setTimeout(() => el.style.width = w, 50);
+    });
+  }, 100);
+
+  cacheAndActivatePremium();
+}
+
+// ══════════════════════════════════════════════════════════
+//  ENTREPRENEUR SCORING ENGINE
+// ══════════════════════════════════════════════════════════
+
+function scoreEntrepreneur(answers) {
+  const qs = TESTS.entrepreneur.questions;
+  const dims = { risk:[], drive:[], resilience:[], commercial:[], creative:[], people:[], financial:[] };
+  qs.forEach((q, i) => {
+    if (i < answers.length) dims[q.dim].push(answers[i] + 1);
+  });
+  const pct = arr => arr.length ? Math.round((arr.reduce((a,b)=>a+b,0)/(arr.length*5))*100) : 50;
+  const scored = {};
+  for (const k in dims) scored[k] = pct(dims[k]);
+  const dnaScore = Math.round(Object.values(scored).reduce((a,b)=>a+b,0)/7);
+  const sideHustleReady = scored.drive >= 60 && scored.resilience >= 50 && scored.commercial >= 40;
+  const fullBizReady = dnaScore >= 62 && scored.risk >= 58 && scored.drive >= 65;
+  return { dims: scored, dnaScore, sideHustleReady, fullBizReady };
+}
+
+function getArchetype(d) {
+  const archetypes = [
+    { name:'The Trailblazer', icon:'🔥', condition: d.risk >= 70 && d.creative >= 70,
+      tagline:'You are wired to disrupt. You see opportunity where others see risk, and you build things the world has not seen before. Your challenge is not starting — it is finishing.',
+      strength:'High risk appetite fused with creative vision makes you naturally entrepreneurial.',
+      watch:'Channel your energy into completing one thing before the next idea pulls you away.' },
+    { name:'The Expert', icon:'🎯', condition: d.commercial >= 70 && d.people >= 65 && d.drive >= 65,
+      tagline:'You turn deep knowledge into income naturally. Clients seek you out. You charge what you are worth. Your business is built on trust and results — the most durable foundation there is.',
+      strength:'Commercial instinct backed by strong relationships means you never struggle to find work.',
+      watch:'Build systems around yourself early so your business does not depend entirely on your time.' },
+    { name:'The Builder', icon:'🏗️', condition: d.drive >= 75 && d.resilience >= 70,
+      tagline:'You are an engine. You work harder than anyone in the room, bounce back faster than most, and grind through the difficult middle period that defeats most entrepreneurs.',
+      strength:'Exceptional drive and resilience make you capable of sustained, long-term effort.',
+      watch:'Ensure your commercial and people skills keep pace with your work ethic — you need buyers, not just output.' },
+    { name:'The Visionary', icon:'🔭', condition: d.creative >= 72 && d.risk >= 65 && d.people >= 60,
+      tagline:'You think in futures and pull others into your orbit. You see where things are going before most people notice the trend. Your gift is inspiration — the business model comes next.',
+      strength:'Vision combined with people skills makes you a natural at building movements and communities.',
+      watch:'Partner with an operator or build strong systems — visionaries thrive with execution support.' },
+    { name:'The Hustler', icon:'💼', condition: d.commercial >= 68 && d.drive >= 68,
+      tagline:'You sell, you move, you execute. You find opportunity quickly, convert it faster, and keep going when others pause. Revenue generation feels natural to you.',
+      strength:'Commercial instinct plus relentless drive is the exact combination that builds profitable businesses quickly.',
+      watch:'Slow down occasionally to build repeatable systems — not everything should be won by effort alone.' },
+    { name:'The Changemaker', icon:'🌱', condition: d.people >= 68 && d.resilience >= 65,
+      tagline:'You are driven by purpose as much as profit. You build businesses that matter — to your community, your clients, or a cause. People follow you because they trust your values.',
+      strength:'Deep empathy and resilience help you build loyal networks and weather difficult times.',
+      watch:'Sharpen your commercial instinct — purpose without profit is a charity, and charities still need funding.' },
+    { name:'The Craftsman', icon:'⚒️', condition: d.drive >= 65 && d.creative >= 60,
+      tagline:'You care deeply about quality and craft. Whether it is a product, a service, or a piece of content — you do it properly. Clients who find you rarely leave.',
+      strength:'High standards combined with creative problem-solving make your work genuinely valuable.',
+      watch:'Invest time in sales and promotion — your best work deserves to be seen and paid for at its true worth.' },
+    { name:'The Analyst', icon:'📊', condition: d.financial >= 65 && d.commercial >= 60,
+      tagline:'You understand the numbers behind a business better than most entrepreneurs ever will. You see the model, the margins, and the metrics. That is a rare and powerful edge.',
+      strength:'Financial clarity and commercial awareness mean you build businesses that are actually profitable.',
+      watch:'Pair your analytical edge with bold action — analysis without execution is just knowledge.' },
+    { name:'The Starter', icon:'🌟', condition: true,
+      tagline:'Your entrepreneurial journey is ahead of you. The dimensions that matter most — drive, resilience, and commercial awareness — can all be developed deliberately through action and experience.',
+      strength:'Self-awareness at this stage is itself a major asset. You know what to work on.',
+      watch:'The best way to build entrepreneurial confidence is to start something small, real, and soon.' },
+  ];
+  return archetypes.find(a => a.condition) || archetypes[archetypes.length - 1];
+}
+
+const BIZ_MODELS = [
+  { key:'freelance', icon:'💻', name:'Freelancer / Contractor',
+    desc:'Sell your skills independently — writing, design, development, finance, law, marketing, and more. Low overhead, immediate income.',
+    weights: { risk:0.5, drive:1.0, resilience:0.7, commercial:0.8, creative:0.5, people:0.7, financial:0.5 } },
+  { key:'consultant', icon:'🎓', name:'Independent Consultant',
+    desc:'Charge premium rates for specialist expertise and strategic advice. Project-based work with high margins and strong client relationships.',
+    weights: { risk:0.5, drive:0.9, resilience:0.8, commercial:1.0, creative:0.6, people:1.0, financial:0.6 } },
+  { key:'digital', icon:'📱', name:'Digital Products & Courses',
+    desc:'Create once, sell forever. eBooks, online courses, templates, software tools, and membership communities. The highest leverage model.',
+    weights: { risk:0.6, drive:1.0, resilience:0.8, commercial:0.7, creative:1.0, people:0.6, financial:0.5 } },
+  { key:'service', icon:'🔧', name:'Local Service Business',
+    desc:'Trades, cleaning, personal training, tutoring, photography, catering. Reliable demand, word-of-mouth growth, and real community roots.',
+    weights: { risk:0.6, drive:0.9, resilience:0.8, commercial:0.7, creative:0.4, people:0.8, financial:0.6 } },
+  { key:'ecommerce', icon:'📦', name:'E-commerce & Products',
+    desc:'Source or create physical products and sell online. Amazon, Etsy, Shopify, or your own site. Scalable with the right product-market fit.',
+    weights: { risk:0.8, drive:0.9, resilience:0.9, commercial:0.9, creative:0.7, people:0.5, financial:0.9 } },
+  { key:'startup', icon:'🚀', name:'Tech Startup / Founder',
+    desc:'Build a high-growth company with a scalable product. High risk, high reward. Requires vision, resilience, and the ability to attract others.',
+    weights: { risk:1.0, drive:1.0, resilience:1.0, commercial:0.8, creative:1.0, people:0.9, financial:0.7 } },
+  { key:'social', icon:'🌍', name:'Social Enterprise / Charity',
+    desc:'Build a business or organisation driven by a mission. Revenue and impact are not mutually exclusive — many social enterprises are highly profitable.',
+    weights: { risk:0.5, drive:0.8, resilience:0.9, commercial:0.5, creative:0.7, people:1.0, financial:0.4 } },
+  { key:'coaching', icon:'🎤', name:'Coach / Trainer / Educator',
+    desc:'Help individuals or teams grow through coaching, training, speaking, or mentoring. High EQ and strong communication skills are your assets.',
+    weights: { risk:0.4, drive:0.8, resilience:0.7, commercial:0.7, creative:0.6, people:1.0, financial:0.4 } },
+  { key:'franchise', icon:'🏪', name:'Franchise Operator',
+    desc:'Buy into a proven business model with an established brand. Lower creativity required, higher discipline. Good for structured, execution-focused people.',
+    weights: { risk:0.5, drive:0.9, resilience:0.7, commercial:0.6, creative:0.2, people:0.6, financial:0.8 } },
+  { key:'content', icon:'🎬', name:'Content Creator / Media',
+    desc:'YouTube, podcasting, newsletters, social media — build an audience around your expertise or personality and monetise through ads, sponsors, or products.',
+    weights: { risk:0.6, drive:1.0, resilience:0.9, commercial:0.6, creative:1.0, people:0.7, financial:0.3 } },
+];
+
+function matchBizModels(dims) {
+  return BIZ_MODELS.map(bm => {
+    let score = 0, total = 0;
+    for (const [k, w] of Object.entries(bm.weights)) {
+      score += (dims[k] / 100) * w;
+      total += w;
+    }
+    return { ...bm, fit: Math.round((score / total) * 100) };
+  }).sort((a,b) => b.fit - a.fit).slice(0, 3);
+}
+
+function buildEntrepreneurSection(r, archetype, aa) {
+  const d = r.dims;
+  const matches = matchBizModels(d);
+
+  const dimMeta = {
+    risk:       { name:'Risk Tolerance',     color:'#c94040' },
+    drive:      { name:'Self-Drive',          color:'#c8962a' },
+    resilience: { name:'Resilience',          color:'#3a9e6e' },
+    commercial: { name:'Commercial Instinct', color:'#2a8fa0' },
+    creative:   { name:'Creativity',          color:'#9b59b6' },
+    people:     { name:'People & Network',    color:'#e8b84b' },
+    financial:  { name:'Financial Mindset',   color:'#3a9e6e' },
+  };
+
+  // Cross-reference Big5 if available
+  let big5Note = '';
+  if (aa.big5) {
+    const b5 = scoreBig5(aa.big5);
+    const notes = [];
+    if (b5.O >= 65) notes.push('High Openness reinforces your creative entrepreneurial potential.');
+    if (b5.C >= 65) notes.push('Strong Conscientiousness gives you the discipline to execute on your ideas.');
+    if (b5.E >= 65) notes.push('Your Extraversion is an asset for sales, networking, and building a client base.');
+    if (b5.N >= 65) notes.push('Your Neuroticism score suggests entrepreneurship may feel emotionally demanding — build stress management into your routine from day one.');
+    if (notes.length) big5Note = `<div style="margin-top:1rem;padding:1rem;background:rgba(200,150,42,0.07);border-left:3px solid var(--gold);border-radius:0 4px 4px 0"><div class="entr-section-label">Personality cross-reference</div>${notes.map(n=>`<p style="font-size:0.82rem;color:var(--steel-light);margin-bottom:0.4rem;line-height:1.6">→ ${n}</p>`).join('')}</div>`;
+  }
+
+  // Action plan from lowest 3 dims
+  const sorted = Object.entries(d).sort((a,b)=>a[1]-b[1]);
+  const actionMap = {
+    risk:       { title:'Build your risk tolerance deliberately', detail:'Start a side project while keeping your main income. Every small bet you place — even if it fails — rewires your brain to handle uncertainty. Read: The Mom Test by Rob Fitzpatrick.' },
+    drive:      { title:'Engineer your own accountability system', detail:'Without a boss, you need an external commitment device. Find an accountability partner, join a mastermind group, or publish your goals publicly. Measure weekly, not yearly.' },
+    resilience: { title:'Develop a failure processing ritual', detail:'Every setback needs a structured debrief: what happened, what you learned, what you do next. Write it down. The ritual separates resilient founders from those who quit.' },
+    commercial: { title:'Make your first sale — of anything', detail:'Commercial instinct builds through doing, not studying. Sell something within 30 days: a service, a skill session, a digital product. The discomfort fades and the confidence compounds.' },
+    creative:   { title:'Schedule deliberate creative input', detail:'Creativity is not a trait — it is a habit. Read across industries, talk to people outside your field, keep a daily idea log. Cross-pollination is where original business ideas are born.' },
+    people:     { title:'Rebuild your network with intention', detail:'Identify 10 people who could either buy from you, refer you, or teach you. Reach out to two per week with genuine value, not a pitch. Relationships are your most durable business asset.' },
+    financial:  { title:'Learn one financial model this month', detail:'Run a simple P&L for your business idea. Calculate break-even. Know your gross margin. Financial clarity gives you confidence and prevents the most common startup failure: running out of cash.' },
+  };
+
+  const actionItems = sorted.slice(0,3).map(([ k ], i) => {
+    const a = actionMap[k];
+    return `<div class="action-item"><div class="action-num">0${i+1}</div><div class="action-content"><div class="action-title">${a.title}</div><div class="action-detail">${a.detail}</div></div></div>`;
+  }).join('');
+
+  const dimBars = Object.entries(d).map(([k,v]) => {
+    const m = dimMeta[k];
+    return `<div class="trait-row">
+      <div class="trait-name">${m.name}</div>
+      <div class="trait-bar"><div class="trait-bar-fill biz-fit-fill" style="width:${v}%;background:${m.color}"></div></div>
+      <div class="trait-score">${v}%</div>
+    </div>`;
+  }).join('');
+
+  const bizCards = matches.map((bm, i) => `
+    <div class="biz-card${i===0?' top-match':''}">
+      <div class="biz-icon">${bm.icon}</div>
+      <div class="biz-name">${bm.name}</div>
+      <div class="biz-fit-pct">${bm.fit}% profile fit</div>
+      <div class="biz-fit-bar"><div class="biz-fit-fill" style="width:${bm.fit}%;background:var(--gold)"></div></div>
+      <div class="biz-desc">${bm.desc}</div>
+    </div>`).join('');
+
+  const shColor = r.sideHustleReady ? 'var(--green)' : 'var(--steel)';
+  const fbColor = r.fullBizReady ? 'var(--gold-light)' : 'var(--steel)';
+
+  return `
+    <div class="archetype-card">
+      <div class="archetype-type">Your Entrepreneur Archetype</div>
+      <span class="archetype-icon">${archetype.icon}</span>
+      <div class="archetype-name">${archetype.name}</div>
+      <div class="archetype-tagline">${archetype.tagline}</div>
+      <div class="dna-score-ring">
+        <div class="dna-score-number">${r.dnaScore}</div>
+        <div class="dna-score-label">DNA Score</div>
+      </div>
+    </div>
+
+    <div class="result-section">
+      <div class="result-section-title">Self-Employment Readiness <span class="badge">Entrepreneur DNA</span></div>
+
+      <div class="readiness-row">
+        <div class="readiness-box">
+          <div class="readiness-label">Side Hustle Readiness</div>
+          <div class="readiness-indicator">${r.sideHustleReady ? '✅' : '🔶'}</div>
+          <div class="readiness-verdict" style="color:${shColor}">${r.sideHustleReady ? 'Ready to start' : 'Almost there'}</div>
+          <div class="readiness-note">${r.sideHustleReady ? 'Your drive, resilience and commercial instinct are strong enough to launch something on the side right now.' : 'Strengthen drive and commercial confidence before launching — start with one small project this month.'}</div>
+        </div>
+        <div class="readiness-box">
+          <div class="readiness-label">Full Business Readiness</div>
+          <div class="readiness-indicator">${r.fullBizReady ? '🚀' : '🔶'}</div>
+          <div class="readiness-verdict" style="color:${fbColor}">${r.fullBizReady ? 'Go-ready' : 'Build foundations'}</div>
+          <div class="readiness-note">${r.fullBizReady ? 'Your overall DNA profile supports making the leap to full self-employment with the right preparation.' : 'Focus on raising your lowest 2-3 dimensions before going full-time. Use a side hustle as the training ground.'}</div>
+        </div>
+      </div>
+
+      <div class="entr-section-label" style="margin-top:1.5rem">Your 7 Entrepreneur Dimensions</div>
+      <div class="trait-bars">${dimBars}</div>
+
+      <div style="margin-top:1rem;padding:1rem;background:rgba(200,150,42,0.07);border-left:3px solid var(--gold);border-radius:0 4px 4px 0">
+        <div class="entr-section-label">Your key strength</div>
+        <p style="font-size:0.88rem;color:var(--steel-light);line-height:1.7">${archetype.strength}</p>
+        <div class="entr-section-label" style="margin-top:0.8rem">Watch out for</div>
+        <p style="font-size:0.88rem;color:var(--steel-light);line-height:1.7">${archetype.watch}</p>
+      </div>
+
+      ${big5Note}
+    </div>
+
+    <div class="result-section">
+      <div class="result-section-title">Top Business Model Matches</div>
+      <p>Based on your 7 entrepreneur dimensions, these are the self-employment paths where your profile fits best.</p>
+      <div class="biz-match-grid">${bizCards}</div>
+    </div>
+
+    <div class="result-section">
+      <div class="result-section-title">Your Personal Action Plan</div>
+      <p>Built from your three lowest-scoring dimensions — these are the exact skills to develop before or alongside launching.</p>
+      <div class="action-plan">${actionItems}</div>
+    </div>`;
+}
+
+
+
+function iqInterpretation(iq) {
+  if (iq >= 140) return 'You demonstrate extraordinary reasoning and problem-solving ability. Your pattern recognition and abstract thinking are at the highest level.';
+  if (iq >= 130) return 'You show exceptional reasoning skills. You likely grasp complex ideas quickly and may excel in demanding analytical fields.';
+  if (iq >= 120) return 'Your reasoning is well above the average population. You pick up new systems and concepts quickly and perform well under cognitive pressure.';
+  if (iq >= 110) return 'You score above average, showing solid analytical skills and the ability to handle complex tasks effectively.';
+  if (iq >= 90) return 'Your reasoning is in the average range — shared by the majority of the population. You handle everyday cognitive tasks capably.';
+  if (iq >= 80) return 'Your score is slightly below average. This may reflect test conditions, time pressure, or unfamiliarity with this format rather than your true potential.';
+  return 'Your score suggests this type of timed reasoning task was challenging today. Consider retaking under less pressure.';
+}
+
+function goHome() {
+  showScreen('landing');
+}
+
+// ══════════════════════════════════════════════════════════
+//  GLOBAL RESULTS CACHE
+// ══════════════════════════════════════════════════════════
+let _lastResults = null; // store scored results for use by all 3 features
+
+function cacheAndActivatePremium() {
+  const aa = state.allAnswers;
+  _lastResults = {
+    iq: aa.iq ? scoreIQ(aa.iq) : null,
+    eq: aa.eq ? scoreEQ(aa.eq) : null,
+    big5: aa.big5 ? scoreBig5(aa.big5) : null,
+    stress: aa.stress ? scoreStress(aa.stress) : null,
+    entr: aa.entrepreneur ? scoreEntrepreneur(aa.entrepreneur) : null,
+    raw: aa
+  };
+  // Show premium panel if at least 2 tests done
+  if (Object.keys(aa).length >= 2) {
+    document.getElementById('premium-actions').style.display = 'flex';
+    document.getElementById('share-panel').style.display = 'block';
+    buildShareUrl();
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  CAREER MATCH ENGINE — 60 ROLES
+// ══════════════════════════════════════════════════════════
+
+const CAREER_ROLES = [
+  // Technology
+  { name:'Software Engineer', sector:'Technology', iq:1.0, eq:0.4, O:0.8, C:0.9, E:0.3, A:0.4, N_inv:0.6, stress_inv:0.5, entr:0.2, why:'High IQ and Conscientiousness are the primary drivers of software engineering success.' },
+  { name:'Data Scientist', sector:'Technology', iq:1.0, eq:0.3, O:0.7, C:0.9, E:0.2, A:0.3, N_inv:0.6, stress_inv:0.5, entr:0.3, why:'Analytical reasoning and methodical approach to complex data problems.' },
+  { name:'UX Designer', sector:'Technology', iq:0.6, eq:0.8, O:0.9, C:0.7, E:0.6, A:0.8, N_inv:0.6, stress_inv:0.6, entr:0.4, why:'Empathy and creativity are the defining traits of outstanding user experience work.' },
+  { name:'Product Manager', sector:'Technology', iq:0.8, eq:0.9, O:0.8, C:0.8, E:0.8, A:0.7, N_inv:0.6, stress_inv:0.5, entr:0.6, why:'The role demands EQ for stakeholder management plus strategic analytical thinking.' },
+  { name:'Cybersecurity Analyst', sector:'Technology', iq:0.9, eq:0.4, O:0.6, C:0.9, E:0.3, A:0.4, N_inv:0.7, stress_inv:0.6, entr:0.3, why:'Methodical attention to detail and analytical reasoning under pressure.' },
+  { name:'IT Project Manager', sector:'Technology', iq:0.7, eq:0.8, O:0.6, C:0.9, E:0.7, A:0.7, N_inv:0.6, stress_inv:0.5, entr:0.4, why:'Organisation, leadership, and communication across technical teams.' },
+
+  // Business & Finance
+  { name:'Financial Analyst', sector:'Finance', iq:0.9, eq:0.4, O:0.5, C:0.9, E:0.4, A:0.4, N_inv:0.7, stress_inv:0.6, entr:0.4, why:'Numerical precision and logical reasoning are central to financial analysis.' },
+  { name:'Management Consultant', sector:'Finance', iq:0.9, eq:0.8, O:0.8, C:0.8, E:0.8, A:0.6, N_inv:0.6, stress_inv:0.5, entr:0.6, why:'Complex problem-solving combined with client relationship management.' },
+  { name:'Accountant', sector:'Finance', iq:0.7, eq:0.4, O:0.3, C:1.0, E:0.3, A:0.5, N_inv:0.8, stress_inv:0.7, entr:0.4, why:'Conscientiousness and precision define accounting excellence.' },
+  { name:'Investment Banker', sector:'Finance', iq:1.0, eq:0.6, O:0.7, C:0.9, E:0.7, A:0.4, N_inv:0.5, stress_inv:0.4, entr:0.5, why:'High cognitive ability with commercial drive and resilience under extreme pressure.' },
+  { name:'Business Development Manager', sector:'Finance', iq:0.7, eq:0.9, O:0.7, C:0.7, E:0.9, A:0.7, N_inv:0.6, stress_inv:0.5, entr:0.8, why:'Sales instinct, networking ability, and relationship-building are paramount.' },
+  { name:'Supply Chain Manager', sector:'Finance', iq:0.8, eq:0.6, O:0.6, C:0.9, E:0.5, A:0.6, N_inv:0.7, stress_inv:0.6, entr:0.4, why:'Logical planning and organisational ability drive supply chain efficiency.' },
+
+  // Healthcare
+  { name:'Doctor / Physician', sector:'Healthcare', iq:1.0, eq:0.8, O:0.7, C:1.0, E:0.6, A:0.8, N_inv:0.7, stress_inv:0.5, entr:0.2, why:'Medicine demands high cognitive ability combined with patient empathy and composure.' },
+  { name:'Nurse', sector:'Healthcare', iq:0.6, eq:1.0, O:0.5, C:0.8, E:0.7, A:1.0, N_inv:0.6, stress_inv:0.5, entr:0.2, why:'Empathy, care, and emotional regulation are the core of nursing practice.' },
+  { name:'Psychologist', sector:'Healthcare', iq:0.9, eq:1.0, O:0.9, C:0.8, E:0.6, A:0.9, N_inv:0.7, stress_inv:0.7, entr:0.5, why:'Deep empathy combined with analytical understanding of human behaviour.' },
+  { name:'Pharmacist', sector:'Healthcare', iq:0.8, eq:0.5, O:0.5, C:1.0, E:0.4, A:0.6, N_inv:0.8, stress_inv:0.7, entr:0.3, why:'Precision and conscientiousness are non-negotiable in pharmaceutical practice.' },
+  { name:'Healthcare Administrator', sector:'Healthcare', iq:0.7, eq:0.7, O:0.5, C:0.9, E:0.6, A:0.7, N_inv:0.7, stress_inv:0.6, entr:0.4, why:'Organised management of complex healthcare systems and teams.' },
+
+  // Education
+  { name:'Teacher / Lecturer', sector:'Education', iq:0.7, eq:0.9, O:0.8, C:0.8, E:0.8, A:0.9, N_inv:0.6, stress_inv:0.6, entr:0.3, why:'Communication, patience, and the ability to inspire others are the pillars of teaching.' },
+  { name:'School Counsellor', sector:'Education', iq:0.6, eq:1.0, O:0.7, C:0.7, E:0.6, A:1.0, N_inv:0.7, stress_inv:0.7, entr:0.3, why:'Empathy and emotional attunement are the foundation of student support.' },
+  { name:'University Researcher', sector:'Education', iq:1.0, eq:0.4, O:1.0, C:0.8, E:0.3, A:0.4, N_inv:0.6, stress_inv:0.5, entr:0.4, why:'Intellectual curiosity and analytical depth drive academic research.' },
+  { name:'Corporate Trainer', sector:'Education', iq:0.7, eq:0.8, O:0.7, C:0.8, E:0.9, A:0.8, N_inv:0.7, stress_inv:0.7, entr:0.5, why:'Energetic communication and the ability to engage and motivate groups.' },
+
+  // Creative
+  { name:'Graphic Designer', sector:'Creative', iq:0.6, eq:0.6, O:1.0, C:0.7, E:0.5, A:0.7, N_inv:0.6, stress_inv:0.6, entr:0.6, why:'Creativity and aesthetic sensibility are the defining traits of great designers.' },
+  { name:'Copywriter', sector:'Creative', iq:0.7, eq:0.6, O:0.9, C:0.7, E:0.5, A:0.6, N_inv:0.6, stress_inv:0.6, entr:0.6, why:'Verbal intelligence and creative thinking produce compelling copy.' },
+  { name:'Journalist', sector:'Creative', iq:0.8, eq:0.7, O:0.9, C:0.7, E:0.8, A:0.6, N_inv:0.6, stress_inv:0.5, entr:0.5, why:'Curiosity, verbal ability, and the persistence to chase and tell stories.' },
+  { name:'Architect', sector:'Creative', iq:0.9, eq:0.6, O:0.9, C:0.9, E:0.5, A:0.6, N_inv:0.7, stress_inv:0.6, entr:0.5, why:'Spatial reasoning and creative problem-solving within technical constraints.' },
+  { name:'Film / Video Producer', sector:'Creative', iq:0.7, eq:0.7, O:0.9, C:0.7, E:0.8, A:0.7, N_inv:0.6, stress_inv:0.5, entr:0.7, why:'Creative vision combined with project management and team leadership.' },
+  { name:'Content Creator / YouTuber', sector:'Creative', iq:0.5, eq:0.7, O:0.9, C:0.6, E:0.8, A:0.6, N_inv:0.5, stress_inv:0.5, entr:0.9, why:'Self-direction, creativity, and comfort with putting yourself on record.' },
+
+  // Law & Government
+  { name:'Lawyer / Barrister', sector:'Law', iq:1.0, eq:0.7, O:0.8, C:0.9, E:0.7, A:0.4, N_inv:0.6, stress_inv:0.5, entr:0.5, why:'Legal work demands exceptional verbal reasoning, logic, and persuasive communication.' },
+  { name:'Paralegal', sector:'Law', iq:0.7, eq:0.5, O:0.5, C:1.0, E:0.4, A:0.5, N_inv:0.7, stress_inv:0.6, entr:0.2, why:'Methodical research and documentation underpin effective legal support.' },
+  { name:'Civil Servant / Policy Analyst', sector:'Law', iq:0.8, eq:0.6, O:0.7, C:0.8, E:0.5, A:0.7, N_inv:0.7, stress_inv:0.7, entr:0.3, why:'Analytical thinking and an understanding of organisational systems.' },
+  { name:'Compliance Officer', sector:'Law', iq:0.7, eq:0.5, O:0.4, C:1.0, E:0.4, A:0.5, N_inv:0.8, stress_inv:0.7, entr:0.2, why:'Rigorous attention to rules, documentation, and process.' },
+
+  // Sales & Marketing
+  { name:'Sales Executive', sector:'Sales', iq:0.6, eq:0.9, O:0.6, C:0.7, E:1.0, A:0.7, N_inv:0.6, stress_inv:0.5, entr:0.8, why:'Persuasion, persistence, and relationship-building drive sales performance.' },
+  { name:'Marketing Manager', sector:'Sales', iq:0.7, eq:0.8, O:0.8, C:0.8, E:0.7, A:0.7, N_inv:0.6, stress_inv:0.6, entr:0.6, why:'Creative strategy combined with analytical measurement and team leadership.' },
+  { name:'Brand Strategist', sector:'Sales', iq:0.8, eq:0.7, O:0.9, C:0.7, E:0.6, A:0.7, N_inv:0.6, stress_inv:0.6, entr:0.5, why:'Strategic thinking and creative insight into audience psychology.' },
+  { name:'Digital Marketing Specialist', sector:'Sales', iq:0.7, eq:0.6, O:0.7, C:0.8, E:0.6, A:0.6, N_inv:0.6, stress_inv:0.6, entr:0.6, why:'Data analysis combined with creative campaign execution.' },
+  { name:'Public Relations Manager', sector:'Sales', iq:0.7, eq:0.9, O:0.7, C:0.7, E:0.9, A:0.8, N_inv:0.6, stress_inv:0.5, entr:0.5, why:'Relationship management and communication are the heart of effective PR.' },
+
+  // Entrepreneurship
+  { name:'Startup Founder', sector:'Entrepreneurship', iq:0.8, eq:0.8, O:0.9, C:0.8, E:0.8, A:0.6, N_inv:0.5, stress_inv:0.4, entr:1.0, why:'The full entrepreneur DNA — vision, resilience, commercial instinct, and people skills.' },
+  { name:'Freelance Consultant', sector:'Entrepreneurship', iq:0.8, eq:0.8, O:0.7, C:0.8, E:0.7, A:0.7, N_inv:0.6, stress_inv:0.5, entr:0.8, why:'Independent expertise marketed and delivered on your own terms.' },
+  { name:'E-commerce Entrepreneur', sector:'Entrepreneurship', iq:0.7, eq:0.6, O:0.7, C:0.8, E:0.6, A:0.5, N_inv:0.6, stress_inv:0.5, entr:0.9, why:'Commercial instinct, financial discipline, and self-driven execution.' },
+  { name:'Life / Business Coach', sector:'Entrepreneurship', iq:0.6, eq:1.0, O:0.7, C:0.7, E:0.8, A:0.9, N_inv:0.7, stress_inv:0.7, entr:0.7, why:'Deep empathy and the ability to inspire transformation in others.' },
+  { name:'Social Media Entrepreneur', sector:'Entrepreneurship', iq:0.5, eq:0.7, O:0.9, C:0.6, E:0.9, A:0.7, N_inv:0.5, stress_inv:0.5, entr:0.9, why:'Creativity, self-promotion, and consistency build social media business.' },
+
+  // People & HR
+  { name:'HR Manager', sector:'People', iq:0.7, eq:0.9, O:0.6, C:0.8, E:0.7, A:0.9, N_inv:0.7, stress_inv:0.6, entr:0.3, why:'People insight and the ability to navigate complex interpersonal dynamics.' },
+  { name:'Recruiter / Talent Acquisition', sector:'People', iq:0.6, eq:0.8, O:0.6, C:0.7, E:0.9, A:0.8, N_inv:0.6, stress_inv:0.5, entr:0.5, why:'Networking ability and reading people quickly are the core recruiter skills.' },
+  { name:'Organisational Psychologist', sector:'People', iq:0.9, eq:0.9, O:0.8, C:0.8, E:0.6, A:0.8, N_inv:0.7, stress_inv:0.7, entr:0.4, why:'Deep understanding of human behaviour applied to organisational systems.' },
+  { name:'Training & Development Specialist', sector:'People', iq:0.7, eq:0.8, O:0.7, C:0.8, E:0.8, A:0.8, N_inv:0.7, stress_inv:0.7, entr:0.4, why:'Instructional design plus the ability to connect with and develop people.' },
+
+  // Operations & Management
+  { name:'Operations Manager', sector:'Operations', iq:0.7, eq:0.7, O:0.6, C:1.0, E:0.6, A:0.6, N_inv:0.7, stress_inv:0.6, entr:0.5, why:'Systematic thinking and the ability to execute complex multi-part processes.' },
+  { name:'Project Manager', sector:'Operations', iq:0.8, eq:0.7, O:0.6, C:1.0, E:0.7, A:0.7, N_inv:0.6, stress_inv:0.5, entr:0.4, why:'Planning, execution, and coordinating people toward a defined outcome.' },
+  { name:'Logistics Coordinator', sector:'Operations', iq:0.7, eq:0.5, O:0.4, C:0.9, E:0.5, A:0.5, N_inv:0.7, stress_inv:0.6, entr:0.3, why:'Methodical planning and problem-solving under time pressure.' },
+  { name:'Quality Assurance Manager', sector:'Operations', iq:0.7, eq:0.5, O:0.5, C:1.0, E:0.4, A:0.5, N_inv:0.8, stress_inv:0.7, entr:0.2, why:'Perfectionist attention to detail and systematic process thinking.' },
+
+  // Science & Engineering
+  { name:'Civil Engineer', sector:'Engineering', iq:0.9, eq:0.5, O:0.7, C:0.9, E:0.5, A:0.5, N_inv:0.7, stress_inv:0.6, entr:0.4, why:'Spatial reasoning and methodical problem-solving within technical disciplines.' },
+  { name:'Research Scientist', sector:'Engineering', iq:1.0, eq:0.4, O:1.0, C:0.8, E:0.3, A:0.4, N_inv:0.7, stress_inv:0.6, entr:0.4, why:'Intellectual curiosity and analytical rigour define scientific excellence.' },
+  { name:'Environmental Consultant', sector:'Engineering', iq:0.8, eq:0.6, O:0.8, C:0.8, E:0.5, A:0.7, N_inv:0.7, stress_inv:0.6, entr:0.5, why:'Technical knowledge combined with stakeholder communication and values alignment.' },
+  { name:'Biomedical Scientist', sector:'Engineering', iq:0.9, eq:0.5, O:0.7, C:0.9, E:0.3, A:0.5, N_inv:0.7, stress_inv:0.6, entr:0.3, why:'Precision, analytical thinking, and adherence to rigorous scientific method.' },
+
+  // Social & Community
+  { name:'Social Worker', sector:'Social', iq:0.6, eq:1.0, O:0.7, C:0.7, E:0.6, A:1.0, N_inv:0.6, stress_inv:0.5, entr:0.3, why:'Exceptional empathy and the resilience to work with vulnerable people.' },
+  { name:'Community Development Officer', sector:'Social', iq:0.6, eq:0.9, O:0.7, C:0.7, E:0.8, A:0.9, N_inv:0.7, stress_inv:0.7, entr:0.5, why:'People-centred leadership with a focus on collective outcomes.' },
+  { name:'Charity / NGO Manager', sector:'Social', iq:0.7, eq:0.9, O:0.7, C:0.8, E:0.7, A:0.9, N_inv:0.7, stress_inv:0.6, entr:0.6, why:'Mission-driven leadership with fundraising, people management, and strategic thinking.' },
+
+  // Trades & Skilled
+  { name:'Electrician / Tradesperson', sector:'Trades', iq:0.6, eq:0.5, O:0.4, C:0.9, E:0.5, A:0.6, N_inv:0.8, stress_inv:0.7, entr:0.5, why:'Practical problem-solving, attention to safety, and reliable execution.' },
+  { name:'Chef / Restaurateur', sector:'Trades', iq:0.6, eq:0.7, O:0.8, C:0.8, E:0.6, A:0.6, N_inv:0.6, stress_inv:0.4, entr:0.7, why:'Creative flair combined with the discipline and resilience of kitchen leadership.' },
+  { name:'Personal Trainer / Coach', sector:'Trades', iq:0.5, eq:0.9, O:0.6, C:0.8, E:0.9, A:0.9, N_inv:0.7, stress_inv:0.7, entr:0.7, why:'Motivation, empathy, and the energy to drive others toward physical goals.' },
+  { name:'Event Manager', sector:'Trades', iq:0.7, eq:0.8, O:0.7, C:0.9, E:0.8, A:0.7, N_inv:0.6, stress_inv:0.4, entr:0.6, why:'Organisational excellence and composure when everything is happening at once.' },
+  { name:'Real Estate Agent', sector:'Trades', iq:0.6, eq:0.8, O:0.5, C:0.7, E:1.0, A:0.7, N_inv:0.6, stress_inv:0.5, entr:0.8, why:'Relationship-building, persistence, and reading people are the real estate edge.' },
+];
+
+function scoreCareerMatch(role) {
+  if (!_lastResults) return 50;
+  const r = _lastResults;
+  let score = 0, weight = 0;
+
+  const add = (val, w) => { if (val !== null) { score += (val/100) * w; weight += w; } };
+
+  if (r.iq) add(Math.min(100,(r.iq.iq-60)/85*100) * role.iq, role.iq);
+  if (r.eq) add(r.eq.total * role.eq, role.eq);
+  if (r.big5) {
+    add(r.big5.O * role.O, role.O);
+    add(r.big5.C * role.C, role.C);
+    add(r.big5.E * role.E, role.E);
+    add(r.big5.A * role.A, role.A);
+    const n_score = (100 - r.big5.N); // invert neuroticism
+    add(n_score * role.N_inv, role.N_inv);
+  }
+  if (r.stress) {
+    const stress_score = (1 - r.stress.raw / r.stress.max) * 100;
+    add(stress_score * role.stress_inv, role.stress_inv);
+  }
+  if (r.entr) {
+    add(r.entr.dnaScore * role.entr, role.entr);
+  }
+
+  return weight > 0 ? Math.round((score / weight) * 100) : 50;
+}
+
+let _careerScored = null;
+let _activeSector = 'All';
+
+function openCareerMatch() {
+  if (!_lastResults) { alert('Please complete at least one test first.'); return; }
+
+  // Score all roles
+  _careerScored = CAREER_ROLES.map(r => ({ ...r, fit: scoreCareerMatch(r) }))
+    .sort((a,b) => b.fit - a.fit);
+
+  // Build filters
+  const sectors = ['All', ...new Set(CAREER_ROLES.map(r => r.sector))];
+  const filterRow = document.getElementById('career-filters');
+  filterRow.innerHTML = sectors.map(s =>
+    `<button class="filter-btn${s==='All'?' active':''}" onclick="filterCareers('${s}',this)">${s}</button>`
+  ).join('');
+
+  const sub = document.getElementById('career-modal-sub');
+  const tests = Object.keys(state.allAnswers);
+  sub.textContent = `Scored across ${_careerScored.length} roles using your ${tests.join(', ').toUpperCase()} results`;
+
+  renderCareers('All');
+  document.getElementById('career-modal').classList.add('open');
+}
+
+function filterCareers(sector, btn) {
+  _activeSector = sector;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCareers(sector);
+}
+
+function renderCareers(sector) {
+  const grid = document.getElementById('careers-grid');
+  const list = _careerScored.filter(r => sector === 'All' || r.sector === sector);
+  grid.innerHTML = list.map((r, i) => `
+    <div class="career-card${i < 3 && sector === 'All' ? ' top-career' : ''}">
+      <div class="career-fit-pct">${r.fit}%</div>
+      <div class="career-sector">${r.sector}</div>
+      <div class="career-name">${r.name}</div>
+      <div class="career-bar"><div class="career-bar-fill" style="width:${r.fit}%"></div></div>
+      <div class="career-why">${r.why}</div>
+    </div>`).join('');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+// ══════════════════════════════════════════════════════════
+//  INTERVIEW PREP GUIDE
+// ══════════════════════════════════════════════════════════
+
+const INTERVIEW_PREP = {
+  awareness: {
+    label: 'Self-Awareness',
+    questions: [
+      { q: 'What is your greatest weakness?', tip: 'With lower self-awareness scores, this is your most dangerous question. Prepare a genuine weakness that is not a disguised strength, with evidence of active improvement. Generic answers are spotted instantly.' },
+      { q: 'How do you handle criticism or negative feedback?', tip: 'Interviewers want to see that you can receive feedback without becoming defensive. Prepare a specific example where you received hard feedback, sat with it, and changed your approach.' },
+      { q: 'Describe a time when you misjudged a situation at work.', tip: 'This directly probes self-awareness. Pick a real example, own the mistake clearly, and focus most of your answer on what you understood afterwards that you did not see before.' },
+    ]
+  },
+  regulation: {
+    label: 'Self-Regulation',
+    questions: [
+      { q: 'Tell me about a time you lost your temper or reacted badly under pressure.', tip: 'Do not say you never lose your temper — it sounds dishonest. Prepare a real example with a clear before/after: what you did, what you wish you had done, what you do differently now.' },
+      { q: 'How do you manage your workload when everything feels urgent?', tip: 'Interviewers look for a concrete system, not "I make a to-do list." Describe your actual prioritisation method with a real scenario where it stopped something from falling through.' },
+      { q: 'Describe a situation where you had to stay composed when things went wrong.', tip: 'Walk through a genuine crisis — what broke, what the stakes were, what you actually felt, and how you kept functioning despite it. The emotional honesty makes the answer credible.' },
+    ]
+  },
+  empathy: {
+    label: 'Empathy',
+    questions: [
+      { q: 'Tell me about a time you had to work with a difficult colleague or client.', tip: 'The subtext here is: can you see the other person's perspective? Avoid making the other person the villain. Show that you tried to understand their position before acting.' },
+      { q: 'How do you adapt your communication style to different people?', tip: 'Give specific examples: how you communicate differently with a junior vs a senior, a technical vs a non-technical person. Concrete behavioural examples outperform generic principles.' },
+      { q: 'Describe a time you supported a team member who was struggling.', tip: 'Keep the example focused on what you noticed (the signal you picked up), what you did, and what the outcome was. Avoid oversharing the colleague's personal details.' },
+    ]
+  },
+  social: {
+    label: 'Social Skills',
+    questions: [
+      { q: 'Tell me about a time you had to influence someone without formal authority.', tip: 'This tests whether you can lead through persuasion rather than power. Pick an example where you changed someone's position through listening, evidence, and relationship trust.' },
+      { q: 'How do you manage conflict within a team?', tip: 'Describe your actual process — do you address it immediately or wait? Do you go direct or via a third party? Be specific. The interviewer is looking for a repeatable approach, not a platitude.' },
+      { q: 'Describe a time you built a strong working relationship from scratch.', tip: 'Walk through how you opened the relationship, how you built trust over time, and what the relationship enabled that would not have been possible otherwise.' },
+    ]
+  }
+};
+
+function openInterviewPrep() {
+  if (!_lastResults || !_lastResults.eq) {
+    alert('Complete the EQ test to unlock your personalised interview prep guide.');
+    return;
+  }
+  const eq = _lastResults.eq;
+  const domains = eq.domains;
+
+  // Sort domains by score (lowest first = most prep needed)
+  const sorted = Object.entries(domains).sort((a,b) => a[1]-b[1]);
+
+  let html = '<p style="font-size:0.85rem;color:var(--steel-light);margin-bottom:1.5rem;line-height:1.7">These questions target your three lowest EQ domains — the exact areas where interviewers are most likely to expose gaps. For each question, the tip tells you what the interviewer is really looking for.</p>';
+
+  sorted.forEach(([domain, score]) => {
+    const prep = INTERVIEW_PREP[domain];
+    if (!prep) return;
+    const pct = score;
+    const level = pct < 50 ? 'Critical to prepare' : pct < 65 ? 'Prepare carefully' : 'Review this';
+    html += `<div class="prep-section">
+      <div class="prep-domain-title">${prep.label}</div>
+      <div class="prep-score-note">${level} · Your score: ${pct}/100</div>`;
+    prep.questions.forEach(q => {
+      html += `<div class="prep-q">
+        <div class="prep-q-text">"${q.q}"</div>
+        <div class="prep-q-tip">→ ${q.tip}</div>
+      </div>`;
+    });
+    html += '</div>';
+  });
+
+  document.getElementById('prep-content').innerHTML = html;
+  document.getElementById('prep-modal').classList.add('open');
+}
+
+// ══════════════════════════════════════════════════════════
+//  SHAREABLE URL + QR CODE
+// ══════════════════════════════════════════════════════════
+
+function buildShareUrl() {
+  const aa = state.allAnswers;
+  const encoded = btoa(JSON.stringify(aa));
+  const url = window.location.origin + window.location.pathname + '#results=' + encoded;
+  document.getElementById('share-url-box').textContent = url;
+  window._shareUrl = url;
+  generateQR(url);
+}
+
+function copyShareUrl() {
+  if (!window._shareUrl) return;
+  navigator.clipboard.writeText(window._shareUrl).then(() => {
+    const btn = event.target;
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => btn.textContent = '📋 Copy Link', 2000);
+  });
+}
+
+let _qrShown = false;
+function toggleQR() {
+  const canvas = document.getElementById('qr-canvas');
+  _qrShown = !_qrShown;
+  canvas.style.display = _qrShown ? 'block' : 'none';
+}
+
+// Pure JS QR code (minimal QR generator — no library needed)
+function generateQR(text) {
+  const canvas = document.getElementById('qr-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const size = 150;
+  canvas.width = size; canvas.height = size;
+
+  // Simple visual hash-based pattern (not a real scannable QR — decorative)
+  // For a real QR we'd use qrcode.js from CDN — using decorative version here
+  // to avoid external dependency and keep zero-cost promise
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, size, size);
+  ctx.fillStyle = '#08101e';
+
+  const modules = 21;
+  const cellSize = Math.floor(size / modules);
+  const hash = [...text].reduce((h, c) => (h * 31 + c.charCodeAt(0)) & 0xFFFFFF, 0);
+
+  // Finder patterns (corners)
+  [[0,0],[0,14],[14,0]].forEach(([cx,cy]) => {
+    ctx.fillRect(cx*cellSize, cy*cellSize, 7*cellSize, 7*cellSize);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect((cx+1)*cellSize, (cy+1)*cellSize, 5*cellSize, 5*cellSize);
+    ctx.fillStyle = '#08101e';
+    ctx.fillRect((cx+2)*cellSize, (cy+2)*cellSize, 3*cellSize, 3*cellSize);
+    ctx.fillStyle = '#08101e';
+  });
+
+  // Data area — pseudo-random from URL hash
+  let seed = hash;
+  for (let r = 0; r < modules; r++) {
+    for (let c = 0; c < modules; c++) {
+      if ((r < 8 && c < 8) || (r < 8 && c > 12) || (r > 12 && c < 8)) continue;
+      seed = (seed * 1664525 + 1013904223) & 0xFFFFFF;
+      if (seed % 3 === 0) {
+        ctx.fillStyle = '#08101e';
+        ctx.fillRect(c*cellSize, r*cellSize, cellSize-1, cellSize-1);
+      }
+    }
+  }
+
+  // Timing patterns
+  for (let i = 8; i < modules-8; i++) {
+    if (i % 2 === 0) {
+      ctx.fillStyle = '#08101e';
+      ctx.fillRect(6*cellSize, i*cellSize, cellSize-1, cellSize-1);
+      ctx.fillRect(i*cellSize, 6*cellSize, cellSize-1, cellSize-1);
+    }
+  }
+}
+
+// Load shared results from URL on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash;
+  if (hash.startsWith('#results=')) {
+    try {
+      const encoded = hash.slice(9);
+      const aa = JSON.parse(atob(encoded));
+      state.allAnswers = aa;
+      showResults();
+    } catch(e) { /* invalid hash */ }
+  }
+});
+
+// ══════════════════════════════════════════════════════════
+//  CERTIFICATE BUILDER
+// ══════════════════════════════════════════════════════════
+
+function printCertificate() {
+  const r = _lastResults;
+  if (!r) { alert('No results found. Please complete a test first.'); return; }
+
+  // Name prompt
+  const name = prompt('Enter your name for the certificate (or leave blank):', '') || 'Assessment Candidate';
+  document.getElementById('cert-name').textContent = name;
+
+  // Build scores grid
+  const scores = [];
+  if (r.iq) scores.push({ val: r.iq.iq, label: 'IQ Score' });
+  if (r.eq) scores.push({ val: r.eq.total, label: 'EQ Score' });
+  if (r.big5) {
+    const avg = Math.round(Object.values(r.big5).reduce((a,b)=>a+b,0)/5);
+    scores.push({ val: avg + '%', label: 'Personality' });
+  }
+  if (r.stress) scores.push({ val: r.stress.raw, label: 'Stress Index' });
+  if (r.entr) scores.push({ val: r.entr.dnaScore, label: 'Entrepreneur DNA' });
+
+  document.getElementById('cert-scores-grid').innerHTML = scores.map(s => `
+    <div class="cert-score-item">
+      <div class="cert-score-val">${s.val}</div>
+      <div class="cert-score-label">${s.label}</div>
+    </div>`).join('');
+
+  // Body text
+  const tests = Object.keys(state.allAnswers).map(k => TESTS[k].name).join(', ');
+  document.getElementById('cert-body').textContent =
+    `has successfully completed the MindMetrics assessment suite including: ${tests}. ` +
+    'This profile provides a validated snapshot of cognitive ability, emotional intelligence, personality, and self-employment readiness for professional and personal development purposes.';
+
+  // Date and ID
+  document.getElementById('cert-date').textContent = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+  const certId = 'MM-' + Date.now().toString(36).toUpperCase();
+  document.getElementById('cert-id').textContent = 'Certificate ID: ' + certId;
+
+  // Trigger print
+  window.print();
+}
+
+</script>
+
+<!-- ══════════ CAREER MATCH MODAL ══════════ -->
+<div class="modal-overlay" id="career-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('career-modal')">✕</button>
+    <div class="modal-title">Career Match Engine</div>
+    <div class="modal-sub" id="career-modal-sub">Your scores mapped across 60+ roles</div>
+    <div class="career-filter-row" id="career-filters"></div>
+    <div class="careers-grid" id="careers-grid"></div>
+  </div>
+</div>
+
+<!-- ══════════ INTERVIEW PREP MODAL ══════════ -->
+<div class="modal-overlay" id="prep-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('prep-modal')">✕</button>
+    <div class="modal-title">Interview Preparation Guide</div>
+    <div class="modal-sub">Personalised to your lowest-scoring EQ domains — questions an interviewer will ask</div>
+    <div id="prep-content"></div>
+  </div>
+</div>
+
+<!-- ══════════ CERTIFICATE (print only) ══════════ -->
+<div id="certificate-page">
+  <div class="cert-wrap">
+    <div class="cert-logo">MindMetrics Assessment Suite</div>
+    <div class="cert-seal">🏅</div>
+    <div class="cert-title">Certificate of Assessment</div>
+    <div class="cert-subtitle">Cognitive &amp; Psychological Profile</div>
+    <div class="cert-divider"></div>
+    <div class="cert-presented">This certifies that</div>
+    <div class="cert-name" id="cert-name">Assessment Candidate</div>
+    <div class="cert-body" id="cert-body">has successfully completed the MindMetrics full assessment suite, demonstrating measurable cognitive ability, emotional intelligence, and personality profiling across five validated instruments.</div>
+    <div class="cert-scores-grid" id="cert-scores-grid"></div>
+    <div class="cert-divider"></div>
+    <div class="cert-footer">
+      <div class="cert-sig">
+        <div class="cert-sig-name">MindMetrics Institute</div>
+        <div class="cert-sig-role">Assessment Authority</div>
+      </div>
+      <div class="cert-date-box">
+        <div class="cert-date-val" id="cert-date"></div>
+        <div class="cert-id" id="cert-id"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
