@@ -21,15 +21,13 @@ jobs:
       - name: Build — inline fonts for self-contained HTML
         run: python3 build.py
 
-      - name: Deploy via FTP to Hostinger
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Deploy via SSH (rsync) to Hostinger
+        uses: easingthemes/ssh-deploy@v5.0.3
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
-          server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          exclude: |
-            **/.git*
-            **/.git*/**
-            .github/**
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USERNAME }}
+          REMOTE_PORT: ${{ secrets.SSH_PORT }}
+          TARGET: ${{ secrets.SSH_TARGET_DIR }}
+          SOURCE: dist/
+          EXCLUDE: ".git*, .github"
