@@ -1455,8 +1455,8 @@
       <div class="card-title">IQ Test</div>
       <div class="card-desc">Logic sequences, numerical patterns, verbal analogies, and spatial reasoning across 20 calibrated questions.</div>
       <div class="card-meta">
-        <span>⏱ 12 min</span>
-        <span>📋 20 questions</span>
+        <span>⏱ 21 min</span>
+        <span>📋 35 questions</span>
       </div>
     </div>
 
@@ -1477,8 +1477,8 @@
       <div class="card-title">Big Five Personality</div>
       <div class="card-desc">The gold-standard OCEAN model — Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism.</div>
       <div class="card-meta">
-        <span>⏱ 6 min</span>
-        <span>📋 25 questions</span>
+        <span>⏱ 13 min</span>
+        <span>📋 45 questions</span>
       </div>
     </div>
 
@@ -1593,28 +1593,43 @@ const TESTS = {
 
 // ─── IQ TEST ─────────────────────────────────────────────
 iq: {
-  name: 'IQ Test', label: 'Intelligence Quotient', timed: true, timeLimit: 720,
+  name: 'IQ Test', label: 'Intelligence Quotient', timed: true, timeLimit: 1260,
   questions: [
     { cat:'Numerical Sequences', text:'What comes next in the sequence?', seq:'2, 4, 8, 16, ?', options:['24','32','30','28'], answer:1 },
     { cat:'Numerical Sequences', text:'Find the missing number.', seq:'3, 6, 11, 18, 27, ?', options:['36','38','37','35'], answer:1 },
     { cat:'Numerical Sequences', text:'What number completes the pattern?', seq:'100, 91, 83, 76, 70, ?', options:['65','64','66','63'], answer:0 },
+    { cat:'Numerical Sequences', text:'What comes next?', seq:'1, 4, 9, 16, 25, ?', options:['30','34','36','32'], answer:2 },
+    { cat:'Numerical Sequences', text:'What is the missing number?', seq:'0, 1, 3, 6, 10, ?', options:['13','14','15','16'], answer:2 },
     { cat:'Verbal Analogies', text:'BOOK is to LIBRARY as PAINTING is to:', options:['Canvas','Gallery','Artist','Frame'], answer:1 },
     { cat:'Verbal Analogies', text:'SURGEON is to SCALPEL as CARPENTER is to:', options:['Wood','Saw','Hammer','Nail'], answer:1 },
     { cat:'Verbal Analogies', text:'COLD is to ICE as HEAT is to:', options:['Fire','Warm','Steam','Sun'], answer:2 },
+    { cat:'Verbal Analogies', text:'LIGHT is to DARK as JOY is to:', options:['Happy','Emotion','Sorrow','Laughter'], answer:2 },
+    { cat:'Verbal Analogies', text:'TREE is to FOREST as SOLDIER is to:', options:['War','Army','Uniform','General'], answer:1 },
     { cat:'Logical Reasoning', text:'All Bloops are Razzies. All Razzies are Lazzies. Therefore:', options:['All Bloops are Lazzies','Some Lazzies are not Bloops','No Lazzies are Bloops','None of the above'], answer:0 },
     { cat:'Logical Reasoning', text:'If all doctors are professionals, and some professionals are scientists, which must be true?', options:['All doctors are scientists','Some scientists are doctors','Some doctors may be scientists','Doctors are not scientists'], answer:2 },
     { cat:'Logical Reasoning', text:'A is taller than B. C is shorter than A. B is taller than C. Who is tallest?', options:['A','B','C','Cannot be determined'], answer:0 },
+    { cat:'Logical Reasoning', text:'If no A is B, and all C is B, which must be true?', options:['All A is C','No C is A','Some A is C','All B is A'], answer:1 },
+    { cat:'Logical Reasoning', text:'Maria is older than Sam. Tom is younger than Maria but older than Sam. Who is youngest?', options:['Maria','Tom','Sam','Cannot be determined'], answer:2 },
     { cat:'Numerical Reasoning', text:'A train travels 180 km in 2 hours. How many km does it travel in 5 hours at the same speed?', options:['360','450','400','540'], answer:1 },
     { cat:'Numerical Reasoning', text:'If 5 workers complete a task in 8 days, how many days for 10 workers?', options:['16','4','8','2'], answer:1 },
     { cat:'Numerical Reasoning', text:'What percentage of 250 is 75?', options:['25%','30%','35%','20%'], answer:1 },
+    { cat:'Numerical Reasoning', text:'A shirt costs £40 after a 20% discount. What was the original price?', options:['£48','£50','£52','£45'], answer:1 },
+    { cat:'Numerical Reasoning', text:'If 3x + 7 = 22, what is x?', options:['3','4','5','6'], answer:2 },
     { cat:'Pattern Recognition', text:'Which number does NOT belong?', seq:'2, 3, 5, 7, 11, 15, 17', options:['11','15','7','3'], answer:1 },
     { cat:'Pattern Recognition', text:'Complete the pattern.', seq:'Z, Y, X, W, ?', options:['V','U','T','S'], answer:0 },
     { cat:'Pattern Recognition', text:'Which comes next in the series?', seq:'1, 1, 2, 3, 5, 8, ?', options:['12','13','11','14'], answer:1 },
+    { cat:'Pattern Recognition', text:'What comes next?', seq:'AZ, BY, CX, DW, ?', options:['EV','FU','EU','EW'], answer:0 },
+    { cat:'Pattern Recognition', text:'What is the next number?', seq:'2, 6, 12, 20, 30, ?', options:['40','42','44','48'], answer:1 },
     { cat:'Spatial Reasoning', text:'A cube is painted red on all sides then cut into 27 equal pieces. How many pieces have exactly 2 red faces?', options:['6','8','12','16'], answer:2 },
     { cat:'Spatial Reasoning', text:'If you fold a square paper in half twice then cut a triangle from the folded corner, how many triangles appear when unfolded?', options:['2','4','8','1'], answer:1 },
+    { cat:'Spatial Reasoning', text:'A triangular prism has how many edges?', options:['6','7','8','9'], answer:3 },
+    { cat:'Spatial Reasoning', text:'Facing north, you turn 270° clockwise. Which direction are you now facing?', options:['South','East','West','North-West'], answer:2 },
     { cat:'Working Memory', text:'Reverse the order of this sequence: 7, 3, 9, 1, 5. What is the third number?', options:['9','1','5','3'], answer:0 },
+    { cat:'Working Memory', text:'What is the 4th letter of the word ALGORITHM?', options:['G','O','R','A'], answer:1 },
+    { cat:'Working Memory', text:'If A=1, B=2, C=3 and so on, what does CAB add up to?', options:['5','6','7','8'], answer:1 },
     { cat:'Critical Thinking', text:'Some months have 30 days, some have 31. How many months have 28 days?', options:['1','2','All of them','6'], answer:2 },
     { cat:'Critical Thinking', text:'A farmer has 17 sheep. All but 9 die. How many sheep remain?', options:['8','17','9','0'], answer:2 },
+    { cat:'Critical Thinking', text:'A rooster is sitting on a roof peak. It lays an egg. Which side does the egg roll down?', options:['Left side','Right side','Depends on the wind','Roosters do not lay eggs'], answer:3 },
   ]
 },
 
@@ -1654,26 +1669,46 @@ big5: {
     { cat:'Openness', text:'I appreciate art, music, and literature deeply.', trait:'O', options:['1','2','3','4','5'], likert:true },
     { cat:'Openness', text:'I enjoy imagining and daydreaming.', trait:'O', options:['1','2','3','4','5'], likert:true },
     { cat:'Openness', text:'I find routine and predictability comfortable.', trait:'O', rev:true, options:['1','2','3','4','5'], likert:true },
+    { cat:'Openness', text:'I have a vivid imagination and enjoy thinking about fantastical scenarios.', trait:'O', options:['1','2','3','4','5'], likert:true },
+    { cat:'Openness', text:'I am genuinely curious about how things work and why.', trait:'O', options:['1','2','3','4','5'], likert:true },
+    { cat:'Openness', text:'I prefer concrete facts over abstract theories.', trait:'O', rev:true, options:['1','2','3','4','5'], likert:true },
+    { cat:'Openness', text:'I often notice beauty in everyday objects or places others walk past.', trait:'O', options:['1','2','3','4','5'], likert:true },
     { cat:'Conscientiousness', text:'I plan tasks carefully and follow through to completion.', trait:'C', options:['1','2','3','4','5'], likert:true },
     { cat:'Conscientiousness', text:'I am organised and keep my surroundings tidy.', trait:'C', options:['1','2','3','4','5'], likert:true },
     { cat:'Conscientiousness', text:'I work hard and push myself to achieve.', trait:'C', options:['1','2','3','4','5'], likert:true },
     { cat:'Conscientiousness', text:'I tend to procrastinate on tasks.', trait:'C', rev:true, options:['1','2','3','4','5'], likert:true },
     { cat:'Conscientiousness', text:'I am reliable and can be counted on.', trait:'C', options:['1','2','3','4','5'], likert:true },
+    { cat:'Conscientiousness', text:'I always prepare carefully before starting a major task.', trait:'C', options:['1','2','3','4','5'], likert:true },
+    { cat:'Conscientiousness', text:'I pay close attention to details and rarely make careless mistakes.', trait:'C', options:['1','2','3','4','5'], likert:true },
+    { cat:'Conscientiousness', text:'I often lose track of my goals after setting them.', trait:'C', rev:true, options:['1','2','3','4','5'], likert:true },
+    { cat:'Conscientiousness', text:'I can be counted on to keep promises and meet deadlines.', trait:'C', options:['1','2','3','4','5'], likert:true },
     { cat:'Extraversion', text:'I feel energised around other people.', trait:'E', options:['1','2','3','4','5'], likert:true },
     { cat:'Extraversion', text:'I enjoy being the centre of attention.', trait:'E', options:['1','2','3','4','5'], likert:true },
     { cat:'Extraversion', text:'I find it easy to start conversations with strangers.', trait:'E', options:['1','2','3','4','5'], likert:true },
     { cat:'Extraversion', text:'I prefer spending time alone to recharge.', trait:'E', rev:true, options:['1','2','3','4','5'], likert:true },
     { cat:'Extraversion', text:'I have a lively and enthusiastic personality.', trait:'E', options:['1','2','3','4','5'], likert:true },
+    { cat:'Extraversion', text:'I feel comfortable and natural when meeting new people.', trait:'E', options:['1','2','3','4','5'], likert:true },
+    { cat:'Extraversion', text:'I often take the lead in social or group situations.', trait:'E', options:['1','2','3','4','5'], likert:true },
+    { cat:'Extraversion', text:'I find small talk and light socialising draining.', trait:'E', rev:true, options:['1','2','3','4','5'], likert:true },
+    { cat:'Extraversion', text:'I am talkative and expressive with people I know well.', trait:'E', options:['1','2','3','4','5'], likert:true },
     { cat:'Agreeableness', text:'I genuinely care about others and want to help.', trait:'A', options:['1','2','3','4','5'], likert:true },
     { cat:'Agreeableness', text:'I tend to trust people and assume good intentions.', trait:'A', options:['1','2','3','4','5'], likert:true },
     { cat:'Agreeableness', text:'I avoid arguments and seek harmony.', trait:'A', options:['1','2','3','4','5'], likert:true },
     { cat:'Agreeableness', text:'I can be critical or demanding of others.', trait:'A', rev:true, options:['1','2','3','4','5'], likert:true },
     { cat:'Agreeableness', text:'I am patient with people who irritate me.', trait:'A', options:['1','2','3','4','5'], likert:true },
+    { cat:'Agreeableness', text:'I go out of my way to help people even when it is inconvenient.', trait:'A', options:['1','2','3','4','5'], likert:true },
+    { cat:'Agreeableness', text:'I find it hard to forgive people who have wronged me.', trait:'A', rev:true, options:['1','2','3','4','5'], likert:true },
+    { cat:'Agreeableness', text:'I try to be tactful and considerate in what I say.', trait:'A', options:['1','2','3','4','5'], likert:true },
+    { cat:'Agreeableness', text:'I enjoy cooperating with others more than competing against them.', trait:'A', options:['1','2','3','4','5'], likert:true },
     { cat:'Neuroticism', text:'I frequently feel anxious or worried.', trait:'N', options:['1','2','3','4','5'], likert:true },
     { cat:'Neuroticism', text:'My emotions can shift quickly without much reason.', trait:'N', options:['1','2','3','4','5'], likert:true },
     { cat:'Neuroticism', text:'I feel calm and stable under pressure.', trait:'N', rev:true, options:['1','2','3','4','5'], likert:true },
     { cat:'Neuroticism', text:'I often feel sad or downhearted.', trait:'N', options:['1','2','3','4','5'], likert:true },
     { cat:'Neuroticism', text:'I bounce back quickly from difficult situations.', trait:'N', rev:true, options:['1','2','3','4','5'], likert:true },
+    { cat:'Neuroticism', text:'I tend to overthink situations and imagine worst-case outcomes.', trait:'N', options:['1','2','3','4','5'], likert:true },
+    { cat:'Neuroticism', text:'I find it hard to switch off and relax at the end of the day.', trait:'N', options:['1','2','3','4','5'], likert:true },
+    { cat:'Neuroticism', text:'I handle unexpected changes without becoming upset.', trait:'N', rev:true, options:['1','2','3','4','5'], likert:true },
+    { cat:'Neuroticism', text:'I am easily rattled under pressure.', trait:'N', options:['1','2','3','4','5'], likert:true },
   ]
 },
 
@@ -1926,7 +1961,7 @@ function finishTest() {
 // Transition screen
 function showTransition(nextKey) {
   const test = TESTS[nextKey];
-  const times = {iq:'12 min · 20 questions', eq:'8 min · 20 questions', big5:'6 min · 25 questions', stress:'3 min · 10 questions', entrepreneur:'7 min · 20 questions'};
+  const times = {iq:'21 min · 35 questions', eq:'8 min · 20 questions', big5:'13 min · 45 questions', stress:'3 min · 10 questions', entrepreneur:'7 min · 20 questions'};
   document.getElementById('tr-title').textContent = `Next: ${test.name}`;
   document.getElementById('tr-desc').textContent = `${test.label} — ${times[nextKey]}`;
   document.getElementById('test-transition').classList.add('show');
@@ -1946,9 +1981,9 @@ function scoreIQ(answers) {
   const qs = TESTS.iq.questions;
   let correct = 0;
   answers.forEach((a, i) => { if (i < qs.length && a === qs[i].answer) correct++; });
-  // Map 0-20 correct to IQ 60-145
-  const iq = Math.round(60 + (correct / 20) * 85);
-  return { raw: correct, iq, max: 20 };
+  // Map 0-35 correct to IQ 60-145
+  const iq = Math.round(60 + (correct / 35) * 85);
+  return { raw: correct, iq, max: 35 };
 }
 
 function scoreEQ(answers) {
@@ -2060,7 +2095,7 @@ function showResults() {
         <div class="result-section-title">Intelligence Quotient <span class="badge">IQ ${r.iq}</span></div>
         <p>You answered <strong style="color:var(--gold-light)">${r.raw} out of ${r.max}</strong> questions correctly across logic, numerical reasoning, verbal analogies, and spatial tasks. This places you in the <strong style="color:${band.color}">${band.label}</strong> range.</p>
         <p>${iqInterpretation(r.iq)}</p>
-        <p style="font-size:0.75rem;color:var(--steel)"><em>Note: This condensed test provides an estimate. A full standardised IQ assessment takes 60–90 minutes and is administered by a psychologist.</em></p>
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:0.8rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Important context:</strong> This 35-question assessment provides a directional estimate only. Validated IQ measurement (Wechsler, Stanford-Binet) takes 60–90 minutes, covers 10–15 subtests, and requires a qualified psychologist. Score ranges here are approximations and are not normatively validated against a population sample.</em></p>
       </div>`;
   }
 
@@ -2097,6 +2132,7 @@ function showResults() {
         <div class="result-section-title">Emotional Intelligence <span class="badge">EQ ${r.total}</span></div>
         <p>Your overall EQ is <strong style="color:var(--gold-light)">${r.total}/100</strong> — rated <strong>${band}</strong>. Emotional intelligence predicts leadership effectiveness, relationship quality, and resilience under pressure.</p>
         <div class="eq-domains">${domainHTML}</div>
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Self-report note:</strong> All self-rated EQ assessments share a known limitation — people with low emotional self-awareness may inadvertently rate themselves higher than warranted. This result is best used as a starting point for reflection, not a definitive clinical measure. It is at the same level as most consumer EQ tools on the market (Truity, MindTools).</em></p>
       </div>`;
   }
 
@@ -2134,6 +2170,7 @@ function showResults() {
         <div class="result-section-title">Big Five Personality <span class="badge">OCEAN</span></div>
         <p>Your personality profile across the five universal dimensions of personality science. Higher scores indicate stronger expression of each trait.</p>
         <div class="trait-bars">${barsHTML}</div>
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">About this assessment:</strong> This 45-item instrument uses 9 items per trait, consistent with the Big Five Inventory (BFI) standard. Results are stable and directionally reliable for self-reflection and career exploration — the same purpose as tools like 16Personalities and Truity.</em></p>
       </div>`;
   }
 
@@ -2166,7 +2203,7 @@ function showResults() {
     const archetype = getArchetype(r.dims);
     scoresRow.innerHTML += `
       <div class="score-card">
-        <div class="score-label">Entrepreneur DNA</div>
+        <div class="score-label">Entrepreneur DNA™</div>
         <div class="score-number">${r.dnaScore}</div>
         <div class="score-max">out of 100</div>
         <div class="score-band" style="color:var(--gold-light)">${archetype.name}</div>
@@ -2358,7 +2395,7 @@ function buildEntrepreneurSection(r, archetype, aa) {
 
   return `
     <div class="archetype-card">
-      <div class="archetype-type">Your Entrepreneur Archetype</div>
+      <div class="archetype-type">Your Entrepreneur Archetype · Structured Self-Assessment</div>
       <span class="archetype-icon">${archetype.icon}</span>
       <div class="archetype-name">${archetype.name}</div>
       <div class="archetype-tagline">${archetype.tagline}</div>
@@ -2369,7 +2406,8 @@ function buildEntrepreneurSection(r, archetype, aa) {
     </div>
 
     <div class="result-section">
-      <div class="result-section-title">Self-Employment Readiness <span class="badge">Entrepreneur DNA</span></div>
+      <div class="result-section-title">Self-Employment Readiness <span class="badge">Entrepreneur DNA™</span></div>
+      <p style="font-size:0.75rem;color:var(--steel);margin-bottom:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Framework note:</strong> Entrepreneur DNA is a proprietary structured self-assessment framework, not a clinically validated psychometric instrument. There is no equivalent consumer benchmark to compare it against — no competitor offers a scored entrepreneur archetype profile at this level. Results reflect self-reported tendencies and are designed for guided reflection and action planning.</em></p>
 
       <div class="readiness-row">
         <div class="readiness-box">
