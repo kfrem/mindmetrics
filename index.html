@@ -1159,6 +1159,175 @@
     .trait-name { min-width: 90px; font-size: 0.5rem; }
   }
 
+  /* ── IQ Phase 1 Enhancements ── */
+  .iq-bell-wrap {
+    background: var(--navy3);
+    border: 1px solid rgba(200,150,42,0.2);
+    border-radius: 4px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .iq-stats-trio {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 1rem;
+    margin-top: 1.2rem;
+  }
+  .iq-stat-box {
+    background: var(--navy2);
+    border: 1px solid rgba(200,150,42,0.15);
+    border-radius: 4px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .iq-stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    color: var(--steel);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .iq-stat-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.6rem;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .iq-stat-sub {
+    font-size: 0.72rem;
+    color: var(--steel);
+    line-height: 1.4;
+  }
+  .cog-blueprint { margin: 1.5rem 0; }
+  .cog-blueprint-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    opacity: 0.8;
+  }
+  .cog-item { margin-bottom: 1.1rem; }
+  .cog-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.4rem;
+  }
+  .cog-item-name {
+    font-size: 0.85rem;
+    color: var(--cream);
+    font-weight: 500;
+  }
+  .cog-item-score {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gold-light);
+  }
+  .cog-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 0.3rem;
+  }
+  .cog-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.8s ease;
+  }
+  .cog-item-desc {
+    font-size: 0.72rem;
+    color: var(--steel);
+    line-height: 1.5;
+  }
+  .hist-figures { margin: 1.5rem 0; }
+  .hist-figures-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    opacity: 0.8;
+  }
+  .hist-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 1rem;
+  }
+  .hist-card {
+    background: var(--navy3);
+    border: 1px solid rgba(200,150,42,0.15);
+    border-radius: 4px;
+    padding: 1.2rem 1rem;
+    text-align: center;
+  }
+  .hist-icon { font-size: 2.2rem; margin-bottom: 0.6rem; display: block; }
+  .hist-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 0.4rem;
+  }
+  .hist-iq {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .hist-desc { font-size: 0.72rem; color: var(--steel); line-height: 1.5; }
+  .answer-review { margin-top: 1.5rem; }
+  .answer-review-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    opacity: 0.8;
+  }
+  .answer-item {
+    display: flex;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    align-items: flex-start;
+  }
+  .answer-item:last-child { border-bottom: none; }
+  .answer-indicator {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .answer-indicator.correct { background: rgba(58,158,110,0.2); color: #6ecfa0; border: 1px solid rgba(58,158,110,0.4); }
+  .answer-indicator.wrong { background: rgba(201,64,64,0.15); color: #e07070; border: 1px solid rgba(201,64,64,0.3); }
+  .answer-content { flex: 1; }
+  .answer-q-text { font-size: 0.82rem; color: var(--cream); margin-bottom: 0.4rem; line-height: 1.4; }
+  .answer-meta {
+    display: flex; gap: 1.2rem; flex-wrap: wrap;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--steel);
+    margin-bottom: 0.4rem;
+  }
+  .answer-meta .cor { color: #6ecfa0; }
+  .answer-meta .wrg { color: #e07070; }
+  .answer-explain { font-size: 0.75rem; color: var(--steel-light); line-height: 1.5; font-style: italic; }
+  .answer-time { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--steel); margin-left: auto; white-space: nowrap; padding-left: 0.5rem; flex-shrink:0; }
+  @media (max-width:600px) {
+    .iq-stats-trio { grid-template-columns: 1fr; }
+    .hist-grid { grid-template-columns: 1fr; }
+  }
+
   /* ── Entrepreneur module extras ── */
   .archetype-card {
     background: linear-gradient(135deg, rgba(22,34,55,0.95) 0%, rgba(14,25,40,0.98) 100%);
@@ -1595,41 +1764,41 @@ const TESTS = {
 iq: {
   name: 'IQ Test', label: 'Intelligence Quotient', timed: true, timeLimit: 1260,
   questions: [
-    { cat:'Numerical Sequences', text:'What comes next in the sequence?', seq:'2, 4, 8, 16, ?', options:['24','32','30','28'], answer:1 },
-    { cat:'Numerical Sequences', text:'Find the missing number.', seq:'3, 6, 11, 18, 27, ?', options:['36','38','37','35'], answer:1 },
-    { cat:'Numerical Sequences', text:'What number completes the pattern?', seq:'100, 91, 83, 76, 70, ?', options:['65','64','66','63'], answer:0 },
-    { cat:'Numerical Sequences', text:'What comes next?', seq:'1, 4, 9, 16, 25, ?', options:['30','34','36','32'], answer:2 },
-    { cat:'Numerical Sequences', text:'What is the missing number?', seq:'0, 1, 3, 6, 10, ?', options:['13','14','15','16'], answer:2 },
-    { cat:'Verbal Analogies', text:'BOOK is to LIBRARY as PAINTING is to:', options:['Canvas','Gallery','Artist','Frame'], answer:1 },
-    { cat:'Verbal Analogies', text:'SURGEON is to SCALPEL as CARPENTER is to:', options:['Wood','Saw','Hammer','Nail'], answer:1 },
-    { cat:'Verbal Analogies', text:'COLD is to ICE as HEAT is to:', options:['Fire','Warm','Steam','Sun'], answer:2 },
-    { cat:'Verbal Analogies', text:'LIGHT is to DARK as JOY is to:', options:['Happy','Emotion','Sorrow','Laughter'], answer:2 },
-    { cat:'Verbal Analogies', text:'TREE is to FOREST as SOLDIER is to:', options:['War','Army','Uniform','General'], answer:1 },
-    { cat:'Logical Reasoning', text:'All Bloops are Razzies. All Razzies are Lazzies. Therefore:', options:['All Bloops are Lazzies','Some Lazzies are not Bloops','No Lazzies are Bloops','None of the above'], answer:0 },
-    { cat:'Logical Reasoning', text:'If all doctors are professionals, and some professionals are scientists, which must be true?', options:['All doctors are scientists','Some scientists are doctors','Some doctors may be scientists','Doctors are not scientists'], answer:2 },
-    { cat:'Logical Reasoning', text:'A is taller than B. C is shorter than A. B is taller than C. Who is tallest?', options:['A','B','C','Cannot be determined'], answer:0 },
-    { cat:'Logical Reasoning', text:'If no A is B, and all C is B, which must be true?', options:['All A is C','No C is A','Some A is C','All B is A'], answer:1 },
-    { cat:'Logical Reasoning', text:'Maria is older than Sam. Tom is younger than Maria but older than Sam. Who is youngest?', options:['Maria','Tom','Sam','Cannot be determined'], answer:2 },
-    { cat:'Numerical Reasoning', text:'A train travels 180 km in 2 hours. How many km does it travel in 5 hours at the same speed?', options:['360','450','400','540'], answer:1 },
-    { cat:'Numerical Reasoning', text:'If 5 workers complete a task in 8 days, how many days for 10 workers?', options:['16','4','8','2'], answer:1 },
-    { cat:'Numerical Reasoning', text:'What percentage of 250 is 75?', options:['25%','30%','35%','20%'], answer:1 },
-    { cat:'Numerical Reasoning', text:'A shirt costs £40 after a 20% discount. What was the original price?', options:['£48','£50','£52','£45'], answer:1 },
-    { cat:'Numerical Reasoning', text:'If 3x + 7 = 22, what is x?', options:['3','4','5','6'], answer:2 },
-    { cat:'Pattern Recognition', text:'Which number does NOT belong?', seq:'2, 3, 5, 7, 11, 15, 17', options:['11','15','7','3'], answer:1 },
-    { cat:'Pattern Recognition', text:'Complete the pattern.', seq:'Z, Y, X, W, ?', options:['V','U','T','S'], answer:0 },
-    { cat:'Pattern Recognition', text:'Which comes next in the series?', seq:'1, 1, 2, 3, 5, 8, ?', options:['12','13','11','14'], answer:1 },
-    { cat:'Pattern Recognition', text:'What comes next?', seq:'AZ, BY, CX, DW, ?', options:['EV','FU','EU','EW'], answer:0 },
-    { cat:'Pattern Recognition', text:'What is the next number?', seq:'2, 6, 12, 20, 30, ?', options:['40','42','44','48'], answer:1 },
-    { cat:'Spatial Reasoning', text:'A cube is painted red on all sides then cut into 27 equal pieces. How many pieces have exactly 2 red faces?', options:['6','8','12','16'], answer:2 },
-    { cat:'Spatial Reasoning', text:'If you fold a square paper in half twice then cut a triangle from the folded corner, how many triangles appear when unfolded?', options:['2','4','8','1'], answer:1 },
-    { cat:'Spatial Reasoning', text:'A triangular prism has how many edges?', options:['6','7','8','9'], answer:3 },
-    { cat:'Spatial Reasoning', text:'Facing north, you turn 270° clockwise. Which direction are you now facing?', options:['South','East','West','North-West'], answer:2 },
-    { cat:'Working Memory', text:'Reverse the order of this sequence: 7, 3, 9, 1, 5. What is the third number?', options:['9','1','5','3'], answer:0 },
-    { cat:'Working Memory', text:'What is the 4th letter of the word ALGORITHM?', options:['G','O','R','A'], answer:1 },
-    { cat:'Working Memory', text:'If A=1, B=2, C=3 and so on, what does CAB add up to?', options:['5','6','7','8'], answer:1 },
-    { cat:'Critical Thinking', text:'Some months have 30 days, some have 31. How many months have 28 days?', options:['1','2','All of them','6'], answer:2 },
-    { cat:'Critical Thinking', text:'A farmer has 17 sheep. All but 9 die. How many sheep remain?', options:['8','17','9','0'], answer:2 },
-    { cat:'Critical Thinking', text:'A rooster is sitting on a roof peak. It lays an egg. Which side does the egg roll down?', options:['Left side','Right side','Depends on the wind','Roosters do not lay eggs'], answer:3 },
+    { cat:'Numerical Sequences', domain:'numerical', text:'What comes next in the sequence?', seq:'2, 4, 8, 16, ?', options:['24','32','30','28'], answer:1, explain:'Each number doubles the previous one (×2). 16×2 = 32.' },
+    { cat:'Numerical Sequences', domain:'numerical', text:'Find the missing number.', seq:'3, 6, 11, 18, 27, ?', options:['36','38','37','35'], answer:1, explain:'Differences increase by 2 each time: +3,+5,+7,+9,+11. So 27+11 = 38.' },
+    { cat:'Numerical Sequences', domain:'numerical', text:'What number completes the pattern?', seq:'100, 91, 83, 76, 70, ?', options:['65','64','66','63'], answer:0, explain:'Differences decrease by 1: -9,-8,-7,-6,-5. So 70-5 = 65.' },
+    { cat:'Numerical Sequences', domain:'numerical', text:'What comes next?', seq:'1, 4, 9, 16, 25, ?', options:['30','34','36','32'], answer:2, explain:'These are perfect squares: 1²,2²,3²,4²,5²,6² = 36.' },
+    { cat:'Numerical Sequences', domain:'numerical', text:'What is the missing number?', seq:'0, 1, 3, 6, 10, ?', options:['13','14','15','16'], answer:2, explain:'Triangular numbers — add one more each time: +1,+2,+3,+4,+5. So 10+5 = 15.' },
+    { cat:'Verbal Analogies', domain:'verbal', text:'BOOK is to LIBRARY as PAINTING is to:', options:['Canvas','Gallery','Artist','Frame'], answer:1, explain:'A book is stored/displayed in a library; a painting is stored/displayed in a gallery.' },
+    { cat:'Verbal Analogies', domain:'verbal', text:'SURGEON is to SCALPEL as CARPENTER is to:', options:['Wood','Saw','Hammer','Nail'], answer:1, explain:'A scalpel is the primary cutting tool of a surgeon; a saw is the primary cutting tool of a carpenter.' },
+    { cat:'Verbal Analogies', domain:'verbal', text:'COLD is to ICE as HEAT is to:', options:['Fire','Warm','Steam','Sun'], answer:2, explain:'Ice is the physical product/result of cold; steam is the physical product/result of heat.' },
+    { cat:'Verbal Analogies', domain:'verbal', text:'LIGHT is to DARK as JOY is to:', options:['Happy','Emotion','Sorrow','Laughter'], answer:2, explain:'Light and dark are opposites; joy and sorrow are opposites.' },
+    { cat:'Verbal Analogies', domain:'verbal', text:'TREE is to FOREST as SOLDIER is to:', options:['War','Army','Uniform','General'], answer:1, explain:'A tree is an individual unit of a forest; a soldier is an individual unit of an army.' },
+    { cat:'Logical Reasoning', domain:'fluid', text:'All Bloops are Razzies. All Razzies are Lazzies. Therefore:', options:['All Bloops are Lazzies','Some Lazzies are not Bloops','No Lazzies are Bloops','None of the above'], answer:0, explain:'If all A→B and all B→C, then all A→C. Bloops are a subset of Razzies which are a subset of Lazzies.' },
+    { cat:'Logical Reasoning', domain:'fluid', text:'If all doctors are professionals, and some professionals are scientists, which must be true?', options:['All doctors are scientists','Some scientists are doctors','Some doctors may be scientists','Doctors are not scientists'], answer:2, explain:'We know doctors ⊂ professionals, and professionals ∩ scientists ≠ ∅. But we cannot confirm any doctor IS a scientist — only that it is possible.' },
+    { cat:'Logical Reasoning', domain:'fluid', text:'A is taller than B. C is shorter than A. B is taller than C. Who is tallest?', options:['A','B','C','Cannot be determined'], answer:0, explain:'A > B > C in height, so A is tallest.' },
+    { cat:'Logical Reasoning', domain:'fluid', text:'If no A is B, and all C is B, which must be true?', options:['All A is C','No C is A','Some A is C','All B is A'], answer:1, explain:'All C is B, and no A is B. Since C is entirely within B, and A has no overlap with B, A and C cannot overlap. Therefore no C is A.' },
+    { cat:'Logical Reasoning', domain:'fluid', text:'Maria is older than Sam. Tom is younger than Maria but older than Sam. Who is youngest?', options:['Maria','Tom','Sam','Cannot be determined'], answer:2, explain:'Maria > Tom > Sam in age, so Sam is youngest.' },
+    { cat:'Numerical Reasoning', domain:'numerical', text:'A train travels 180 km in 2 hours. How many km does it travel in 5 hours at the same speed?', options:['360','450','400','540'], answer:1, explain:'Speed = 180÷2 = 90 km/h. Distance in 5 hours = 90×5 = 450 km.' },
+    { cat:'Numerical Reasoning', domain:'numerical', text:'If 5 workers complete a task in 8 days, how many days for 10 workers?', options:['16','4','8','2'], answer:1, explain:'Total work = 5×8 = 40 worker-days. With 10 workers: 40÷10 = 4 days.' },
+    { cat:'Numerical Reasoning', domain:'numerical', text:'What percentage of 250 is 75?', options:['25%','30%','35%','20%'], answer:1, explain:'75÷250 = 0.30 = 30%.' },
+    { cat:'Numerical Reasoning', domain:'numerical', text:'A shirt costs £40 after a 20% discount. What was the original price?', options:['£48','£50','£52','£45'], answer:1, explain:'£40 = 80% of original. Original = 40÷0.8 = £50.' },
+    { cat:'Numerical Reasoning', domain:'numerical', text:'If 3x + 7 = 22, what is x?', options:['3','4','5','6'], answer:2, explain:'3x = 22-7 = 15. x = 15÷3 = 5.' },
+    { cat:'Pattern Recognition', domain:'fluid', text:'Which number does NOT belong?', seq:'2, 3, 5, 7, 11, 15, 17', options:['11','15','7','3'], answer:1, explain:'All others are prime numbers. 15 = 3×5, so it is not prime.' },
+    { cat:'Pattern Recognition', domain:'fluid', text:'Complete the pattern.', seq:'Z, Y, X, W, ?', options:['V','U','T','S'], answer:0, explain:'The sequence moves backwards through the alphabet one letter at a time. After W comes V.' },
+    { cat:'Pattern Recognition', domain:'fluid', text:'Which comes next in the series?', seq:'1, 1, 2, 3, 5, 8, ?', options:['12','13','11','14'], answer:1, explain:'Fibonacci sequence — each number is the sum of the two before it. 5+8 = 13.' },
+    { cat:'Pattern Recognition', domain:'fluid', text:'What comes next?', seq:'AZ, BY, CX, DW, ?', options:['EV','FU','EU','EW'], answer:0, explain:'First letter advances (A,B,C,D,E); second letter goes backwards (Z,Y,X,W,V). Answer: EV.' },
+    { cat:'Pattern Recognition', domain:'fluid', text:'What is the next number?', seq:'2, 6, 12, 20, 30, ?', options:['40','42','44','48'], answer:1, explain:'Differences increase by 2 each time: +4,+6,+8,+10,+12. So 30+12 = 42.' },
+    { cat:'Spatial Reasoning', domain:'spatial', text:'A cube is painted red on all sides then cut into 27 equal pieces. How many pieces have exactly 2 red faces?', options:['6','8','12','16'], answer:2, explain:'A 3×3×3 cube has 12 edge pieces (not corner, not face-centre) — each touches exactly 2 painted faces.' },
+    { cat:'Spatial Reasoning', domain:'spatial', text:'If you fold a square paper in half twice then cut a triangle from the folded corner, how many triangles appear when unfolded?', options:['2','4','8','1'], answer:1, explain:'Folding in half twice creates 4 layers. One cut through all layers creates 4 triangles when unfolded.' },
+    { cat:'Spatial Reasoning', domain:'spatial', text:'A triangular prism has how many edges?', options:['6','7','8','9'], answer:3, explain:'A triangular prism has 2 triangular faces (3 edges each = 6) plus 3 rectangular faces connecting them (3 more edges) = 9 edges total.' },
+    { cat:'Spatial Reasoning', domain:'spatial', text:'Facing north, you turn 270° clockwise. Which direction are you now facing?', options:['South','East','West','North-West'], answer:2, explain:'270° clockwise from north: 90°=East, 180°=South, 270°=West.' },
+    { cat:'Working Memory', domain:'memory', text:'Reverse the order of this sequence: 7, 3, 9, 1, 5. What is the third number?', options:['9','1','5','3'], answer:0, explain:'Reversed sequence: 5,1,9,3,7. The third number is 9.' },
+    { cat:'Working Memory', domain:'memory', text:'What is the 4th letter of the word ALGORITHM?', options:['G','O','R','A'], answer:1, explain:'A(1) L(2) G(3) O(4) R(5) I(6) T(7) H(8) M(9). The 4th letter is O.' },
+    { cat:'Working Memory', domain:'memory', text:'If A=1, B=2, C=3 and so on, what does CAB add up to?', options:['5','6','7','8'], answer:1, explain:'C=3, A=1, B=2. Sum = 3+1+2 = 6.' },
+    { cat:'Critical Thinking', domain:'memory', text:'Some months have 30 days, some have 31. How many months have 28 days?', options:['1','2','All of them','6'], answer:2, explain:'All 12 months have at least 28 days. Only February has exactly 28 (in non-leap years), but the question asks how many have 28 days — all of them do.' },
+    { cat:'Critical Thinking', domain:'memory', text:'A farmer has 17 sheep. All but 9 die. How many sheep remain?', options:['8','17','9','0'], answer:2, explain:'"All but 9" means all except 9. So 9 sheep remain.' },
+    { cat:'Critical Thinking', domain:'memory', text:'A rooster is sitting on a roof peak. It lays an egg. Which side does the egg roll down?', options:['Left side','Right side','Depends on the wind','Roosters do not lay eggs'], answer:3, explain:'Roosters are male — they do not lay eggs.' },
   ]
 },
 
@@ -1775,10 +1944,13 @@ let state = {
   currentTest: null, // key
   currentQ: 0,
   answers: [],
+  answerTimes: [],   // seconds per question
+  allAnswerTimes: {}, // testKey -> answerTimes[]
   allAnswers: {},    // testKey -> answers[]
   timerInterval: null,
   secondsLeft: 0,
   selectedOption: null,
+  questionStartTime: 0,
 };
 
 function showScreen(id) {
@@ -1818,6 +1990,7 @@ function launchTest(key) {
   state.currentTest = key;
   state.currentQ = 0;
   state.answers = [];
+  state.answerTimes = [];
   state.selectedOption = null;
 
   const test = TESTS[key];
@@ -1921,6 +2094,8 @@ function renderQuestion() {
   const nb = document.getElementById('btn-next');
   nb.classList.remove('ready');
   nb.textContent = state.currentQ === total - 1 ? 'Finish Test ✓' : 'Next →';
+
+  state.questionStartTime = Date.now();
 }
 
 function selectOption(idx, btn) {
@@ -1936,6 +2111,8 @@ function selectOption(idx, btn) {
 
 function nextQuestion() {
   if (state.selectedOption === null) return;
+  const elapsed = Math.round((Date.now() - state.questionStartTime) / 1000);
+  state.answerTimes.push(elapsed);
   state.answers.push(state.selectedOption);
   state.currentQ++;
 
@@ -1950,6 +2127,7 @@ function nextQuestion() {
 function finishTest() {
   if (state.timerInterval) clearInterval(state.timerInterval);
   state.allAnswers[state.currentTest] = [...state.answers];
+  state.allAnswerTimes[state.currentTest] = [...state.answerTimes];
 
   if (state.mode === 'all' && state.queue.length > 0) {
     showTransition(state.queue[0]);
@@ -1980,10 +2158,19 @@ function continueNext() {
 function scoreIQ(answers) {
   const qs = TESTS.iq.questions;
   let correct = 0;
-  answers.forEach((a, i) => { if (i < qs.length && a === qs[i].answer) correct++; });
-  // Map 0-35 correct to IQ 60-145
+  const domainScores = { fluid:[], numerical:[], verbal:[], spatial:[], memory:[] };
+  answers.forEach((a, i) => {
+    if (i >= qs.length) return;
+    const q = qs[i];
+    const isCorrect = a === q.answer ? 1 : 0;
+    if (isCorrect) correct++;
+    if (q.domain && domainScores[q.domain] !== undefined) domainScores[q.domain].push(isCorrect);
+  });
+  const domPct = arr => arr.length ? Math.round((arr.reduce((a,b)=>a+b,0)/arr.length)*100) : 0;
+  const domains = {};
+  for (const k in domainScores) domains[k] = domPct(domainScores[k]);
   const iq = Math.round(60 + (correct / 35) * 85);
-  return { raw: correct, iq, max: 35 };
+  return { raw: correct, iq, max: 35, domains };
 }
 
 function scoreEQ(answers) {
@@ -2065,6 +2252,59 @@ function big5Desc(trait, score) {
   return descs[trait];
 }
 
+// ── Normal CDF approximation for IQ percentile ──
+function normalCDF(z) {
+  const t = 1/(1+0.2316419*Math.abs(z));
+  const poly = t*(0.319381530+t*(-0.356563782+t*(1.781477937+t*(-1.821255978+t*1.330274429))));
+  const pdf = Math.exp(-0.5*z*z)/Math.sqrt(2*Math.PI);
+  const cdf = 1 - pdf*poly;
+  return z >= 0 ? cdf : 1-cdf;
+}
+function iqPercentile(iq) { return Math.round(normalCDF((iq-100)/15)*100); }
+
+function drawBellCurve(iq) {
+  const W=500,H=110,PAD=22,mu=100,sig=15,xMin=55,xMax=145;
+  const pdf = x => Math.exp(-0.5*((x-mu)/sig)**2)/(sig*Math.sqrt(2*Math.PI));
+  const maxP = pdf(mu);
+  const sx = x => PAD+((x-xMin)/(xMax-xMin))*(W-2*PAD);
+  const sy = p => H-PAD-(p/maxP)*(H-2*PAD-8);
+  const pts=[],shade=[];
+  for(let x=xMin;x<=xMax;x+=0.4) pts.push(`${sx(x)},${sy(pdf(x))}`);
+  for(let x=xMin;x<=iq;x+=0.4) shade.push(`${sx(x)},${sy(pdf(x))}`);
+  shade.push(`${sx(iq)},${H-PAD}`,`${sx(xMin)},${H-PAD}`);
+  const mx=sx(iq),my=sy(pdf(iq));
+  const labels=[70,85,100,115,130];
+  const lblHtml=labels.map(v=>`<text x="${sx(v)}" y="${H-5}" text-anchor="middle" fill="${v===100?'rgba(255,255,255,0.5)':'rgba(255,255,255,0.25)'}" font-size="9" font-family="monospace">${v}</text>`).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+    <polygon points="${shade.join(' ')}" fill="rgba(200,150,42,0.12)"/>
+    <polyline points="${pts.join(' ')}" fill="none" stroke="rgba(200,150,42,0.7)" stroke-width="2"/>
+    <line x1="${PAD}" y1="${H-PAD}" x2="${W-PAD}" y2="${H-PAD}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <line x1="${mx}" y1="${my-4}" x2="${mx}" y2="${H-PAD}" stroke="var(--gold-light)" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <circle cx="${mx}" cy="${my}" r="4" fill="var(--gold-light)" stroke="var(--navy)" stroke-width="1.5"/>
+    ${lblHtml}
+    <text x="${mx}" y="${my-10}" text-anchor="middle" fill="var(--gold-light)" font-size="10" font-family="monospace" font-weight="bold">IQ ${iq}</text>
+  </svg>`;
+}
+
+function iqHistoricalFigures(iq) {
+  const figures = [
+    { min:138, icon:'🎨', name:'Leonardo da Vinci', est:'~180', desc:'Painter, sculptor, engineer, anatomist — history\'s most wide-ranging genius.' },
+    { min:133, icon:'⚛️', name:'Albert Einstein', est:'~160', desc:'Developed the theory of relativity and reshaped our understanding of space, time, and energy.' },
+    { min:128, icon:'🔭', name:'Stephen Hawking', est:'~160', desc:'Theoretical physicist who solved fundamental questions about black holes and cosmology.' },
+    { min:122, icon:'⚛️', name:'Richard Feynman', est:'~125', desc:'Nobel-winning physicist known for making complex ideas brilliantly clear and accessible.' },
+    { min:118, icon:'🏛️', name:'Abraham Lincoln', est:'~128', desc:'Self-taught lawyer and president who combined logical precision with deep moral conviction.' },
+    { min:112, icon:'🎵', name:'Wolfgang Mozart', est:'~165', desc:'Composed over 800 works of extraordinary complexity — many before the age of 12.' },
+    { min:105, icon:'⚔️', name:'Napoleon Bonaparte', est:'~145', desc:'Military strategist whose analytical brilliance reshaped the political map of Europe.' },
+    { min:0, icon:'🌍', name:'Global Average', est:'~100', desc:'The cognitive baseline shared by most of the world\'s population.' },
+  ];
+  const matched = figures.filter(f => iq >= f.min).slice(0,3);
+  if (matched.length < 3) {
+    const extras = figures.filter(f => !matched.includes(f));
+    while (matched.length < 3 && extras.length) matched.push(extras.shift());
+  }
+  return matched.slice(0,3);
+}
+
 function showResults() {
   const aa = state.allAnswers;
   const testsRun = Object.keys(aa);
@@ -2090,12 +2330,106 @@ function showResults() {
         <div class="score-bar"><div class="score-bar-fill" style="width:${Math.min(100,(r.iq-60)/85*100)}%;background:${band.color}"></div></div>
       </div>`;
 
+    const pct = iqPercentile(r.iq);
+    const aboveAvg = r.iq - 100;
+    const figs = iqHistoricalFigures(r.iq);
+    const domMeta = {
+      fluid:    { name:'Fluid Reasoning',      color:'#c8962a', desc:'Solving novel problems, spotting patterns, logical deduction.' },
+      numerical:{ name:'Numerical Intelligence',color:'#2a8fa0', desc:'Number patterns, arithmetic reasoning, quantitative problem-solving.' },
+      verbal:   { name:'Verbal Intelligence',   color:'#9b59b6', desc:'Language analogies, word relationships, and verbal logic.' },
+      spatial:  { name:'Spatial Processing',    color:'#3a9e6e', desc:'Visualising objects in 3D, rotations, and geometric reasoning.' },
+      memory:   { name:'Working Memory',        color:'#e8b84b', desc:'Holding and manipulating information in your mind in real time.' },
+    };
+    const cogBars = Object.entries(r.domains).map(([k,v])=>{
+      const m = domMeta[k];
+      return `<div class="cog-item">
+        <div class="cog-item-header">
+          <span class="cog-item-name">${m.name}</span>
+          <span class="cog-item-score">${v}/100</span>
+        </div>
+        <div class="cog-bar"><div class="cog-bar-fill" style="width:${v}%;background:${m.color}"></div></div>
+        <div class="cog-item-desc">${m.desc}</div>
+      </div>`;
+    }).join('');
+
+    const figCards = figs.map(f=>`
+      <div class="hist-card">
+        <span class="hist-icon">${f.icon}</span>
+        <div class="hist-name">${f.name}</div>
+        <div class="hist-iq">Est. IQ ${f.est}</div>
+        <div class="hist-desc">${f.desc}</div>
+      </div>`).join('');
+
+    // Per-question review
+    const times = state.allAnswerTimes.iq || [];
+    const qs = TESTS.iq.questions;
+    const ans = state.allAnswers.iq || [];
+    const reviewHtml = qs.map((q,i)=>{
+      if(i >= ans.length) return '';
+      const isCorrect = ans[i] === q.answer;
+      const yourAns = q.options[ans[i]] || '—';
+      const correctAns = q.options[q.answer];
+      const timeTaken = times[i] ? `${times[i]}s` : '—';
+      const qDisplay = q.seq ? `${q.text} <em style="color:var(--gold);font-style:normal">${q.seq}</em>` : q.text;
+      return `<div class="answer-item">
+        <div class="answer-indicator ${isCorrect?'correct':'wrong'}">${isCorrect?'✓':'✗'}</div>
+        <div class="answer-content">
+          <div class="answer-q-text">${qDisplay}</div>
+          <div class="answer-meta">
+            ${isCorrect
+              ? `<span class="cor">✓ ${yourAns}</span>`
+              : `<span class="wrg">✗ Your answer: ${yourAns}</span><span class="cor">✓ Correct: ${correctAns}</span>`
+            }
+          </div>
+          <div class="answer-explain">${q.explain}</div>
+        </div>
+        <div class="answer-time">⏱ ${timeTaken}</div>
+      </div>`;
+    }).join('');
+
     detailSections.innerHTML += `
       <div class="result-section">
         <div class="result-section-title">Intelligence Quotient <span class="badge">IQ ${r.iq}</span></div>
-        <p>You answered <strong style="color:var(--gold-light)">${r.raw} out of ${r.max}</strong> questions correctly across logic, numerical reasoning, verbal analogies, and spatial tasks. This places you in the <strong style="color:${band.color}">${band.label}</strong> range.</p>
-        <p>${iqInterpretation(r.iq)}</p>
-        <p style="font-size:0.75rem;color:var(--steel);margin-top:0.8rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Important context:</strong> This 35-question assessment provides a directional estimate only. Validated IQ measurement (Wechsler, Stanford-Binet) takes 60–90 minutes, covers 10–15 subtests, and requires a qualified psychologist. Score ranges here are approximations and are not normatively validated against a population sample.</em></p>
+
+        <div class="iq-bell-wrap">
+          ${drawBellCurve(r.iq)}
+          <div class="iq-stats-trio">
+            <div class="iq-stat-box">
+              <div class="iq-stat-label">Better Than</div>
+              <div class="iq-stat-value">${pct}%</div>
+              <div class="iq-stat-sub">In a room of 100 people, you would outperform ${pct} of them</div>
+            </div>
+            <div class="iq-stat-box">
+              <div class="iq-stat-label">Your IQ Score</div>
+              <div class="iq-stat-value">${r.iq}</div>
+              <div class="iq-stat-sub">${r.raw}/${r.max} correct · ${band.label}</div>
+            </div>
+            <div class="iq-stat-box">
+              <div class="iq-stat-label">${aboveAvg >= 0 ? 'Above' : 'Below'} Average</div>
+              <div class="iq-stat-value" style="color:${band.color}">${aboveAvg >= 0 ? '+' : ''}${aboveAvg}</div>
+              <div class="iq-stat-sub">Population average is 100 (SD 15)</div>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-bottom:1rem">${iqInterpretation(r.iq)}</p>
+
+        <div class="cog-blueprint">
+          <div class="cog-blueprint-title">Your Cognitive Blueprint</div>
+          ${cogBars}
+        </div>
+
+        <div class="hist-figures">
+          <div class="hist-figures-title">Historical Figures With Similar IQ</div>
+          <div class="hist-grid">${figCards}</div>
+        </div>
+
+        <div class="answer-review">
+          <div class="answer-review-title">Your Answers · Question by Question</div>
+          ${reviewHtml}
+        </div>
+
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:1.2rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Important context:</strong> This 35-question assessment provides a directional estimate only. Validated IQ measurement (Wechsler, Stanford-Binet) takes 60–90 minutes, covers 10–15 subtests, and requires a qualified psychologist. Score ranges here are approximations and are not normatively validated against a population sample.</em></p>
       </div>`;
   }
 
