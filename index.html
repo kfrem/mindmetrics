@@ -1577,13 +1577,33 @@
 
   /* ══ PRINT / CERTIFICATE ══ */
   @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
     body { background: white !important; color: #111 !important; }
     body::before { display: none !important; }
-    #quiz, #landing, .modal-overlay, .test-transition { display: none !important; }
-    #results { display: block !important; }
-    .retake-row, .premium-actions { display: none !important; }
-    .result-section { border-color: #ddd !important; background: white !important; }
+    #quiz, #landing, .modal-overlay, .test-transition, .retake-row, .premium-actions, .share-panel, #qr-canvas, .btn-premium { display: none !important; }
+    .screen { display: none !important; position: static !important; }
+    #results, #results.active {
+      display: block !important;
+      position: static !important;
+      overflow: visible !important;
+      inset: auto !important;
+      height: auto !important;
+      width: 100% !important;
+      background: white !important;
+    }
+    .result-section {
+      border: 1px solid #ddd !important;
+      background: white !important;
+      page-break-inside: avoid;
+      margin-bottom: 20px !important;
+    }
     .score-card { background: #f5f5f5 !important; border-color: #ddd !important; }
+    .iq-bell-wrap, .cog-blueprint, .hist-figures, .answer-review { background: white !important; border-color: #ddd !important; }
+    .cog-bar { background: #eee !important; }
+    .score-bar { background: #eee !important; }
+    .trait-bar { background: #eee !important; }
+    .result-section-title { color: #111 !important; }
+    .results-inner { max-width: 100% !important; }
     #certificate-page { display: block !important; page-break-before: always; }
   }
 
@@ -2305,6 +2325,164 @@ function iqHistoricalFigures(iq) {
   return matched.slice(0,3);
 }
 
+// ══════════════════════════════════════════════════════════
+//  NARRATIVE REPORT GENERATORS
+// ══════════════════════════════════════════════════════════
+
+function generateIQNarrative(r, band) {
+  const pct = iqPercentile(r.iq);
+  const d = r.domains || {};
+  const domNames = { fluid:'Fluid Reasoning', numerical:'Numerical Intelligence', verbal:'Verbal Intelligence', spatial:'Spatial Processing', memory:'Working Memory' };
+  const domEntries = Object.entries(d).sort((a,b) => b[1]-a[1]);
+  const strongest = domEntries[0] || ['fluid',50];
+  const weakest = domEntries[domEntries.length-1] || ['memory',50];
+
+  let overall = '';
+  if (r.iq >= 130) {
+    overall = `Your cognitive assessment score of <strong>${r.iq}</strong> places you in the <strong>${band.label}</strong> range — the top 2% of the population. Scores at this level are associated with exceptional pattern recognition, rapid abstract reasoning, and the ability to synthesise complex information across multiple domains simultaneously. You are likely the person in most rooms who spots connections others miss, finds conventional explanations incomplete, and processes information faster than most conversations allow. This level of cognitive ability is a genuine strategic advantage — the key is learning to work in environments where it is actually needed and valued, rather than environments that suppress it.`;
+  } else if (r.iq >= 120) {
+    overall = `Your cognitive assessment score of <strong>${r.iq}</strong> places you in the <strong>${band.label}</strong> range, performing better than approximately <strong>${pct}%</strong> of the population. This puts you comfortably in the top 10% — a level associated with strong professional performance in analytical, strategic, and leadership roles. People in this range typically find routine cognitive tasks unstimulating and perform best when genuinely challenged. You have the raw processing capacity to succeed in demanding fields; the differentiating factor at this level is usually drive, emotional intelligence, and domain knowledge rather than raw cognitive power.`;
+  } else if (r.iq >= 110) {
+    overall = `Your cognitive assessment score of <strong>${r.iq}</strong> places you in the <strong>${band.label}</strong> range, outperforming approximately <strong>${pct}%</strong> of the general population. This is a solid result that reflects meaningful analytical capability above the average. You are well-equipped to handle complex information, learn new skills efficiently, and reason through multi-step problems. At this level, the gap between cognitive potential and real-world achievement is almost entirely explained by habits, discipline, and the environments you choose — not by any ceiling on your ability.`;
+  } else if (r.iq >= 90) {
+    overall = `Your cognitive assessment score of <strong>${r.iq}</strong> sits in the <strong>${band.label}</strong> range — the same range shared by the majority of the population. This is not a verdict on your potential. It is a snapshot of how you performed on this style of timed reasoning test today. Cognitive performance is measurably trainable: structured practice with logic puzzles, pattern recognition, and numerical reasoning produces real gains. Many highly successful people have built extraordinary careers with average cognitive scores by developing exceptional domain expertise, discipline, and interpersonal skill.`;
+  } else {
+    overall = `Your score today was lower than expected for this format. Timed reasoning tests are particularly sensitive to anxiety, fatigue, and unfamiliarity with the question style. Before drawing any conclusions, consider retaking under better conditions. Cognitive performance is not fixed — it responds strongly to practice, sleep, and reduced stress.`;
+  }
+
+  const strengthDetail = {
+    fluid: `Your strongest cognitive area is <strong>${domNames[strongest[0]]} (${strongest[1]}/100)</strong>. This is the most generalisable form of intelligence — the ability to solve novel problems without relying on stored knowledge. It is what allows you to walk into an unfamiliar situation and figure it out from first principles. High fluid reasoning is associated with adaptability, creative problem-solving, and the ability to learn new skills quickly. In practical terms, this means you are likely the person who can step into new roles and make sense of them fast, who finds frameworks and systems easy to build mentally, and who can untangle complex problems others find overwhelming.`,
+    numerical: `Your strongest cognitive area is <strong>${domNames[strongest[0]]} (${strongest[1]}/100)</strong>. You are clearly comfortable in the world of numbers, patterns, and quantitative reasoning. This is a significant professional advantage in finance, data, engineering, science, and any environment where numerical information needs to be interpreted and acted upon quickly. Strong numerical intelligence also correlates with strong financial decision-making — you are less likely to be fooled by misleading statistics, percentage comparisons, or numerical sleight-of-hand.`,
+    verbal: `Your strongest cognitive area is <strong>${domNames[strongest[0]]} (${strongest[1]}/100)</strong>. You process language, relationships between concepts, and the logic of arguments with unusual clarity. This underpins powerful communication, persuasive writing, nuanced reading, and the ability to follow complex reasoning. Verbal intelligence is a core asset in law, management, education, strategy, and any field where the precision of language shapes outcomes. It also means you learn efficiently through reading and can extract more meaning from text than most.`,
+    spatial: `Your strongest cognitive area is <strong>${domNames[strongest[0]]} (${strongest[1]}/100)</strong>. The ability to visualise, rotate, and reason about objects in three dimensions is genuinely rare and highly valuable. Spatial intelligence underpins excellence in architecture, surgery, engineering, design, mathematics, and the physical sciences. It is also associated with strong mechanical reasoning and an intuitive grasp of how systems fit together physically. If you have not already, consider whether your career makes use of this uncommon capability.`,
+    memory: `Your strongest cognitive area is <strong>${domNames[strongest[0]]} (${strongest[1]}/100)</strong>. Working memory is the cognitive resource that determines how much information you can hold and manipulate in your mind at once — it is the RAM of human cognition. Strong working memory means you can follow complex arguments, keep track of multiple variables simultaneously, and perform multi-step reasoning without losing the thread. This underpins excellence in mathematics, music, coding, project management, and any field that requires sustained mental juggling.`
+  };
+
+  const weaknessDetail = {
+    fluid: `Your lowest scoring area is <strong>${domNames[weakest[0]]} (${weakest[1]}/100)</strong>. Fluid reasoning is the most trainable of all cognitive skills, which makes this a genuine development opportunity. The most effective approach is deliberate practice with novel reasoning problems — not problems you have seen before, but genuinely unfamiliar logic and pattern challenges. Spend 15 minutes per day on logic puzzles, lateral thinking problems, or abstract reasoning exercises. Apps like Lumosity or books like "Thinking, Fast and Slow" by Daniel Kahneman will build both the skill and the metacognitive awareness of how you reason.`,
+    numerical: `Your lowest scoring area is <strong>${domNames[weakest[0]]} (${weakest[1]}/100)</strong>. Numerical reasoning is highly learnable through systematic practice. The gap between people who are "good with numbers" and those who are not is almost entirely explained by practice, not innate talent. Daily exposure to mental arithmetic, percentage calculations, and number pattern puzzles produces measurable improvement within weeks. Khan Academy offers a free, structured numerical reasoning curriculum. Equally important: start noticing numbers in everyday life — prices, statistics, rates — and mentally interrogate them rather than accepting them passively.`,
+    verbal: `Your lowest scoring area is <strong>${domNames[weakest[0]]} (${weakest[1]}/100)</strong>. Verbal intelligence grows primarily through deliberate reading — and specifically through reading that is slightly beyond your current comfort level. Non-fiction, analytical essays, philosophy, and well-written journalism will stretch your vocabulary and your ability to follow dense arguments. Aim for 30 minutes of challenging reading per day. Writing regularly also builds verbal processing: keeping a journal, writing summaries of what you read, or attempting to explain complex ideas in clear language all strengthen this capability.`,
+    spatial: `Your lowest scoring area is <strong>${domNames[weakest[0]]} (${weakest[1]}/100)</strong>. Spatial reasoning responds well to specific practice. Regular engagement with 3D puzzles (Rubik's cube, Tetris, physical construction toys), technical drawing, chess, or spatial reasoning apps produces measurable improvements. If your work does not require spatial thinking, you can build this through hobbies — woodworking, 3D design software, or even video games that require spatial navigation all engage this cognitive system.`,
+    memory: `Your lowest scoring area is <strong>${domNames[weakest[0]]} (${weakest[1]}/100)</strong>. Working memory is one of the most trainable cognitive capacities. The most evidence-backed methods are: dual n-back training (a specific cognitive exercise available in several free apps), regular mindfulness practice which reduces the cognitive noise that consumes working memory capacity, and structured externalisation habits — using note-taking, to-do systems, and structured thinking to free up mental bandwidth for what genuinely needs to be held in mind.`
+  };
+
+  return `<p>${overall}</p>
+    <p style="margin-top:1rem">${strengthDetail[strongest[0]]}</p>
+    <p style="margin-top:1rem">${weaknessDetail[weakest[0]]}</p>`;
+}
+
+function generateEQNarrative(r, band) {
+  const d = r.domains;
+  const dLabels = { awareness:'Self-Awareness', regulation:'Self-Regulation', empathy:'Empathy', social:'Social Skills' };
+  const sorted = Object.entries(d).sort((a,b) => a[1]-b[1]);
+  const lowest = sorted[0];
+  const highest = sorted[sorted.length-1];
+
+  let overall = '';
+  if (r.total >= 85) {
+    overall = `Your overall Emotional Intelligence score of <strong>${r.total}/100</strong> — rated <strong>${band}</strong> — places you in the top tier of emotional functioning. This level of EQ is associated with strong leadership effectiveness, high-quality relationships, resilience under pressure, and the ability to navigate conflict constructively. People at this level typically find that emotional situations which derail others feel manageable — not because they feel less, but because they understand what they are feeling and can choose how to respond rather than simply reacting.`;
+  } else if (r.total >= 70) {
+    overall = `Your overall Emotional Intelligence score of <strong>${r.total}/100</strong> — rated <strong>${band}</strong> — reflects a well-developed emotional toolkit. You are operating above average in your ability to understand, manage, and work with emotions — both your own and others'. At this level, EQ is already a professional and personal asset. The opportunity is to identify the specific domains where your score is lowest and address them deliberately, because targeted improvement in those areas will produce the greatest return.`;
+  } else if (r.total >= 55) {
+    overall = `Your overall Emotional Intelligence score of <strong>${r.total}/100</strong> — rated <strong>${band}</strong> — reflects a functional but uneven emotional skill set. You have genuine capabilities in some areas while others require more attention. The good news is that EQ is more trainable than IQ — it responds directly to self-reflection, feedback from others, and deliberate behavioural practice. The areas identified below as your lowest scores are the places to focus your development energy first.`;
+  } else {
+    overall = `Your overall Emotional Intelligence score of <strong>${r.total}/100</strong> suggests significant room for growth in how you recognise and manage emotions. This is not uncommon — many people with high analytical intelligence have lower emotional awareness simply because they have not been trained or encouraged to develop it. EQ is entirely learnable, and even modest improvements in self-awareness and emotional regulation have been shown to produce substantial improvements in relationships, leadership effectiveness, and stress resilience.`;
+  }
+
+  const domainNarratives = {
+    awareness: {
+      high: `Your <strong>Self-Awareness (${d.awareness}/100)</strong> is one of your strongest EQ dimensions. You have a well-developed ability to identify what you are feeling in the moment, understand how your moods affect your behaviour and decisions, and recognise your own strengths and limitations with reasonable accuracy. This is the foundation of all emotional intelligence — without it, the other domains cannot develop. Your high self-awareness means that when things go wrong interpersonally, you are more likely to look inward first and ask what your own contribution was, which is a rare and valuable quality.`,
+      low: `Your <strong>Self-Awareness (${d.awareness}/100)</strong> is an area requiring focused development. Self-awareness is the foundation of emotional intelligence — without a clear sense of what you are feeling and why, it becomes very difficult to regulate your behaviour, empathise with others, or build strong relationships. The most effective way to build this is through a daily journalling practice: at the end of each day, spend five minutes writing about one emotional experience — what triggered it, what you felt physically, and what story you told yourself about it. Over time, this builds the internal vocabulary and the habit of noticing emotions before they drive behaviour unconsciously.`
+    },
+    regulation: {
+      high: `Your <strong>Self-Regulation (${d.regulation}/100)</strong> is strong. You have a well-developed ability to manage your emotional reactions, delay gratification, recover from setbacks, and adjust your behaviour to suit the situation. This is one of the most practically valuable EQ skills — it is what separates the person who sends the angry email from the one who sleeps on it, and the person who quits when things are hard from the one who adapts. High self-regulation gives you a significant advantage in high-pressure environments, difficult relationships, and long-term goal pursuit.`,
+      low: `Your <strong>Self-Regulation (${d.regulation}/100)</strong> is an area where targeted work will produce significant returns. Low regulation scores often show up as impulsive reactions, difficulty recovering from criticism or setbacks, or behaviour that you later regret. The most effective interventions are physical as well as psychological: regular aerobic exercise has strong evidence for improving emotional regulation at a neurological level. Mindfulness practice — even 10 minutes per day — builds the pause between stimulus and response that allows you to choose how to act rather than simply reacting. Identify your three most common emotional triggers and create a specific plan for each one.`
+    },
+    empathy: {
+      high: `Your <strong>Empathy (${d.empathy}/100)</strong> score is high, indicating a genuine capacity to sense and understand what others are experiencing — even when they do not say it directly. This is an extraordinary asset in leadership, parenting, counselling, sales, teaching, and any context involving human relationships. People with high empathy build trust more quickly, resolve conflicts more effectively, and tend to be sought out as confidants and advisors. The one development area for high-empathy individuals is ensuring that their empathy does not become a burden — absorbing others' distress without boundaries leads to compassion fatigue.`,
+      low: `Your <strong>Empathy (${d.empathy}/100)</strong> score suggests that reading and responding to others' emotional states is currently a gap. This can have real consequences in relationships, leadership, and team dynamics — people who feel unheard or unseen tend to disengage, and a low-empathy communication style can come across as cold or dismissive even when that is not the intention. The most powerful empathy-building practice is active listening: in your next ten conversations, make a deliberate effort to listen without preparing your response while the other person is still talking. Ask one follow-up question before sharing your own view. Over time, this builds the habit of genuine attention that empathy requires.`
+    },
+    social: {
+      high: `Your <strong>Social Skills (${d.social}/100)</strong> score is high, reflecting strong ability to navigate relationships, resolve conflict, communicate effectively under pressure, and inspire or motivate others. These skills are among the most directly linked to professional success and leadership effectiveness — they are what translate emotional intelligence from an internal quality into visible impact. Your ability to build and maintain meaningful relationships while collaborating across different personality types is a genuine competitive advantage that will compound over the course of your career.`,
+      low: `Your <strong>Social Skills (${d.social}/100)</strong> score suggests that the practical application of emotional intelligence in relationships and group settings is an area to develop. This often shows up as difficulty in conflict situations, challenges with networking or building rapport quickly, or feedback that your communication style can feel blunt or disconnected. Practical steps: seek out one networking or group collaboration opportunity per month where you deliberately practise initiating connection. Study conflict resolution frameworks — the "Crucial Conversations" methodology is highly practical. Ask a trusted colleague or friend for specific feedback on how your communication lands in difficult situations.`
+    }
+  };
+
+  const domHtml = Object.entries(d).map(([k,v]) => {
+    const isHigh = v >= 60;
+    return `<p style="margin-top:1rem">${domainNarratives[k][isHigh?'high':'low']}</p>`;
+  }).join('');
+
+  return `<p>${overall}</p>${domHtml}`;
+}
+
+function generateBig5Narrative(r) {
+  const traitNames = { O:'Openness', C:'Conscientiousness', E:'Extraversion', A:'Agreeableness', N:'Neuroticism' };
+  const sorted = Object.entries(r).sort((a,b) => b[1]-a[1]);
+
+  const traitNarratives = {
+    O: {
+      high: `<strong>Openness (${r.O}%)</strong> — You score high on intellectual curiosity, imagination, and openness to new experiences. You are energised by ideas, comfortable with ambiguity, and drawn to novelty and complexity. This is a strong predictor of creative achievement and adaptability. In career terms, you thrive in environments that reward innovation, tolerate uncertainty, and value original thinking. The development note for high-Openness individuals: ensure that enthusiasm for new ideas does not crowd out the execution discipline required to see them through. Pair your Openness score with your Conscientiousness score — if that is lower, building completion habits is your highest-leverage development area.`,
+      low: `<strong>Openness (${r.O}%)</strong> — You score lower on Openness, indicating a preference for the familiar, concrete, and conventional. You tend to value practical solutions over abstract theorising and are more comfortable with established methods than experimental ones. This is not a weakness — it is a cognitive style that drives reliability, consistency, and the kind of deep domain expertise that only comes from staying with something long enough to master it. The development consideration: in rapidly changing environments, being able to consciously stretch towards new approaches — even when they feel uncomfortable — is a useful skill to practise deliberately.`
+    },
+    C: {
+      high: `<strong>Conscientiousness (${r.C}%)</strong> — You score high on discipline, organisation, and goal-directed behaviour. You plan carefully, follow through reliably, and hold yourself to high standards. Conscientiousness is the single strongest personality predictor of long-term career success and academic achievement across virtually all fields. Your ability to stay focused on goals, manage your time effectively, and deliver what you commit to is a durable professional asset. The development note: very high Conscientiousness can sometimes manifest as perfectionism or difficulty delegating — watch for the point at which high standards become a productivity constraint rather than an asset.`,
+      low: `<strong>Conscientiousness (${r.C}%)</strong> — You score lower on conscientiousness, indicating a more flexible, spontaneous, and less structured approach to tasks and goals. You may find rigid schedules and detailed planning uninspiring, preferring to respond to situations as they emerge. The significant development opportunity here is real: conscientiousness is the strongest personality predictor of professional success, and it is one of the most trainable traits. Building simple systems — a daily task list, time-blocking, a weekly review — can produce dramatic improvements in output without requiring you to become a different person. Start with one habit at a time.`
+    },
+    E: {
+      high: `<strong>Extraversion (${r.E}%)</strong> — You are energised by social interaction, natural in group settings, and tend to be expressive, enthusiastic, and assertive. High Extraversion is associated with strong networking ability, effective leadership presence, and the kind of confidence in social situations that opens doors. In career terms, roles that involve people, communication, sales, or leadership tend to suit you well. The development note for high-Extraverts: the skill of deliberate listening — genuinely quieting the impulse to speak and allowing others to fully express themselves — is often an area to consciously develop.`,
+      low: `<strong>Extraversion (${r.E}%)</strong> — You are introverted, which means you recharge through solitude and depth rather than social stimulation. This is emphatically not a disadvantage — introverts tend to think more carefully before speaking, build fewer but deeper relationships, and perform with particular strength in roles requiring sustained concentration, deep analysis, or independent creative work. The development consideration is not to become more extraverted but to build specific social competencies — initiating important conversations, networking with intention, and asserting your perspective in group settings — as deliberate skills rather than leaving them to natural inclination.`
+    },
+    A: {
+      high: `<strong>Agreeableness (${r.A}%)</strong> — You score high on warmth, trust, cooperation, and concern for others. You are the person who keeps teams together, defuses tension, and ensures that relationships are maintained even when things are difficult. High Agreeableness is associated with strong teamwork, conflict avoidance (mostly useful, occasionally problematic), and being genuinely liked and trusted. The development area: research consistently shows that high-Agreeableness individuals are systematically underpaid and under-promoted relative to their performance, because they are less likely to advocate forcefully for themselves. Learning to negotiate assertively and hold your position under social pressure is a critical development priority.`,
+      low: `<strong>Agreeableness (${r.A}%)</strong> — You score lower on agreeableness, indicating a more independent, analytical, and competitive orientation. You are less concerned with social harmony and more focused on results, truth, and your own assessment of a situation. This drives strong individual performance and the ability to have difficult conversations others avoid. The development consideration: in leadership and team settings, perceived low agreeableness can undermine trust and engagement. Deliberately practising acknowledgment — recognising others' contributions, validating perspectives before disagreeing, and showing genuine interest in people's wellbeing — can significantly improve how you are experienced without requiring you to change your views.`
+    },
+    N: {
+      high: `<strong>Emotional Stability (${r.N}%)</strong> — Your score indicates higher emotional reactivity. You are more likely to experience anxiety, mood fluctuation, and emotional responses to pressure than the average person. This is not a character flaw — it is a trait with both costs and benefits. Higher Neuroticism is associated with greater empathy, artistic sensitivity, and the kind of vigilance that prevents complacency. The costs are real though: chronic stress, tendency to catastrophise, and emotional energy spent on worry rather than action. The highest-leverage interventions are regular aerobic exercise (the single most evidence-backed intervention for emotional regulation), a consistent sleep routine, and developing a relationship with a therapist or coach who can help you build your stress response toolkit.`,
+      low: `<strong>Emotional Stability (${r.N}%)</strong> — You score high on emotional stability, indicating that you remain calm under pressure, recover quickly from setbacks, and are not easily rattled by criticism or uncertainty. This is a significant asset in leadership, high-stakes decision-making, and any environment where the ability to think clearly under stress determines outcomes. The development note: very low Neuroticism can occasionally manifest as under-sensitivity to risk or to the emotional signals of people around you — ensure that your natural composure does not lead you to underestimate how stressful situations are for others.`
+    }
+  };
+
+  const overall = `Your Big Five personality profile paints a picture of how you characteristically think, feel, and behave across five universal dimensions. Unlike IQ, personality is not a measure of ability — it describes your natural orientation, which has both strengths and development areas in every possible configuration. The narrative below covers each trait in full, including what each score means for your career, relationships, and development priorities.`;
+
+  const traitHtml = sorted.map(([k,v]) => {
+    const isHigh = k === 'N' ? v < 50 : v >= 50;
+    return `<p style="margin-top:1rem">${traitNarratives[k][isHigh?'high':'low']}</p>`;
+  }).join('');
+
+  return `<p>${overall}</p>${traitHtml}`;
+}
+
+function generateStressNarrative(r, band) {
+  const pct = Math.round((r.raw / r.max) * 100);
+
+  let overall = '';
+  if (r.raw <= 13) {
+    overall = `Your Perceived Stress Score of <strong>${r.raw}/40</strong> — <strong>${band.label}</strong> — indicates that you are currently managing life's demands effectively. Your coping mechanisms are working. You are not experiencing the kind of chronic overload that degrades performance, health, and decision-making quality. This result should be taken as confirmation that the systems you have in place for managing stress — whether that is exercise, social connection, sleep habits, or work boundaries — are genuinely working. The task is to protect and maintain them rather than take them for granted.`;
+  } else if (r.raw <= 26) {
+    overall = `Your Perceived Stress Score of <strong>${r.raw}/40</strong> — <strong>${band.label}</strong> — places you in the moderate stress range experienced by a large proportion of working adults. At this level, stress is present and is likely affecting your concentration, sleep quality, emotional responses, and decision-making in ways you may not always notice. This is the zone where stress has not yet become a crisis but is quietly eroding your performance and wellbeing. It is also the zone where targeted intervention is most effective — the habits and boundaries that prevent moderate stress from becoming high stress are well within reach.`;
+  } else {
+    overall = `Your Perceived Stress Score of <strong>${r.raw}/40</strong> — <strong>${band.label}</strong> — indicates a significant stress burden that is likely impacting your health, cognitive performance, relationships, and quality of life. Chronic high stress at this level is associated with disrupted sleep, weakened immune function, impaired decision-making, reduced emotional tolerance, and over time, increased risk of anxiety and burnout. This result warrants serious attention — not as a reason for alarm, but as a clear signal that your current approach to managing demands needs to change.`;
+  }
+
+  let detail = '';
+  if (r.raw <= 13) {
+    detail = `<p style="margin-top:1rem">The PSS-10 measures your sense of control and predictability over your life circumstances. A low score means you currently feel that you have adequate resources — time, energy, support, and capability — to meet what is being asked of you. Research shows that people in this range make better decisions, maintain stronger relationships, perform more consistently, and recover faster from setbacks. This is the operating state to protect.</p>
+    <p style="margin-top:1rem"><strong>What to maintain:</strong> Whatever you are doing — prioritise it. If you exercise regularly, continue. If you maintain clear work boundaries, continue. If you invest in close relationships, continue. The single most common reason people leave the low-stress zone is that success creates new demands faster than they build new capacity to handle them. Stay ahead of that curve by reviewing your commitments every three months and deliberately removing what no longer serves you.</p>`;
+  } else if (r.raw <= 26) {
+    detail = `<p style="margin-top:1rem">At this level of stress, you are likely experiencing some of the following: difficulty switching off in the evenings, moments of irritability that feel disproportionate to their trigger, slightly disrupted sleep, or a sense that there is always more on your plate than you have capacity for. These are warning signals from your nervous system, not character flaws.</p>
+    <p style="margin-top:1rem"><strong>Priority interventions:</strong> The evidence is clearest on three areas. First, <strong>sleep</strong> — if you are regularly sleeping fewer than seven hours, this is the highest single-leverage change you can make. Second, <strong>aerobic exercise</strong> — three sessions per week of 30+ minutes each produces measurable improvements in stress resilience within two weeks. Third, <strong>cognitive defusion</strong> — learning to observe your worried thoughts rather than believing them is a core skill from Cognitive Behavioural Therapy that can be learned through apps like Woebot or books like "The Happiness Trap" by Russ Harris.</p>
+    <p style="margin-top:1rem"><strong>A note on control:</strong> The PSS specifically measures perceived control. Moderate scores often reflect a mismatch between the demands on you and your sense of agency over them. The most powerful reframe is to identify which stressors you genuinely cannot control and consciously release them, while focusing your energy on the things you can influence. This single mental shift — widely practised in Stoic philosophy and modern stress therapy — produces measurable reductions in perceived stress within days.</p>`;
+  } else {
+    detail = `<p style="margin-top:1rem">At high stress levels, your body is in a sustained state of physiological arousal — cortisol is elevated, sleep architecture is disrupted, concentration is impaired, and emotional regulation requires significantly more effort than usual. This is not sustainable long-term, and it is not something that willpower alone can fix.</p>
+    <p style="margin-top:1rem"><strong>Immediate priorities:</strong> First, acknowledge the seriousness of this result. High PSS scores are associated with significantly elevated risk of burnout, illness, and relationship breakdown. Second, identify the two or three primary sources of stress in your life. Not all of them — the big ones. For each one, ask whether it is a circumstance you can change (workload, a relationship dynamic, a commitment you no longer have capacity for) or one you need to learn to respond to differently.</p>
+    <p style="margin-top:1rem"><strong>Evidence-based actions:</strong> Speak to your GP or a therapist — not as a last resort but as a first step. Regular aerobic exercise is the most potent stress-reduction intervention available without a prescription. Reducing caffeine, alcohol, and screen time in the two hours before bed will meaningfully improve sleep quality. Mindfulness-Based Stress Reduction (MBSR) has the strongest evidence base of any non-pharmaceutical intervention for high stress — an eight-week online course is available through many platforms.</p>
+    <p style="margin-top:1rem"><strong>A note on professional help:</strong> If your score reflects a prolonged period of high stress rather than a temporary peak, professional support is not a sign of weakness — it is the most efficient path back to baseline. Cognitive Behavioural Therapy (CBT) is highly effective for stress and is available through the NHS or privately. You do not need to be in crisis to benefit from it.</p>`;
+  }
+
+  return `<p>${overall}</p>${detail}`;
+}
+
 function showResults() {
   const aa = state.allAnswers;
   const testsRun = Object.keys(aa);
@@ -2412,7 +2590,7 @@ function showResults() {
           </div>
         </div>
 
-        <p style="margin-bottom:1rem">${iqInterpretation(r.iq)}</p>
+        <div style="margin-bottom:1rem">${generateIQNarrative(r, band)}</div>
 
         <div class="cog-blueprint">
           <div class="cog-blueprint-title">Your Cognitive Blueprint</div>
@@ -2464,9 +2642,9 @@ function showResults() {
     detailSections.innerHTML += `
       <div class="result-section">
         <div class="result-section-title">Emotional Intelligence <span class="badge">EQ ${r.total}</span></div>
-        <p>Your overall EQ is <strong style="color:var(--gold-light)">${r.total}/100</strong> — rated <strong>${band}</strong>. Emotional intelligence predicts leadership effectiveness, relationship quality, and resilience under pressure.</p>
-        <div class="eq-domains">${domainHTML}</div>
-        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Self-report note:</strong> All self-rated EQ assessments share a known limitation — people with low emotional self-awareness may inadvertently rate themselves higher than warranted. This result is best used as a starting point for reflection, not a definitive clinical measure. It is at the same level as most consumer EQ tools on the market (Truity, MindTools).</em></p>
+        <div>${generateEQNarrative(r, band)}</div>
+        <div class="eq-domains" style="margin-top:1.5rem">${domainHTML}</div>
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Self-report note:</strong> All self-rated EQ assessments share a known limitation — people with low emotional self-awareness may inadvertently rate themselves higher than warranted. This result is best used as a starting point for reflection, not a definitive clinical measure.</em></p>
       </div>`;
   }
 
@@ -2502,9 +2680,9 @@ function showResults() {
     detailSections.innerHTML += `
       <div class="result-section">
         <div class="result-section-title">Big Five Personality <span class="badge">OCEAN</span></div>
-        <p>Your personality profile across the five universal dimensions of personality science. Higher scores indicate stronger expression of each trait.</p>
-        <div class="trait-bars">${barsHTML}</div>
-        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">About this assessment:</strong> This 45-item instrument uses 9 items per trait, consistent with the Big Five Inventory (BFI) standard. Results are stable and directionally reliable for self-reflection and career exploration — the same purpose as tools like 16Personalities and Truity.</em></p>
+        <div class="trait-bars" style="margin-bottom:1.5rem">${barsHTML}</div>
+        <div>${generateBig5Narrative(r)}</div>
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">About this assessment:</strong> This 45-item instrument uses 9 items per trait, consistent with the Big Five Inventory (BFI) standard. Results are directionally reliable for self-reflection and career exploration.</em></p>
       </div>`;
   }
 
@@ -2525,9 +2703,8 @@ function showResults() {
     detailSections.innerHTML += `
       <div class="result-section">
         <div class="result-section-title">Perceived Stress <span class="badge">${r.raw}/${r.max}</span></div>
-        <p>Your perceived stress score is <strong style="color:${band.color}">${r.raw} — ${band.label}</strong>.</p>
-        <p>${band.desc}</p>
-        <p style="font-size:0.78rem;color:var(--steel)">Scores: 0–13 = Low · 14–26 = Moderate · 27–40 = High. Based on the Perceived Stress Scale (Cohen et al., 1983).</p>
+        <div>${generateStressNarrative(r, band)}</div>
+        <p style="font-size:0.78rem;color:var(--steel);margin-top:1rem">Scores: 0–13 = Low · 14–26 = Moderate · 27–40 = High. Based on the Perceived Stress Scale (Cohen et al., 1983).</p>
       </div>`;
   }
 
