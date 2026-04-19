@@ -771,6 +771,11 @@
 
   .options-grid.single-col { grid-template-columns: 1fr; }
   .options-grid.likert { grid-template-columns: repeat(5, 1fr); }
+  .options-grid.matrix { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .matrix-btn { display:flex; align-items:center; justify-content:center; padding:0.6rem; min-height:76px; background:rgba(14,25,40,0.8); border:1px solid rgba(120,143,168,0.25); border-radius:3px; cursor:pointer; transition:all 0.2s; }
+  .matrix-btn:hover { border-color:var(--gold); background:rgba(200,150,42,0.08); }
+  .matrix-btn.selected { border-color:var(--gold); background:rgba(200,150,42,0.15); }
+  .matrix-box { margin:0.5rem auto 1.5rem; display:block; }
 
   .option-btn {
     background: rgba(14,25,40,0.8);
@@ -1154,6 +1159,8 @@
   @media (max-width: 600px) {
     .options-grid { grid-template-columns: 1fr; }
     .options-grid.likert { grid-template-columns: repeat(5, 1fr); }
+    .options-grid.matrix { grid-template-columns: 1fr 1fr; }
+    .matrix-btn { min-height: 70px; }
     .eq-domains { grid-template-columns: 1fr; }
     .scores-row { grid-template-columns: 1fr 1fr; }
     .trait-name { min-width: 90px; font-size: 0.5rem; }
@@ -1692,6 +1699,17 @@
         <span>📋 20 questions</span>
       </div>
     </div>
+
+    <div class="test-card" onclick="startSingle('matrix')" style="border-color:rgba(80,180,255,0.35);background:rgba(14,25,45,0.9)">
+      <span class="card-icon" style="color:#50b4ff">⬡</span>
+      <div class="card-label" style="color:#50b4ff">Assessment 06 · New</div>
+      <div class="card-title">Visual Matrix IQ</div>
+      <div class="card-desc">Non-verbal reasoning — identify the rule governing each 3×3 pattern and select the missing piece. No language or prior knowledge required.</div>
+      <div class="card-meta">
+        <span>⏱ 15 min</span>
+        <span>📋 15 questions</span>
+      </div>
+    </div>
   </div>
 
   <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:1rem">
@@ -1716,6 +1734,7 @@
       <div class="q-counter" id="q-counter">Question 1 of 20</div>
       <div class="question-text" id="q-text"></div>
       <div class="sequence-box" id="sequence-box" style="display:none"></div>
+      <div class="matrix-box" id="matrix-box" style="display:none"></div>
       <div class="likert-labels" id="likert-labels" style="display:none">
         <span>Strongly Disagree</span><span>Disagree</span><span>Neutral</span><span>Agree</span><span>Strongly Agree</span>
       </div>
@@ -1774,6 +1793,88 @@
 </div>
 
 <script>
+// ══════════════════════════════════════════════════════════
+//  VISUAL MATRIX SVG ENGINE
+// ══════════════════════════════════════════════════════════
+
+function _mShapePath(sh, sz) {
+  switch(sh) {
+    case 'c':    return `<circle cx="0" cy="0" r="${sz}"/>`;
+    case 'sq':   return `<rect x="${-sz}" y="${-sz}" width="${sz*2}" height="${sz*2}"/>`;
+    case 'tr':   return `<polygon points="0,${-sz} ${sz},${(sz*0.577).toFixed(1)} ${-sz},${(sz*0.577).toFixed(1)}"/>`;
+    case 'dm':   return `<polygon points="0,${-sz} ${(sz*0.7).toFixed(1)},0 0,${sz} ${-(sz*0.7).toFixed(1)},0"/>`;
+    case 'ar':   { const bw=(sz*0.35).toFixed(1),tw=(sz*0.6).toFixed(1),bb=(sz*0.3).toFixed(1);
+                   return `<polygon points="0,${-sz} ${tw},${-bb} ${bw},${-bb} ${bw},${sz} ${-bw},${sz} ${-bw},${-bb} ${-tw},${-bb}"/>`; }
+    case 'cr':   { const cw=(sz*0.32).toFixed(1);
+                   return `<rect x="${-cw}" y="${-sz}" width="${(cw*2).toFixed(1)}" height="${sz*2}"/><rect x="${-sz}" y="${-cw}" width="${sz*2}" height="${(cw*2).toFixed(1)}"/>`; }
+    case 'hex':  { const pts=[]; for(let i=0;i<6;i++) pts.push(`${(sz*Math.cos((i*60-90)*Math.PI/180)).toFixed(1)},${(sz*Math.sin((i*60-90)*Math.PI/180)).toFixed(1)}`); return `<polygon points="${pts.join(' ')}"/>`; }
+    case 'pent': { const pts=[]; for(let i=0;i<5;i++) pts.push(`${(sz*Math.cos((i*72-90)*Math.PI/180)).toFixed(1)},${(sz*Math.sin((i*72-90)*Math.PI/180)).toFixed(1)}`); return `<polygon points="${pts.join(' ')}"/>`; }
+    default: return `<circle cx="0" cy="0" r="${sz}"/>`;
+  }
+}
+
+function _mDrawShape(sh, sz, fill, rot) {
+  const fc = fill ? '#c8962a' : 'none';
+  const sc = '#c8962a', sw = fill ? 1.5 : 2;
+  const inner = _mShapePath(sh, sz);
+  const elem = inner.replace(/<(polygon|rect|circle)/g, `<$1 fill="${fc}" stroke="${sc}" stroke-width="${sw}"`);
+  return `<g transform="rotate(${rot})">${elem}</g>`;
+}
+
+function _mCellContent(cell, cx, cy) {
+  if (!cell) return `<text x="${cx}" y="${cy+9}" text-anchor="middle" font-size="26" font-weight="300" fill="rgba(200,150,42,0.35)" font-family="sans-serif">?</text>`;
+  const {sh,f,r,n,s} = cell;
+  const sz = [10,16,22][s-1]||16;
+  if (n===1) return `<g transform="translate(${cx},${cy})">${_mDrawShape(sh,sz,f,r)}</g>`;
+  if (n===2) {
+    const off=Math.round(sz*0.9);
+    return `<g transform="translate(${cx-off},${cy})">${_mDrawShape(sh,Math.round(sz*0.8),f,r)}</g>`+
+           `<g transform="translate(${cx+off},${cy})">${_mDrawShape(sh,Math.round(sz*0.8),f,r)}</g>`;
+  }
+  const off=Math.round(sz*0.9);
+  return `<g transform="translate(${cx-off},${cy+Math.round(off*0.5)})">${_mDrawShape(sh,Math.round(sz*0.7),f,r)}</g>`+
+         `<g transform="translate(${cx+off},${cy+Math.round(off*0.5)})">${_mDrawShape(sh,Math.round(sz*0.7),f,r)}</g>`+
+         `<g transform="translate(${cx},${cy-Math.round(off*0.5)})">${_mDrawShape(sh,Math.round(sz*0.7),f,r)}</g>`;
+}
+
+function matrixSVG(cells) {
+  const cs=70,bd=5,gp=4,W=bd*2+cs*3+gp*2;
+  const getCx=c=>bd+c*(cs+gp)+cs/2, getCy=r=>bd+r*(cs+gp)+cs/2;
+  let svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${W}" style="width:100%;max-width:252px;display:block;margin:0 auto;border-radius:6px">`;
+  svg+=`<rect width="${W}" height="${W}" fill="rgba(10,20,35,0.98)" rx="6"/>`;
+  for(let i=1;i<3;i++){
+    const x=bd+i*(cs+gp)-gp/2,y=bd+i*(cs+gp)-gp/2;
+    svg+=`<line x1="${x}" y1="${bd}" x2="${x}" y2="${W-bd}" stroke="rgba(200,150,42,0.2)" stroke-width="1"/>`;
+    svg+=`<line x1="${bd}" y1="${y}" x2="${W-bd}" y2="${y}" stroke="rgba(200,150,42,0.2)" stroke-width="1"/>`;
+  }
+  if(cells[8]===null) svg+=`<rect x="${bd+2*(cs+gp)}" y="${bd+2*(cs+gp)}" width="${cs}" height="${cs}" fill="rgba(200,150,42,0.05)" rx="2"/>`;
+  for(let row=0;row<3;row++) for(let col=0;col<3;col++) svg+=_mCellContent(cells[row*3+col],getCx(col),getCy(row));
+  svg+='</svg>';
+  return svg;
+}
+
+function optionMatrixSVG(cell) {
+  const sz=54,half=27,sMap={1:9,2:14,3:19};
+  let svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${sz} ${sz}" width="${sz}" height="${sz}"><rect width="${sz}" height="${sz}" fill="transparent"/>`;
+  if(!cell){ svg+=`<text x="${half}" y="${half+5}" text-anchor="middle" font-size="18" fill="rgba(200,150,42,0.4)">?</text>`; }
+  else {
+    const {sh,f,r,n,s}=cell,sSz=sMap[s]||14;
+    if(n===1){ svg+=`<g transform="translate(${half},${half})">${_mDrawShape(sh,sSz,f,r)}</g>`; }
+    else if(n===2){
+      const off=Math.round(sSz*0.9);
+      svg+=`<g transform="translate(${half-off},${half})">${_mDrawShape(sh,Math.round(sSz*0.8),f,r)}</g>`;
+      svg+=`<g transform="translate(${half+off},${half})">${_mDrawShape(sh,Math.round(sSz*0.8),f,r)}</g>`;
+    } else {
+      const off=Math.round(sSz*0.9);
+      svg+=`<g transform="translate(${half-off},${half+Math.round(off*0.5)})">${_mDrawShape(sh,Math.round(sSz*0.7),f,r)}</g>`;
+      svg+=`<g transform="translate(${half+off},${half+Math.round(off*0.5)})">${_mDrawShape(sh,Math.round(sSz*0.7),f,r)}</g>`;
+      svg+=`<g transform="translate(${half},${half-Math.round(off*0.5)})">${_mDrawShape(sh,Math.round(sSz*0.7),f,r)}</g>`;
+    }
+  }
+  svg+='</svg>';
+  return svg;
+}
+
 // ══════════════════════════════════════════════════════════
 //  DATA — ALL TESTS
 // ══════════════════════════════════════════════════════════
@@ -1950,6 +2051,73 @@ entrepreneur: {
     { cat:'Financial Mindset', dim:'financial', text:'I understand how to track income, manage costs, and know whether a business is actually profitable.', options:['1','2','3','4','5'], likert:true },
     { cat:'Financial Mindset', dim:'financial', text:'I am comfortable with periods of uncertain or irregular income in exchange for long-term growth.', options:['1','2','3','4','5'], likert:true },
   ]
+},
+
+// ─── VISUAL MATRIX IQ ─────────────────────────────────────
+matrix: {
+  name: 'Visual Matrix IQ', label: 'Non-Verbal Reasoning', timed: true, timeLimit: 900,
+  type: 'matrix',
+  questions: [
+    { cat:'Matrix Reasoning', type:'matrix', explain:'Size increases left-to-right (small→medium→large). Each row uses one shape. Row 3 uses triangles — so the answer is a large outline triangle.',
+      cells:[{sh:'c',f:0,r:0,n:1,s:1},{sh:'c',f:0,r:0,n:1,s:2},{sh:'c',f:0,r:0,n:1,s:3},{sh:'sq',f:0,r:0,n:1,s:1},{sh:'sq',f:0,r:0,n:1,s:2},{sh:'sq',f:0,r:0,n:1,s:3},{sh:'tr',f:0,r:0,n:1,s:1},{sh:'tr',f:0,r:0,n:1,s:2},null],
+      options:[{sh:'tr',f:0,r:0,n:1,s:3},{sh:'tr',f:0,r:0,n:1,s:1},{sh:'c',f:0,r:0,n:1,s:3},{sh:'tr',f:1,r:0,n:1,s:3}], answer:0 },
+
+    { cat:'Matrix Reasoning', type:'matrix', explain:'Count increases left-to-right (1→2→3). Each row uses one shape. Row 3 uses diamonds — so the answer is 3 diamonds.',
+      cells:[{sh:'c',f:1,r:0,n:1,s:2},{sh:'c',f:1,r:0,n:2,s:2},{sh:'c',f:1,r:0,n:3,s:2},{sh:'sq',f:1,r:0,n:1,s:2},{sh:'sq',f:1,r:0,n:2,s:2},{sh:'sq',f:1,r:0,n:3,s:2},{sh:'dm',f:1,r:0,n:1,s:2},{sh:'dm',f:1,r:0,n:2,s:2},null],
+      options:[{sh:'dm',f:1,r:0,n:3,s:2},{sh:'dm',f:1,r:0,n:2,s:2},{sh:'dm',f:1,r:0,n:1,s:2},{sh:'c',f:1,r:0,n:3,s:2}], answer:0 },
+
+    { cat:'Matrix Reasoning', type:'matrix', explain:'Fill alternates in a checkerboard: outline where (row+col) is even, filled where odd. Position (2,2) is even → outline triangle.',
+      cells:[{sh:'c',f:0,r:0,n:1,s:2},{sh:'c',f:1,r:0,n:1,s:2},{sh:'c',f:0,r:0,n:1,s:2},{sh:'sq',f:1,r:0,n:1,s:2},{sh:'sq',f:0,r:0,n:1,s:2},{sh:'sq',f:1,r:0,n:1,s:2},{sh:'tr',f:0,r:0,n:1,s:2},{sh:'tr',f:1,r:0,n:1,s:2},null],
+      options:[{sh:'tr',f:0,r:0,n:1,s:2},{sh:'tr',f:1,r:0,n:1,s:2},{sh:'c',f:0,r:0,n:1,s:2},{sh:'tr',f:0,r:0,n:1,s:3}], answer:0 },
+
+    { cat:'Matrix Reasoning', type:'matrix', explain:'The arrow rotates 45° clockwise with each step. Row 3 starts at 180° — so the sequence is 180°→225°→270°.',
+      cells:[{sh:'ar',f:1,r:0,n:1,s:2},{sh:'ar',f:1,r:45,n:1,s:2},{sh:'ar',f:1,r:90,n:1,s:2},{sh:'ar',f:1,r:90,n:1,s:2},{sh:'ar',f:1,r:135,n:1,s:2},{sh:'ar',f:1,r:180,n:1,s:2},{sh:'ar',f:1,r:180,n:1,s:2},{sh:'ar',f:1,r:225,n:1,s:2},null],
+      options:[{sh:'ar',f:1,r:270,n:1,s:2},{sh:'ar',f:1,r:225,n:1,s:2},{sh:'ar',f:1,r:90,n:1,s:2},{sh:'ar',f:1,r:315,n:1,s:2}], answer:0 },
+
+    { cat:'Matrix Reasoning', type:'matrix', explain:'Each row and each column contains exactly one circle, one square, and one triangle (a Latin square). Column 3 has triangle and square — so the missing piece is a circle.',
+      cells:[{sh:'c',f:0,r:0,n:1,s:2},{sh:'sq',f:0,r:0,n:1,s:2},{sh:'tr',f:0,r:0,n:1,s:2},{sh:'tr',f:0,r:0,n:1,s:2},{sh:'c',f:0,r:0,n:1,s:2},{sh:'sq',f:0,r:0,n:1,s:2},{sh:'sq',f:0,r:0,n:1,s:2},{sh:'tr',f:0,r:0,n:1,s:2},null],
+      options:[{sh:'c',f:0,r:0,n:1,s:2},{sh:'tr',f:0,r:0,n:1,s:2},{sh:'sq',f:0,r:0,n:1,s:2},{sh:'dm',f:0,r:0,n:1,s:2}], answer:0 },
+
+    { cat:'Matrix Reasoning', type:'matrix', explain:'Size decreases from top to bottom (large→medium→small). Each column uses one shape. Column 3 uses triangles — so the answer is a small outline triangle.',
+      cells:[{sh:'c',f:0,r:0,n:1,s:3},{sh:'sq',f:0,r:0,n:1,s:3},{sh:'tr',f:0,r:0,n:1,s:3},{sh:'c',f:0,r:0,n:1,s:2},{sh:'sq',f:0,r:0,n:1,s:2},{sh:'tr',f:0,r:0,n:1,s:2},{sh:'c',f:0,r:0,n:1,s:1},{sh:'sq',f:0,r:0,n:1,s:1},null],
+      options:[{sh:'tr',f:0,r:0,n:1,s:1},{sh:'tr',f:0,r:0,n:1,s:2},{sh:'sq',f:0,r:0,n:1,s:1},{sh:'c',f:0,r:0,n:1,s:1}], answer:0 },
+
+    { cat:'Matrix Reasoning', type:'matrix', explain:'Each row\'s shape counts add up to 6 (e.g. 3+2+1=6). Row 3 has 2+1+? = 6, so the missing piece has 3 triangles.',
+      cells:[{sh:'c',f:1,r:0,n:3,s:2},{sh:'c',f:1,r:0,n:2,s:2},{sh:'c',f:1,r:0,n:1,s:2},{sh:'sq',f:1,r:0,n:1,s:2},{sh:'sq',f:1,r:0,n:3,s:2},{sh:'sq',f:1,r:0,n:2,s:2},{sh:'tr',f:1,r:0,n:2,s:2},{sh:'tr',f:1,r:0,n:1,s:2},null],
+      options:[{sh:'tr',f:1,r:0,n:3,s:2},{sh:'tr',f:1,r:0,n:2,s:2},{sh:'tr',f:1,r:0,n:1,s:2},{sh:'c',f:1,r:0,n:3,s:2}], answer:0 },
+
+    { cat:'Matrix Reasoning', type:'matrix', explain:'The column determines fill: column 1 = outline, column 2 = filled, column 3 = outline. Row 3 uses diamonds — column 3 is outline.',
+      cells:[{sh:'c',f:0,r:0,n:1,s:2},{sh:'c',f:1,r:0,n:1,s:2},{sh:'c',f:0,r:0,n:1,s:2},{sh:'sq',f:0,r:0,n:1,s:2},{sh:'sq',f:1,r:0,n:1,s:2},{sh:'sq',f:0,r:0,n:1,s:2},{sh:'dm',f:0,r:0,n:1,s:2},{sh:'dm',f:1,r:0,n:1,s:2},null],
+      options:[{sh:'dm',f:0,r:0,n:1,s:2},{sh:'dm',f:1,r:0,n:1,s:2},{sh:'sq',f:0,r:0,n:1,s:2},{sh:'c',f:0,r:0,n:1,s:2}], answer:0 },
+
+    { cat:'Matrix Reasoning', type:'matrix', explain:'Each shape rotates 90° clockwise from left to right. Row 3 uses pentagons: 0°→90°→180°.',
+      cells:[{sh:'tr',f:1,r:0,n:1,s:2},{sh:'tr',f:1,r:90,n:1,s:2},{sh:'tr',f:1,r:180,n:1,s:2},{sh:'dm',f:1,r:0,n:1,s:2},{sh:'dm',f:1,r:90,n:1,s:2},{sh:'dm',f:1,r:180,n:1,s:2},{sh:'pent',f:1,r:0,n:1,s:2},{sh:'pent',f:1,r:90,n:1,s:2},null],
+      options:[{sh:'pent',f:1,r:180,n:1,s:2},{sh:'pent',f:1,r:270,n:1,s:2},{sh:'pent',f:1,r:90,n:1,s:2},{sh:'tr',f:1,r:180,n:1,s:2}], answer:0 },
+
+    { cat:'Matrix Reasoning', type:'matrix', explain:'Each row and each column contains exactly one small, one medium, and one large circle (a size Latin square). Column 3 has large and small — so the missing piece is medium.',
+      cells:[{sh:'c',f:0,r:0,n:1,s:1},{sh:'c',f:0,r:0,n:1,s:2},{sh:'c',f:0,r:0,n:1,s:3},{sh:'c',f:0,r:0,n:1,s:2},{sh:'c',f:0,r:0,n:1,s:3},{sh:'c',f:0,r:0,n:1,s:1},{sh:'c',f:0,r:0,n:1,s:3},{sh:'c',f:0,r:0,n:1,s:1},null],
+      options:[{sh:'c',f:0,r:0,n:1,s:2},{sh:'c',f:0,r:0,n:1,s:1},{sh:'c',f:0,r:0,n:1,s:3},{sh:'sq',f:0,r:0,n:1,s:2}], answer:0 },
+
+    { cat:'Matrix Reasoning', type:'matrix', explain:'Two rules apply simultaneously: row determines fill (R1=outline, R2=filled, R3=outline) and column determines size (C1=small, C2=medium, C3=large). Missing = outline cross, large.',
+      cells:[{sh:'cr',f:0,r:0,n:1,s:1},{sh:'cr',f:0,r:0,n:1,s:2},{sh:'cr',f:0,r:0,n:1,s:3},{sh:'cr',f:1,r:0,n:1,s:1},{sh:'cr',f:1,r:0,n:1,s:2},{sh:'cr',f:1,r:0,n:1,s:3},{sh:'cr',f:0,r:0,n:1,s:1},{sh:'cr',f:0,r:0,n:1,s:2},null],
+      options:[{sh:'cr',f:0,r:0,n:1,s:3},{sh:'cr',f:1,r:0,n:1,s:3},{sh:'cr',f:0,r:0,n:1,s:2},{sh:'cr',f:0,r:0,n:1,s:1}], answer:0 },
+
+    { cat:'Matrix Reasoning', type:'matrix', explain:'Arrow rotation follows a compound rule: each row adds 45°, each column adds 90°. Cell (2,2) = 2×45° + 2×90° = 270°.',
+      cells:[{sh:'ar',f:1,r:0,n:1,s:2},{sh:'ar',f:1,r:90,n:1,s:2},{sh:'ar',f:1,r:180,n:1,s:2},{sh:'ar',f:1,r:45,n:1,s:2},{sh:'ar',f:1,r:135,n:1,s:2},{sh:'ar',f:1,r:225,n:1,s:2},{sh:'ar',f:1,r:90,n:1,s:2},{sh:'ar',f:1,r:180,n:1,s:2},null],
+      options:[{sh:'ar',f:1,r:270,n:1,s:2},{sh:'ar',f:1,r:225,n:1,s:2},{sh:'ar',f:1,r:180,n:1,s:2},{sh:'ar',f:1,r:315,n:1,s:2}], answer:0 },
+
+    { cat:'Matrix Reasoning', type:'matrix', explain:'The pentagon rotates 72° clockwise with each step (one-fifth of a full rotation). Row 3: 144°→216°→288°.',
+      cells:[{sh:'pent',f:1,r:0,n:1,s:2},{sh:'pent',f:1,r:72,n:1,s:2},{sh:'pent',f:1,r:144,n:1,s:2},{sh:'pent',f:1,r:72,n:1,s:2},{sh:'pent',f:1,r:144,n:1,s:2},{sh:'pent',f:1,r:216,n:1,s:2},{sh:'pent',f:1,r:144,n:1,s:2},{sh:'pent',f:1,r:216,n:1,s:2},null],
+      options:[{sh:'pent',f:1,r:288,n:1,s:2},{sh:'pent',f:1,r:216,n:1,s:2},{sh:'pent',f:1,r:72,n:1,s:2},{sh:'pent',f:1,r:0,n:1,s:2}], answer:0 },
+
+    { cat:'Matrix Reasoning', type:'matrix', explain:'Both size (increases per row) and count (increases per column) change together. The missing cell is row 3, col 3: large size with 3 shapes.',
+      cells:[{sh:'sq',f:1,r:0,n:1,s:1},{sh:'sq',f:1,r:0,n:2,s:1},{sh:'sq',f:1,r:0,n:3,s:1},{sh:'sq',f:1,r:0,n:1,s:2},{sh:'sq',f:1,r:0,n:2,s:2},{sh:'sq',f:1,r:0,n:3,s:2},{sh:'sq',f:1,r:0,n:1,s:3},{sh:'sq',f:1,r:0,n:2,s:3},null],
+      options:[{sh:'sq',f:1,r:0,n:3,s:3},{sh:'sq',f:1,r:0,n:2,s:3},{sh:'sq',f:1,r:0,n:3,s:2},{sh:'sq',f:1,r:0,n:1,s:3}], answer:0 },
+
+    { cat:'Matrix Reasoning', type:'matrix', explain:'Each row and column contains exactly counts of 1, 2, and 3 diamonds (a count Latin square). Column 3 has 3 and 1 — so the missing piece has 2 diamonds.',
+      cells:[{sh:'dm',f:1,r:0,n:1,s:2},{sh:'dm',f:1,r:0,n:2,s:2},{sh:'dm',f:1,r:0,n:3,s:2},{sh:'dm',f:1,r:0,n:2,s:2},{sh:'dm',f:1,r:0,n:3,s:2},{sh:'dm',f:1,r:0,n:1,s:2},{sh:'dm',f:1,r:0,n:3,s:2},{sh:'dm',f:1,r:0,n:1,s:2},null],
+      options:[{sh:'dm',f:1,r:0,n:2,s:2},{sh:'dm',f:1,r:0,n:1,s:2},{sh:'dm',f:1,r:0,n:3,s:2},{sh:'c',f:1,r:0,n:2,s:2}], answer:0 },
+  ]
 }
 
 };
@@ -2064,12 +2232,22 @@ function renderQuestion() {
 
   document.getElementById('q-counter').textContent = `Question ${state.currentQ+1} of ${total}`;
   document.getElementById('q-category').textContent = q.cat || '';
-  document.getElementById('q-text').textContent = q.text;
+
+  // Matrix question — hide text, show SVG grid
+  const isMatrix = q.type === 'matrix';
+  const qTextEl = document.getElementById('q-text');
+  qTextEl.style.display = isMatrix ? 'none' : '';
+  if (!isMatrix) qTextEl.textContent = q.text;
 
   // Sequence box
   const seqBox = document.getElementById('sequence-box');
   if (q.seq) { seqBox.textContent = q.seq; seqBox.style.display = 'block'; }
   else seqBox.style.display = 'none';
+
+  // Matrix box
+  const matBox = document.getElementById('matrix-box');
+  if (isMatrix) { matBox.innerHTML = matrixSVG(q.cells); matBox.style.display = 'block'; }
+  else matBox.style.display = 'none';
 
   // Likert labels
   const ll = document.getElementById('likert-labels');
@@ -2081,19 +2259,20 @@ function renderQuestion() {
   const isLikert = !!q.likert;
   grid.className = 'options-grid';
   if (isLikert) grid.classList.add('likert');
-  else if (q.options.length > 2 && q.options.join('').length > 30) {
-    // two-col default
-  } else {
-    // keep two-col
-  }
+  else if (isMatrix) grid.classList.add('matrix');
 
   grid.innerHTML = '';
   state.selectedOption = null;
 
   q.options.forEach((opt, i) => {
     const btn = document.createElement('button');
-    btn.className = 'option-btn' + (isLikert ? ' likert-btn' : '');
-    btn.textContent = isLikert ? (i + 1) : opt;
+    if (isMatrix) {
+      btn.className = 'matrix-btn';
+      btn.innerHTML = optionMatrixSVG(opt);
+    } else {
+      btn.className = 'option-btn' + (isLikert ? ' likert-btn' : '');
+      btn.textContent = isLikert ? (i + 1) : opt;
+    }
     btn.onclick = () => selectOption(i, btn);
     grid.appendChild(btn);
   });
@@ -2119,7 +2298,7 @@ function renderQuestion() {
 }
 
 function selectOption(idx, btn) {
-  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.option-btn, .matrix-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   state.selectedOption = idx;
   document.getElementById('btn-next').classList.add('ready');
@@ -2159,7 +2338,7 @@ function finishTest() {
 // Transition screen
 function showTransition(nextKey) {
   const test = TESTS[nextKey];
-  const times = {iq:'21 min · 35 questions', eq:'8 min · 20 questions', big5:'13 min · 45 questions', stress:'3 min · 10 questions', entrepreneur:'7 min · 20 questions'};
+  const times = {iq:'21 min · 35 questions', eq:'8 min · 20 questions', big5:'13 min · 45 questions', stress:'3 min · 10 questions', entrepreneur:'7 min · 20 questions', matrix:'15 min · 15 questions'};
   document.getElementById('tr-title').textContent = `Next: ${test.name}`;
   document.getElementById('tr-desc').textContent = `${test.label} — ${times[nextKey]}`;
   document.getElementById('test-transition').classList.add('show');
@@ -2483,6 +2662,22 @@ function generateStressNarrative(r, band) {
   return `<p>${overall}</p>${detail}`;
 }
 
+function generateMatrixNarrative(r, band) {
+  const p = r.pct;
+  if (p >= 87) return `<p>Your performance on the Visual Matrix IQ test places you in the exceptional range for non-verbal reasoning. You identified abstract visual rules — including compound multi-attribute patterns — quickly and accurately. This reflects a high capacity for fluid intelligence: constructing and testing hypotheses about novel problems with no prior exposure.</p>
+<p>Non-verbal fluid intelligence at this level is associated with rapid adaptation to new environments, strong performance in STEM fields, and the ability to detect structural patterns in complex systems that others miss. You likely find abstract problem-solving more energising than routine work, and tend to arrive at solutions through insight rather than systematic procedure alone.</p>
+<p>The visual modality of this test eliminates language bias — your score reflects raw pattern-recognition capacity. Pair this strength with deliberate domain knowledge acquisition and you become exceptionally effective in technical, analytical, and strategic roles.</p>`;
+  if (p >= 67) return `<p>Your Visual Matrix IQ result sits in the above-average range, indicating solid non-verbal reasoning ability. You successfully identified the majority of abstract rules governing these visual patterns, including some compound rules requiring you to track two variables simultaneously.</p>
+<p>Non-verbal IQ at this level supports strong performance in roles requiring spatial thinking, logical analysis, and technical problem-solving. You are likely able to learn new systems and frameworks efficiently, and can hold visual-spatial information in working memory with relative ease.</p>
+<p>To develop this further, engage regularly with abstract reasoning puzzles, programming logic problems, or visual strategy games. These challenge the same pattern-recognition circuits and produce measurable improvements in fluid intelligence scores over time.</p>`;
+  if (p >= 33) return `<p>Your Visual Matrix IQ score falls in the average range — the majority of adults score in this band. You reliably identified the simpler one-attribute patterns (size, count, shape), with some difficulty on the more complex multi-rule questions.</p>
+<p>Average non-verbal reasoning is entirely sufficient for the vast majority of professional and academic tasks. The questions where points were dropped tended to involve compound rules — patterns where two attributes changed simultaneously. This type of multi-track pattern recognition can be improved with targeted practice.</p>
+<p>Try 10–15 minutes three times per week on abstract pattern puzzles or progressive matrix exercises. The cognitive gains from this kind of structured challenge are well documented in the research literature on fluid intelligence.</p>`;
+  return `<p>Your Visual Matrix IQ score suggests that non-verbal abstract reasoning is currently a relative challenge area. The timed format and unfamiliar visual patterns of this test can be particularly demanding on first exposure — many people significantly underperform on their first sitting.</p>
+<p>Non-verbal IQ is notably responsive to practice. Regular exposure to matrix-style reasoning problems will make the patterns more familiar and reduce cognitive load. Consider this score a starting baseline rather than a fixed measure.</p>
+<p>Work through free Raven's Progressive Matrices practice sets, starting at easier levels and progressing gradually. Even two or three short sessions per week can produce meaningful improvement in four to six weeks. Return to this test after a period of practice to track your progress.</p>`;
+}
+
 function showResults() {
   const aa = state.allAnswers;
   const testsRun = Object.keys(aa);
@@ -2723,6 +2918,48 @@ function showResults() {
     detailSections.innerHTML += buildEntrepreneurSection(r, archetype, aa);
   }
 
+  // ── VISUAL MATRIX IQ ──
+  if (aa.matrix) {
+    const r = scoreMatrix(aa.matrix);
+    const band = iqBand(r.iq);
+    scoresRow.innerHTML += `
+      <div class="score-card">
+        <div class="score-label">Visual Matrix IQ</div>
+        <div class="score-number">${r.iq}</div>
+        <div class="score-max">${r.raw}/${r.max} correct</div>
+        <div class="score-band" style="color:${band.color}">${band.label}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${Math.min(100,(r.iq-60)/85*100)}%;background:${band.color}"></div></div>
+      </div>`;
+    const pct = iqPercentile(r.iq);
+    detailSections.innerHTML += `
+      <div class="detail-section">
+        <h2 class="section-title">Visual Matrix IQ — Non-Verbal Reasoning</h2>
+        <div style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;margin-bottom:1.5rem">
+          ${drawBellCurve(r.iq)}
+          <div style="flex:1;min-width:180px">
+            <div style="font-size:2.8rem;font-weight:300;color:${band.color};letter-spacing:-1px">${r.iq}</div>
+            <div style="font-size:0.85rem;color:var(--steel-light);margin-bottom:0.3rem">${band.label} · Top ${100-pct}%</div>
+            <div style="font-size:0.78rem;color:var(--steel);line-height:1.5">${r.raw} of ${r.max} matrices solved correctly</div>
+          </div>
+        </div>
+        <div class="insight-box">
+          <div class="insight-title">What this measures</div>
+          <div class="insight-body">Visual Matrix IQ tests non-verbal fluid intelligence — the ability to identify abstract rules and relationships in visual form, independent of language or prior knowledge. Widely regarded as the purest measure of raw reasoning ability.</div>
+        </div>
+        <div class="narrative-block" style="margin-top:1.5rem">${generateMatrixNarrative(r, band)}</div>
+        <div class="answer-review" style="margin-top:2rem">
+          <div class="ar-title">Question Review</div>
+          ${TESTS.matrix.questions.map((q,i)=>{
+            const given=aa.matrix[i],correct=q.answer,isRight=given===correct;
+            return `<div class="ar-item ${isRight?'ar-correct':'ar-wrong'}">
+              <div class="ar-badge">${isRight?'✓':'✗'}</div>
+              <div><div class="answer-q-text">Q${i+1}: ${q.cat}</div><div class="ar-explain">${q.explain}</div></div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+  }
+
   // Trigger bar animations
   setTimeout(() => {
     document.querySelectorAll('.score-bar-fill, .trait-bar-fill, .biz-fit-fill').forEach(el => {
@@ -2752,6 +2989,15 @@ function scoreEntrepreneur(answers) {
   const sideHustleReady = scored.drive >= 60 && scored.resilience >= 50 && scored.commercial >= 40;
   const fullBizReady = dnaScore >= 62 && scored.risk >= 58 && scored.drive >= 65;
   return { dims: scored, dnaScore, sideHustleReady, fullBizReady };
+}
+
+function scoreMatrix(answers) {
+  const qs = TESTS.matrix.questions;
+  let correct = 0;
+  qs.forEach((q, i) => { if (answers[i] === q.answer) correct++; });
+  const pct = Math.round((correct / qs.length) * 100);
+  const iq = Math.round(70 + (correct / qs.length) * 75);
+  return { raw: correct, max: qs.length, pct, iq };
 }
 
 function getArchetype(d) {
