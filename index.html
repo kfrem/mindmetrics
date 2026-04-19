@@ -1333,6 +1333,7 @@
   @media (max-width:600px) {
     .iq-stats-trio { grid-template-columns: 1fr; }
     .hist-grid { grid-template-columns: 1fr; }
+    .cert-share-wrap { grid-template-columns: 1fr !important; }
   }
 
   /* ── Shared insight/narrative block ── */
@@ -1707,9 +1708,10 @@
 <div id="landing" class="screen active">
   <div class="brand-line">MindMetrics Assessment Suite</div>
   <h1 class="main-title">Know Your <span>Mind</span></h1>
-  <p class="subtitle">Four Scientific Assessments — Instant Results — No Account Required</p>
+  <p class="subtitle">10 Scientific Assessments — Instant Results — No Account Required</p>
   <div class="divider"></div>
 
+  <div style="font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;opacity:0.85">Cognitive</div>
   <div class="test-grid">
     <div class="test-card" onclick="startSingle('iq')">
       <span class="card-icon">🧩</span>
@@ -1722,9 +1724,23 @@
       </div>
     </div>
 
+    <div class="test-card" onclick="startSingle('matrix')" style="border-color:rgba(80,180,255,0.35);background:rgba(14,25,45,0.9)">
+      <span class="card-icon" style="color:#50b4ff">⬡</span>
+      <div class="card-label" style="color:#50b4ff">Assessment 02</div>
+      <div class="card-title">Visual Matrix IQ</div>
+      <div class="card-desc">Non-verbal reasoning — identify the rule governing each 3×3 pattern and select the missing piece. No language or prior knowledge required.</div>
+      <div class="card-meta">
+        <span>⏱ 15 min</span>
+        <span>📋 15 questions</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin:1.5rem 0 1rem;opacity:0.85">Personality</div>
+  <div class="test-grid">
     <div class="test-card" onclick="startSingle('eq')">
       <span class="card-icon">💡</span>
-      <div class="card-label">Assessment 02</div>
+      <div class="card-label">Assessment 03</div>
       <div class="card-title">EQ Test</div>
       <div class="card-desc">Emotional intelligence across four domains: self-awareness, self-regulation, empathy, and social skills.</div>
       <div class="card-meta">
@@ -1735,7 +1751,7 @@
 
     <div class="test-card" onclick="startSingle('big5')">
       <span class="card-icon">🔬</span>
-      <div class="card-label">Assessment 03</div>
+      <div class="card-label">Assessment 04</div>
       <div class="card-title">Big Five Personality</div>
       <div class="card-desc">The gold-standard OCEAN model — Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism.</div>
       <div class="card-meta">
@@ -1744,9 +1760,23 @@
       </div>
     </div>
 
+    <div class="test-card entr-card" onclick="startSingle('entrepreneur')" style="border-color:rgba(200,150,42,0.35);background:rgba(22,34,55,0.9)">
+      <span class="card-icon">🚀</span>
+      <div class="card-label" style="color:var(--gold-light)">Assessment 05</div>
+      <div class="card-title">Entrepreneur DNA</div>
+      <div class="card-desc">Discover your entrepreneur archetype, business model fit, readiness to go solo, and a personalised action plan across 7 dimensions.</div>
+      <div class="card-meta">
+        <span>⏱ 7 min</span>
+        <span>📋 20 questions</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin:1.5rem 0 1rem;opacity:0.85">Mental Wellness</div>
+  <div class="test-grid">
     <div class="test-card" onclick="startSingle('stress')">
       <span class="card-icon">⚡</span>
-      <div class="card-label">Assessment 04</div>
+      <div class="card-label">Assessment 06</div>
       <div class="card-title">Stress Index</div>
       <div class="card-desc">Perceived stress scale measuring how often you feel overwhelmed, uncontrolled, and overloaded.</div>
       <div class="card-meta">
@@ -1755,32 +1785,58 @@
       </div>
     </div>
 
-    <div class="test-card entr-card" onclick="startSingle('entrepreneur')" style="border-color:rgba(200,150,42,0.35);background:rgba(22,34,55,0.9)">
-      <span class="card-icon">🚀</span>
-      <div class="card-label" style="color:var(--gold-light)">Assessment 05 · New</div>
-      <div class="card-title">Entrepreneur DNA</div>
-      <div class="card-desc">Discover your entrepreneur archetype, business model fit, readiness to go solo, and a personalised action plan across 7 dimensions.</div>
+    <div class="test-card" onclick="startSingle('anxiety')" style="border-color:rgba(120,180,140,0.35);background:rgba(10,22,14,0.9)">
+      <span class="card-icon">🌀</span>
+      <div class="card-label" style="color:#78c48c">Assessment 07</div>
+      <div class="card-title">Anxiety Level</div>
+      <div class="card-desc">Generalised, social, and performance anxiety measured across key dimensions with clinical-grade scoring (GAD-7 framework).</div>
       <div class="card-meta">
-        <span>⏱ 7 min</span>
-        <span>📋 20 questions</span>
+        <span>⏱ 5 min</span>
+        <span>📋 14 questions</span>
       </div>
     </div>
 
-    <div class="test-card" onclick="startSingle('matrix')" style="border-color:rgba(80,180,255,0.35);background:rgba(14,25,45,0.9)">
-      <span class="card-icon" style="color:#50b4ff">⬡</span>
-      <div class="card-label" style="color:#50b4ff">Assessment 06 · New</div>
-      <div class="card-title">Visual Matrix IQ</div>
-      <div class="card-desc">Non-verbal reasoning — identify the rule governing each 3×3 pattern and select the missing piece. No language or prior knowledge required.</div>
+    <div class="test-card" onclick="startSingle('burnout')" style="border-color:rgba(220,120,80,0.35);background:rgba(28,12,8,0.9)">
+      <span class="card-icon">🔥</span>
+      <div class="card-label" style="color:#dc7850">Assessment 08</div>
+      <div class="card-title">Burnout Level</div>
+      <div class="card-desc">Occupational exhaustion measured across emotional depletion, depersonalisation, and reduced sense of accomplishment.</div>
       <div class="card-meta">
-        <span>⏱ 15 min</span>
+        <span>⏱ 5 min</span>
         <span>📋 15 questions</span>
       </div>
     </div>
   </div>
 
-  <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:1rem">
+  <div style="font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin:1.5rem 0 1rem;opacity:0.85">Self-Perception &amp; Relationships</div>
+  <div class="test-grid">
+    <div class="test-card" onclick="startSingle('imposter')" style="border-color:rgba(160,120,220,0.35);background:rgba(18,10,28,0.9)">
+      <span class="card-icon">🎭</span>
+      <div class="card-label" style="color:#a078dc">Assessment 09</div>
+      <div class="card-title">Imposter Syndrome</div>
+      <div class="card-desc">Measures the gap between your actual competence and your self-perception — how strongly the imposter experience shapes your decisions.</div>
+      <div class="card-meta">
+        <span>⏱ 6 min</span>
+        <span>📋 20 questions</span>
+      </div>
+    </div>
+
+    <div class="test-card" onclick="startSingle('attachment')" style="border-color:rgba(220,100,140,0.35);background:rgba(28,8,14,0.9)">
+      <span class="card-icon">💞</span>
+      <div class="card-label" style="color:#dc648c">Assessment 10</div>
+      <div class="card-title">Love &amp; Attachment Style</div>
+      <div class="card-desc">Discover whether you are securely attached, anxiously attached, or avoidant — and what this means for your relationships.</div>
+      <div class="card-meta">
+        <span>⏱ 6 min</span>
+        <span>📋 15 questions</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:1rem;margin-top:1.5rem">
     <button class="start-all-btn" onclick="startAll()">Complete Full Assessment Suite →</button>
     <button class="start-all-btn" onclick="startEntrepreneurSuite()" style="background:transparent;border:1px solid var(--gold);color:var(--gold)">Entrepreneur + Personality Suite →</button>
+    <button class="start-all-btn" onclick="startWellnessSuite()" style="background:transparent;border:1px solid #78c48c;color:#78c48c">Mental Wellness Suite →</button>
   </div>
 </div>
 
@@ -1822,6 +1878,11 @@
     </div>
     <div class="scores-row" id="scores-row"></div>
     <div id="detail-sections"></div>
+    <div id="explore-more-tests" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:2rem;margin-bottom:1.5rem;text-align:center;display:none">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--cream);margin-bottom:0.5rem">Keep Exploring Your Potential</div>
+      <p style="font-size:0.88rem;color:var(--steel-light);max-width:520px;margin:0 auto 1.5rem;line-height:1.7">You've taken the first step. Go deeper and uncover what drives your decisions, mental health, relationships, and blind spots.</p>
+      <button onclick="showScreen('home');window.scrollTo(0,0)" style="background:var(--gold);color:var(--navy);padding:0.85rem 2rem;border:none;border-radius:3px;cursor:pointer;font-size:0.9rem;font-family:'Jost',sans-serif;font-weight:600">Explore All Tests →</button>
+    </div>
     <div class="disclaimer">
       <p>These assessments are for educational and self-reflection purposes only. They are not clinical diagnostic instruments and should not replace evaluation by a qualified psychologist or medical professional. IQ scores are estimates based on a condensed test; standardised IQ tests administered by professionals are more accurate.</p>
     </div>
@@ -2185,6 +2246,80 @@ matrix: {
       options:[{sh:'dm',f:1,r:0,n:2,s:2},{sh:'dm',f:1,r:0,n:1,s:2},{sh:'dm',f:1,r:0,n:3,s:2},{sh:'c',f:1,r:0,n:2,s:2}], answer:0 },
   ]
 }
+,
+
+// ─── ANXIETY LEVEL ────────────────────────────────────────
+anxiety: {
+  name: 'Anxiety Level', label: 'Mental Wellness Assessment', timed: false,
+  questions: [
+    { cat:'Generalised Anxiety', text:'I feel nervous, anxious, or on edge.', options:['Not at all','Several days','More than half','Nearly every day'], likert:true },
+    { cat:'Generalised Anxiety', text:'I am unable to stop or control worrying.', options:['Not at all','Several days','More than half','Nearly every day'], likert:true },
+    { cat:'Generalised Anxiety', text:'I worry too much about different things.', options:['Not at all','Several days','More than half','Nearly every day'], likert:true },
+    { cat:'Generalised Anxiety', text:'I have trouble relaxing.', options:['Not at all','Several days','More than half','Nearly every day'], likert:true },
+    { cat:'Physical Symptoms', text:'I am so restless that it is hard to sit still.', options:['Not at all','Several days','More than half','Nearly every day'], likert:true },
+    { cat:'Physical Symptoms', text:'I become easily annoyed or irritable.', options:['Not at all','Several days','More than half','Nearly every day'], likert:true },
+    { cat:'Physical Symptoms', text:'I feel afraid as if something awful might happen.', options:['Not at all','Several days','More than half','Nearly every day'], likert:true },
+    { cat:'Social Anxiety', text:'I avoid social situations because they make me anxious.', options:['Not at all','Several days','More than half','Nearly every day'], likert:true },
+    { cat:'Social Anxiety', text:'I feel self-conscious or judged when around other people.', options:['Not at all','Several days','More than half','Nearly every day'], likert:true },
+    { cat:'Impact', text:'My anxiety has made it difficult to do my work, household tasks, or get along with other people.', options:['Not at all','Several days','More than half','Nearly every day'], likert:true },
+  ]
+},
+
+// ─── BURNOUT LEVEL ────────────────────────────────────────
+burnout: {
+  name: 'Burnout Level', label: 'Occupational Wellbeing Assessment', timed: false,
+  questions: [
+    { cat:'Emotional Exhaustion', text:'I feel emotionally drained from my work or daily responsibilities.', options:['Never','Rarely','Sometimes','Often','Always'], likert:true },
+    { cat:'Emotional Exhaustion', text:'I feel used up at the end of the working day.', options:['Never','Rarely','Sometimes','Often','Always'], likert:true },
+    { cat:'Emotional Exhaustion', text:'I feel fatigued when I get up in the morning and have to face another day.', options:['Never','Rarely','Sometimes','Often','Always'], likert:true },
+    { cat:'Depersonalisation', text:'I have become less interested in my work or daily tasks since I started.', options:['Never','Rarely','Sometimes','Often','Always'], likert:true },
+    { cat:'Depersonalisation', text:'I have become more callous toward people I work or interact with.', options:['Never','Rarely','Sometimes','Often','Always'], likert:true },
+    { cat:'Depersonalisation', text:'I do not really care about what happens to some people I deal with.', options:['Never','Rarely','Sometimes','Often','Always'], likert:true },
+    { cat:'Reduced Accomplishment', text:'I feel that I am making a positive difference through my work or life.', options:['Never','Rarely','Sometimes','Often','Always'], rev:true, likert:true },
+    { cat:'Reduced Accomplishment', text:'I feel very energetic and motivated about what I am doing.', options:['Never','Rarely','Sometimes','Often','Always'], rev:true, likert:true },
+    { cat:'Reduced Accomplishment', text:'I feel I have accomplished many worthwhile things in my role.', options:['Never','Rarely','Sometimes','Often','Always'], rev:true, likert:true },
+    { cat:'Recovery', text:'I have enough time and space to recover between demanding periods.', options:['Never','Rarely','Sometimes','Often','Always'], rev:true, likert:true },
+  ]
+},
+
+// ─── LOVE & ATTACHMENT STYLE ──────────────────────────────
+attachment: {
+  name: 'Love & Attachment Style', label: 'Relationship Psychology Assessment', timed: false,
+  questions: [
+    { cat:'Closeness & Intimacy', text:'I find it relatively easy to get close to others.', style:'secure', options:['1','2','3','4','5'], likert:true },
+    { cat:'Closeness & Intimacy', text:'I am comfortable depending on others and having others depend on me.', style:'secure', options:['1','2','3','4','5'], likert:true },
+    { cat:'Closeness & Intimacy', text:'I do not often worry about being abandoned or about someone getting too close to me.', style:'secure', options:['1','2','3','4','5'], likert:true },
+    { cat:'Anxious Attachment', text:'I worry that others do not really love me or want to stay with me.', style:'anxious', options:['1','2','3','4','5'], likert:true },
+    { cat:'Anxious Attachment', text:'I want to be extremely emotionally close to my partner, but they seem reluctant to get as close as I would like.', style:'anxious', options:['1','2','3','4','5'], likert:true },
+    { cat:'Anxious Attachment', text:'My desire for closeness sometimes scares people away.', style:'anxious', options:['1','2','3','4','5'], likert:true },
+    { cat:'Avoidant Attachment', text:'I am not very comfortable having to depend on other people.', style:'avoidant', options:['1','2','3','4','5'], likert:true },
+    { cat:'Avoidant Attachment', text:'I prefer not to share too much about myself with others.', style:'avoidant', options:['1','2','3','4','5'], likert:true },
+    { cat:'Avoidant Attachment', text:'People want me to be more intimate than I feel comfortable being.', style:'avoidant', options:['1','2','3','4','5'], likert:true },
+    { cat:'Trust & Safety', text:'I find it easy to trust romantic partners and close friends.', style:'secure', options:['1','2','3','4','5'], likert:true },
+    { cat:'Trust & Safety', text:'I often worry about whether my relationships are genuine and stable.', style:'anxious', options:['1','2','3','4','5'], likert:true },
+    { cat:'Independence', text:'I value my independence so much that being in close relationships sometimes feels constraining.', style:'avoidant', options:['1','2','3','4','5'], likert:true },
+    { cat:'Vulnerability', text:'I am comfortable being vulnerable and sharing my real feelings with people close to me.', style:'secure', options:['1','2','3','4','5'], likert:true },
+    { cat:'Conflict', text:'When conflict arises, I tend to withdraw or shut down rather than work through it.', style:'avoidant', options:['1','2','3','4','5'], likert:true },
+    { cat:'Emotional Needs', text:'I am very attuned to my partner\'s moods and often adjust my behaviour to manage their emotions.', style:'anxious', options:['1','2','3','4','5'], likert:true },
+  ]
+},
+
+// ─── IMPOSTER SYNDROME ────────────────────────────────────
+imposter: {
+  name: 'Imposter Syndrome', label: 'Self-Perception & Confidence Assessment', timed: false,
+  questions: [
+    { cat:'Achievement Attribution', text:'When I receive praise or recognition, I feel I do not really deserve it.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Achievement Attribution', text:'I often feel that I have somehow fooled people into thinking I am more capable than I actually am.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Achievement Attribution', text:'My success feels more like luck than the result of my genuine ability.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Fear of Exposure', text:'I am afraid that people will eventually find out that I am not as intelligent as they think I am.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Fear of Exposure', text:'I sometimes avoid taking on new challenges because I fear being exposed as incompetent.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Comparison', text:'I compare my abilities to those around me and feel inferior, even when I perform as well or better.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Comparison', text:'I believe my colleagues or peers are more capable than me in most important areas.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Perfectionism', text:'I put extreme pressure on myself to avoid making mistakes, fearing it would expose my inadequacy.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Perfectionism', text:'When I do succeed, I tend to minimise my achievement or attribute it to external factors.', options:['1','2','3','4','5'], likert:true },
+    { cat:'Self-Worth', text:'I feel that my sense of self-worth is tied almost entirely to what I achieve rather than who I am.', options:['1','2','3','4','5'], likert:true },
+  ]
+}
 
 };
 
@@ -2221,7 +2356,7 @@ function showScreen(id) {
 
 function startAll() {
   state.mode = 'all';
-  state.queue = ['iq','eq','big5','stress','entrepreneur'];
+  state.queue = ['iq','eq','big5','stress','entrepreneur','matrix','anxiety','burnout','imposter','attachment'];
   state.allAnswers = {};
   launchTest(state.queue.shift());
 }
@@ -2229,6 +2364,13 @@ function startAll() {
 function startEntrepreneurSuite() {
   state.mode = 'all';
   state.queue = ['big5','eq','entrepreneur'];
+  state.allAnswers = {};
+  launchTest(state.queue.shift());
+}
+
+function startWellnessSuite() {
+  state.mode = 'all';
+  state.queue = ['stress','anxiety','burnout','imposter'];
   state.allAnswers = {};
   launchTest(state.queue.shift());
 }
@@ -2881,6 +3023,123 @@ function stressActionPlan(raw) {
   ];
 }
 
+function globalStanding(iq) {
+  const pct = iqPercentile(iq) / 100;
+  const world = 8000000000;
+  const uk = 67000000;
+  const smarter_world = Math.round(world * pct);
+  const smarter_uk = Math.round(uk * pct);
+  const room100 = Math.round(pct * 100);
+  const fmt = n => n >= 1e9 ? (n/1e9).toFixed(1)+'B' : n >= 1e6 ? (n/1e6).toFixed(1)+'M' : n.toLocaleString();
+  return `
+    <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:1.5rem;margin:1.5rem 0">
+      <div style="font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.35em;color:var(--gold);text-transform:uppercase;margin-bottom:1.2rem;opacity:0.9">Your Global Standing</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:4px;padding:1rem">
+          <div style="font-size:0.62rem;color:var(--steel);font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.4rem">🌍 World Population (8B)</div>
+          <div style="font-size:1.6rem;font-weight:300;color:var(--gold-light)">Smarter than ${fmt(smarter_world)}</div>
+          <div style="font-size:0.7rem;color:var(--steel);margin-top:0.2rem">people worldwide</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:4px;padding:1rem">
+          <div style="font-size:0.62rem;color:var(--steel);font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.4rem">🇬🇧 United Kingdom (67M)</div>
+          <div style="font-size:1.6rem;font-weight:300;color:var(--gold-light)">Smarter than ${fmt(smarter_uk)}</div>
+          <div style="font-size:0.7rem;color:var(--steel);margin-top:0.2rem">people in the UK</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:4px;padding:1rem">
+          <div style="font-size:0.62rem;color:var(--steel);font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.4rem">👥 Room of 100 People</div>
+          <div style="font-size:1.6rem;font-weight:300;color:var(--gold-light)">Rank #${101 - room100}</div>
+          <div style="font-size:0.7rem;color:var(--steel);margin-top:0.2rem">You'd outperform ${room100} of them</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:4px;padding:1rem">
+          <div style="font-size:0.62rem;color:var(--steel);font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.4rem">🏆 UK Top Rank</div>
+          <div style="font-size:1.6rem;font-weight:300;color:var(--gold-light)">Top ${fmt(smarter_uk)}</div>
+          <div style="font-size:0.7rem;color:var(--steel);margin-top:0.2rem">in the United Kingdom</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function iqCertificateHTML(r, band) {
+  const today = new Date().toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
+  return `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:1.5rem 0;flex-wrap:wrap" class="cert-share-wrap">
+      <div class="iq-certificate" id="iq-cert-box" style="background:linear-gradient(135deg,rgba(22,34,55,0.98),rgba(10,18,30,0.99));border:1px solid rgba(200,150,42,0.4);border-radius:6px;padding:1.8rem;text-align:center;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold))"></div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.5em;color:var(--gold);text-transform:uppercase;margin-bottom:0.8rem;opacity:0.8">Certificate of Cognitive Assessment</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--steel-light);margin-bottom:0.3rem">This certifies that</div>
+        <input id="cert-name-input" type="text" placeholder="Enter your name" style="background:transparent;border:none;border-bottom:1px solid rgba(200,150,42,0.4);color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.4rem;text-align:center;width:100%;margin-bottom:0.6rem;outline:none;padding:0.2rem 0" oninput="document.getElementById('cert-name-display').textContent=this.value||'Your Name'"/>
+        <div id="cert-name-display" style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--cream);display:none"></div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--steel-light);margin-bottom:1rem">achieved an IQ score of</div>
+        <div style="font-size:3rem;font-weight:300;color:var(--gold-light);letter-spacing:-2px;margin-bottom:0.3rem">${r.iq}</div>
+        <div style="font-size:0.8rem;color:${band.color};margin-bottom:1rem">${band.label} · Top ${100-iqPercentile(r.iq)}% Globally</div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.55rem;color:var(--steel);letter-spacing:0.1em">MindMetrics Assessment Suite · ${today}</div>
+        <div style="margin-top:1.2rem">
+          <button onclick="window.print()" style="background:rgba(200,150,42,0.15);border:1px solid var(--gold);color:var(--gold);padding:0.5rem 1.2rem;border-radius:3px;cursor:pointer;font-size:0.8rem;font-family:'Jost',sans-serif">⬇ Save as PDF</button>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:1.8rem">
+        <div style="font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.35em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;opacity:0.9">Share Your Results</div>
+        <p style="font-size:0.82rem;color:var(--steel-light);margin-bottom:1.2rem;line-height:1.6">Share your cognitive assessment and invite friends to discover their IQ.</p>
+        <div style="display:flex;flex-direction:column;gap:0.6rem">
+          <button onclick="shareLinkedIn(${r.iq})" style="background:rgba(10,102,194,0.15);border:1px solid rgba(10,102,194,0.4);color:#5ba4cf;padding:0.65rem;border-radius:3px;cursor:pointer;font-size:0.82rem;font-family:'Jost',sans-serif;text-align:left">💼 Share on LinkedIn</button>
+          <button onclick="shareTwitter(${r.iq})" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);color:var(--steel-light);padding:0.65rem;border-radius:3px;cursor:pointer;font-size:0.82rem;font-family:'Jost',sans-serif;text-align:left">𝕏 Share on X / Twitter</button>
+          <button onclick="copyShareLink()" id="copy-link-btn" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);color:var(--steel-light);padding:0.65rem;border-radius:3px;cursor:pointer;font-size:0.82rem;font-family:'Jost',sans-serif;text-align:left">🔗 Copy Link</button>
+        </div>
+        <p style="font-size:0.72rem;color:var(--steel);margin-top:1.2rem;line-height:1.5">Curious about a friend's intelligence? Share this link and compare results.</p>
+      </div>
+    </div>`;
+}
+
+function shareLinkedIn(iq) {
+  const url = encodeURIComponent('https://finaccord.pro/mindmetrics');
+  const text = encodeURIComponent(`I just scored ${iq} on the MindMetrics IQ Assessment — placing me in the top ${100-iqPercentile(iq)}% globally. Curious about yours?`);
+  window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=My+MindMetrics+IQ+Score&summary=${text}`, '_blank');
+}
+function shareTwitter(iq) {
+  const text = encodeURIComponent(`My MindMetrics IQ score: ${iq} — top ${100-iqPercentile(iq)}% globally. Take the free test: https://finaccord.pro/mindmetrics #IQ #MindMetrics`);
+  window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+}
+function copyShareLink() {
+  navigator.clipboard.writeText('https://finaccord.pro/mindmetrics').then(() => {
+    const btn = document.getElementById('copy-link-btn');
+    if (btn) { btn.textContent = '✓ Link Copied!'; setTimeout(() => btn.textContent = '🔗 Copy Link', 2000); }
+  });
+}
+
+function generateAnxietyNarrative(r, band) {
+  const t = band.tier;
+  if (t === 'minimal') return `<p>Your anxiety score falls in the minimal range — you are managing the emotional and physical aspects of worry, tension, and stress very effectively. This level of anxiety is entirely normal and healthy; some baseline anxiety is adaptive and keeps us alert and motivated. You appear to have good regulation around worry and a stable baseline nervous system response.</p><p>The best way to maintain this is to protect the conditions that support it: regular physical activity, consistent sleep, meaningful social connection, and periodic reflection on what you are grateful for. Anxiety has a way of creeping up during major life transitions — being proactive about these habits means you will navigate those periods from a position of strength.</p>`;
+  if (t === 'mild') return `<p>Your score indicates mild anxiety — you experience occasional worry and tension that is within the normal range for most adults navigating busy, demanding lives. Mild anxiety does not typically interfere with functioning, but it is worth paying attention to the patterns: what triggers your worry, how long it tends to last, and whether it is concentrated in specific areas of your life.</p><p>At this level, self-help strategies tend to work well: regular aerobic exercise (30 minutes, 3–5 times per week) has strong evidence for reducing anxiety comparable to medication in mild cases. Limiting caffeine, particularly after noon, makes a noticeable difference for many people. Mindfulness practices — even just 10 minutes of focused breathing daily — begin to build the self-regulation capacity that prevents mild anxiety from escalating.</p>`;
+  if (t === 'moderate') return `<p>Your score suggests moderate anxiety that is likely affecting your daily experience in meaningful ways — concentration, sleep quality, relationships, or work performance may all be carrying some of this load. Moderate anxiety is worth taking seriously not because it indicates a crisis, but because it tends to compound over time if unaddressed.</p><p>The most effective interventions at this level are structured rather than just lifestyle adjustments. Cognitive Behavioural Therapy (CBT) has the strongest evidence base for generalised anxiety — it specifically targets the thought patterns that drive the anxiety cycle. It is available through NHS IAPT services, private therapy, or evidence-based apps (Therapist Aid, Calm, Headspace all have CBT modules). You do not need to be in crisis to benefit from professional support — entering at moderate levels leads to significantly better outcomes than waiting.</p>`;
+  return `<p>Your score falls in the severe range — this level of anxiety typically creates significant disruption across multiple areas of life: work, relationships, sleep, and physical health. Severe anxiety is not a character weakness or a sign that something is fundamentally wrong with you; it is a clinical signal that your nervous system is carrying more than it can process unaided.</p><p>The most important step is speaking to your GP or a mental health professional as soon as possible. Severe anxiety responds well to treatment — CBT, medication, or both in combination have very high success rates. Many people experience significant relief within 6–12 weeks of beginning structured treatment. Please do not wait this out alone. The NHS provides free access to talking therapies through IAPT (you can self-refer at nhs.uk/mental-health/talking-therapies-medicine-treatments). You deserve support at this level, not just coping strategies.</p>`;
+}
+
+function generateBurnoutNarrative(r, band) {
+  const t = band.tier;
+  if (t === 'low') return `<p>Your burnout score is low — you appear to be maintaining a healthy relationship with your work and daily responsibilities. You have adequate energy, remain emotionally engaged, and feel that your efforts are connected to meaningful outcomes. This is a position of genuine resilience, not just luck — it reflects habits, boundaries, and contexts that are working well for you.</p><p>The most important thing at this stage is awareness: burnout rarely arrives suddenly. It builds gradually through sustained overload, creeping cynicism, and shrinking recovery time. Maintaining regular non-negotiable rest, keeping lines of communication open about workload, and investing in the parts of your work that feel most meaningful are your strongest preventive tools.</p>`;
+  if (t === 'moderate') return `<p>Your score indicates moderate burnout — you are showing early warning signs of the emotional exhaustion and reduced engagement that characterise burnout in its developing phase. This is an important moment: moderate burnout is highly reversible, but it tends to accelerate if unaddressed. The signals worth taking seriously are: feeling more detached than usual, needing significantly more rest than normal, and a declining sense that your work matters.</p><p>Practical priorities at this stage: identify which demands are non-negotiable vs which can be reduced or delegated, and take action on at least one this week. Build explicit recovery time into your schedule — not just weekends, but daily wind-down periods. And have an honest conversation with yourself (or someone you trust) about whether the current situation is sustainable at the same intensity long-term.</p>`;
+  if (t === 'high') return `<p>Your burnout score is high — you are experiencing significant emotional exhaustion, detachment from your work, and likely a reduced sense of accomplishment or efficacy. High burnout at this level affects physical health (immune function, sleep, cortisol regulation), cognitive performance (memory, focus, decision-making), and relationships. It is not simply tiredness.</p><p>At this level, lifestyle adjustments alone are unlikely to be sufficient — the burnout is deep enough to require structural change: workload, environment, or role. Speak to your manager, HR, or GP about what accommodations or changes are possible. If your working environment is the core driver, take this seriously as a health issue, not a performance issue. Burnout that reaches this level without intervention frequently progresses to complete withdrawal or physical illness.</p>`;
+  return `<p>Your score indicates severe burnout — this is a crisis signal. Severe burnout involves profound emotional exhaustion that does not resolve with rest, deep cynicism or disengagement that has spread beyond work into personal life, and a collapsed sense of self-efficacy. At this level, burnout typically requires medical intervention and significant life changes, not just wellness habits.</p><p>Please speak to your GP as a priority. Severe burnout is increasingly recognised as a medical condition in its own right. A period of certified sick leave or reduced duties may be medically indicated, and your doctor can advise on this. You may also benefit from professional psychological support — burnout at this severity often intersects with depression, and treating one without the other is less effective. You do not need to push through this alone, and continuing to push is likely making it worse.</p>`;
+}
+
+function generateAttachmentNarrative(r) {
+  const styles = {
+    secure: { name:'Secure Attachment', color:'#3a9e6e', icon:'🤝', desc:'You approach relationships with a healthy balance of closeness and independence. You generally feel comfortable with intimacy, trust that others are reliable, and do not tend to catastrophise when relationships encounter difficulty. Secure attachment is the gold standard — it is associated with relationship satisfaction, resilience under stress, and healthier communication patterns.', growth:'Continue investing in the quality (not just quantity) of your close relationships. Secure individuals often become stabilising anchors for those with more anxious or avoidant patterns — this is a gift, provided you also maintain your own boundaries and needs.' },
+    anxious: { name:'Anxious Attachment', color:'#e8814b', icon:'💛', desc:'Your pattern leans toward anxious attachment — you tend to seek high levels of closeness, may worry about rejection or abandonment, and can become preoccupied with relationship security. This style typically develops in environments where connection felt inconsistent or uncertain. It does not reflect weakness; it reflects adaptation.', growth:'The growth path for anxious attachment involves learning to self-soothe without requiring external reassurance, developing trust in your own worth independent of others\' responses, and recognising that seeking reassurance — while natural — can inadvertently create the distance it is trying to prevent. Therapy (particularly attachment-focused CBT or EFT) is highly effective.' },
+    avoidant: { name:'Avoidant Attachment', color:'#2a8fa0', icon:'🧊', desc:'Your pattern shows avoidant attachment — you tend to prioritise self-sufficiency, may feel uncomfortable with too much emotional closeness, and can withdraw when relationships become demanding or intense. This pattern typically develops in environments where emotional needs were met with inconsistency or dismissal. Underneath the self-reliance is often an unmet need for genuine connection.', growth:'The growth path for avoidant attachment involves gradually expanding your tolerance for emotional intimacy, recognising that depending on others and being depended upon is not weakness, and building the vocabulary to express needs before they become resentments. Small, consistent acts of vulnerability in safe relationships build the evidence that closeness is survivable.' }
+  };
+  const s = styles[r.dominant];
+  return `<p><strong style="color:${s.color}">${s.icon} ${s.name}</strong> — ${s.desc}</p><p><strong style="color:var(--cream)">Your Growth Path:</strong> ${s.growth}</p>`;
+}
+
+function generateImposterNarrative(r, band) {
+  const t = band.tier;
+  if (t === 'low') return `<p>Your score indicates minimal imposter syndrome — you generally attribute your successes accurately to your own ability, effort, and preparation rather than luck or circumstance. This psychological groundedness is a genuine asset: it allows you to take appropriate credit, absorb feedback without catastrophising, and pursue ambitious goals without excessive self-doubt undermining your momentum.</p><p>Imposter feelings are universal in small doses; the fact that yours are well-contained suggests either strong early foundations of unconditional support, deliberate work on your self-concept, or both. Protect this by continuing to keep score of your own evidence — the specific things you have accomplished, the problems you have solved, the ways you have grown.</p>`;
+  if (t === 'moderate') return `<p>Your score suggests moderate imposter syndrome — you periodically doubt whether you deserve your achievements, feel anxious that others may discover you are not as capable as they believe, or attribute your successes more to luck or timing than to your genuine skill. This is strikingly common: research suggests that 70% of people experience significant imposter feelings at some point, and it is particularly prevalent in high-achieving populations.</p><p>The cognitive distortion at the heart of imposter syndrome is a double standard: you attribute your successes externally (luck, timing, others\' lowered expectations) while attributing your failures internally (incompetence, fraud). Practice applying the same standard to both. Build a concrete "evidence file" — literally document specific examples of your competence. When imposter thoughts arise, cross-reference them against the file, not against your feelings.</p>`;
+  if (t === 'high') return `<p>Your score indicates high imposter syndrome — self-doubt, fear of exposure, and the feeling of fraudulence are regular features of your experience, particularly in professional or achievement contexts. At this level, imposter syndrome is likely to be limiting what you pursue, how you show up when you get there, and the amount of credit you allow yourself to take.</p><p>High imposter syndrome is especially common in people who are highly conscientious, intelligent, and genuinely high-performing — which is part of what makes it so self-undermining. The very people who feel most fraudulent are often the least so. Working with a therapist (CBT or ACT approaches work well for this) is highly effective. In the meantime: share your imposter feelings with trusted peers — you will almost certainly discover they feel the same, which is itself powerfully normalising.</p>`;
+  return `<p>Your score falls in the intense range for imposter syndrome — fraudulence, fear of exposure, and the disconnection between your external success and internal self-belief are likely causing significant psychological distress and potentially preventing you from pursuing what you are genuinely capable of. At this intensity, imposter syndrome frequently co-occurs with anxiety and perfectionism in a mutually reinforcing cycle.</p><p>This level warrants professional support. A psychologist or counsellor trained in CBT or ACT can help you dismantle the specific belief structures driving this pattern — it is highly treatable, but difficult to fully resolve without skilled external support because the thinking that creates imposter syndrome is also what evaluates any attempts to address it. You deserve to feel legitimate in what you have built. That is not grandiosity — it is accuracy.</p>`;
+}
+
 function showResults() {
   const aa = state.allAnswers;
   const testsRun = Object.keys(aa);
@@ -2988,6 +3247,7 @@ function showResults() {
           </div>
         </div>
 
+        ${globalStanding(r.iq)}
         <div style="margin-bottom:1rem">${generateIQNarrative(r, band)}</div>
 
         <div class="cog-blueprint">
@@ -3000,8 +3260,14 @@ function showResults() {
           <div class="hist-grid">${figCards}</div>
         </div>
 
+        ${iqCertificateHTML(r, band)}
         <div class="answer-review">
           <div class="answer-review-title">Your Answers · Question by Question</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;margin-bottom:1.5rem;padding:1rem;background:rgba(255,255,255,0.02);border-radius:4px;border:1px solid rgba(255,255,255,0.06)">
+            <div style="text-align:center"><div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:var(--steel);text-transform:uppercase;margin-bottom:0.3rem">Correct</div><div style="font-size:1.4rem;font-weight:300;color:var(--cream)">${r.raw}/${r.max}</div></div>
+            <div style="text-align:center"><div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:var(--steel);text-transform:uppercase;margin-bottom:0.3rem">Accuracy</div><div style="font-size:1.4rem;font-weight:300;color:var(--cream)">${Math.round((r.raw/r.max)*100)}%</div></div>
+            <div style="text-align:center"><div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:var(--steel);text-transform:uppercase;margin-bottom:0.3rem">Total Time</div><div style="font-size:1.4rem;font-weight:300;color:var(--cream)">${Math.floor((state.allAnswerTimes.iq||[]).reduce((a,b)=>a+b,0)/60)}:${String((state.allAnswerTimes.iq||[]).reduce((a,b)=>a+b,0)%60).padStart(2,'0')}</div></div>
+          </div>
           ${reviewHtml}
         </div>
 
@@ -3279,6 +3545,118 @@ function showResults() {
       </div>`;
   }
 
+  // ── ANXIETY LEVEL ──
+  if (aa.anxiety) {
+    const r = scoreAnxiety(aa.anxiety);
+    const band = anxietyBand(r.raw);
+    scoresRow.innerHTML += `
+      <div class="score-card">
+        <div class="score-label">Anxiety Level</div>
+        <div class="score-number">${r.raw}</div>
+        <div class="score-max">out of ${r.max}</div>
+        <div class="score-band" style="color:${band.color}">${band.label}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${r.pct}%;background:${band.color}"></div></div>
+      </div>`;
+    const gaugeLeft = Math.min(94, Math.max(3, r.pct));
+    detailSections.innerHTML += `
+      <div class="result-section">
+        <div class="result-section-title">Anxiety Level Assessment <span class="badge">${r.raw}/${r.max}</span></div>
+        <div class="score-spectrum-stat-trio" style="margin-bottom:1.5rem">
+          <div class="score-spectrum-stat"><div class="score-spectrum-label">Score</div><div class="score-spectrum-value" style="color:${band.color}">${r.raw}</div><div class="score-spectrum-sub">${band.label}</div></div>
+          <div class="score-spectrum-stat"><div class="score-spectrum-label">Severity</div><div class="score-spectrum-value" style="font-size:1rem;padding-top:0.4rem">${band.label.split(' ')[0]}</div><div class="score-spectrum-sub">GAD-7 based scale</div></div>
+          <div class="score-spectrum-stat"><div class="score-spectrum-label">Range</div><div class="score-spectrum-value" style="font-size:1rem;padding-top:0.4rem">${r.raw <= 4 ? '0–4' : r.raw <= 9 ? '5–9' : r.raw <= 14 ? '10–14' : '15–27'}</div><div class="score-spectrum-sub">${r.raw <= 4 ? 'Minimal' : r.raw <= 9 ? 'Mild' : r.raw <= 14 ? 'Moderate' : 'Severe'} band</div></div>
+        </div>
+        <div class="stress-gauge-wrap">
+          <div class="stress-gauge-bar" style="background:linear-gradient(90deg,#3a9e6e 0%,#c8962a 40%,#e8814b 70%,#c94040 100%)">
+            <div class="stress-gauge-marker" style="left:${gaugeLeft}%">${r.raw}</div>
+          </div>
+          <div class="stress-gauge-labels"><span>Minimal (0)</span><span>Mild (5)</span><span>Moderate (10)</span><span>Severe (15+)</span></div>
+        </div>
+        <div>${generateAnxietyNarrative(r, band)}</div>
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Clinical note:</strong> This assessment is based on GAD-7 (Generalised Anxiety Disorder scale) items. It is a screening tool, not a diagnostic instrument. If your score is moderate or above and has persisted for more than two weeks, please speak to your GP. You can self-refer to NHS Talking Therapies at nhs.uk.</em></p>
+      </div>`;
+  }
+
+  // ── BURNOUT LEVEL ──
+  if (aa.burnout) {
+    const r = scoreBurnout(aa.burnout);
+    const band = burnoutBand(r.pct);
+    const gaugeLeft = Math.min(94, Math.max(3, r.pct));
+    scoresRow.innerHTML += `
+      <div class="score-card">
+        <div class="score-label">Burnout Level</div>
+        <div class="score-number">${r.pct}%</div>
+        <div class="score-max">${r.raw}/${r.max} raw</div>
+        <div class="score-band" style="color:${band.color}">${band.label}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${r.pct}%;background:${band.color}"></div></div>
+      </div>`;
+    detailSections.innerHTML += `
+      <div class="result-section">
+        <div class="result-section-title">Burnout Level Assessment <span class="badge">${r.pct}%</span></div>
+        <div class="stress-gauge-wrap">
+          <div class="stress-gauge-bar" style="background:linear-gradient(90deg,#3a9e6e 0%,#c8962a 40%,#e8814b 70%,#c94040 100%)">
+            <div class="stress-gauge-marker" style="left:${gaugeLeft}%">${r.pct}%</div>
+          </div>
+          <div class="stress-gauge-labels"><span>Low</span><span>Moderate</span><span>High</span><span>Severe</span></div>
+        </div>
+        <div>${generateBurnoutNarrative(r, band)}</div>
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">About this assessment:</strong> Based on the Maslach Burnout Inventory framework, covering emotional exhaustion, depersonalisation, and reduced personal accomplishment. It is a self-report tool, not a clinical diagnosis.</em></p>
+      </div>`;
+  }
+
+  // ── LOVE & ATTACHMENT STYLE ──
+  if (aa.attachment) {
+    const r = scoreAttachment(aa.attachment);
+    const styleData = { secure: { label:'Secure', color:'#3a9e6e' }, anxious: { label:'Anxious', color:'#e8814b' }, avoidant: { label:'Avoidant', color:'#2a8fa0' } };
+    const dom = styleData[r.dominant];
+    scoresRow.innerHTML += `
+      <div class="score-card">
+        <div class="score-label">Attachment Style</div>
+        <div class="score-number" style="font-size:1.4rem;padding:0.5rem 0">${dom.label}</div>
+        <div class="score-max">Primary Style</div>
+        <div class="score-band" style="color:${dom.color}">${r.dominant.charAt(0).toUpperCase()+r.dominant.slice(1)} Attachment</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${Math.round(r.scores[r.dominant]/5*100)}%;background:${dom.color}"></div></div>
+      </div>`;
+    const styleBreakdown = Object.entries(r.scores).map(([k,v]) => {
+      const sd = styleData[k]; const pct = Math.round((v/5)*100);
+      return `<div style="margin-bottom:1rem"><div style="display:flex;justify-content:space-between;margin-bottom:0.3rem"><span style="font-size:0.82rem;color:var(--cream)">${sd.label}</span><span style="font-size:0.75rem;font-family:'Space Mono',monospace;color:${sd.color}">${v.toFixed(1)}/5</span></div><div style="height:5px;background:rgba(255,255,255,0.06);border-radius:3px"><div style="height:100%;width:${pct}%;background:${sd.color};border-radius:3px"></div></div></div>`;
+    }).join('');
+    detailSections.innerHTML += `
+      <div class="result-section">
+        <div class="result-section-title">Love & Attachment Style <span class="badge">${dom.label}</span></div>
+        <div style="margin-bottom:1.5rem">${styleBreakdown}</div>
+        <div>${generateAttachmentNarrative(r)}</div>
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">About attachment theory:</strong> Based on Ainsworth and Bowlby's attachment framework. Attachment styles are patterns, not fixed traits — they can and do shift with secure relationships, self-awareness, and therapeutic work.</em></p>
+      </div>`;
+  }
+
+  // ── IMPOSTER SYNDROME ──
+  if (aa.imposter) {
+    const r = scoreImposter(aa.imposter);
+    const band = imposterBand(r.pct);
+    const gaugeLeft = Math.min(94, Math.max(3, r.pct));
+    scoresRow.innerHTML += `
+      <div class="score-card">
+        <div class="score-label">Imposter Syndrome</div>
+        <div class="score-number">${r.pct}%</div>
+        <div class="score-max">${r.raw}/${r.max} raw</div>
+        <div class="score-band" style="color:${band.color}">${band.label}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${r.pct}%;background:${band.color}"></div></div>
+      </div>`;
+    detailSections.innerHTML += `
+      <div class="result-section">
+        <div class="result-section-title">Imposter Syndrome Assessment <span class="badge">${r.pct}%</span></div>
+        <div class="stress-gauge-wrap">
+          <div class="stress-gauge-bar" style="background:linear-gradient(90deg,#3a9e6e 0%,#c8962a 40%,#e8814b 70%,#c94040 100%)">
+            <div class="stress-gauge-marker" style="left:${gaugeLeft}%">${r.pct}%</div>
+          </div>
+          <div class="stress-gauge-labels"><span>Low</span><span>Moderate</span><span>High</span><span>Intense</span></div>
+        </div>
+        <div>${generateImposterNarrative(r, band)}</div>
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Research context:</strong> Imposter syndrome was first identified by psychologists Clance and Imes (1978). It is remarkably prevalent — studies suggest 70% of people experience it at some point. It is especially common in high achievers, women in male-dominated fields, and people from underrepresented backgrounds.</em></p>
+      </div>`;
+  }
+
   // Trigger bar animations
   setTimeout(() => {
     document.querySelectorAll('.score-bar-fill, .trait-bar-fill, .biz-fit-fill').forEach(el => {
@@ -3288,6 +3666,7 @@ function showResults() {
     });
   }, 100);
 
+  document.getElementById('explore-more-tests').style.display = 'block';
   cacheAndActivatePremium();
 }
 
@@ -3308,6 +3687,70 @@ function scoreEntrepreneur(answers) {
   const sideHustleReady = scored.drive >= 60 && scored.resilience >= 50 && scored.commercial >= 40;
   const fullBizReady = dnaScore >= 62 && scored.risk >= 58 && scored.drive >= 65;
   return { dims: scored, dnaScore, sideHustleReady, fullBizReady };
+}
+
+function scoreAnxiety(answers) {
+  let total = 0;
+  answers.forEach((a, i) => { total += a; }); // 0-3 per question
+  const max = TESTS.anxiety.questions.length * 3;
+  const pct = Math.round((total / max) * 100);
+  return { raw: total, max, pct };
+}
+
+function anxietyBand(raw) {
+  if (raw <= 4)  return { label:'Minimal Anxiety',  color:'#3a9e6e', tier:'minimal' };
+  if (raw <= 9)  return { label:'Mild Anxiety',     color:'#c8962a', tier:'mild' };
+  if (raw <= 14) return { label:'Moderate Anxiety', color:'#e8814b', tier:'moderate' };
+  return           { label:'Severe Anxiety',  color:'#c94040', tier:'severe' };
+}
+
+function scoreBurnout(answers) {
+  const qs = TESTS.burnout.questions;
+  let total = 0;
+  qs.forEach((q, i) => {
+    let val = answers[i] !== undefined ? answers[i] : 0; // 0-4
+    if (q.rev) val = 4 - val;
+    total += val;
+  });
+  const max = TESTS.burnout.questions.length * 4;
+  const pct = Math.round((total / max) * 100);
+  return { raw: total, max, pct };
+}
+
+function burnoutBand(pct) {
+  if (pct <= 25) return { label:'Low Burnout',      color:'#3a9e6e', tier:'low' };
+  if (pct <= 50) return { label:'Moderate Burnout', color:'#c8962a', tier:'moderate' };
+  if (pct <= 75) return { label:'High Burnout',     color:'#e8814b', tier:'high' };
+  return           { label:'Severe Burnout',  color:'#c94040', tier:'severe' };
+}
+
+function scoreAttachment(answers) {
+  const qs = TESTS.attachment.questions;
+  const styles = { secure: [], anxious: [], avoidant: [] };
+  qs.forEach((q, i) => {
+    if (answers[i] !== undefined && q.style) styles[q.style].push(answers[i] + 1);
+  });
+  const avg = arr => arr.length ? (arr.reduce((a,b)=>a+b,0)/arr.length) : 3;
+  const s = { secure: avg(styles.secure), anxious: avg(styles.anxious), avoidant: avg(styles.avoidant) };
+  let dominant = 'secure';
+  if (s.anxious > s.secure && s.anxious > s.avoidant) dominant = 'anxious';
+  else if (s.avoidant > s.secure && s.avoidant >= s.anxious) dominant = 'avoidant';
+  return { scores: s, dominant };
+}
+
+function scoreImposter(answers) {
+  let total = 0;
+  answers.forEach(a => { total += (a + 1); }); // 1-5 per question
+  const max = TESTS.imposter.questions.length * 5;
+  const pct = Math.round((total / max) * 100);
+  return { raw: total, max, pct };
+}
+
+function imposterBand(pct) {
+  if (pct <= 40) return { label:'Low Imposter Feelings',      color:'#3a9e6e', tier:'low' };
+  if (pct <= 60) return { label:'Moderate Imposter Syndrome', color:'#c8962a', tier:'moderate' };
+  if (pct <= 80) return { label:'High Imposter Syndrome',     color:'#e8814b', tier:'high' };
+  return           { label:'Intense Imposter Syndrome', color:'#c94040', tier:'intense' };
 }
 
 function scoreMatrix(answers) {
