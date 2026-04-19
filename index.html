@@ -1335,6 +1335,72 @@
     .hist-grid { grid-template-columns: 1fr; }
   }
 
+  /* ── Shared insight/narrative block ── */
+  .insight-box { background:rgba(200,150,42,0.06); border:1px solid rgba(200,150,42,0.2); border-radius:4px; padding:1.2rem 1.4rem; margin-bottom:1.2rem; }
+  .insight-title { font-family:'Space Mono',monospace; font-size:0.52rem; letter-spacing:0.35em; color:var(--gold); text-transform:uppercase; margin-bottom:0.5rem; opacity:0.9; }
+  .insight-body { font-size:0.85rem; color:var(--steel-light); line-height:1.7; }
+  .narrative-block p { font-size:0.9rem; color:var(--steel-light); line-height:1.8; margin-bottom:1rem; }
+  .narrative-block p:last-child { margin-bottom:0; }
+
+  /* ── Score spectrum bar (EQ/Stress) ── */
+  .score-spectrum { margin:1.2rem 0 1.8rem; }
+  .score-spectrum-bar { position:relative; height:10px; background:rgba(255,255,255,0.06); border-radius:5px; margin-bottom:0.5rem; overflow:visible; }
+  .score-spectrum-fill { height:100%; border-radius:5px; transition:width 0.8s ease; }
+  .score-spectrum-marker { position:absolute; top:-5px; width:20px; height:20px; border-radius:50%; border:2px solid var(--navy); transform:translateX(-50%); transition:left 0.8s ease; }
+  .score-spectrum-labels { display:flex; justify-content:space-between; font-size:0.65rem; color:var(--steel); font-family:'Space Mono',monospace; letter-spacing:0.05em; margin-top:0.3rem; }
+  .score-spectrum-stat-trio { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; margin:1.2rem 0 1.5rem; }
+  .score-spectrum-stat { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:4px; padding:1rem; text-align:center; }
+  .score-spectrum-label { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.25em; color:var(--steel); text-transform:uppercase; margin-bottom:0.4rem; }
+  .score-spectrum-value { font-size:1.8rem; font-weight:300; color:var(--cream); letter-spacing:-0.5px; margin-bottom:0.2rem; }
+  .score-spectrum-sub { font-size:0.68rem; color:var(--steel); line-height:1.4; }
+
+  /* ── Domain blueprint (EQ/Stress deep-dive) ── */
+  .domain-blueprint { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.07); border-radius:4px; padding:1.5rem; margin:1.5rem 0; }
+  .domain-blueprint-title { font-family:'Space Mono',monospace; font-size:0.52rem; letter-spacing:0.35em; color:var(--teal); text-transform:uppercase; margin-bottom:1.2rem; opacity:0.9; }
+  .domain-deep { margin-bottom:1.2rem; padding-bottom:1.2rem; border-bottom:1px solid rgba(255,255,255,0.05); }
+  .domain-deep:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+  .domain-deep-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; }
+  .domain-deep-name { font-size:0.9rem; font-weight:500; color:var(--cream); }
+  .domain-deep-score { font-family:'Space Mono',monospace; font-size:0.75rem; color:var(--teal); }
+  .domain-deep-bar { height:4px; background:rgba(255,255,255,0.06); border-radius:2px; margin-bottom:0.6rem; }
+  .domain-deep-bar-fill { height:100%; border-radius:2px; background:var(--teal); }
+  .domain-deep-text { font-size:0.78rem; color:var(--steel-light); line-height:1.6; }
+
+  /* ── Big Five archetype card ── */
+  .b5-archetype { background:linear-gradient(135deg,rgba(22,34,55,0.9),rgba(14,25,40,0.98)); border:1px solid rgba(155,89,182,0.3); border-radius:4px; padding:1.8rem; margin-bottom:1.5rem; text-align:center; position:relative; overflow:hidden; }
+  .b5-archetype::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#9b59b6,#c8962a,#9b59b6); }
+  .b5-archetype-type { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.4em; color:#c8a0e8; text-transform:uppercase; margin-bottom:0.5rem; }
+  .b5-archetype-name { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; color:var(--cream); font-style:italic; margin-bottom:0.8rem; }
+  .b5-archetype-desc { font-size:0.85rem; color:var(--steel-light); line-height:1.7; max-width:480px; margin:0 auto; }
+  .b5-trait-deep { margin-bottom:1.5rem; }
+  .b5-trait-deep-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.3rem; }
+  .b5-trait-deep-name { font-size:0.9rem; font-weight:500; color:var(--cream); }
+  .b5-trait-deep-pct { font-family:'Space Mono',monospace; font-size:0.7rem; }
+  .b5-trait-deep-bar { height:5px; background:rgba(255,255,255,0.06); border-radius:3px; margin-bottom:0.6rem; }
+  .b5-trait-deep-fill { height:100%; border-radius:3px; }
+  .b5-trait-deep-text { font-size:0.78rem; color:var(--steel-light); line-height:1.6; }
+
+  /* ── Stress gauge ── */
+  .stress-gauge-wrap { margin:1.2rem 0 1.5rem; }
+  .stress-gauge-bar { height:14px; background:linear-gradient(90deg,#3a9e6e 0%,#c8962a 50%,#c94040 100%); border-radius:7px; position:relative; }
+  .stress-gauge-marker { position:absolute; top:-7px; width:28px; height:28px; border-radius:50%; background:var(--navy2); border:3px solid var(--cream); transform:translateX(-50%); display:flex; align-items:center; justify-content:center; font-size:0.6rem; font-family:'Space Mono',monospace; color:var(--cream); font-weight:bold; }
+  .stress-gauge-labels { display:flex; justify-content:space-between; font-size:0.62rem; color:var(--steel); font-family:'Space Mono',monospace; margin-top:0.5rem; }
+  .stress-action-plan { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.07); border-radius:4px; padding:1.5rem; margin-top:1.5rem; }
+  .stress-action-title { font-family:'Space Mono',monospace; font-size:0.52rem; letter-spacing:0.35em; color:#3a9e6e; text-transform:uppercase; margin-bottom:1rem; opacity:0.9; }
+  .stress-action-item { display:flex; gap:0.8rem; margin-bottom:0.8rem; align-items:flex-start; font-size:0.82rem; color:var(--steel-light); line-height:1.6; }
+  .stress-action-day { font-family:'Space Mono',monospace; font-size:0.6rem; color:#3a9e6e; min-width:3rem; padding-top:0.1rem; }
+
+  /* ── ar-item (Matrix / future tests) ── */
+  .ar-title { font-family:'Space Mono',monospace; font-size:0.52rem; letter-spacing:0.35em; color:var(--gold); text-transform:uppercase; margin-bottom:1rem; opacity:0.8; }
+  .ar-item { display:flex; gap:1rem; padding:0.9rem 0; border-bottom:1px solid rgba(255,255,255,0.05); align-items:flex-start; }
+  .ar-item:last-child { border-bottom:none; }
+  .ar-badge { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; flex-shrink:0; margin-top:2px; }
+  .ar-correct .ar-badge { background:rgba(58,158,110,0.2); color:#6ecfa0; border:1px solid rgba(58,158,110,0.4); }
+  .ar-wrong .ar-badge { background:rgba(201,64,64,0.15); color:#e07070; border:1px solid rgba(201,64,64,0.3); }
+  .ar-explain { font-size:0.75rem; color:var(--steel-light); line-height:1.5; font-style:italic; margin-top:0.25rem; }
+  .detail-section { background:var(--navy2); border:1px solid rgba(120,143,168,0.15); border-radius:4px; padding:2rem; margin-bottom:1.5rem; }
+  .section-title { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:600; color:var(--cream); margin-bottom:1.2rem; }
+
   /* ── Entrepreneur module extras ── */
   .archetype-card {
     background: linear-gradient(135deg, rgba(22,34,55,0.95) 0%, rgba(14,25,40,0.98) 100%);
@@ -2678,6 +2744,143 @@ function generateMatrixNarrative(r, band) {
 <p>Work through free Raven's Progressive Matrices practice sets, starting at easier levels and progressing gradually. Even two or three short sessions per week can produce meaningful improvement in four to six weeks. Return to this test after a period of practice to track your progress.</p>`;
 }
 
+function eqPercentile(score) {
+  if (score >= 90) return 97;
+  if (score >= 85) return 92;
+  if (score >= 78) return 82;
+  if (score >= 70) return 72;
+  if (score >= 60) return 55;
+  if (score >= 50) return 38;
+  if (score >= 40) return 22;
+  return 10;
+}
+
+function eqFamousFigures(score) {
+  const all = [
+    { min:85, icon:'🕊️', name:'Nelson Mandela', desc:'Exceptional emotional intelligence enabled him to lead reconciliation after 27 years of imprisonment, inspiring compassion instead of vengeance.' },
+    { min:85, icon:'📺', name:'Oprah Winfrey', desc:'Built a media empire on the foundation of empathy and authentic human connection, making others feel deeply understood.' },
+    { min:85, icon:'☮️', name:'Dalai Lama', desc:'Demonstrating that equanimity, compassion and self-regulation can become a way of life rather than an aspiration.' },
+    { min:70, icon:'🏛️', name:'Barack Obama', desc:'Known for emotional discipline under pressure, high empathy in communication, and the ability to inspire across divisions.' },
+    { min:70, icon:'✍️', name:'Maya Angelou', desc:'Used emotional self-awareness as both the source and the subject of her most powerful work.' },
+    { min:70, icon:'📺', name:'Fred Rogers', desc:'Built a career out of validating children\'s emotions and modelling compassionate presence.' },
+    { min:55, icon:'⚔️', name:'Abraham Lincoln', desc:'Managed profound personal grief and political conflict with unusual emotional regulation and empathy for opponents.' },
+    { min:0,  icon:'📊', name:'Average Professional', desc:'Most working adults score in the average EQ range — sufficient for most day-to-day emotional demands.' },
+  ];
+  return all.filter(f => score >= f.min).slice(0, 3);
+}
+
+function eqDomainInsight(domain, score) {
+  const insights = {
+    awareness: {
+      high: 'You have strong self-awareness — you notice your emotional state in real time, understand how it influences your thinking, and can reflect on your own patterns with clarity. This is the cornerstone of all emotional intelligence.',
+      mid: 'Your self-awareness is moderate. You generally understand your emotions after the fact but may not always catch them in the moment before they influence your decisions or behaviour.',
+      low: 'Self-awareness is an area for focused development. Many people struggle with this — emotions often operate below conscious awareness. Practices like journalling and mindfulness meditation show strong evidence for building this capacity.'
+    },
+    regulation: {
+      high: 'Your ability to manage emotional reactions is strong. You can delay gratification, calm yourself in stressful situations, and channel strong emotions constructively rather than reactively.',
+      mid: 'You regulate your emotions reasonably well in most situations but may find certain triggers — particularly under sustained pressure — harder to manage. Building a specific set of personal "reset" techniques would help.',
+      low: 'Emotional regulation is where you have the most room to grow. The good news: this is one of the most trainable EQ dimensions. Techniques like the 6-second pause, box breathing, and cognitive reframing are all evidence-based starting points.'
+    },
+    empathy: {
+      high: 'Your empathy score indicates strong ability to read others\' emotional states, understand perspectives different from your own, and respond in ways that make people feel genuinely heard.',
+      mid: 'You show reasonable empathy in familiar or comfortable contexts but may miss emotional cues in more demanding interpersonal situations, especially when your own stress is high.',
+      low: 'Empathy development is a gradual process. Start with active listening practice — focusing entirely on understanding the other person\'s perspective before formulating your response. Even small improvements here significantly improve relationship quality.'
+    },
+    social: {
+      high: 'You are skilled at navigating social dynamics — influencing and inspiring others, managing conflict constructively, and building genuine rapport that turns into trust over time.',
+      mid: 'Your social skills are adequate for most situations, but moments of conflict, high-stakes negotiation, or leading others through change may feel less natural. Targeted practice in those scenarios builds quickly.',
+      low: 'Social skills are the most visible expression of EQ and the most directly trainable. Focus on one skill at a time — active listening, clear assertiveness, or conflict de-escalation — rather than trying to improve everything at once.'
+    }
+  };
+  const tier = score >= 70 ? 'high' : score >= 45 ? 'mid' : 'low';
+  return insights[domain][tier];
+}
+
+function big5Archetype(r) {
+  const high = k => r[k] >= 68;
+  const low  = k => r[k] <= 35;
+  if (high('O') && high('C') && high('E')) return { name:'The Renaissance Leader', icon:'🌟', desc:'Visionary, disciplined, and socially magnetic — you combine creative thinking with the drive to execute and the social fluency to bring others along. Rare and highly effective in leadership roles.' };
+  if (high('O') && high('C'))  return { name:'The Thoughtful Achiever', icon:'🔭', desc:'Intellectually curious and systematically disciplined — you generate novel ideas and then actually follow through on them. This combination is the profile of scientists, authors, and strategic thinkers.' };
+  if (high('O') && high('E'))  return { name:'The Creative Connector', icon:'🎨', desc:'Imaginative and socially energetic — you light up rooms, generate ideas freely, and inspire others through enthusiasm and originality.' };
+  if (high('C') && high('A'))  return { name:'The Reliable Pillar', icon:'🏛️', desc:'Dependable, organised, and genuinely cooperative — you are the person others turn to when something important needs to get done without drama or shortcuts.' };
+  if (high('E') && high('A'))  return { name:'The Natural Diplomat', icon:'🤝', desc:'Warm, charismatic, and empathetic — you make people feel at ease, build strong relationships naturally, and have a talent for bringing groups into alignment.' };
+  if (high('O'))  return { name:'The Curious Explorer', icon:'🧭', desc:'Driven by ideas, novelty, and depth of understanding. You are most alive when learning something new or working on something that has never been done before.' };
+  if (high('C'))  return { name:'The Systematic Achiever', icon:'📋', desc:'Goal-oriented, methodical, and reliable. You deliver what you promise, build trust through consistency, and thrive in environments that reward precision and follow-through.' };
+  if (high('E'))  return { name:'The Social Catalyst', icon:'⚡', desc:'Energetic, expressive, and network-driven. You perform at your best in collaborative, high-energy environments and naturally draw others toward shared goals.' };
+  if (high('A'))  return { name:'The Harmoniser', icon:'☯️', desc:'Cooperative, empathetic, and other-focused. You create psychological safety around you, making you invaluable in team environments and caregiving roles.' };
+  if (low('N'))   return { name:'The Unshakeable', icon:'🪨', desc:'Emotionally stable and resilient — you remain calm when others panic, make decisions under pressure without being clouded by anxiety, and set a grounding tone for those around you.' };
+  return { name:'The Balanced Individual', icon:'⚖️', desc:'Your personality profile is well-balanced across the five dimensions — a genuine strength. You adapt naturally to different contexts without being pulled to extremes by any single trait.' };
+}
+
+function big5FamousFigure(trait, score) {
+  const highs = {
+    O: { icon:'🎨', name:'Leonardo da Vinci', desc:'The ultimate high-O archetype — insatiable curiosity across painting, anatomy, engineering, and music.' },
+    C: { icon:'📈', name:'Warren Buffett', desc:'Extraordinary discipline, patience, and methodical thinking applied consistently over decades.' },
+    E: { icon:'🏛️', name:'Winston Churchill', desc:'Boundless social energy, theatrical oratory, and an unshakeable drive to engage and lead.' },
+    A: { icon:'☮️', name:'Mahatma Gandhi', desc:'Deep cooperation, non-confrontation, and a fundamental orientation toward others\' wellbeing.' },
+    N: { icon:'🌊', name:'Vincent van Gogh', desc:'Profound emotional sensitivity that fuelled creative genius alongside personal struggle.' },
+  };
+  const lows = {
+    O: { icon:'🔧', name:'Henry Ford', desc:'Laser-focused on practical execution and proven systems rather than abstract theorising.' },
+    C: { icon:'🎲', name:'Oscar Wilde', desc:'Spontaneous, pleasure-seeking, and brilliantly improvisational — structure was his enemy.' },
+    E: { icon:'🔬', name:'Isaac Newton', desc:'Deeply introverted — he worked largely in isolation, preferring solitary reflection to collaboration.' },
+    A: { icon:'⚔️', name:'Steve Jobs', desc:'Famously demanding and direct, prioritising his vision above social harmony.' },
+    N: { icon:'🧊', name:'Queen Elizabeth II', desc:'Legendary emotional stability and composure maintained across 70 years of public life.' },
+  };
+  return score >= 60 ? highs[trait] : lows[trait];
+}
+
+function big5TraitDeepDive(trait, score) {
+  const data = {
+    O: {
+      high: { headline:'High Openness — The Curious Mind', text:'You approach life with genuine intellectual curiosity and creative appetite. You are drawn to complexity, abstraction, and novelty — uncomfortable with dogma, energised by ideas that challenge conventional thinking. In your career, you thrive in roles that evolve and create: research, design, strategy, entrepreneurship, or the arts. Your risk is that you can be drawn to the next idea before finishing the current one. The greatest returns often come from pairing your curiosity with a commitment to execution.' },
+      low:  { headline:'Conventional & Grounded', text:'You prefer the tried-and-tested over the experimental. You are pragmatic, reliable, and suspicious of change for its own sake — valuable qualities in environments that reward consistency and careful execution. You may find theoretical or abstract work draining, preferring practical, concrete tasks with clear outcomes. This orientation, while sometimes mistaken for lack of imagination, is a genuine strength in operational, technical, and quality-focused roles.' }
+    },
+    C: {
+      high: { headline:'High Conscientiousness — The Achiever', text:'You are one of the most reliably successful Big Five profiles — research consistently links high Conscientiousness to career achievement, income, and health outcomes over a lifetime. You set goals, build systems, and follow through. Your standards are high, your work ethic is strong, and people learn quickly that your word can be trusted. Watch for perfectionism — the same drive that makes you excellent can create bottlenecks when good enough is genuinely sufficient.' },
+      low:  { headline:'Flexible & Spontaneous', text:'You resist rigid structure and thrive in fluid, improvisational environments. You make quick decisions without extensive planning, adapt rapidly when things change, and often find bureaucratic processes stifling. The cost is that important things can fall through the cracks without external accountability structures. Building simple systems — even minimal ones — to capture commitments and deadlines dramatically amplifies the output of spontaneous, high-energy people.' }
+    },
+    E: {
+      high: { headline:'High Extraversion — The Social Catalyst', text:'You draw energy from people, stimulation, and variety. You communicate assertively, build networks naturally, and perform well in fast-paced, interactive environments. Leadership roles tend to fit you well — you are visible, vocal, and comfortable with influence. The watch-out: extraverts can dominate conversations and undervalue quiet reflection. Building deliberate space for deep thinking and for listening to introverts around you multiplies your effectiveness significantly.' },
+      low:  { headline:'Introverted — The Deep Thinker', text:'You recharge through solitude and prefer depth of connection over breadth. You are a careful listener, a thorough thinker, and often the most prepared person in the room. Research shows that introverts frequently outperform extraverts in leadership roles that require careful judgment, because they listen to input before deciding. The professional challenge is visibility — in many organisations, those who speak up get ahead. Strategic, deliberate self-promotion is a learnable skill for introverts.' }
+    },
+    A: {
+      high: { headline:'High Agreeableness — The Collaborative Spirit', text:'You are cooperative, warm, and fundamentally other-focused. You build trust quickly, create psychological safety in teams, and are skilled at managing the social dynamics of group work. The research-supported risk for high-A individuals: being too conflict-avoidant. Saying yes when you mean no, avoiding necessary difficult conversations, and prioritising harmony over honest feedback can erode both your effectiveness and your wellbeing over time. Assertiveness is a skill that can be learned without sacrificing your fundamental warmth.' },
+      low:  { headline:'Independent & Direct', text:'You are not easily swayed by social pressure, comfortable challenging consensus, and capable of the difficult conversations that most people avoid. You prioritise truth and results over social harmony. This is a significant asset in negotiation, competitive environments, and roles that require tough calls. The developmental work is in delivery — the same directness that cuts through noise can damage relationships if the empathy and communication wrapping is not deliberate.' }
+    },
+    N: {
+      high: { headline:'High Neuroticism — The Sensitive Reactor', text:'You experience emotions intensely and are more sensitive to stress, criticism, and negative events than most people. This is not a character flaw — it is a biological sensitivity that, when channelled well, produces empathy, creativity, and a heightened sense of meaning. The challenge is that it creates more cognitive overhead than low-N people carry: more self-doubt, more emotional recovery time, more vulnerability to sustained stress. Building a robust set of emotional regulation practices is the highest-return investment you can make.' },
+      low:  { headline:'High Emotional Stability — The Anchor', text:'You experience the world with unusual emotional steadiness. Criticism, setbacks, and high-pressure situations do not destabilise you the way they do most people. This makes you invaluable in crises, in leadership roles requiring calm authority, and in high-stakes environments. The subtle risk for low-N individuals is underestimating the emotional weight others carry — what feels manageable to you may feel overwhelming to a colleague. Calibrating your expectations of others\' emotional resilience makes you more effective as a leader.' }
+    }
+  };
+  const tier = score >= 60 ? 'high' : 'low';
+  return data[trait][tier];
+}
+
+function stressActionPlan(raw) {
+  if (raw <= 13) return [
+    { day:'Maintain', text:'Keep doing what is working. Document your current routines so you can return to them during difficult periods.' },
+    { day:'Enrich', text:'With stress well-managed, channel energy into meaningful goals. Positive challenge is healthy and keeps cognitive function sharp.' },
+    { day:'Connect', text:'Strong social bonds are one of the most powerful stress buffers. Invest time in your key relationships.' },
+    { day:'Monitor', text:'Stress levels change with life circumstances. Revisit this assessment every few months to track changes early.' },
+  ];
+  if (raw <= 26) return [
+    { day:'Day 1–2', text:'Identify your top 2 stressors right now. Write them down. Separate those you can control from those you cannot.' },
+    { day:'Day 3–4', text:'Build a short daily movement practice — even 20 minutes of walking has strong evidence for reducing cortisol and improving mood within days.' },
+    { day:'Day 5', text:'Audit your sleep. Sleep debt amplifies stress by 30–50%. Address bedtime routines and screen time before anything else.' },
+    { day:'Day 6', text:'Reduce one commitment this week. Stress at this level is often driven by overcommitment — learning to say no is a skill, not a character flaw.' },
+    { day:'Day 7+', text:'Introduce a short mindfulness or breathing practice (5–10 min daily). Apps like Headspace or free resources on YouTube make this low-friction to start.' },
+  ];
+  return [
+    { day:'Immediate', text:'Tell someone you trust that you are under significant stress. Social support is the single fastest-acting stress reducer available.' },
+    { day:'This week', text:'Make a GP or mental health professional appointment if this level of stress has persisted more than 2–3 weeks. You do not need to be in crisis to benefit from support.' },
+    { day:'Day 1–3', text:'Remove one significant commitment from your schedule immediately, even temporarily. Acute high stress requires workload reduction, not just coping strategies.' },
+    { day:'Day 4–5', text:'Establish a firm wind-down routine — no work after a set time, no screens 30 min before bed. Sleep is non-negotiable recovery.' },
+    { day:'Day 6–7', text:'Write out everything causing stress. The act of externalising worries significantly reduces the mental bandwidth they consume.' },
+    { day:'Ongoing', text:'CBT (Cognitive Behavioural Therapy) has the strongest evidence base for sustained stress reduction. Available via NHS referral, online platforms (e.g. SilverCloud), or privately.' },
+  ];
+}
+
 function showResults() {
   const aa = state.allAnswers;
   const testsRun = Object.keys(aa);
@@ -2810,36 +3013,82 @@ function showResults() {
   if (aa.eq) {
     const r = scoreEQ(aa.eq);
     const band = eqBand(r.total);
+    const eqPct = eqPercentile(r.total);
+    const eqFigs = eqFamousFigures(r.total);
+    const strongDomain = Object.entries(r.domains).sort((a,b)=>b[1]-a[1])[0];
+    const weakDomain = Object.entries(r.domains).sort((a,b)=>a[1]-b[1])[0];
+    const dLabels = {awareness:'Self-Awareness', regulation:'Self-Regulation', empathy:'Empathy', social:'Social Skills'};
+    const dColors = {awareness:'#c8962a', regulation:'#3a9e6e', empathy:'#2a8fa0', social:'#9b59b6'};
+
     scoresRow.innerHTML += `
       <div class="score-card">
         <div class="score-label">EQ Score</div>
         <div class="score-number">${r.total}</div>
         <div class="score-max">out of 100</div>
-        <div class="score-band">${band}</div>
+        <div class="score-band" style="color:var(--teal)">${band}</div>
         <div class="score-bar"><div class="score-bar-fill" style="width:${r.total}%;background:var(--teal)"></div></div>
       </div>`;
 
-    const dLabels = {awareness:'Self-Awareness', regulation:'Self-Regulation', empathy:'Empathy', social:'Social Skills'};
-    const dDescs = {
-      awareness:'Recognising your own emotions, moods, and how they drive behaviour.',
-      regulation:'Managing your emotional reactions and impulses constructively.',
-      empathy:'Understanding and sharing the feelings of others around you.',
-      social:'Navigating relationships, resolving conflict, and inspiring others.'
-    };
-    const domainHTML = Object.entries(r.domains).map(([k,v]) => `
-      <div class="eq-domain">
-        <div class="eq-domain-name">${dLabels[k]}</div>
-        <div class="eq-domain-score">${v}<small style="font-size:0.8rem;color:var(--steel)">/100</small></div>
-        <div class="score-bar" style="margin-bottom:0.5rem"><div class="score-bar-fill" style="width:${v}%;background:var(--teal)"></div></div>
-        <div class="eq-domain-desc">${dDescs[k]}</div>
+    const eqDomainDeep = Object.entries(r.domains).map(([k,v]) => `
+      <div class="domain-deep">
+        <div class="domain-deep-header">
+          <span class="domain-deep-name">${dLabels[k]}</span>
+          <span class="domain-deep-score" style="color:${dColors[k]}">${v}/100</span>
+        </div>
+        <div class="domain-deep-bar"><div class="domain-deep-bar-fill" style="width:${v}%;background:${dColors[k]}"></div></div>
+        <div class="domain-deep-text">${eqDomainInsight(k, v)}</div>
+      </div>`).join('');
+
+    const figCards = eqFigs.map(f => `
+      <div class="hist-card">
+        <div class="hist-icon">${f.icon}</div>
+        <div class="hist-name">${f.name}</div>
+        <div class="hist-desc">${f.desc}</div>
       </div>`).join('');
 
     detailSections.innerHTML += `
       <div class="result-section">
         <div class="result-section-title">Emotional Intelligence <span class="badge">EQ ${r.total}</span></div>
-        <div>${generateEQNarrative(r, band)}</div>
-        <div class="eq-domains" style="margin-top:1.5rem">${domainHTML}</div>
-        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Self-report note:</strong> All self-rated EQ assessments share a known limitation — people with low emotional self-awareness may inadvertently rate themselves higher than warranted. This result is best used as a starting point for reflection, not a definitive clinical measure.</em></p>
+
+        <div class="score-spectrum-stat-trio" style="margin-bottom:1.5rem">
+          <div class="score-spectrum-stat">
+            <div class="score-spectrum-label">EQ Score</div>
+            <div class="score-spectrum-value" style="color:var(--teal)">${r.total}</div>
+            <div class="score-spectrum-sub">${band}</div>
+          </div>
+          <div class="score-spectrum-stat">
+            <div class="score-spectrum-label">Better Than</div>
+            <div class="score-spectrum-value">${eqPct}%</div>
+            <div class="score-spectrum-sub">of respondents</div>
+          </div>
+          <div class="score-spectrum-stat">
+            <div class="score-spectrum-label">Strongest Domain</div>
+            <div class="score-spectrum-value" style="font-size:1.1rem;padding-top:0.3rem">${dLabels[strongDomain[0]]}</div>
+            <div class="score-spectrum-sub">${strongDomain[1]}/100</div>
+          </div>
+        </div>
+
+        <div class="score-spectrum">
+          <div class="score-spectrum-bar" style="background:rgba(42,143,160,0.15)">
+            <div class="score-spectrum-fill" style="width:${r.total}%;background:linear-gradient(90deg,rgba(42,143,160,0.4),var(--teal))"></div>
+            <div class="score-spectrum-marker" style="left:${r.total}%;background:var(--teal)"></div>
+          </div>
+          <div class="score-spectrum-labels"><span>Developing</span><span>Average</span><span>High</span><span>Exceptional</span></div>
+        </div>
+
+        <div style="margin-bottom:1.5rem">${generateEQNarrative(r, band)}</div>
+
+        <div class="domain-blueprint">
+          <div class="domain-blueprint-title">Your EQ Domain Blueprint</div>
+          ${eqDomainDeep}
+        </div>
+
+        <div class="hist-figures">
+          <div class="hist-figures-title">People Known For Emotional Intelligence</div>
+          <div class="hist-grid">${figCards}</div>
+        </div>
+
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:1.2rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Self-report note:</strong> All self-rated EQ assessments share a known limitation — people with low self-awareness may inadvertently rate themselves higher than warranted. Use this as a structured starting point for reflection rather than a definitive clinical measure.</em></p>
       </div>`;
   }
 
@@ -2847,37 +3096,70 @@ function showResults() {
   if (aa.big5) {
     const r = scoreBig5(aa.big5);
     const traits = [
-      {key:'O', name:'Openness', color:'#9b59b6'},
-      {key:'C', name:'Conscientiousness', color:'#e8b84b'},
-      {key:'E', name:'Extraversion', color:'#e74c3c'},
-      {key:'A', name:'Agreeableness', color:'#3a9e6e'},
-      {key:'N', name:'Neuroticism', color:'#2a8fa0'},
+      {key:'O', name:'Openness',           color:'#9b59b6'},
+      {key:'C', name:'Conscientiousness',  color:'#e8b84b'},
+      {key:'E', name:'Extraversion',       color:'#e74c3c'},
+      {key:'A', name:'Agreeableness',      color:'#3a9e6e'},
+      {key:'N', name:'Neuroticism',        color:'#2a8fa0'},
     ];
     const avgScore = Math.round(Object.values(r).reduce((a,b)=>a+b,0)/5);
+    const archetype = big5Archetype(r);
+
     scoresRow.innerHTML += `
       <div class="score-card">
         <div class="score-label">Personality</div>
         <div class="score-number">OCEAN</div>
         <div class="score-max">Big Five Model</div>
-        <div class="score-band">5 Traits Mapped</div>
-        <div class="score-bar"><div class="score-bar-fill" style="width:${avgScore}%;background:var(--gold)"></div></div>
+        <div class="score-band" style="color:#9b59b6">${archetype.name}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${avgScore}%;background:#9b59b6"></div></div>
       </div>`;
+
+    const traitDeepHTML = traits.map(t => {
+      const fig = big5FamousFigure(t.key, r[t.key]);
+      const deep = big5TraitDeepDive(t.key, r[t.key]);
+      return `
+      <div class="b5-trait-deep">
+        <div class="b5-trait-deep-header">
+          <span class="b5-trait-deep-name">${t.name}</span>
+          <span class="b5-trait-deep-pct" style="color:${t.color}">${r[t.key]}th percentile</span>
+        </div>
+        <div class="b5-trait-deep-bar"><div class="b5-trait-deep-fill" style="width:${r[t.key]}%;background:${t.color}"></div></div>
+        <div style="font-size:0.78rem;font-weight:500;color:var(--cream);margin-bottom:0.4rem">${deep.headline}</div>
+        <div class="b5-trait-deep-text">${deep.text}</div>
+        <div style="display:flex;align-items:flex-start;gap:0.8rem;margin-top:0.8rem;padding:0.7rem;background:rgba(255,255,255,0.02);border-radius:3px;border-left:2px solid ${t.color}">
+          <span style="font-size:1.2rem">${fig.icon}</span>
+          <div><div style="font-size:0.8rem;color:var(--cream);margin-bottom:0.2rem">${fig.name}</div><div style="font-size:0.72rem;color:var(--steel);line-height:1.5">${fig.desc}</div></div>
+        </div>
+      </div>`;
+    }).join('');
 
     const barsHTML = traits.map(t => `
       <div class="trait-row">
         <div class="trait-name">${t.name}</div>
         <div class="trait-bar"><div class="trait-bar-fill" style="width:${r[t.key]}%;background:${t.color}"></div></div>
         <div class="trait-score">${r[t.key]}%</div>
-      </div>
-      <p style="font-size:0.78rem;color:var(--steel);margin-left:140px;margin-top:-0.4rem;margin-bottom:0.6rem;line-height:1.5">${big5Desc(t.key, r[t.key])}</p>
-    `).join('');
+      </div>`).join('');
 
     detailSections.innerHTML += `
       <div class="result-section">
         <div class="result-section-title">Big Five Personality <span class="badge">OCEAN</span></div>
+
+        <div class="b5-archetype">
+          <div class="b5-archetype-type">Your Personality Archetype</div>
+          <div class="b5-archetype-name">${archetype.icon} ${archetype.name}</div>
+          <div class="b5-archetype-desc">${archetype.desc}</div>
+        </div>
+
         <div class="trait-bars" style="margin-bottom:1.5rem">${barsHTML}</div>
+
         <div>${generateBig5Narrative(r)}</div>
-        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">About this assessment:</strong> This 45-item instrument uses 9 items per trait, consistent with the Big Five Inventory (BFI) standard. Results are directionally reliable for self-reflection and career exploration.</em></p>
+
+        <div style="margin-top:2rem">
+          <div class="cog-blueprint-title" style="color:#9b59b6">Deep Trait Analysis · Famous Figures · Development Paths</div>
+          <div style="margin-top:1.2rem">${traitDeepHTML}</div>
+        </div>
+
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:1.2rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">About this assessment:</strong> This 45-item instrument uses 9 items per trait, consistent with the Big Five Inventory (BFI) standard. Results are directionally reliable for self-reflection and career exploration. Population percentile comparisons are approximate and based on general adult norms.</em></p>
       </div>`;
   }
 
@@ -2886,6 +3168,11 @@ function showResults() {
     const r = scoreStress(aa.stress);
     const band = stressBand(r.raw);
     const pct = Math.round((r.raw / r.max) * 100);
+    const gaugeLeft = Math.min(94, Math.max(3, pct));
+    const plan = stressActionPlan(r.raw);
+    const popContext = r.raw <= 13 ? 'approximately 15% of adults' : r.raw <= 26 ? 'approximately 55% of adults' : 'approximately 30% of adults';
+    const popNote = r.raw <= 13 ? 'are managing stress at a similarly low level' : r.raw <= 26 ? 'report moderate stress levels similar to yours' : 'are currently experiencing high stress';
+
     scoresRow.innerHTML += `
       <div class="score-card">
         <div class="score-label">Stress Index</div>
@@ -2897,9 +3184,41 @@ function showResults() {
 
     detailSections.innerHTML += `
       <div class="result-section">
-        <div class="result-section-title">Perceived Stress <span class="badge">${r.raw}/${r.max}</span></div>
-        <div>${generateStressNarrative(r, band)}</div>
-        <p style="font-size:0.78rem;color:var(--steel);margin-top:1rem">Scores: 0–13 = Low · 14–26 = Moderate · 27–40 = High. Based on the Perceived Stress Scale (Cohen et al., 1983).</p>
+        <div class="result-section-title">Perceived Stress Index <span class="badge">${r.raw}/${r.max}</span></div>
+
+        <div class="score-spectrum-stat-trio" style="margin-bottom:1.5rem">
+          <div class="score-spectrum-stat">
+            <div class="score-spectrum-label">PSS Score</div>
+            <div class="score-spectrum-value" style="color:${band.color}">${r.raw}</div>
+            <div class="score-spectrum-sub">${band.label}</div>
+          </div>
+          <div class="score-spectrum-stat">
+            <div class="score-spectrum-label">Population</div>
+            <div class="score-spectrum-value" style="font-size:1rem;padding-top:0.4rem">${popContext}</div>
+            <div class="score-spectrum-sub">${popNote}</div>
+          </div>
+          <div class="score-spectrum-stat">
+            <div class="score-spectrum-label">Severity</div>
+            <div class="score-spectrum-value" style="font-size:1rem;padding-top:0.4rem">${r.raw <= 13 ? 'Low' : r.raw <= 26 ? 'Moderate' : 'High'}</div>
+            <div class="score-spectrum-sub">${r.raw <= 13 ? '0–13 range' : r.raw <= 26 ? '14–26 range' : '27–40 range'}</div>
+          </div>
+        </div>
+
+        <div class="stress-gauge-wrap">
+          <div class="stress-gauge-bar">
+            <div class="stress-gauge-marker" style="left:${gaugeLeft}%">${r.raw}</div>
+          </div>
+          <div class="stress-gauge-labels"><span>Low (0)</span><span>Moderate (13)</span><span>High (26)</span><span>Severe (40)</span></div>
+        </div>
+
+        <div style="margin-bottom:1.5rem">${generateStressNarrative(r, band)}</div>
+
+        <div class="stress-action-plan">
+          <div class="stress-action-title">${r.raw <= 13 ? 'Maintaining Your Resilience' : r.raw <= 26 ? '7-Day Stress Reduction Plan' : 'Urgent Stress Reduction Protocol'}</div>
+          ${plan.map(p => `<div class="stress-action-item"><div class="stress-action-day">${p.day}</div><div>${p.text}</div></div>`).join('')}
+        </div>
+
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:1.2rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Scale reference:</strong> Scores: 0–13 = Low Stress · 14–26 = Moderate · 27–40 = High. Based on the Perceived Stress Scale (Cohen, Kamarck &amp; Mermelstein, 1983) — one of the most widely used psychological instruments in the world.</em></p>
       </div>`;
   }
 
