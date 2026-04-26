@@ -3738,6 +3738,129 @@ function showResults() {
       </div>`;
   }
 
+  // ── ADHD PATTERN INDEX ──
+  if (aa.adhd) {
+    const r = scoreADHD(aa.adhd);
+    const band = adhdBand(r.pct);
+    const gaugeLeft = Math.min(94, Math.max(3, r.pct));
+    const d = r.domains;
+    const domLabels = { inattention:'Inattention', hyperactivity:'Hyperactivity', impulsivity:'Impulsivity', executive:'Executive Function' };
+    const domColors = { inattention:'#e8814b', hyperactivity:'#c94040', impulsivity:'#c8962a', executive:'#9b6fe0' };
+    const topDomainKey = Object.entries(d).sort((a,b)=>b[1]-a[1])[0][0];
+    const selfPerception = r.pct < 30 ? 'Grounded & Confident' : r.pct < 50 ? 'Occasional Self-Doubt' : 'Chronic Self-Doubt';
+    const focusLevel = d.inattention < 30 ? 'Strong' : d.inattention < 50 ? 'Moderate' : d.inattention < 70 ? 'Low' : 'Very Low';
+    const copingPattern = d.impulsivity >= 60 ? 'Avoidance & Impulsivity' : d.executive >= 60 ? 'Task Avoidance' : 'Generally Adaptive';
+
+    const domBars = Object.entries(d).map(([k,v]) => `
+      <div style="margin-bottom:1rem">
+        <div style="display:flex;justify-content:space-between;margin-bottom:0.35rem">
+          <span style="font-size:0.82rem;color:var(--cream)">${domLabels[k]}</span>
+          <span style="font-size:0.75rem;font-family:'Space Mono',monospace;color:${domColors[k]}">${v}/100</span>
+        </div>
+        <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:3px">
+          <div style="height:100%;width:${v}%;background:${domColors[k]};border-radius:3px;transition:width 0.8s ease"></div>
+        </div>
+      </div>`).join('');
+
+    const painPoints = band.tier !== 'low' ? `
+      <div style="margin:1.5rem 0;padding:1.2rem;background:rgba(201,64,64,0.06);border:1px solid rgba(201,64,64,0.2);border-radius:6px">
+        <div style="font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.3em;color:#c94040;text-transform:uppercase;margin-bottom:0.8rem;opacity:0.9">Without the right support</div>
+        ${['Constant sense of guilt and shame about unfinished tasks','Frequent mood swings driven by frustration and self-criticism','Racing thoughts and mental clutter that make rest difficult','Putting off plans and decisions — then feeling worse about it','Tension and conflict with others who misread you as unreliable','Others perceive you as uncommitted or lazy, when you are neither'].map(s=>`<div style="display:flex;gap:0.6rem;margin-bottom:0.5rem;font-size:0.82rem;color:var(--steel-light)"><span style="color:#c94040;flex-shrink:0">✕</span>${s}</div>`).join('')}
+      </div>` : '';
+
+    const positives = band.tier !== 'low' ? `
+      <div style="margin:1rem 0 1.5rem;padding:1.2rem;background:rgba(58,158,110,0.06);border:1px solid rgba(58,158,110,0.2);border-radius:6px">
+        <div style="font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.3em;color:#3a9e6e;text-transform:uppercase;margin-bottom:0.8rem;opacity:0.9">With understanding &amp; strategy</div>
+        ${['No longer feel guilty for time lost — understand the neurology behind it','Stable and consistent emotional state as patterns become predictable','Actively make plans and take action toward executing them','Energised and in flow when working with your brain, not against it','Calm and focused mind using the right tools and environment','Others experience you as reliable, committed, and capable'].map(s=>`<div style="display:flex;gap:0.6rem;margin-bottom:0.5rem;font-size:0.82rem;color:var(--steel-light)"><span style="color:#3a9e6e;flex-shrink:0">✓</span>${s}</div>`).join('')}
+      </div>` : '';
+
+    const beforeAfter = (band.tier === 'high' || band.tier === 'very-high') ? `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0">
+        <div style="padding:1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:6px">
+          <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:var(--steel);text-transform:uppercase;margin-bottom:0.8rem">Now</div>
+          <div style="font-size:0.78rem;color:var(--steel-light);margin-bottom:0.4rem">Potential realization<br><span style="color:#c94040">Blocked</span></div>
+          <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-bottom:0.8rem"><div style="width:20%;height:100%;background:#c94040;border-radius:2px"></div></div>
+          <div style="font-size:0.78rem;color:var(--steel-light);margin-bottom:0.4rem">Task execution<br><span style="color:#c94040">Paralyzed</span></div>
+          <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-bottom:0.8rem"><div style="width:15%;height:100%;background:#c94040;border-radius:2px"></div></div>
+          <div style="font-size:0.78rem;color:var(--steel-light);margin-bottom:0.4rem">Self-belief<br><span style="color:#c94040">Low</span></div>
+          <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px"><div style="width:18%;height:100%;background:#c94040;border-radius:2px"></div></div>
+        </div>
+        <div style="padding:1rem;background:rgba(58,158,110,0.05);border:1px solid rgba(58,158,110,0.25);border-radius:6px">
+          <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:#3a9e6e;text-transform:uppercase;margin-bottom:0.8rem">Your Goal</div>
+          <div style="font-size:0.78rem;color:var(--steel-light);margin-bottom:0.4rem">Potential realization<br><span style="color:#3a9e6e">Unlocked</span></div>
+          <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-bottom:0.8rem"><div style="width:90%;height:100%;background:#3a9e6e;border-radius:2px"></div></div>
+          <div style="font-size:0.78rem;color:var(--steel-light);margin-bottom:0.4rem">Task execution<br><span style="color:#3a9e6e">Consistent</span></div>
+          <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-bottom:0.8rem"><div style="width:85%;height:100%;background:#3a9e6e;border-radius:2px"></div></div>
+          <div style="font-size:0.78rem;color:var(--steel-light);margin-bottom:0.4rem">Self-belief<br><span style="color:#3a9e6e">High</span></div>
+          <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px"><div style="width:88%;height:100%;background:#3a9e6e;border-radius:2px"></div></div>
+        </div>
+      </div>` : '';
+
+    scoresRow.innerHTML += `
+      <div class="score-card">
+        <div class="score-label">ADHD Pattern</div>
+        <div class="score-number">${r.pct}%</div>
+        <div class="score-max">${r.raw}/${r.max} raw</div>
+        <div class="score-band" style="color:${band.color}">${band.label}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${r.pct}%;background:${band.color}"></div></div>
+      </div>`;
+
+    detailSections.innerHTML += `
+      <div class="result-section">
+        <div class="result-section-title">ADHD Pattern Index <span class="badge" style="background:rgba(120,80,200,0.2);color:#9b6fe0;border-color:rgba(120,80,200,0.3)">${band.level}</span></div>
+
+        <div class="score-spectrum-stat-trio" style="margin-bottom:1.5rem">
+          <div class="score-spectrum-stat">
+            <div class="score-spectrum-label">Pattern Level</div>
+            <div class="score-spectrum-value" style="color:${band.color}">${band.level}</div>
+            <div class="score-spectrum-sub">${r.raw}/${r.max} score</div>
+          </div>
+          <div class="score-spectrum-stat">
+            <div class="score-spectrum-label">Main Challenge</div>
+            <div class="score-spectrum-value" style="font-size:0.85rem;padding-top:0.4rem">${domLabels[topDomainKey]}</div>
+            <div class="score-spectrum-sub">${d[topDomainKey]}/100</div>
+          </div>
+          <div class="score-spectrum-stat">
+            <div class="score-spectrum-label">Focus Level</div>
+            <div class="score-spectrum-value" style="font-size:0.9rem;padding-top:0.3rem">${focusLevel}</div>
+            <div class="score-spectrum-sub">Inattention: ${d.inattention}/100</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1.5rem">
+          <div style="padding:0.9rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:5px">
+            <div style="font-size:0.62rem;font-family:'Space Mono',monospace;color:var(--steel);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.3rem">Self-perception</div>
+            <div style="font-size:0.9rem;color:var(--cream)">${selfPerception}</div>
+          </div>
+          <div style="padding:0.9rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:5px">
+            <div style="font-size:0.62rem;font-family:'Space Mono',monospace;color:var(--steel);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.3rem">Coping pattern</div>
+            <div style="font-size:0.9rem;color:var(--cream)">${copingPattern}</div>
+          </div>
+        </div>
+
+        <div class="stress-gauge-wrap">
+          <div class="stress-gauge-bar" style="background:linear-gradient(90deg,#3a9e6e 0%,#c8962a 35%,#e8814b 65%,#c94040 100%)">
+            <div class="stress-gauge-marker" style="left:${gaugeLeft}%">${r.pct}%</div>
+          </div>
+          <div class="stress-gauge-labels"><span>Low</span><span>Moderate</span><span>High</span><span>Very High</span></div>
+        </div>
+
+        ${beforeAfter}
+
+        <div style="margin:1.5rem 0">
+          <div style="font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.3em;color:#9b6fe0;text-transform:uppercase;margin-bottom:1rem;opacity:0.9">Domain Breakdown</div>
+          ${domBars}
+        </div>
+
+        ${painPoints}
+        ${positives}
+
+        <div>${generateADHDNarrative(r, band)}</div>
+
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(120,80,200,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Clinical note:</strong> This assessment is based on the Adult ADHD Self-Report Scale (ASRS v1.1) framework developed by the World Health Organisation. It is a validated screening tool, not a diagnostic instrument. A score indicating high or very high ADHD patterns does not confirm a diagnosis. If symptoms significantly impact your daily life, please speak to your GP about a formal assessment. Adult ADHD is significantly underdiagnosed and responds well to both behavioural and pharmacological treatment.</em></p>
+      </div>`;
+  }
+
   // Trigger bar animations
   setTimeout(() => {
     document.querySelectorAll('.score-bar-fill, .trait-bar-fill, .biz-fit-fill').forEach(el => {
