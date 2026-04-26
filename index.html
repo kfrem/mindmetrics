@@ -3169,6 +3169,50 @@ function generateAttachmentNarrative(r) {
   return `<p><strong style="color:${s.color}">${s.icon} ${s.name}</strong> — ${s.desc}</p><p><strong style="color:var(--cream)">Your Growth Path:</strong> ${s.growth}</p>`;
 }
 
+function generateADHDNarrative(r, band) {
+  const d = r.domains;
+  let overall = '';
+  if (band.tier === 'low') {
+    overall = `Your ADHD Pattern Index score of <strong>${r.raw}/${r.max}</strong> — rated <strong>${band.label}</strong> — indicates that you show few of the cognitive and behavioural patterns commonly associated with ADHD. Your self-reported attention regulation, impulse control, and executive function appear broadly within the typical range. If you notice specific areas of difficulty, the domain breakdown below shows where your relative scores sit.`;
+  } else if (band.tier === 'moderate') {
+    overall = `Your ADHD Pattern Index score of <strong>${r.raw}/${r.max}</strong> — rated <strong>${band.label}</strong> — suggests that a meaningful number of ADHD-associated patterns are present in your daily experience. You may have been managing these patterns for years without connecting them to ADHD — chalking up task avoidance, inconsistent focus, or impulsive responses to personality traits rather than neurology. This result does not constitute a diagnosis, but it does suggest that understanding your ADHD profile could meaningfully improve your daily functioning, productivity, and self-compassion.`;
+  } else if (band.tier === 'high') {
+    overall = `Your ADHD Pattern Index score of <strong>${r.raw}/${r.max}</strong> — rated <strong>${band.label}</strong> — reflects a significant pattern of ADHD-associated traits across multiple domains. Your brain likely processes attention, impulse, and executive demands differently from the neurotypical baseline — not due to laziness or poor character, but due to genuine neurological differences in how your dopamine and norepinephrine systems regulate attention and motivation. These patterns respond powerfully to the right strategies, and identifying your specific profile is the essential first step.`;
+  } else {
+    overall = `Your ADHD Pattern Index score of <strong>${r.raw}/${r.max}</strong> — rated <strong>${band.label}</strong> — places you at the high end of ADHD-associated patterns. Your brain may be locked in what researchers call an avoidance cycle: treating important tasks as low-level threats and redirecting energy toward anything that offers immediate relief. This is often fuelled by years of accumulated pressure between high capability and low output — the gap between what you know you could do and what you actually complete. Over time, this creates chronic procrastination, task paralysis, and a widening gap between your intentions and your actions. This cycle is extremely difficult to break through willpower alone, because your neurology is prioritising short-term safety over long-term execution.`;
+  }
+
+  const domainNarratives = {
+    inattention: {
+      high: `<strong>Inattention (${d.inattention}/100)</strong> is a prominent feature of your profile. You regularly find it difficult to sustain focus on tasks requiring mental effort, are easily derailed by external stimuli, miss important details, and struggle to follow projects through to completion. This is not disinterest — your brain's attention regulation system involuntarily shifts focus rather than making a deliberate choice. High-inattention ADHD often goes unrecognised for years because sufferers are intellectually capable and mask symptoms through compensatory effort. Key strategies: time-blocking with visible timers (Pomodoro technique), externalising all commitments to written systems, working in low-stimulation environments, and noise-cancelling headphones to remove auditory distraction.`,
+      low: `<strong>Inattention (${d.inattention}/100)</strong> scores relatively lower in your profile. While you may experience occasional difficulty sustaining focus, your attention regulation is generally manageable and not a primary driver of difficulty in daily life.`
+    },
+    hyperactivity: {
+      high: `<strong>Hyperactivity (${d.hyperactivity}/100)</strong> is significantly elevated. You experience persistent internal restlessness — an inability to slow down mentally even when your body is still. This often shows up as racing thoughts, difficulty relaxing, and a compulsive need to stay busy or move to the next thing. In adults, hyperactivity is more often internal than external — the mental motor that will not switch off. This creates a paradox: you may appear calm outwardly while experiencing significant cognitive noise internally. Effective management includes regular high-intensity physical exercise (which burns excess neurological activation and mimics the effect of stimulant medication), mindfulness practice to observe racing thoughts without following them, and structured daily movement breaks.`,
+      low: `<strong>Hyperactivity (${d.hyperactivity}/100)</strong> is not a primary concern in your profile. You do not appear to experience the persistent internal restlessness or compulsive activation that characterises the hyperactive-impulsive ADHD pattern.`
+    },
+    impulsivity: {
+      high: `<strong>Impulsivity (${d.impulsivity}/100)</strong> is a significant feature of your profile. You act on thoughts before fully processing them, interrupt others, speak before thinking, and make decisions in the moment that you later reassess. Impulsivity in ADHD reflects a dysregulation of the brain's inhibitory control system — the mechanism that usually provides a pause between stimulus and response. This affects not just social interactions but also financial decisions, career choices, and relationship dynamics. Practical strategies: building deliberate pause protocols before important decisions (the "sleep on it" rule, a 24-hour delay before non-urgent responses), and using environmental design to reduce impulsive action opportunities.`,
+      low: `<strong>Impulsivity (${d.impulsivity}/100)</strong> is a lower-scoring area in your profile. You generally maintain reasonable control over impulsive responses and are not significantly affected by the inhibitory control challenges central to ADHD impulsivity.`
+    },
+    executive: {
+      high: `<strong>Executive Dysfunction (${d.executive}/100)</strong> is a defining feature of your ADHD profile — and for many people, the most disruptive. Executive function encompasses time management, task initiation, working memory, planning, and the ability to transition between activities. High scores here reflect consistent difficulty getting started on tasks (especially important or complex ones), managing time accurately, keeping commitments in mind, and completing work from start to finish. Crucially, this is a neurological difference, not a character flaw. The most effective interventions are externalisation systems: written task lists with deadlines, digital calendar alerts, body doubling (working alongside another person for environmental accountability), and structured daily routines that reduce the number of decisions your executive function must make.`,
+      low: `<strong>Executive Function (${d.executive}/100)</strong> is relatively intact in your profile. Task initiation, planning, and time management are not primary challenge areas — your executive system appears broadly functional.`
+    }
+  };
+
+  const domHtml = Object.entries(d).map(([k,v]) => {
+    return `<p style="margin-top:1rem">${domainNarratives[k][v >= 50 ? 'high' : 'low']}</p>`;
+  }).join('');
+
+  let strategies = '';
+  if (band.tier !== 'low') {
+    strategies = `<p style="margin-top:1rem"><strong>What actually works:</strong> ADHD management is most effective when it works <em>with</em> your neurology rather than demanding it behave differently through willpower. Evidence-based approaches: <strong>Body doubling</strong> — working in the physical or virtual presence of another person dramatically improves task completion for many ADHD brains. <strong>External accountability systems</strong> — visible, time-bound commitments rather than internal motivation. <strong>High-intensity exercise</strong> — the single most powerful non-pharmaceutical intervention for ADHD, producing neurochemical effects similar to stimulant medication. <strong>Sleep optimisation</strong> — ADHD symptoms worsen dramatically with sleep deficit. <strong>Interest-based engagement</strong> — ADHD brains are driven by interest and urgency, not importance; structure your environment to make important tasks feel more compelling. If symptoms are significantly impacting your work, finances, or relationships, a formal ADHD assessment through your GP is a valid and valuable step — adult ADHD is underdiagnosed and very treatable.</p>`;
+  }
+
+  return `<p>${overall}</p>${domHtml}${strategies}`;
+}
+
 function generateImposterNarrative(r, band) {
   const t = band.tier;
   if (t === 'low') return `<p>Your score indicates minimal imposter syndrome — you generally attribute your successes accurately to your own ability, effort, and preparation rather than luck or circumstance. This psychological groundedness is a genuine asset: it allows you to take appropriate credit, absorb feedback without catastrophising, and pursue ambitious goals without excessive self-doubt undermining your momentum.</p><p>Imposter feelings are universal in small doses; the fact that yours are well-contained suggests either strong early foundations of unconditional support, deliberate work on your self-concept, or both. Protect this by continuing to keep score of your own evidence — the specific things you have accomplished, the problems you have solved, the ways you have grown.</p>`;
