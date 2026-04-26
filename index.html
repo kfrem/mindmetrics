@@ -3790,6 +3790,36 @@ function imposterBand(pct) {
   return           { label:'Intense Imposter Syndrome', color:'#c94040', tier:'intense' };
 }
 
+function scoreADHD(answers) {
+  const qs = TESTS.adhd.questions;
+  const domains = { inattention: [], hyperactivity: [], impulsivity: [], executive: [] };
+  const catMap = { 'Inattention':'inattention', 'Hyperactivity':'hyperactivity', 'Impulsivity':'impulsivity', 'Executive Function':'executive' };
+  let total = 0;
+  qs.forEach((q, i) => {
+    const val = answers[i] !== undefined ? answers[i] : 0;
+    total += val;
+    const d = catMap[q.cat];
+    if (d) domains[d].push(val);
+  });
+  const avg = arr => arr.length ? Math.round((arr.reduce((a,b)=>a+b,0)/arr.length)*25) : 0;
+  const domScores = {
+    inattention:  avg(domains.inattention),
+    hyperactivity: avg(domains.hyperactivity),
+    impulsivity:  avg(domains.impulsivity),
+    executive:    avg(domains.executive)
+  };
+  const max = qs.length * 4;
+  const pct = Math.round((total / max) * 100);
+  return { raw: total, max, pct, domains: domScores };
+}
+
+function adhdBand(pct) {
+  if (pct < 30) return { label:'Low ADHD Indicators',      color:'#3a9e6e', tier:'low',       level:'Low' };
+  if (pct < 50) return { label:'Moderate ADHD Indicators', color:'#c8962a', tier:'moderate',  level:'Moderate' };
+  if (pct < 70) return { label:'High ADHD Indicators',     color:'#e8814b', tier:'high',      level:'High' };
+  return           { label:'Very High ADHD Indicators', color:'#c94040', tier:'very-high', level:'Very High' };
+}
+
 function scoreMatrix(answers) {
   const qs = TESTS.matrix.questions;
   let correct = 0;
