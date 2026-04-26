@@ -2335,26 +2335,53 @@ imposter: {
 
 // ─── ADHD PATTERN INDEX ────────────────────────────────────
 adhd: {
-  name: 'ADHD Pattern Index', label: 'Adult ADHD Self-Report Assessment (ASRS-based)', timed: false,
+  name: 'ADHD Pattern Index', label: 'Comprehensive Adult ADHD Assessment — ASRS v1.1 + DSM-5 Extended (40 items)', timed: false,
   questions: [
-    { cat:'Inattention', text:'How often do you have trouble finishing the final details of a project once the challenging parts are done?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Inattention', text:'How often do you have difficulty keeping your attention on what people say to you, even when they are speaking directly to you?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Inattention', text:'How often do you make careless mistakes when working on a boring or difficult task?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Inattention', text:'How often are you distracted by activity or noise around you?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Inattention', text:'How often do you misplace or have difficulty finding things at home or at work?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Hyperactivity', text:'How often do you feel overly active or restless, as if driven by a motor?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Hyperactivity', text:'How often do you fidget or feel the urge to move when you are required to sit still for a long time?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Hyperactivity', text:'How often do you find it difficult to unwind and relax when you have free time?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Hyperactivity', text:'How often do your thoughts race or jump rapidly from topic to topic?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Impulsivity', text:'How often do you blurt out an answer before a question has been fully completed?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Impulsivity', text:'How often do you interrupt others when they are busy or intrude on their conversations?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Impulsivity', text:'How often do you act on impulse or make decisions without fully thinking them through?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Impulsivity', text:'How often do you have difficulty waiting your turn in situations that require it?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Executive Function', text:'How often do you have difficulty getting started on tasks that require significant thought or effort?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Executive Function', text:'How often do you have difficulty organising tasks and activities when you need to complete them in sequence?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Executive Function', text:'How often do you forget appointments, obligations, or things you need to do?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Executive Function', text:'How often do you struggle to complete tasks from start to finish without losing focus or switching to something else?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
-    { cat:'Executive Function', text:'How often do you find it hard to manage your time effectively and meet deadlines?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    // ── INATTENTION (12 items — first 4 are exact ASRS v1.1 Part A items) ──
+    { cat:'Inattention', text:'How often do you have trouble wrapping up the final details of a project, once the challenging parts have been done?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true, asrsA:true, asrsT:3 },
+    { cat:'Inattention', text:'How often do you have difficulty getting things in order when you have to do a task that requires organisation?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true, asrsA:true, asrsT:3 },
+    { cat:'Inattention', text:'How often do you have problems remembering appointments or obligations?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true, asrsA:true, asrsT:2 },
+    { cat:'Inattention', text:'When you have a task that requires a lot of thought, how often do you avoid or delay getting started?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true, asrsA:true, asrsT:3 },
+    { cat:'Inattention', text:'How often do you fail to give close attention to details or make careless mistakes in your work or other activities?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Inattention', text:'How often do you have difficulty sustaining your attention during tasks such as meetings, conversations, or lengthy reading?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Inattention', text:'How often does your mind seem to wander when someone is speaking to you directly, even without any obvious distraction?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Inattention', text:'How often do you fail to follow through on instructions and fail to finish tasks (not due to opposition or failure to understand)?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Inattention', text:'How often do you lose things necessary for tasks — such as keys, phone, wallet, glasses, or important documents?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Inattention', text:'How often are you easily distracted by sights, sounds, or irrelevant thoughts, even in low-distraction environments?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Inattention', text:'How often do you read a page or paragraph and realise you have absorbed nothing — and must re-read it?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Inattention', text:'How often do you begin multiple tasks but complete very few of them, consistently moving on before finishing?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    // ── HYPERACTIVITY (8 items — first 2 are exact ASRS v1.1 Part A items) ──
+    { cat:'Hyperactivity', text:'How often do you fidget or squirm with your hands or feet when you have to sit down for a long time?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true, asrsA:true, asrsT:2 },
+    { cat:'Hyperactivity', text:'How often do you feel overly active and compelled to do things, like you were driven by a motor?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true, asrsA:true, asrsT:2 },
+    { cat:'Hyperactivity', text:'How often do you leave your seat or feel unable to remain seated in situations where staying seated is expected?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Hyperactivity', text:'How often do you feel a persistent internal restlessness — a mental motor that will not switch off — even when you appear calm outwardly?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Hyperactivity', text:'How often do you talk excessively or find it difficult to stop once you have started?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Hyperactivity', text:'How often do your thoughts race rapidly from one topic to another, making it difficult to slow down mentally?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Hyperactivity', text:'How often do you have difficulty unwinding or relaxing during leisure time — feeling you should always be doing something?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Hyperactivity', text:'How often do you find it hard to engage in activities quietly without generating noise, movement, or commentary?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    // ── IMPULSIVITY (7 items) ──
+    { cat:'Impulsivity', text:"How often do you blurt out an answer before a question has been fully completed, or finish other people's sentences?", options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Impulsivity', text:'How often do you interrupt or intrude on others — cutting into conversations or activities without being invited?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Impulsivity', text:'How often do you have difficulty waiting your turn — in queues, conversations, or group situations?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Impulsivity', text:'How often do you act on impulse and make decisions — purchases, commitments, or life changes — that you later regret?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Impulsivity', text:'How often do you say things, send messages, or take actions in a moment of emotion that you later wish you had not?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Impulsivity', text:'How often do you change plans, direction, or priorities suddenly, driven by impulse rather than considered reflection?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Impulsivity', text:'How often do you crave immediate rewards or stimulation over tasks with delayed payoff, even when the long-term task is more important?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    // ── EXECUTIVE FUNCTION & WORKING MEMORY (8 items) ──
+    { cat:'Executive Function', text:'How often do you forget what you were doing mid-task, or completely lose your train of thought?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Executive Function', text:'How often do you struggle to hold multiple pieces of information in mind simultaneously — for example, remembering a number while searching for a pen?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Executive Function', text:'How often do you significantly misjudge how long tasks will take — greatly underestimating or overestimating time required?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Executive Function', text:'How often do you work on low-priority tasks while an important, urgent task sits untouched?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Executive Function', text:'How often do you find it difficult to transition between activities — either stopping one task to start another, or getting stuck on one thing?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Executive Function', text:'How often do you fail to plan ahead, resulting in last-minute crises, missed deadlines, or poor preparation?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Executive Function', text:'How often do you feel overwhelmed or paralysed by tasks that others around you seem to handle with relative ease?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Executive Function', text:'How often do you rely on urgency, a looming deadline, or a crisis to finally force yourself into taking action on important work?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    // ── EMOTIONAL DYSREGULATION (5 items) ──
+    { cat:'Emotional Regulation', text:'How often do you experience emotional reactions — frustration, excitement, or distress — that others perceive as disproportionate to the situation?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Emotional Regulation', text:'How often do you feel extremely sensitive to criticism, disapproval, or perceived rejection — even from minor or casual comments?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Emotional Regulation', text:'How often do you cycle through emotional states rapidly within a single day — for example, feeling highly energised, then suddenly flat, frustrated, or disengaged?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Emotional Regulation', text:'How often do you experience boredom as genuinely painful or physically uncomfortable — creating a powerful urge to escape the task or situation?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
+    { cat:'Emotional Regulation', text:"How often does your emotional state hijack your ability to think clearly or function — making it nearly impossible to work until the feeling passes?", options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
   ]
 }
 
@@ -3172,47 +3199,54 @@ function generateAttachmentNarrative(r) {
 function generateADHDNarrative(r, band) {
   const d = r.domains;
   let overall = '';
+  const presLine = r.presentation !== 'Sub-threshold' && r.presentation !== 'Sub-threshold / Traits Present'
+    ? ` Your response pattern is most consistent with <strong>${r.presentation}</strong> ADHD.`
+    : '';
   if (band.tier === 'low') {
-    overall = `Your ADHD Pattern Index score of <strong>${r.raw}/${r.max}</strong> — rated <strong>${band.label}</strong> — indicates that you show few of the cognitive and behavioural patterns commonly associated with ADHD. Your self-reported attention regulation, impulse control, and executive function appear broadly within the typical range. If you notice specific areas of difficulty, the domain breakdown below shows where your relative scores sit.`;
+    overall = `Your ADHD Pattern Index score of <strong>${r.raw}/${r.max}</strong> — rated <strong>${band.label}</strong> — indicates that you show few of the cognitive and behavioural patterns commonly associated with ADHD. Your self-reported attention regulation, impulse control, executive function, and emotional regulation appear broadly within the typical range. If you notice specific areas of difficulty, the domain breakdown above shows where your relative scores sit.`;
   } else if (band.tier === 'moderate') {
-    overall = `Your ADHD Pattern Index score of <strong>${r.raw}/${r.max}</strong> — rated <strong>${band.label}</strong> — suggests that a meaningful number of ADHD-associated patterns are present in your daily experience. You may have been managing these patterns for years without connecting them to ADHD — chalking up task avoidance, inconsistent focus, or impulsive responses to personality traits rather than neurology. This result does not constitute a diagnosis, but it does suggest that understanding your ADHD profile could meaningfully improve your daily functioning, productivity, and self-compassion.`;
+    overall = `Your ADHD Pattern Index score of <strong>${r.raw}/${r.max}</strong> — rated <strong>${band.label}</strong> — suggests that a meaningful number of ADHD-associated patterns are present in your daily experience.${presLine} You may have been managing these patterns for years without connecting them to ADHD — attributing task avoidance, inconsistent focus, or impulsive reactions to personal character rather than neurology. This result does not constitute a diagnosis, but it does suggest that understanding your ADHD profile could meaningfully improve your daily functioning, productivity, and self-compassion.`;
   } else if (band.tier === 'high') {
-    overall = `Your ADHD Pattern Index score of <strong>${r.raw}/${r.max}</strong> — rated <strong>${band.label}</strong> — reflects a significant pattern of ADHD-associated traits across multiple domains. Your brain likely processes attention, impulse, and executive demands differently from the neurotypical baseline — not due to laziness or poor character, but due to genuine neurological differences in how your dopamine and norepinephrine systems regulate attention and motivation. These patterns respond powerfully to the right strategies, and identifying your specific profile is the essential first step.`;
+    overall = `Your ADHD Pattern Index score of <strong>${r.raw}/${r.max}</strong> — rated <strong>${band.label}</strong> — reflects a significant pattern of ADHD-associated traits across multiple domains.${presLine} Your brain likely processes attention, impulse, and executive demands differently from the neurotypical baseline — not due to laziness or poor character, but due to genuine neurological differences in how dopamine and norepinephrine systems regulate attention and motivation. These patterns are highly responsive to the right strategies, and identifying your specific profile is the essential first step.`;
   } else {
-    overall = `Your ADHD Pattern Index score of <strong>${r.raw}/${r.max}</strong> — rated <strong>${band.label}</strong> — places you at the high end of ADHD-associated patterns. Your brain may be locked in what researchers call an avoidance cycle: treating important tasks as low-level threats and redirecting energy toward anything that offers immediate relief. This is often fuelled by years of accumulated pressure between high capability and low output — the gap between what you know you could do and what you actually complete. Over time, this creates chronic procrastination, task paralysis, and a widening gap between your intentions and your actions. This cycle is extremely difficult to break through willpower alone, because your neurology is prioritising short-term safety over long-term execution.`;
+    overall = `Your ADHD Pattern Index score of <strong>${r.raw}/${r.max}</strong> — rated <strong>${band.label}</strong> — places you at the high end of ADHD-associated patterns.${presLine} Your brain may be caught in what researchers call an avoidance cycle: treating important tasks as low-level threats and redirecting energy toward anything that provides immediate relief. This is often fuelled by years of accumulated pressure between high capability and low output — the painful gap between what you know you could do and what you actually complete. This cycle is extremely difficult to break through willpower alone, because your neurology is prioritising short-term relief over long-term execution. The good news: this pattern is well understood and highly treatable.`;
   }
 
   const domainNarratives = {
     inattention: {
-      high: `<strong>Inattention (${d.inattention}/100)</strong> is a prominent feature of your profile. You regularly find it difficult to sustain focus on tasks requiring mental effort, are easily derailed by external stimuli, miss important details, and struggle to follow projects through to completion. This is not disinterest — your brain's attention regulation system involuntarily shifts focus rather than making a deliberate choice. High-inattention ADHD often goes unrecognised for years because sufferers are intellectually capable and mask symptoms through compensatory effort. Key strategies: time-blocking with visible timers (Pomodoro technique), externalising all commitments to written systems, working in low-stimulation environments, and noise-cancelling headphones to remove auditory distraction.`,
-      low: `<strong>Inattention (${d.inattention}/100)</strong> scores relatively lower in your profile. While you may experience occasional difficulty sustaining focus, your attention regulation is generally manageable and not a primary driver of difficulty in daily life.`
+      high: `<strong>Inattention (${d.inattention}/100)</strong> is a prominent feature of your profile. You regularly find it difficult to sustain focus on tasks requiring mental effort, are easily derailed by stimuli, miss important details, and struggle to follow projects through to completion. This is not disinterest — your brain’s attention regulation system involuntarily shifts focus rather than making a deliberate choice. Inattentive ADHD often goes unrecognised for years because sufferers are intellectually capable and mask symptoms through compensatory effort. Key strategies: <em>time-blocking with a visible timer</em> (Pomodoro), <em>externalising all commitments</em> to written capture systems, working in low-stimulation environments, and noise-cancelling headphones to remove auditory distraction.`,
+      low: `<strong>Inattention (${d.inattention}/100)</strong> is not a primary feature of your profile. While occasional focus difficulties are universal, your attention regulation appears broadly functional and is not a significant driver of daily impairment.`
     },
     hyperactivity: {
-      high: `<strong>Hyperactivity (${d.hyperactivity}/100)</strong> is significantly elevated. You experience persistent internal restlessness — an inability to slow down mentally even when your body is still. This often shows up as racing thoughts, difficulty relaxing, and a compulsive need to stay busy or move to the next thing. In adults, hyperactivity is more often internal than external — the mental motor that will not switch off. This creates a paradox: you may appear calm outwardly while experiencing significant cognitive noise internally. Effective management includes regular high-intensity physical exercise (which burns excess neurological activation and mimics the effect of stimulant medication), mindfulness practice to observe racing thoughts without following them, and structured daily movement breaks.`,
-      low: `<strong>Hyperactivity (${d.hyperactivity}/100)</strong> is not a primary concern in your profile. You do not appear to experience the persistent internal restlessness or compulsive activation that characterises the hyperactive-impulsive ADHD pattern.`
+      high: `<strong>Hyperactivity (${d.hyperactivity}/100)</strong> is significantly elevated. In adults, hyperactivity is more often internal than physical — the mental motor that will not switch off, the persistent restlessness, the racing thoughts and compulsive need to move to the next thing. This creates a paradox: you may appear calm outwardly while experiencing significant cognitive noise internally. Effective strategies: <em>high-intensity physical exercise</em> (the most potent non-pharmaceutical intervention for ADHD, producing neurochemical effects similar to stimulant medication), <em>structured movement breaks</em> throughout the day, and mindfulness practice focused on observing racing thoughts without following them.`,
+      low: `<strong>Hyperactivity (${d.hyperactivity}/100)</strong> is not a primary concern in your profile. You do not appear to experience the persistent internal restlessness or compulsive activation that characterises the hyperactive-impulsive pattern.`
     },
     impulsivity: {
-      high: `<strong>Impulsivity (${d.impulsivity}/100)</strong> is a significant feature of your profile. You act on thoughts before fully processing them, interrupt others, speak before thinking, and make decisions in the moment that you later reassess. Impulsivity in ADHD reflects a dysregulation of the brain's inhibitory control system — the mechanism that usually provides a pause between stimulus and response. This affects not just social interactions but also financial decisions, career choices, and relationship dynamics. Practical strategies: building deliberate pause protocols before important decisions (the "sleep on it" rule, a 24-hour delay before non-urgent responses), and using environmental design to reduce impulsive action opportunities.`,
-      low: `<strong>Impulsivity (${d.impulsivity}/100)</strong> is a lower-scoring area in your profile. You generally maintain reasonable control over impulsive responses and are not significantly affected by the inhibitory control challenges central to ADHD impulsivity.`
+      high: `<strong>Impulsivity (${d.impulsivity}/100)</strong> is a significant feature of your profile. You act on thoughts before fully processing them, speak before thinking, and make decisions in the moment that you later reassess. Impulsivity in ADHD reflects dysregulation of the brain’s inhibitory control system — the mechanism that ordinarily inserts a pause between stimulus and response. This affects social interactions, financial decisions, career choices, and relationship dynamics. Practical strategies: <em>deliberate pause protocols</em> before important decisions (a 24-hour rule before non-urgent commitments), <em>environmental design</em> that removes impulsive action opportunities, and using structured scripts for high-stakes conversations.`,
+      low: `<strong>Impulsivity (${d.impulsivity}/100)</strong> is a lower-scoring area in your profile. You generally maintain reasonable inhibitory control and are not significantly affected by the impulsivity challenges central to the hyperactive-impulsive pattern.`
     },
     executive: {
-      high: `<strong>Executive Dysfunction (${d.executive}/100)</strong> is a defining feature of your ADHD profile — and for many people, the most disruptive. Executive function encompasses time management, task initiation, working memory, planning, and the ability to transition between activities. High scores here reflect consistent difficulty getting started on tasks (especially important or complex ones), managing time accurately, keeping commitments in mind, and completing work from start to finish. Crucially, this is a neurological difference, not a character flaw. The most effective interventions are externalisation systems: written task lists with deadlines, digital calendar alerts, body doubling (working alongside another person for environmental accountability), and structured daily routines that reduce the number of decisions your executive function must make.`,
-      low: `<strong>Executive Function (${d.executive}/100)</strong> is relatively intact in your profile. Task initiation, planning, and time management are not primary challenge areas — your executive system appears broadly functional.`
+      high: `<strong>Executive Dysfunction (${d.executive}/100)</strong> is a defining feature of your ADHD profile — and for many people, the most functionally disruptive. Executive function encompasses task initiation, working memory, time perception, planning, and task-switching. High scores here reflect consistent difficulty getting started on important tasks, accurately perceiving time, holding commitments in mind, and completing work from start to finish. This is a neurological difference, not a character flaw. The most effective interventions are <em>externalisation systems</em>: visible task lists with explicit deadlines, calendar alerts for transitions, <em>body doubling</em> (working alongside another person for environmental accountability), and structured daily routines that reduce the number of decisions your executive system must make each day.`,
+      low: `<strong>Executive Function (${d.executive}/100)</strong> is relatively intact in your profile. Task initiation, planning, and time management are not primary challenge areas — your executive system appears broadly functional relative to the ADHD profile.`
+    },
+    emotional: {
+      high: `<strong>Emotional Dysregulation (${d.emotional}/100)</strong> is a significant and often underrecognised feature of ADHD. Research by Dr. Russell Barkley and others has established that emotional dysregulation is a core feature of ADHD — not merely a separate comorbidity. High scores reflect intense emotional reactions, sensitivity to criticism and rejection (sometimes described as Rejection Sensitive Dysphoria — RSD), rapid emotional cycling, and a low frustration threshold. These experiences are neurologically driven: ADHD impairs the prefrontal cortex’s ability to regulate emotional intensity in real time. Strategies: <em>naming the emotion explicitly</em> before responding (this activates frontal regulation circuitry), <em>building mandatory delays</em> before acting on strong emotions, regular exercise to stabilise baseline mood, and — in cases of severe RSD — discussing with a GP whether alpha-adrenergic medication (guanfacine, clonidine) may help.`,
+      low: `<strong>Emotional Regulation (${d.emotional}/100)</strong> appears relatively stable in your profile. You do not report significant patterns of emotional dysregulation, rejection sensitivity, or rapid emotional cycling — this dimension of ADHD is not a primary concern for you.`
     }
   };
 
   const domHtml = Object.entries(d).map(([k,v]) => {
+    if (!domainNarratives[k]) return '';
     return `<p style="margin-top:1rem">${domainNarratives[k][v >= 50 ? 'high' : 'low']}</p>`;
   }).join('');
 
   let strategies = '';
   if (band.tier !== 'low') {
-    strategies = `<p style="margin-top:1rem"><strong>What actually works:</strong> ADHD management is most effective when it works <em>with</em> your neurology rather than demanding it behave differently through willpower. Evidence-based approaches: <strong>Body doubling</strong> — working in the physical or virtual presence of another person dramatically improves task completion for many ADHD brains. <strong>External accountability systems</strong> — visible, time-bound commitments rather than internal motivation. <strong>High-intensity exercise</strong> — the single most powerful non-pharmaceutical intervention for ADHD, producing neurochemical effects similar to stimulant medication. <strong>Sleep optimisation</strong> — ADHD symptoms worsen dramatically with sleep deficit. <strong>Interest-based engagement</strong> — ADHD brains are driven by interest and urgency, not importance; structure your environment to make important tasks feel more compelling. If symptoms are significantly impacting your work, finances, or relationships, a formal ADHD assessment through your GP is a valid and valuable step — adult ADHD is underdiagnosed and very treatable.</p>`;
+    strategies = `<p style="margin-top:1.2rem"><strong>Evidence-based strategies that work with ADHD neurology:</strong> <strong>Body doubling</strong> — working in the physical or virtual presence of another person dramatically improves task completion for ADHD brains. <strong>External accountability</strong> — visible, time-bound commitments rather than internal motivation. <strong>High-intensity exercise</strong> — the single most powerful non-pharmaceutical intervention, producing neurochemical effects similar to stimulant medication. <strong>Sleep optimisation</strong> — ADHD symptoms worsen dramatically with sleep deficit; treat sleep as a clinical priority. <strong>Interest-based task design</strong> — ADHD brains are driven by novelty, urgency, and interest rather than importance; restructure environments to make important tasks more compelling. <strong>Medication</strong> — stimulant medication (methylphenidate, amphetamines) and non-stimulants (atomoxetine, guanfacine) have the highest evidence base of any ADHD intervention; if symptoms significantly impact daily life, a formal assessment through your GP is a valid and valuable next step. Adult ADHD is significantly underdiagnosed and very treatable.</p>`;
   }
 
   return `<p>${overall}</p>${domHtml}${strategies}`;
 }
-
 function generateImposterNarrative(r, band) {
   const t = band.tier;
   if (t === 'low') return `<p>Your score indicates minimal imposter syndrome — you generally attribute your successes accurately to your own ability, effort, and preparation rather than luck or circumstance. This psychological groundedness is a genuine asset: it allows you to take appropriate credit, absorb feedback without catastrophising, and pursue ambitious goals without excessive self-doubt undermining your momentum.</p><p>Imposter feelings are universal in small doses; the fact that yours are well-contained suggests either strong early foundations of unconditional support, deliberate work on your self-concept, or both. Protect this by continuing to keep score of your own evidence — the specific things you have accomplished, the problems you have solved, the ways you have grown.</p>`;
@@ -3744,8 +3778,11 @@ function showResults() {
     const band = adhdBand(r.pct);
     const gaugeLeft = Math.min(94, Math.max(3, r.pct));
     const d = r.domains;
-    const domLabels = { inattention:'Inattention', hyperactivity:'Hyperactivity', impulsivity:'Impulsivity', executive:'Executive Function' };
-    const domColors = { inattention:'#e8814b', hyperactivity:'#c94040', impulsivity:'#c8962a', executive:'#9b6fe0' };
+    const domLabels = { inattention:'Inattention', hyperactivity:'Hyperactivity', impulsivity:'Impulsivity', executive:'Executive Function', emotional:'Emotional Regulation' };
+    const domColors = { inattention:'#e8814b', hyperactivity:'#c94040', impulsivity:'#c8962a', executive:'#9b6fe0', emotional:'#5b9bd5' };
+    const asrsTag = r.asrsPositive
+      ? `<span style="font-size:0.72rem;padding:0.2rem 0.6rem;background:rgba(201,64,64,0.15);color:#c94040;border:1px solid rgba(201,64,64,0.3);border-radius:3px;font-family:'Space Mono',monospace">ASRS-A: Positive Screen (${r.asrsHits}/6)</span>`
+      : `<span style="font-size:0.72rem;padding:0.2rem 0.6rem;background:rgba(58,158,110,0.12);color:#3a9e6e;border:1px solid rgba(58,158,110,0.3);border-radius:3px;font-family:'Space Mono',monospace">ASRS-A: Below Threshold (${r.asrsHits}/6)</span>`;
     const topDomainKey = Object.entries(d).sort((a,b)=>b[1]-a[1])[0][0];
     const selfPerception = r.pct < 30 ? 'Grounded & Confident' : r.pct < 50 ? 'Occasional Self-Doubt' : 'Chronic Self-Doubt';
     const focusLevel = d.inattention < 30 ? 'Strong' : d.inattention < 50 ? 'Moderate' : d.inattention < 70 ? 'Low' : 'Very Low';
@@ -3816,9 +3853,9 @@ function showResults() {
             <div class="score-spectrum-sub">${r.raw}/${r.max} score</div>
           </div>
           <div class="score-spectrum-stat">
-            <div class="score-spectrum-label">Main Challenge</div>
-            <div class="score-spectrum-value" style="font-size:0.85rem;padding-top:0.4rem">${domLabels[topDomainKey]}</div>
-            <div class="score-spectrum-sub">${d[topDomainKey]}/100</div>
+            <div class="score-spectrum-label">Presentation Type</div>
+            <div class="score-spectrum-value" style="font-size:0.68rem;padding-top:0.4rem;line-height:1.3">${r.presentation}</div>
+            <div class="score-spectrum-sub">DSM-5 pattern</div>
           </div>
           <div class="score-spectrum-stat">
             <div class="score-spectrum-label">Focus Level</div>
@@ -3857,7 +3894,7 @@ function showResults() {
 
         <div>${generateADHDNarrative(r, band)}</div>
 
-        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(120,80,200,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Clinical note:</strong> This assessment is based on the Adult ADHD Self-Report Scale (ASRS v1.1) framework developed by the World Health Organisation. It is a validated screening tool, not a diagnostic instrument. A score indicating high or very high ADHD patterns does not confirm a diagnosis. If symptoms significantly impact your daily life, please speak to your GP about a formal assessment. Adult ADHD is significantly underdiagnosed and responds well to both behavioural and pharmacological treatment.</em></p>
+        <p style="font-size:0.75rem;color:var(--steel);margin-top:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(120,80,200,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Clinical note:</strong> This 40-item assessment incorporates the WHO Adult ADHD Self-Report Scale (ASRS v1.1) Part A items verbatim and extends coverage across all DSM-5 inattention and hyperactivity-impulsivity symptom clusters, executive dysfunction (Brown ADD Rating Scales framework), and emotional dysregulation (Barkley ADHD research). The ASRS v1.1 Part A is a WHO-validated screening instrument; a positive screen (4+ of 6 items at threshold) indicates high probability of clinically significant ADHD. This tool is a structured screening instrument, not a diagnostic assessment. A positive result does not confirm ADHD, and a negative result does not rule it out. If symptoms significantly impair your work, finances, relationships, or wellbeing, please discuss a formal assessment with your GP or a psychiatrist. Adult ADHD is substantially underdiagnosed — particularly the inattentive presentation — and responds well to both behavioural and pharmacological treatment.</em></p>
       </div>`;
   }
 
@@ -3959,25 +3996,40 @@ function imposterBand(pct) {
 
 function scoreADHD(answers) {
   const qs = TESTS.adhd.questions;
-  const domains = { inattention: [], hyperactivity: [], impulsivity: [], executive: [] };
-  const catMap = { 'Inattention':'inattention', 'Hyperactivity':'hyperactivity', 'Impulsivity':'impulsivity', 'Executive Function':'executive' };
+  const catMap = {
+    'Inattention':'inattention', 'Hyperactivity':'hyperactivity',
+    'Impulsivity':'impulsivity', 'Executive Function':'executive',
+    'Emotional Regulation':'emotional'
+  };
+  const domains = { inattention:[], hyperactivity:[], impulsivity:[], executive:[], emotional:[] };
   let total = 0;
+  let asrsHits = 0;
   qs.forEach((q, i) => {
     const val = answers[i] !== undefined ? answers[i] : 0;
     total += val;
     const d = catMap[q.cat];
     if (d) domains[d].push(val);
+    if (q.asrsA && val >= q.asrsT) asrsHits++;
   });
   const avg = arr => arr.length ? Math.round((arr.reduce((a,b)=>a+b,0)/arr.length)*25) : 0;
   const domScores = {
     inattention:  avg(domains.inattention),
     hyperactivity: avg(domains.hyperactivity),
     impulsivity:  avg(domains.impulsivity),
-    executive:    avg(domains.executive)
+    executive:    avg(domains.executive),
+    emotional:    avg(domains.emotional)
   };
   const max = qs.length * 4;
   const pct = Math.round((total / max) * 100);
-  return { raw: total, max, pct, domains: domScores };
+  const inattentionSymptoms = domains.inattention.filter(v=>v>=3).length;
+  const hiSymptoms = [...domains.hyperactivity, ...domains.impulsivity].filter(v=>v>=3).length;
+  let presentation = 'Sub-threshold';
+  if (inattentionSymptoms >= 5 && hiSymptoms >= 5) presentation = 'Combined Presentation';
+  else if (inattentionSymptoms >= 5) presentation = 'Predominantly Inattentive';
+  else if (hiSymptoms >= 5) presentation = 'Predominantly Hyperactive-Impulsive';
+  else if (pct >= 30) presentation = 'Sub-threshold / Traits Present';
+  const asrsPositive = asrsHits >= 4;
+  return { raw: total, max, pct, domains: domScores, asrsHits, asrsPositive, presentation, inattentionSymptoms, hiSymptoms };
 }
 
 function adhdBand(pct) {
