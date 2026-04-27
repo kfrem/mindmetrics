@@ -1704,6 +1704,75 @@
   .cert-date-val { font-family: "Space Mono", monospace; font-size: 11px; color: #666; text-align:right; }
   .cert-id { font-family: "Space Mono", monospace; font-size: 9px; color: #aaa; margin-top: 4px; }
   .cert-seal { font-size: 48px; margin-bottom: 4px; }
+
+/* ════════════════ TRAINING SCREEN ════════════════ */
+#training { min-height:100vh; display:none; flex-direction:column; }
+#training.active { display:flex; }
+.training-header {
+  background:var(--navy2); border-bottom:1px solid rgba(200,150,42,0.25);
+  padding:16px 24px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+}
+.training-brand { font-family:'Space Mono',monospace; color:var(--gold); font-size:13px; letter-spacing:.1em; }
+.training-test-name { font-family:'Cormorant Garamond',serif; color:var(--cream); font-size:22px; font-weight:600; flex:1; }
+.training-progress-bar { flex:1 1 200px; height:4px; background:rgba(255,255,255,0.1); border-radius:2px; }
+.training-progress-fill { height:100%; background:var(--gold); border-radius:2px; transition:width .4s; }
+.training-body { flex:1; display:flex; flex-direction:column; align-items:center; padding:40px 24px; max-width:700px; margin:0 auto; width:100%; }
+.training-q-num { font-family:'Space Mono',monospace; color:var(--steel); font-size:12px; letter-spacing:.1em; margin-bottom:12px; }
+.training-q-text { font-family:'Cormorant Garamond',serif; color:var(--cream); font-size:22px; line-height:1.6; text-align:center; margin-bottom:32px; }
+.training-options { width:100%; display:flex; flex-direction:column; gap:12px; }
+.training-opt {
+  width:100%; padding:14px 20px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12);
+  border-radius:8px; color:var(--cream); font-size:15px; cursor:pointer; text-align:left; transition:all .2s;
+}
+.training-opt:hover { background:rgba(200,150,42,0.12); border-color:var(--gold); }
+.training-opt.correct { background:rgba(58,158,110,0.2); border-color:var(--green); color:#a8e6c8; }
+.training-opt.wrong { background:rgba(201,64,64,0.2); border-color:var(--red); color:#f0a0a0; }
+.training-explanation {
+  margin-top:20px; padding:16px 20px; background:rgba(200,150,42,0.08);
+  border:1px solid rgba(200,150,42,0.25); border-radius:8px; color:#dde6f0; font-size:14px; line-height:1.7;
+  display:none; width:100%;
+}
+.training-explanation.show { display:block; }
+.training-next-btn {
+  margin-top:24px; padding:12px 36px; background:var(--gold); color:var(--navy); font-weight:700;
+  border:none; border-radius:8px; font-size:15px; cursor:pointer; display:none;
+}
+.training-next-btn.show { display:inline-block; }
+/* Training Results */
+.training-results { width:100%; max-width:600px; margin:0 auto; padding:40px 24px; text-align:center; }
+.training-score-circle {
+  width:140px; height:140px; border-radius:50%; background:rgba(200,150,42,0.1);
+  border:3px solid var(--gold); display:flex; flex-direction:column; align-items:center;
+  justify-content:center; margin:0 auto 24px;
+}
+.training-score-num { font-family:'Space Mono',monospace; color:var(--gold); font-size:36px; font-weight:700; }
+.training-score-label { color:var(--steel); font-size:12px; letter-spacing:.08em; }
+.training-results-title { font-family:'Cormorant Garamond',serif; color:var(--cream); font-size:28px; margin-bottom:8px; }
+.training-results-sub { color:var(--steel-light); font-size:14px; margin-bottom:32px; }
+.training-action-btns { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+.training-action-btns button { padding:12px 28px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; border:none; }
+.btn-retake { background:var(--gold); color:var(--navy); }
+.btn-back-results { background:transparent; border:1px solid rgba(200,150,42,0.5) !important; color:var(--gold); }
+.btn-hub { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15) !important; color:var(--cream); }
+
+/* Training Hub on landing */
+.training-hub-section { margin:60px 0 20px; }
+.training-hub-section h2 {
+  font-family:'Cormorant Garamond',serif; color:var(--cream); font-size:32px;
+  text-align:center; margin-bottom:8px;
+}
+.training-hub-section .section-sub { color:var(--steel-light); text-align:center; font-size:14px; margin-bottom:32px; }
+.training-hub-grid {
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px;
+}
+.training-hub-card {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);
+  border-radius:12px; padding:20px 16px; text-align:center; cursor:pointer; transition:all .25s;
+}
+.training-hub-card:hover { background:rgba(200,150,42,0.08); border-color:rgba(200,150,42,0.4); transform:translateY(-2px); }
+.training-hub-card .thc-icon { font-size:28px; margin-bottom:8px; }
+.training-hub-card .thc-name { color:var(--cream); font-size:14px; font-weight:600; margin-bottom:4px; }
+.training-hub-card .thc-count { color:var(--steel); font-size:12px; }
 </style>
 </head>
 <body>
@@ -1855,7 +1924,109 @@
   </div>
 </div>
 
+
+<!-- ══════════════ TRAINING HUB ══════════════ -->
+<div class="training-hub-section">
+  <h2>Training Hub</h2>
+  <p class="section-sub">15 exercises per assessment — build the skills your scores revealed</p>
+  <div class="training-hub-grid">
+    <div class="training-hub-card" onclick="startTraining('iq','hub')">
+      <div class="thc-icon">🧠</div>
+      <div class="thc-name">IQ Training</div>
+      <div class="thc-count">15 exercises</div>
+    </div>
+    <div class="training-hub-card" onclick="startTraining('eq','hub')">
+      <div class="thc-icon">❤️</div>
+      <div class="thc-name">EQ Training</div>
+      <div class="thc-count">15 exercises</div>
+    </div>
+    <div class="training-hub-card" onclick="startTraining('adhd','hub')">
+      <div class="thc-icon">⚡</div>
+      <div class="thc-name">ADHD Training</div>
+      <div class="thc-count">15 exercises</div>
+    </div>
+    <div class="training-hub-card" onclick="startTraining('stress','hub')">
+      <div class="thc-icon">🌊</div>
+      <div class="thc-name">Stress Training</div>
+      <div class="thc-count">15 exercises</div>
+    </div>
+    <div class="training-hub-card" onclick="startTraining('anxiety','hub')">
+      <div class="thc-icon">🌿</div>
+      <div class="thc-name">Anxiety Training</div>
+      <div class="thc-count">15 exercises</div>
+    </div>
+    <div class="training-hub-card" onclick="startTraining('burnout','hub')">
+      <div class="thc-icon">🔋</div>
+      <div class="thc-name">Burnout Training</div>
+      <div class="thc-count">15 exercises</div>
+    </div>
+    <div class="training-hub-card" onclick="startTraining('entrepreneur','hub')">
+      <div class="thc-icon">🚀</div>
+      <div class="thc-name">Entrepreneur Training</div>
+      <div class="thc-count">15 exercises</div>
+    </div>
+    <div class="training-hub-card" onclick="startTraining('bigfive','hub')">
+      <div class="thc-icon">🎭</div>
+      <div class="thc-name">Big Five Training</div>
+      <div class="thc-count">15 exercises</div>
+    </div>
+    <div class="training-hub-card" onclick="startTraining('imposter','hub')">
+      <div class="thc-icon">🪞</div>
+      <div class="thc-name">Imposter Syndrome Training</div>
+      <div class="thc-count">15 exercises</div>
+    </div>
+    <div class="training-hub-card" onclick="startTraining('attachment','hub')">
+      <div class="thc-icon">🤝</div>
+      <div class="thc-name">Attachment Training</div>
+      <div class="thc-count">15 exercises</div>
+    </div>
+    <div class="training-hub-card" onclick="startTraining('matrix','hub')">
+      <div class="thc-icon">🔷</div>
+      <div class="thc-name">Matrix Reasoning</div>
+      <div class="thc-count">15 exercises</div>
+    </div>
+  </div>
+</div>
+
 <!-- ══════════════ QUIZ SCREEN ══════════════ -->
+<!-- ══════════════ TRAINING SCREEN ══════════════ -->
+<div id="training" class="screen">
+  <!-- Question view -->
+  <div id="training-q-view">
+    <div class="training-header">
+      <span class="training-brand">MINDMETRICS — TRAINING</span>
+      <span id="training-test-title" class="training-test-name"></span>
+      <div class="training-progress-bar">
+        <div id="training-prog-fill" class="training-progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+    <div class="training-body">
+      <div id="training-q-num" class="training-q-num"></div>
+      <div id="training-q-text" class="training-q-text"></div>
+      <div id="training-options" class="training-options"></div>
+      <div id="training-explanation" class="training-explanation"></div>
+      <button id="training-next-btn" class="training-next-btn" onclick="nextTrainingQ()">Next Exercise →</button>
+    </div>
+  </div>
+  <!-- Results view -->
+  <div id="training-results-view" style="display:none">
+    <div class="training-results">
+      <div class="training-score-circle">
+        <div id="tr-score-num" class="training-score-num"></div>
+        <div class="training-score-label">SCORE</div>
+      </div>
+      <div id="tr-results-title" class="training-results-title"></div>
+      <div id="tr-results-sub" class="training-results-sub"></div>
+      <div class="training-action-btns">
+        <button class="btn-retake" id="tr-retake-btn" onclick="retakeFromTraining()" style="display:none">Retake Assessment</button>
+        <button class="btn-back-results" id="tr-back-results-btn" onclick="backToResults()" style="display:none">Back to Results</button>
+        <button class="btn-hub" onclick="startTraining(state.trainingTest,'hub')">Redo Training</button>
+        <button class="btn-hub" onclick="showScreen('landing')">Home</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="quiz" class="screen">
   <div class="quiz-header">
     <div class="quiz-brand">MINDMETRICS</div>
@@ -2394,6 +2565,233 @@ adhd: {
 //  STATE
 // ══════════════════════════════════════════════════════════
 
+
+// ══════════════════════════════════════════════════════════
+//  TRAINING DATA  (15 exercises per assessment)
+// ══════════════════════════════════════════════════════════
+const TRAINING = {
+  iq: {
+    name: 'IQ Training',
+    exercises: [
+      { q:'Which number comes next in the series: 2, 6, 18, 54, __?', opts:['108','162','162','162'], correct:1, explanation:'Each term is multiplied by 3. 54 × 3 = 162.' },
+      { q:'Complete the analogy: Book is to Library as Painting is to __?', opts:['Canvas','Museum','Artist','Colour'], correct:1, explanation:'A library stores books; a museum stores paintings — same categorical relationship.' },
+      { q:'If all Bloops are Razzles, and all Razzles are Lazzles, are all Bloops definitely Lazzles?', opts:['Yes','No','Cannot tell','Only some'], correct:0, explanation:'Transitive logic: Bloops → Razzles → Lazzles, so all Bloops must be Lazzles.' },
+      { q:'Which number is the odd one out: 3, 9, 15, 21, 25, 27?', opts:['9','15','25','27'], correct:2, explanation:'All others are multiples of 3. 25 = 5×5, not divisible by 3.' },
+      { q:'What is the next number in the Fibonacci sequence: 1, 1, 2, 3, 5, 8, 13, __?', opts:['19','20','21','22'], correct:2, explanation:'Each term is the sum of the two before it. 8 + 13 = 21.' },
+      { q:'A train travels 60 km in 45 minutes. What is its speed in km/h?', opts:['70','75','80','90'], correct:2, explanation:'60 km in 0.75 hours = 60 / 0.75 = 80 km/h.' },
+      { q:'Which shape completes the pattern: Circle, Square, Circle, Triangle, Circle, __?', opts:['Circle','Square','Triangle','Pentagon'], correct:1, explanation:'The pattern alternates Circle with the next shape in sequence (Square, Triangle). Next is Square.' },
+      { q:'What letter comes next: A, C, F, J, O, __?', opts:['T','U','V','W'], correct:1, explanation:'Gaps increase by 1: +2, +3, +4, +5, +6. O is the 15th letter, so next is 15+6=21 = U.' },
+      { q:'If you rearrange the letters "CIFAITNOC" you get which word?', opts:['FICTIONAL','FANATIC','COGNITION','FANATICAL'], correct:2, explanation:'CIFAITNOC rearranged spells COGNITION.' },
+      { q:'Divide 30 by half and add 10. What is the answer?', opts:['25','40','70','80'], correct:2, explanation:'"Divide by half" means multiply by 2: 30 × 2 = 60. Then 60 + 10 = 70.' },
+      { q:'Which is the largest? (A) 1/2  (B) 1/3  (C) 2/5  (D) 3/8', opts:['1/2','1/3','2/5','3/8'], correct:0, explanation:'Converting to decimals: 0.5, 0.333, 0.4, 0.375. 0.5 is largest.' },
+      { q:'A clock shows 3:15. What is the angle between the hour and minute hands?', opts:['0°','7.5°','15°','22.5°'], correct:1, explanation:'At 3:15 the minute hand is at 90°; the hour hand has moved 7.5° past 90°. Difference = 7.5°.' },
+      { q:'What number should replace the question mark? 4 → 16, 5 → 25, 6 → ?', opts:['30','36','32','38'], correct:1, explanation:'Each number is squared: 6² = 36.' },
+      { q:'Three apples and two oranges cost £1.30. Two apples and three oranges cost £1.20. What does one apple cost?', opts:['20p','22p','26p','30p'], correct:2, explanation:'Solving simultaneously: apple = 26p, orange = 16p.' },
+      { q:'Which word does NOT belong: Swift, Quick, Rapid, Sluggish, Fast?', opts:['Swift','Rapid','Sluggish','Fast'], correct:2, explanation:'Swift, Quick, Rapid, and Fast all mean high speed. Sluggish means slow — opposite.' },
+    ]
+  },
+  eq: {
+    name: 'EQ Training',
+    exercises: [
+      { q:'You feel suddenly furious at a colleague\'s comment. The most emotionally intelligent first step is:', opts:['Tell them exactly what you think immediately','Pause and name the emotion before responding','Leave the room without explaining','Send a complaint email'], correct:1, explanation:'Naming an emotion ("I\'m feeling angry") activates the prefrontal cortex and dampens the amygdala response, giving you a choice in how to react.' },
+      { q:'Self-regulation means:', opts:['Suppressing all negative feelings','Controlling others\' emotions','Managing your own emotional responses thoughtfully','Avoiding all conflict'], correct:2, explanation:'Self-regulation is not suppression — it is the ability to acknowledge feelings and choose a response aligned with your values.' },
+      { q:'A friend cancels plans at the last minute. High-EQ response:', opts:['Stop inviting them','Assume they don\'t value you and say so','Express disappointment calmly and ask if everything is okay','Say nothing and feel resentful'], correct:2, explanation:'High EQ involves honest, non-aggressive communication and curiosity about others\' circumstances before assuming intent.' },
+      { q:'Empathy differs from sympathy because empathy:', opts:['Feels sorry for someone','Stays detached to give advice','Tries to feel what another person feels from their perspective','Is only for professionals'], correct:2, explanation:'Sympathy says "I feel sorry for you." Empathy says "I feel with you" — it requires perspective-taking, not pity.' },
+      { q:'Which is a sign of high emotional self-awareness?', opts:['Rarely feeling upset','Knowing what triggers your emotions and why','Hiding emotions at work','Always feeling positive'], correct:1, explanation:'Self-awareness is not about feeling less — it is about understanding your emotional landscape with clarity and without judgement.' },
+      { q:'The most effective way to validate someone\'s emotion is to say:', opts:['"You shouldn\'t feel that way"','"That\'s not a big deal"','"It makes sense you feel that way given what happened"','"Just think positive"'], correct:2, explanation:'Validation acknowledges the emotion as understandable. This builds trust and helps the other person feel heard, which often de-escalates strong feelings.' },
+      { q:'Social awareness (reading a room) improves when you:', opts:['Talk more and listen less','Observe non-verbal cues and ask open questions','Assume everyone feels the same as you','Focus only on the agenda'], correct:1, explanation:'Social awareness relies on picking up non-verbal signals — tone, posture, micro-expressions — and seeking to understand before being understood.' },
+      { q:'A colleague receives praise you feel you deserved. The growth-mindset EQ response is:', opts:['Undermine their achievement subtly','Congratulate them and reflect on what you can learn','Complain to your manager','Withdraw effort going forward'], correct:1, explanation:'High EQ means managing envy without acting on it destructively. Genuine congratulation and reflection converts a threat response into a growth opportunity.' },
+      { q:'Emotional contagion refers to:', opts:['Spreading illness through stress','Unconsciously absorbing others\' emotional states','Deliberately cheering someone up','Pretending to feel what others feel'], correct:1, explanation:'Emotional contagion is the automatic mimicry and synchronisation of emotions — why spending time with positive people genuinely lifts your mood.' },
+      { q:'The best way to rebuild trust after an emotional outburst is:', opts:['Pretend it didn\'t happen','Over-explain and justify the outburst','Acknowledge the impact, apologise specifically, and change behaviour','Wait for the other person to forgive you'], correct:2, explanation:'Trust repair requires ownership of impact (not just intent), a genuine apology, and visible behavioural change — not just words.' },
+      { q:'Motivating yourself during tedious tasks is helped most by:', opts:['Waiting for inspiration','Connecting the task to a deeper personal value or goal','Rewarding yourself only at the end','Comparing yourself to others'], correct:1, explanation:'Intrinsic motivation — tying action to values — outlasts willpower. Asking "why does this matter to me?" reframes effort as meaningful.' },
+      { q:'Which is NOT a component of Daniel Goleman\'s EQ model?', opts:['Self-awareness','Social skills','IQ','Empathy'], correct:2, explanation:'Goleman\'s five components are: self-awareness, self-regulation, motivation, empathy, and social skills. IQ is a separate construct.' },
+      { q:'You are overwhelmed and a colleague asks for help. High EQ means:', opts:['Always saying yes to protect the relationship','Declining without explanation','Honestly expressing your capacity and offering an alternative','Saying yes and resenting it'], correct:2, explanation:'High EQ includes honest boundary-setting. Saying "I\'m at capacity right now but could help Thursday" is both honest and relationship-preserving.' },
+      { q:'Emotional granularity — having precise emotion vocabulary — helps because:', opts:['It impresses others','Precise labels activate more targeted brain regulation responses','It makes emotions seem more important','It is easier to talk about vague feelings'], correct:1, explanation:'Research by Lisa Feldman Barrett shows that the more precisely you can label an emotion, the better your brain can regulate it. "I feel disappointed" regulates differently from "I feel bad".' },
+      { q:'The EQ skill most linked to leadership effectiveness according to research is:', opts:['Dominance','Self-awareness','Intelligence','Extraversion'], correct:1, explanation:'Meta-analyses consistently show self-awareness as the top predictor of leadership effectiveness — leaders who know their own biases and blind spots make better decisions.' },
+    ]
+  },
+  adhd: {
+    name: 'ADHD Training',
+    exercises: [
+      { q:'The Pomodoro Technique helps ADHD because it:', opts:['Eliminates distractions permanently','Breaks work into time-bounded sprints that work with ADHD\'s urgency system','Requires no planning','Improves memory automatically'], correct:1, explanation:'ADHD brains are driven by urgency and novelty. 25-minute sprints create artificial deadlines that activate the dopamine system needed to initiate and sustain focus.' },
+      { q:'Body doubling (working near another person) reduces ADHD task paralysis because:', opts:['The other person does part of the work','Their presence activates a social accountability circuit in the brain','It is quieter','You can ask questions more easily'], correct:1, explanation:'Presence of another person — even silently — activates the brain\'s social monitoring system, which provides enough external stimulation to help the ADHD brain stay on task.' },
+      { q:'Which tool most directly compensates for ADHD working memory deficits?', opts:['A mental to-do list','Externalising tasks into a visible written or digital system','Trying harder to remember','Multitasking to keep the brain active'], correct:1, explanation:'Working memory in ADHD is impaired — the brain\'s "mental whiteboard" erases quickly. Externalising (written lists, apps, whiteboards) moves information out of working memory into the environment.' },
+      { q:'A visible countdown timer (rather than a phone clock) helps ADHD because:', opts:['It makes noise','It shows time passing — critical for ADHD time-blindness','It is more accurate','It prevents phone distraction'], correct:1, explanation:'ADHD involves time-blindness — an inability to feel time passing. A visible timer (Time Timer, cube timer) makes time concrete and tangible, not abstract.' },
+      { q:'The 48-hour rule for ADHD says:', opts:['Always wait 48 hours before replying to emails','Take action on a new idea within 48 hours or the dopamine fades and it likely won\'t happen','Sleep on every decision for 48 hours','Never commit to anything for 48 hours'], correct:1, explanation:'Dopamine novelty fades fast in ADHD. If a task isn\'t started within ~48 hours of commitment, the motivation window closes and activation becomes much harder.' },
+      { q:'Exercise improves ADHD symptoms primarily by:', opts:['Tiring the body so the mind is calmer','Increasing dopamine and norepinephrine in the prefrontal cortex','Building physical strength','Providing a break from thinking'], correct:1, explanation:'Aerobic exercise produces an immediate surge of dopamine and norepinephrine — the same neurotransmitters targeted by ADHD medication — improving focus for 1-4 hours afterward.' },
+      { q:'Rejection Sensitive Dysphoria (RSD) in ADHD refers to:', opts:['Fear of being rejected for an ADHD diagnosis','Extreme emotional pain triggered by perceived criticism or rejection','Sensitivity to loud noises','Difficulty rejecting unhelpful thoughts'], correct:1, explanation:'RSD is an intense, near-instantaneous emotional response to perceived rejection or criticism, affecting ~99% of adults with ADHD. It is neurological, not a personality flaw.' },
+      { q:'Task initiation difficulty in ADHD is best addressed by:', opts:['Waiting until you feel motivated','Using a 2-minute starter rule — commit only to beginning for 2 minutes','Scheduling longer work blocks','Eliminating the task'], correct:1, explanation:'ADHD brains struggle to start, not necessarily to continue. The 2-minute rule bypasses the initiation wall — once started, momentum often takes over.' },
+      { q:'Why do ADHD brains often hyperfocus on highly interesting tasks?', opts:['Because they have no ADHD symptoms in those moments','Interest spikes dopamine enough to sustain focus — ADHD is a motivation regulation problem, not an attention problem','They are pretending to have ADHD otherwise','High-interest tasks are shorter'], correct:1, explanation:'ADHD is better understood as difficulty regulating attention toward low-stimulation tasks. High-interest activities generate enough dopamine to sustain focus — this is not contradictory.' },
+      { q:'Sleep problems in ADHD are:', opts:['Unrelated to ADHD','A deliberate choice','Neurologically linked — melatonin onset is often delayed 1-2 hours in ADHD brains','Only present in children'], correct:2, explanation:'Research shows ADHD brains have a delayed circadian rhythm — melatonin release is 1-2 hours late, making falling asleep before midnight genuinely harder and waking early exhausting.' },
+      { q:'The "closing open loops" technique (writing down all incomplete tasks) helps ADHD because:', opts:['It shortens the task list','The brain keeps "broadcasting" incomplete tasks — writing them down quiets this signal','It impresses your manager','It permanently deletes worries'], correct:1, explanation:'Based on the Zeigarnik effect — the brain holds incomplete tasks in an active state. Capturing them in writing signals the brain it can release the hold, reducing cognitive noise.' },
+      { q:'Fidget tools (spinners, stress balls) during focused tasks work for ADHD because:', opts:['They are a reward','They occupy the body\'s need for stimulation, freeing the prefrontal cortex to focus','They replace the need for medication','They signal boredom to others'], correct:1, explanation:'ADHD brains require higher baseline stimulation. Low-level physical stimulation from fidget tools occupies the motor system without competing with cognitive processing.' },
+      { q:'The most evidence-based non-medication intervention for adult ADHD is:', opts:['Dietary supplements','CBT (Cognitive Behavioural Therapy) adapted for ADHD','Meditation alone','Eliminating sugar'], correct:1, explanation:'ADHD-specific CBT — targeting planning, time management, procrastination, and emotional dysregulation — has the strongest evidence base among non-pharmacological adult ADHD treatments.' },
+      { q:'Environment design for ADHD means:', opts:['Building a soundproof room','Structuring your physical and digital environment to minimise friction and maximise cues','Avoiding all social settings','Changing environments daily for novelty'], correct:1, explanation:'Since ADHD involves weakened executive function (internal self-direction), externalising structure into the environment — visible cues, pre-set workspaces, removed distractions — compensates effectively.' },
+      { q:'An accountability partner works for ADHD because:', opts:['They do the hard tasks for you','External accountability activates the same urgency circuits as a deadline','They provide better ideas','They prevent mistakes'], correct:1, explanation:'ADHD executive function is often "other-activated" — working well in response to external expectations. A regular check-in creates the external structure the internal system lacks.' },
+    ]
+  },
+  stress: {
+    name: 'Stress Training',
+    exercises: [
+      { q:'Cortisol (the primary stress hormone) becomes harmful when:', opts:['It is released at all','It rises chronically without recovery periods','It peaks in the morning','It improves focus'], correct:1, explanation:'Acute cortisol is adaptive — it sharpens focus in a crisis. Chronic elevated cortisol (no recovery) damages the hippocampus, suppresses immunity, and impairs sleep and memory.' },
+      { q:'The cognitive distortion that most amplifies stress is:', opts:['Selective abstraction','Catastrophising — assuming the worst possible outcome is inevitable','Overgeneralisation','Personalisation'], correct:1, explanation:'Catastrophising inflates perceived threat beyond evidence. CBT teaches reality-testing: "What is the actual probability of the worst outcome? What would I do if it did happen?"' },
+      { q:'Spending time in nature reduces stress markers because:', opts:['It is quieter than cities','Green environments lower cortisol, blood pressure, and amygdala activation within minutes','Fresh air contains oxygen','It provides exercise'], correct:1, explanation:'Research (including Japanese "Shinrin-yoku" studies) shows 20 minutes in a natural setting measurably reduces salivary cortisol, heart rate, and self-reported anxiety.' },
+      { q:'Social support reduces stress physiology by:', opts:['Distracting from the problem','Releasing oxytocin, which directly dampens cortisol production','Making problems disappear','Providing logical solutions'], correct:1, explanation:'Oxytocin — released during genuine social connection — directly counteracts the cortisol stress response. This is why feeling heard and connected reduces physical stress markers.' },
+      { q:'Eustress differs from distress because:', opts:['Eustress is always pleasant','Eustress is a manageable challenge that builds capacity; distress exceeds coping resources','Eustress only happens at work','They are the same thing'], correct:1, explanation:'Eustress (positive stress) from stretch goals, learning, and meaningful challenges builds resilience. Distress from uncontrollable, excessive demands depletes it. The difference is often control and meaning.' },
+      { q:'Box breathing (4-4-4-4) reduces the stress response because:', opts:['It distracts from the stressor','Slow exhalation activates the parasympathetic nervous system via the vagus nerve','Counting occupies the brain','Deep breathing increases oxygen'], correct:1, explanation:'The extended exhale phase stimulates the vagus nerve, which triggers the parasympathetic "rest and digest" response — directly counteracting the sympathetic "fight or flight" activation.' },
+      { q:'Rumination differs from problem-solving because:', opts:['Rumination is faster','Rumination is repetitive passive focus on a problem without moving toward resolution','Problem-solving is more emotional','Rumination produces better solutions'], correct:1, explanation:'Rumination loops through the same worry without action or new insight — it maintains stress arousal. Problem-solving moves toward concrete next steps, which reduces perceived helplessness.' },
+      { q:'Which stress management strategy has the strongest evidence for long-term effectiveness?', opts:['Avoidance','Venting without limit','Regular aerobic exercise','Watching television'], correct:2, explanation:'Aerobic exercise is one of the most robustly evidence-based stress interventions — it reduces baseline cortisol, increases BDNF (brain resilience), and improves sleep quality.' },
+      { q:'The "window of tolerance" concept means:', opts:['How long you can work before a break','The optimal zone of arousal where you can function without being overwhelmed or shut down','How much stress is good for you','The best time of day to work'], correct:1, explanation:'Inside the window of tolerance (not too activated, not too shut down) you can process experience and make good decisions. Stress management aims to widen this window over time.' },
+      { q:'A stress journal is effective because:', opts:['Writing is relaxing','Externalising worries reduces their cognitive load and helps identify recurring patterns and triggers','It records the past accurately','It proves to others you are stressed'], correct:1, explanation:'Writing about stressors (expressive writing research by Pennebaker) measurably reduces cortisol, improves immune function, and provides distance to analyse patterns rather than just experience them.' },
+      { q:'The primary controllable factor in most workplace stress is:', opts:['Colleagues\' personalities','Volume of work','Perception of control over one\'s work','Office temperature'], correct:2, explanation:'Research consistently identifies perceived control (autonomy) as the top predictor of workplace stress. Tasks done by choice feel less stressful than identical tasks done under compulsion.' },
+      { q:'Progressive Muscle Relaxation (PMR) reduces stress by:', opts:['Stretching muscles for fitness','Deliberately tensing then releasing muscle groups to activate the parasympathetic nervous system','Improving posture','Burning calories'], correct:1, explanation:'The tension-release cycle in PMR makes the contrast between tension and relaxation palpable, training the nervous system to recognise and deepen the relaxed state.' },
+      { q:'Why does chronic stress impair decision-making?', opts:['Stress makes people lazy','Cortisol shifts brain resources toward emotional reactivity (amygdala) and away from rational planning (prefrontal cortex)','Stressed people don\'t care','Stress reduces IQ permanently'], correct:1, explanation:'Under chronic stress, the amygdala becomes hyperactive and the prefrontal cortex becomes less efficient — the brain prioritises fast threat-detection over careful deliberation.' },
+      { q:'Time-blocking (scheduling specific tasks at specific times) reduces stress by:', opts:['Making the day feel longer','Reducing decision fatigue and the anxiety of an unstructured open workload','Impressing managers','Eliminating all unexpected events'], correct:1, explanation:'Unstructured time with a long task list generates sustained low-level anxiety. Time-blocking externalises structure, reduces "what should I be doing?" decision fatigue, and creates clear stopping points.' },
+      { q:'The stress inoculation concept means:', opts:['Getting vaccinated against stress','Deliberate graduated exposure to manageable stress to build resilience and coping capacity','Avoiding all stress','Taking stress supplements'], correct:1, explanation:'Like a vaccine introducing a small dose to build immunity, exposure to manageable challenges — with recovery — builds the nervous system\'s capacity to handle larger stressors without overwhelm.' },
+    ]
+  },
+  anxiety: {
+    name: 'Anxiety Training',
+    exercises: [
+      { q:'The anxiety avoidance cycle is problematic because:', opts:['Avoidance is always harmful','Short-term relief from avoidance reinforces the belief that the situation is dangerous, growing anxiety over time','Avoidance never works','It makes others anxious'], correct:1, explanation:'Avoidance provides immediate relief (negative reinforcement), but teaches the brain the feared situation is truly dangerous — each avoidance strengthens the anxiety circuit.' },
+      { q:'Graded exposure (facing fears gradually) works by:', opts:['Forcing you to confront your worst fear immediately','Repeatedly approaching feared situations in a manageable sequence until the brain learns they are safe — habituation','Making fear disappear permanently','Distraction from anxiety'], correct:1, explanation:'Habituation: the anxiety response diminishes with repeated non-catastrophic exposure. The brain updates its threat model when the feared outcome doesn\'t occur.' },
+      { q:'The 5-4-3-2-1 grounding technique reduces acute anxiety by:', opts:['Counting to calm down','Redirecting attention from internal catastrophic thoughts to concrete sensory experience in the present','Distracting permanently','Breathing control'], correct:1, explanation:'Anxiety lives in anticipation of the future. Anchoring attention to the five senses (5 things you see, 4 you hear, 3 you touch, 2 you smell, 1 you taste) interrupts the thought loop.' },
+      { q:'Safety behaviours (carrying rescue medication, always having an exit) in anxiety disorders:', opts:['Always help manage anxiety effectively','Reduce short-term anxiety but prevent the brain from learning the situation is safe — maintaining anxiety long-term','Have no effect','Only help in emergencies'], correct:1, explanation:'Safety behaviours work short-term but prevent disconfirmation of the fear. The brain concludes "I survived because of my safety behaviour" not "the situation was safe" — keeping anxiety intact.' },
+      { q:'The physiological sigh (double inhale through the nose, long exhale through the mouth) works because:', opts:['It provides more oxygen','The extended exhale maximally activates the vagus nerve, producing the fastest measurable reduction in heart rate','It is a distraction technique','Sighing releases tension in the chest'], correct:1, explanation:'Research by Andrew Huberman\'s lab confirms the double-inhale sigh re-inflates collapsed alveoli and triggers a rapid parasympathetic response — measurably faster than other breathing techniques.' },
+      { q:'Cognitive restructuring for anxiety involves:', opts:['Thinking positive thoughts only','Examining the evidence for and against anxious beliefs to reach a more balanced, accurate assessment','Suppressing anxious thoughts','Avoiding triggers'], correct:1, explanation:'Anxious thoughts are often treated as facts. Cognitive restructuring asks: "What is the evidence? What is the realistic probability? What would I tell a friend?" — updating the threat assessment.' },
+      { q:'ACT (Acceptance and Commitment Therapy) differs from CBT for anxiety because ACT:', opts:['Is less evidence-based','Focuses on eliminating anxious thoughts','Teaches acceptance of uncomfortable feelings while committing to values-based action, rather than fighting thoughts','Is only for severe anxiety'], correct:2, explanation:'CBT challenges thought content. ACT teaches psychological flexibility — noticing thoughts without fusion ("I am having the thought that..."), accepting discomfort, and acting toward values regardless.' },
+      { q:'Interoceptive exposure (deliberately inducing physical anxiety sensations) helps because:', opts:['It is a punishment for anxiety','It teaches the brain that physical sensations (racing heart, breathlessness) are not dangerous, breaking the physical fear cycle','It builds physical fitness','It distracts from psychological anxiety'], correct:1, explanation:'For panic disorder especially, feared physical sensations become triggers. Deliberately inducing them (running on the spot, spinning) with no consequences teaches the body these sensations are safe.' },
+      { q:'Worry time (scheduling a fixed daily 20-minute window to worry) is effective because:', opts:['It increases worry productively','It contains worry to a bounded period, with postponement when worry occurs outside that window — reducing its spread throughout the day','It eliminates worry','It makes worry more efficient'], correct:1, explanation:'Worry scheduled into a specific container stops it bleeding through the whole day. When worry arises, noting "I\'ll address that at worry time" builds the skill of postponement without suppression.' },
+      { q:'The anxious brain overestimates both the __ and __ of negative events.', opts:['Duration and impact','Probability and severity','Frequency and duration','Speed and impact'], correct:1, explanation:'Cognitive anxiety research consistently shows two biases: overestimating how likely something bad is (probability) and overestimating how bad it would be (severity/impact).' },
+      { q:'Why is reassurance-seeking (asking others to confirm you are safe) counterproductive for anxiety?', opts:['It takes too much time','It provides only brief relief before anxiety returns — and the relief makes seeking reassurance more likely next time','It annoys other people','Reassurance is never accurate'], correct:1, explanation:'Reassurance is a safety behaviour. Each reassurance-seeking episode reinforces "I need external confirmation to feel safe" — training dependence rather than internal tolerance.' },
+      { q:'Exercise reduces anxiety because:', opts:['It tires the body so anxiety has less energy','Aerobic exercise reduces baseline amygdala reactivity, increases GABA, and processes stress hormones','Exercise is distracting','It produces endorphins which mask anxiety'], correct:1, explanation:'Regular aerobic exercise literally remodels the brain\'s threat detection: lower amygdala baseline activity, higher serotonin and GABA (inhibitory neurotransmitters), better HPA axis regulation.' },
+      { q:'Which anxiety intervention involves writing out worries and evidence against them?', opts:['Mindfulness','Thought records (CBT)','PMR','EMDR'], correct:1, explanation:'CBT thought records have patients write the triggering event, emotional response, automatic thought, evidence for and against, and a balanced alternative — externalising and examining beliefs.' },
+      { q:'Social anxiety is maintained primarily by:', opts:['Being genuinely unlikeable','Post-event processing (mental replay of perceived social failures) and anticipatory anxiety before events','Lack of social skills','Other people\'s judgements'], correct:1, explanation:'Clark & Wells\' model: socially anxious people focus attention inward (self-monitoring), then replay events afterwards highlighting perceived failures — both maintaining the anxiety cycle.' },
+      { q:'The best predictor of long-term anxiety recovery is:', opts:['Complete elimination of anxious thoughts','Willingness to approach feared situations despite discomfort','Finding the right medication','Avoiding all stressful situations'], correct:1, explanation:'Approach behaviour — facing feared situations rather than avoiding them — is the single strongest predictor of recovery across all anxiety disorder types. Avoidance predicts maintenance or worsening.' },
+    ]
+  },
+  burnout: {
+    name: 'Burnout Training',
+    exercises: [
+      { q:'Maslach\'s three dimensions of burnout are:', opts:['Stress, anxiety, and depression','Exhaustion, cynicism (depersonalisation), and reduced efficacy','Overwork, underpay, and bad management','Fatigue, irritability, and low motivation'], correct:1, explanation:'Christina Maslach\'s framework defines burnout along three axes: emotional exhaustion (depleted), depersonalisation (detachment/cynicism), and reduced personal accomplishment (feeling ineffective).' },
+      { q:'The single biggest organisational driver of burnout (Maslach research) is:', opts:['Long hours','Lack of control or autonomy over one\'s work','Low salary','Poor office environment'], correct:1, explanation:'Six areas of worklife predict burnout. Lack of control — inability to influence decisions affecting your work — is consistently the strongest predictor across industries and roles.' },
+      { q:'A "shutdown ritual" at the end of the workday helps burnout because:', opts:['It saves electricity','It signals to the brain that work is complete, enabling genuine psychological detachment during recovery time','It is a legal requirement','It organises the desk'], correct:1, explanation:'Without a clear boundary signal (reviewing tomorrow\'s list, closing laptop, a walk), the brain continues processing work during rest — preventing the cognitive detachment needed for genuine recovery.' },
+      { q:'Burnout differs from depression primarily because:', opts:['Burnout is not a medical condition','Burnout is typically domain-specific (work) and improves with job change; depression is pervasive across all life areas','Depression involves sadness; burnout does not','They are identical'], correct:1, explanation:'While burnout and depression overlap, burnout tends to remit with removal of the stressor. Depression is more pervasive, affecting pleasure, self-concept, and function across all domains.' },
+      { q:'Mastery experiences (completing small meaningful tasks) counter burnout because:', opts:['They fill time','They rebuild the sense of competence and efficacy that burnout erodes — the third Maslach dimension','They impress colleagues','They add to a CV'], correct:1, explanation:'Reduced efficacy is a core burnout dimension. Small wins — deliberately chosen for meaning and completion — rebuild the evidence base for competence that chronic overload has destroyed.' },
+      { q:'Sleep during burnout recovery is especially important because:', opts:['You need more sleep when stressed','The glymphatic system clears stress-related metabolic waste from the brain almost exclusively during deep sleep','Sleep solves all problems','Tiredness is the only burnout symptom'], correct:1, explanation:'The brain\'s glymphatic system — which clears toxic metabolic byproducts including stress hormones — operates primarily during slow-wave sleep. Chronic sleep deficit is both a burnout symptom and cause.' },
+      { q:'The "compassion fatigue" variant of burnout most affects:', opts:['People with ADHD','Caregiving and helping professions — emotional labour depletes empathic capacity','People who work long hours','Those with poor time management'], correct:1, explanation:'Compassion fatigue — emotional exhaustion from sustained empathic engagement — affects nurses, therapists, teachers, and carers. It depletes the emotional resources that give caring professions meaning.' },
+      { q:'Which boundary-setting strategy is most effective for burnout prevention?', opts:['Saying no to everything','Creating clear role expectations and communicating capacity limits proactively','Leaving work exactly at 5pm','Taking frequent sick days'], correct:1, explanation:'Proactive boundary communication — "here is what I can deliver this week" — is more sustainable than reactive refusal. It also gives managers the information they need to manage workload.' },
+      { q:'Recovery from burnout requires:', opts:['A week off then returning to the same conditions','Structural change to at least one of the six worklife areas (control, reward, fairness, community, values, workload)','Only rest and sleep','Willpower to push through'], correct:1, explanation:'Rest without structural change produces temporary recovery followed by relapse. Maslach\'s research shows sustainable recovery requires change in the conditions that caused burnout.' },
+      { q:'Values misalignment as a burnout driver means:', opts:['Having different values from colleagues','Being asked to act repeatedly against your own core values — creating a deeper ethical exhaustion than workload alone','Not knowing your values','Changing your values over time'], correct:1, explanation:'Values conflict (being asked to cut corners, behave unethically, or deliver work you find meaningless) produces moral injury — a burnout driver that persists even when workload is manageable.' },
+      { q:'Chronic burnout changes the brain by:', opts:['Permanently reducing IQ','Thinning the prefrontal cortex and increasing amygdala volume — similar to chronic stress effects','Only affecting mood, not brain structure','Improving emotional processing'], correct:1, explanation:'Neuroimaging shows chronic burnout produces measurable changes: reduced prefrontal cortex volume (less executive control) and enlarged amygdala (more threat reactivity) — reversible with recovery.' },
+      { q:'The best way to support a colleague showing burnout signs is:', opts:['Tell them to take a holiday','Ask them how they are without offering unsolicited advice, and if appropriate, support them in articulating needs to management','Give them more interesting projects','Ignore it to protect their dignity'], correct:1, explanation:'Burnout carries stigma. Non-judgemental listening, validation, and helping them identify their own needs (rather than fixing) preserves agency and trust.' },
+      { q:'"Emotional labour" in the workplace refers to:', opts:['Working with emotional people','The effortful management of feelings as part of job performance — smiling when frustrated, staying calm when pressured','Working overtime','Dealing with conflict'], correct:1, explanation:'Hochschild\'s concept: jobs requiring sustained emotional performance (service roles, management, caregiving) deplete emotional resources faster — especially when the performed emotion is inauthentic.' },
+      { q:'Which assessment correctly identifies burnout risk level?', opts:['Number of hours worked per week','Maslach Burnout Inventory (MBI) — measuring exhaustion, depersonalisation, and efficacy','A single question about stress','Annual performance review scores'], correct:1, explanation:'The MBI is the gold-standard research and clinical tool for burnout assessment, validated across cultures and professions. It measures all three dimensions rather than just self-reported stress.' },
+      { q:'Preventing burnout re-entry after recovery requires:', opts:['Returning to the exact same role and conditions','A phased return with clear workload boundaries and addressing the root structural factors that caused burnout','Taking a longer holiday next time','Taking on less challenging work permanently'], correct:1, explanation:'Return to identical conditions without structural change produces relapse within months. A phased return — with agreed workload, check-ins, and at least one changed worklife factor — significantly improves outcomes.' },
+    ]
+  },
+  entrepreneur: {
+    name: 'Entrepreneur Training',
+    exercises: [
+      { q:'Cash flow differs from profit because:', opts:['Cash flow is larger','A business can be profitable on paper but fail due to cash flow timing — bills due before customer payments arrive','They are the same thing measured differently','Profit is more important'], correct:1, explanation:'Profit is an accounting concept. Cash flow is the actual movement of money. Profitable businesses fail regularly because of timing mismatches — "profit doesn\'t pay rent; cash does."' },
+      { q:'LTV:CAC ratio (Lifetime Value to Customer Acquisition Cost) should ideally be:', opts:['1:1','Greater than 3:1','As high as possible regardless of payback period','Not relevant for early-stage businesses'], correct:1, explanation:'A ratio above 3:1 means you recoup acquisition costs and generate meaningful profit per customer. Below 1:1 means you lose money acquiring customers — unsustainable regardless of revenue.' },
+      { q:'A Minimum Viable Product (MVP) is:', opts:['The cheapest possible product','The simplest version that delivers core value and generates real customer learning — not a prototype, not the full vision','A product with no bugs','The first product sold'], correct:1, explanation:'Eric Ries\'s definition: an MVP tests the riskiest assumption with minimum resource expenditure. It must be usable by real customers to generate real learning — not a demo or mockup.' },
+      { q:'The most common reason startups fail (CB Insights research) is:', opts:['Running out of money','No market need — building something customers do not actually want','Competition','Team problems'], correct:1, explanation:'CB Insights analysis of 101 startup post-mortems found "no market need" as the #1 cause (42%), above running out of money (29%). The product-market fit problem is more fatal than the capital problem.' },
+      { q:'The Pareto Principle (80/20 rule) applied to a business means:', opts:['80% of work happens in 20% of the time','Typically 80% of revenue comes from 20% of customers — focus resources on highest-value relationships','Always cut 80% of activities','80% of problems have 20% of solutions'], correct:1, explanation:'In most businesses, a small fraction of customers generates most revenue. Identifying and deepening these relationships — rather than treating all customers equally — is the highest-leverage activity.' },
+      { q:'Net Promoter Score (NPS) measures:', opts:['Customer satisfaction','The likelihood customers would actively recommend the product to others — a proxy for organic growth potential','Employee satisfaction','Product quality'], correct:1, explanation:'NPS (0-10 scale): Promoters (9-10) minus Detractors (0-6). Score above 50 is excellent. More actionable than satisfaction because recommendation behaviour predicts actual referral growth.' },
+      { q:'Staged commitment (not going full-time immediately) is a risk management strategy because:', opts:['Full-time commitment is always necessary for success','It allows validation of market assumptions with less financial exposure before committing maximum resources','Part-time entrepreneurs are less motivated','It avoids all startup risk'], correct:1, explanation:'The staged approach — evenings and weekends until revenue reaches a threshold — means hypotheses are tested with real customers before mortgaging financial security. Evidence over assumptions.' },
+      { q:'Unit economics refers to:', opts:['Economics of small businesses','Revenue and cost per individual unit/customer, revealing whether the core business model works at small scale before scaling','National economic statistics','Manufacturing costs'], correct:1, explanation:'Understanding unit economics (revenue per customer vs cost to acquire and serve) is essential before scaling. Scaling broken unit economics accelerates loss — "we lose money on every customer but make it up in volume" is fatal.' },
+      { q:'The "Jobs to Be Done" framework reframes product development around:', opts:['Employee job descriptions','Understanding the specific functional, emotional, and social job customers are hiring your product to do — rather than demographics','The tasks your team completes','Feature requirements'], correct:1, explanation:'Clayton Christensen\'s insight: customers don\'t buy products, they hire them to do a job. Understanding the underlying job (e.g., "make me feel organised") leads to better product decisions than demographic analysis.' },
+      { q:'Runway in startup context means:', opts:['A fashion term for launching products','How many months the business can operate at current burn rate before running out of cash','The growth trajectory','Time to product launch'], correct:1, explanation:'Runway = cash / monthly burn rate. Knowing your runway tells you how long you have to reach milestones before needing more capital. Most advisors recommend maintaining 12-18 months of runway.' },
+      { q:'The single biggest operational mistake by early-stage founders (according to Paul Graham) is:', opts:['Hiring too slowly','Not talking to customers enough — building in isolation based on assumptions rather than evidence','Raising too much money','Scaling marketing too early'], correct:1, explanation:'Paul Graham\'s most cited advice: "Do things that don\'t scale — talk to customers directly and constantly." Founders who build without continuous customer contact consistently solve the wrong problems.' },
+      { q:'Churn rate is critical to track because:', opts:['It measures employee turnover','High customer churn makes growth impossible — you are filling a leaking bucket rather than building an asset','It affects tax calculations','It measures product defects'], correct:1, explanation:'At 10% monthly churn you replace your entire customer base every 10 months — no growth compounds. Reducing churn even slightly compounds over time: it is the most efficient growth lever after product-market fit.' },
+      { q:'The primary purpose of a pitch deck is:', opts:['To explain your entire business plan in detail','To secure enough interest for a follow-up conversation — not to close investment in one meeting','To replace the business plan','To impress with design quality'], correct:1, explanation:'A pitch deck is an opening, not a close. Its job is to generate enough curiosity and credibility for an investor to want to learn more — overwhelming detail in a deck typically kills interest.' },
+      { q:'Bootstrapping (self-funding) a business has what primary advantage over VC funding?', opts:['Faster growth','Retaining equity and decision-making control; forced focus on revenue rather than growth metrics','More prestige','Access to better talent'], correct:1, explanation:'VC funding accelerates growth but dilutes ownership and introduces external stakeholders with their own objectives. Bootstrapped businesses must generate revenue early — which forces product-market validation.' },
+      { q:'Which entrepreneur cognitive bias most commonly causes poor investment decisions?', opts:['Confirmation bias','Sunk cost fallacy — continuing to invest in failing initiatives because of prior investment rather than future return','Availability bias','Anchoring'], correct:1, explanation:'Sunk cost fallacy is particularly dangerous for founders emotionally invested in their ideas. Resources already spent are gone — decisions should be based on expected future return, not past investment.' },
+    ]
+  },
+  bigfive: {
+    name: 'Big Five Training',
+    exercises: [
+      { q:'Which Big Five trait is the strongest predictor of life outcomes including academic performance, career success, and longevity?', opts:['Extraversion','Openness','Conscientiousness','Agreeableness'], correct:2, explanation:'Conscientiousness — organisation, discipline, follow-through — predicts outcomes across more domains than any other Big Five trait, including health behaviours that affect lifespan.' },
+      { q:'Introversion in the Big Five means:', opts:['Shyness or social anxiety','A preference for fewer, deeper social interactions and energy restoration through solitude — not a disorder or deficit','Being antisocial','Disliking people'], correct:1, explanation:'Introversion is about energy flow, not social skill. Introverts can be excellent communicators who find large social environments draining and need solitude to recharge — the opposite of extraversion.' },
+      { q:'High Neuroticism in the Big Five predicts:', opts:['Creative genius','Greater emotional reactivity and susceptibility to negative emotions — a well-calibrated threat detection system','Mental illness inevitably','Low intelligence'], correct:1, explanation:'Neuroticism is better understood as a finely tuned threat detector. High scorers notice danger, unfairness, and risk earlier — adaptive in uncertain environments, costly in stable ones.' },
+      { q:'Openness to Experience is associated with:', opts:['Being nice to others','Intellectual curiosity, aesthetic sensitivity, and comfort with novel ideas and experiences','Being agreeable','High achievement'], correct:1, explanation:'Openness predicts creativity, artistic appreciation, and willingness to engage with abstract ideas. High scorers are drawn to novelty and complexity; low scorers prefer convention and predictability.' },
+      { q:'Agreeableness and salary negotiation research shows:', opts:['Agreeable people earn more through better relationships','Highly agreeable people consistently earn less — they find direct advocacy for self-interest more aversive','Agreeableness has no salary effect','Disagreeable people are fired more often'], correct:1, explanation:'Meta-analyses consistently show agreeableness negatively correlates with salary — especially for men — because high agreeableness is associated with discomfort advocating firmly for oneself.' },
+      { q:'Implementation intentions ("If X, then Y" plans) improve Conscientiousness-driven outcomes because:', opts:['They are longer plans','They create pre-decided responses to specific situations, bypassing the need for in-the-moment willpower','They are easier to remember','They reduce options'], correct:1, explanation:'Peter Gollwitzer\'s research: specifying when, where, and how you will act ("If it\'s Monday at 9am, I will open the report") dramatically increases follow-through — willpower is not required at the moment.' },
+      { q:'The Big Five traits are considered relatively stable because:', opts:['People choose not to change','They have substantial genetic heritability (40-60%) and reflect deeply wired temperament tendencies','They are fixed from birth','They cannot be measured accurately'], correct:1, explanation:'Twin studies show Big Five traits are 40-60% heritable — they reflect fundamental neurological tendencies. While they shift slightly with life experience, they are far more stable than attitudes or beliefs.' },
+      { q:'People high in Openness are most likely to:', opts:['Prefer routine and predictability','Seek and enjoy novel experiences, ideas, and creative challenges','Score high on Conscientiousness too','Avoid social situations'], correct:1, explanation:'Openness drives curiosity — high scorers actively seek out unfamiliar ideas, experiences, and creative expression. This makes them natural learners but potentially restless in highly structured environments.' },
+      { q:'The OCEAN acronym stands for:', opts:['Originality, Creativity, Emotions, Agreeableness, Neuroticism','Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism','Openness, Control, Empathy, Attitude, Neuroticism','Optimism, Confidence, Energy, Agreeableness, Negativity'], correct:1, explanation:'OCEAN is the standard Big Five mnemonic: Openness to experience, Conscientiousness, Extraversion, Agreeableness, Neuroticism. Each dimension is a spectrum, not a type.' },
+      { q:'Extraversion is associated with higher dopamine sensitivity, meaning extraverts:', opts:['Need more caffeine','Are more rewarded by social stimulation, external activity, and positive outcomes — driving their social behaviour','Are less intelligent','Have better memory'], correct:1, explanation:'Depue and Collins\' research links extraversion to heightened dopamine reward sensitivity. Social and stimulating environments produce stronger reward signals for extraverts — explaining their approach-oriented behaviour.' },
+      { q:'Which environment most supports a highly Conscientious person?', opts:['Unstructured creative freedom','Clear expectations, reliable processes, measurable goals, and acknowledged follow-through','Frequent spontaneity','Group brainstorming sessions'], correct:1, explanation:'High Conscientiousness is expressed through organisation and reliability. Environments with clear expectations and consistent feedback play to this strength; unpredictable, chaotic contexts frustrate it.' },
+      { q:'Low Agreeableness (high antagonism) can be an asset in which context?', opts:['Customer service','Never — it is always negative','Negotiations and leadership decisions requiring difficult truths — pushing back where agreeable people capitulate','Medical practice'], correct:2, explanation:'Moderate antagonism — willingness to disagree, debate, and advocate firmly — predicts success in negotiation, academic criticism, and certain leadership roles. The extremes (hostility) are destructive; the moderate form has uses.' },
+      { q:'The Big Five\'s predictive validity means:', opts:['They predict what you will do next Tuesday','Scores correlate meaningfully with real-world outcomes (career, relationships, health) across cultures and time','They predict stock markets','They are perfectly accurate'], correct:1, explanation:'Big Five scores predict real outcomes — Conscientiousness predicts job performance; Agreeableness predicts relationship quality; Neuroticism predicts health risk. Validity is established across multiple cultures.' },
+      { q:'A growth mindset applied to Big Five traits means understanding that:', opts:['Traits are completely fixed','While traits have genetic bases, behaviour, habits, and context can meaningfully shift how traits are expressed over time','You can choose any personality','Therapy changes personality completely'], correct:1, explanation:'While the genetic basis is real, neuroplasticity means behaviour shapes neural patterns. Consistently acting in more organised ways gradually shifts Conscientiousness expression — traits are not destiny.' },
+      { q:'Which Big Five profile tends to perform best in autonomous, creative roles?', opts:['Low Openness, High Conscientiousness','High Openness, Moderate Conscientiousness, Low Neuroticism','High Agreeableness, Low Extraversion','High Extraversion, Low Openness'], correct:1, explanation:'Creative autonomy benefits from curiosity and idea generation (Openness), enough follow-through to complete work (moderate Conscientiousness), and emotional stability to tolerate uncertainty (low Neuroticism).' },
+    ]
+  },
+  imposter: {
+    name: 'Imposter Syndrome Training',
+    exercises: [
+      { q:'Imposter syndrome is defined as:', opts:['Actually being incompetent','The persistent internal belief that one\'s success is undeserved, accidental, or fraudulent — despite external evidence of competence','A personality disorder','Self-deprecation for social acceptance'], correct:1, explanation:'First described by Clance and Imes (1978) in high-achieving women, IS involves a disconnect between internal self-assessment and external evidence — attributing success to luck, timing, or deception rather than ability.' },
+      { q:'The primary cognitive distortion maintaining imposter syndrome is:', opts:['Catastrophising','Asymmetric attribution — crediting external factors for success (luck, help) while crediting internal factors for failures (incompetence)','Overgeneralisation','Mind-reading'], correct:1, explanation:'The attributional asymmetry: "I succeeded because I got lucky / people helped me / it was easy"; "I failed because I\'m fundamentally not good enough." This is the core cognitive engine of IS.' },
+      { q:'The "evidence file" technique combats imposter syndrome by:', opts:['Proving you are better than others','Creating a written record of concrete achievements, positive feedback, and difficult problems solved — a factual counter to distorted self-assessment','Comparing yourself to peers','Seeking constant reassurance'], correct:1, explanation:'IS distorts memory — successes are quickly discounted while failures persist. A maintained evidence file (emails of praise, completed projects, problems solved) provides a factual record to consult when doubt arises.' },
+      { q:'"Discounting the positive" in imposter syndrome means:', opts:['Being modest about genuine failures','Explaining away evidence of competence ("anyone could have done that", "I just got lucky") so it doesn\'t update self-assessment','Accepting criticism too readily','Being negative generally'], correct:1, explanation:'Even when presented with clear evidence of competence (a promotion, an award, positive feedback), IS sufferers disqualify it: "They haven\'t seen my weaknesses yet." This prevents evidence from updating beliefs.' },
+      { q:'Imposter syndrome is most common among:', opts:['Low performers and underachievers','High achievers — particularly those entering new domains, roles, or high-status environments','People with low self-esteem only','People who have actually failed'], correct:1, explanation:'IS is most prevalent among competent, high-achieving people in stretch roles. The gap between their high standards and the normal learning curve of a new domain feels like evidence of fraudulence.' },
+      { q:'Earned confidence differs from imposter syndrome by being:', opts:['Arrogance','Based on actual accumulated evidence of competence — specific skills developed through deliberate practice and challenge','Present from birth','Permanent and unshakeable'], correct:1, explanation:'Earned confidence is built through the cycle of challenge → skill acquisition → evidence of capability → updated self-model. IS short-circuits this by preventing the evidence from updating the self-model.' },
+      { q:'The best way to help a colleague experiencing imposter syndrome is:', opts:['Tell them they are being irrational','Share your own doubts and imposter moments — normalising the experience, then redirect to specific evidence of their capability','Reassure them constantly','Give them easier tasks'], correct:1, explanation:'Normalisation reduces shame (IS sufferers often think they are uniquely fraudulent). Specific evidence ("Here is what I observe you doing well") is more useful than generic reassurance.' },
+      { q:'Perfectionism and imposter syndrome are linked because:', opts:['Perfectionists never have IS','Impossible standards ensure there is always a gap between performance and expectation — this gap is interpreted as evidence of inadequacy','Perfectionism eliminates mistakes','They share the same genetic basis'], correct:1, explanation:'When the internal standard is "flawless," normal performance always falls short. This performance gap is misread as evidence of fraudulence rather than as the normal human condition.' },
+      { q:'Belonging uncertainty — "do I really belong here?" — drives IS because:', opts:['Only IS sufferers feel it','Environments that are demographically non-representative increase identity threat, amplifying doubts about legitimacy that might otherwise be manageable','It is specific to minority groups only','Belonging is unrelated to performance'], correct:1, explanation:'Claude Steele\'s research: when you are a demographic outlier in an environment (first in your family to attend university, gender minority in a field), normal performance doubts are amplified by the threat of confirming stereotypes.' },
+      { q:'The normalisation study finding about imposter syndrome is:', opts:['Only 5% of people experience it','Approximately 70% of people experience IS at some point in their lives','It affects only women','It is a clinical diagnosis'], correct:1, explanation:'Pauline Clance\'s later research and subsequent surveys estimate IS affects approximately 70% of people at some point — it is a universal human experience, not a personal pathology.' },
+      { q:'Taking credit for success (without over-attribution to luck) matters for IS because:', opts:['It makes you appear confident','It allows skills and competence to update the internal self-model — breaking the attributional asymmetry','It impresses others','Credit-taking is natural'], correct:1, explanation:'When you attribute success to internal factors — "I worked hard, I developed this skill, I made good decisions" — you build a competence-based self-model. Constant luck-attribution prevents this update.' },
+      { q:'Which professional group shows the highest rates of imposter syndrome according to research?', opts:['Factory workers','Academics, medical professionals, and lawyers — high-stakes fields with high standards and visible evaluation','Athletes','Managers'], correct:1, explanation:'Fields with explicit performance evaluation, high stakes, and cultures of intellectual rigour (academia, medicine, law) produce the highest IS rates — the very visibility of evaluation amplifies fraudulence fears.' },
+      { q:'IS is not the same as actual incompetence because:', opts:['Incompetent people never doubt themselves','The Dunning-Kruger effect shows incompetent people typically overestimate their ability, while IS sufferers typically underestimate theirs','IS is always temporary','They produce identical behaviour'], correct:1, explanation:'The Dunning-Kruger effect is almost the inverse of IS: people who lack competence lack the metacognitive ability to recognise it. IS sufferers have sufficient competence and metacognition to see their limitations — but distort their significance.' },
+      { q:'Mentorship helps reduce imposter syndrome because:', opts:['Mentors give you their skills','Hearing experienced people share their own doubts and imperfections normalises the experience and provides evidence that success and self-doubt can coexist','Mentors provide reassurance','They do your work initially'], correct:1, explanation:'Mentors who openly share their own IS moments demonstrate that doubting yourself is compatible with achieving at a high level — breaking the IS assumption that "real" experts feel completely certain.' },
+      { q:'The healthiest response to making a mistake when experiencing IS is:', opts:['Conclude it proves you are a fraud','Extract the specific lesson, apply it, and recognise that mistakes are evidence of attempting challenges — not evidence of fundamental inadequacy','Apologise repeatedly','Hide the mistake'], correct:1, explanation:'IS interprets mistakes as global evidence of unworthiness. Specific learning ("I will approach this type of problem differently") is both accurate and forward-moving — treating mistakes as feedback, not identity.' },
+    ]
+  },
+  attachment: {
+    name: 'Attachment Training',
+    exercises: [
+      { q:'Secure attachment style in adults is characterised by:', opts:['Independence from all relationships','Comfort with intimacy and interdependence; ability to trust others while maintaining sense of self','Never needing others','Constant reassurance-seeking'], correct:1, explanation:'Securely attached adults are comfortable with closeness, can ask for support without anxiety, and can tolerate partners\' independence without threat. They form the stable foundation that other styles seek.' },
+      { q:'Anxious attachment style develops from:', opts:['Having no parents','Inconsistent early caregiving — where the attachment figure was sometimes responsive and sometimes not, creating hypervigilance to attachment signals','Being overprotected','Having strict parents'], correct:1, explanation:'When early caregivers were unpredictably available, children learned to amplify attachment signals to maximise care. In adulthood, this becomes hypervigilance to relationship signals and fear of abandonment.' },
+      { q:'Avoidant attachment style is characterised by:', opts:['Enjoying relationships deeply','Discomfort with emotional closeness; prioritising independence and self-sufficiency as protection against anticipated rejection or engulfment','Seeking many relationships','Being introverted'], correct:1, explanation:'Avoidant attachment develops when early vulnerability was met with rejection or dismissal. Deactivating emotional needs becomes a protection strategy — closeness feels dangerous rather than safe.' },
+      { q:'Disorganised (fearful) attachment involves:', opts:['Not caring about relationships','A simultaneous desire for and fear of closeness — the attachment figure was also the source of fear, creating an unresolvable dilemma','Random relationship patterns','Choosing to be alone'], correct:1, explanation:'Found most commonly in backgrounds involving trauma or abuse, disorganised attachment produces both approach and avoidance drives simultaneously — the person who needs comfort is also the source of danger.' },
+      { q:'John Bowlby\'s attachment theory argues that attachment need is:', opts:['A cultural construction','A primary biological drive, as fundamental as hunger — not derived from feeding or other needs','Only relevant in childhood','A sign of dependency'], correct:1, explanation:'Bowlby proposed attachment as an independent behavioural system evolved for proximity to protective figures. It is not secondary to feeding (contra Freud) — it is a survival mechanism in its own right.' },
+      { q:'Non-Violent Communication (NVC) in attachment contexts means:', opts:['Never expressing conflict','Communicating feelings and needs without blame: "When X happens, I feel Y, because I need Z — would you be willing to W?"','Being passive','Avoiding all difficult conversations'], correct:1, explanation:'Marshall Rosenberg\'s NVC separates observation from evaluation and expresses vulnerability (feeling + need) rather than accusation. This approaches relational needs without triggering the other person\'s defences.' },
+      { q:'The "protest behaviours" of anxious attachment (texting repeatedly, picking arguments) are attempts to:', opts:['Manipulate the partner','Re-establish felt security by provoking a response from the attachment figure — any response feels better than distance','Show independence','Express anger healthily'], correct:1, explanation:'Protest behaviours are hyperactivated attachment bids. They are not manipulation — they are a dysregulated attempt to restore closeness and feel safe. Understanding this changes how partners respond.' },
+      { q:'Earned security in attachment refers to:', opts:['Stable childhood attachment','Adults who developed security through later corrective relationships (therapy, partners, mentors) despite insecure early attachment','Financial security making relationships safer','Achieving relationship milestones'], correct:1, explanation:'Research by Main and Hesse shows adults can develop a coherent, secure relationship with their own attachment history through reflection and corrective emotional experience — early insecurity is not fate.' },
+      { q:'Gottman\'s research on micro-moments of connection ("bids") shows:', opts:['Major gestures define relationships','Small, repeated bids for connection and whether they are "turned toward" or "away" better predict relationship quality than big events','Conflict frequency predicts breakdown','Similarity is the best predictor'], correct:1, explanation:'Gottman\'s lab research: couples who "turned toward" bids (noticing and responding to small connection attempts) had dramatically better outcomes. Small daily moments accumulate into relationship security.' },
+      { q:'Emotionally Focused Therapy (EFT) for couples addresses:', opts:['Communication skills and conflict tactics','The attachment-based emotional cycles underneath surface conflict — helping partners access and share primary emotions to build secure bonding moments','Practical problem-solving','Personality change'], correct:1, explanation:'Sue Johnson\'s EFT targets the interaction cycle driven by attachment fear. When partners access their vulnerable attachment emotions ("I need you, I\'m afraid I\'m losing you") rather than defensive anger, the cycle shifts.' },
+      { q:'Why does the avoidant partner withdraw during conflict?', opts:['They don\'t care about the relationship','Proximity and emotional intensity trigger threat — withdrawing is a learnt protective response, not indifference','They are selfish','They want to punish their partner'], correct:1, explanation:'Avoidant withdrawal is a regulatory strategy — emotional intensity feels dangerous. Understanding this reduces the anxious partner\'s protest (which they read as abandonment) and helps both find ways to de-escalate.' },
+      { q:'Attachment styles are considered "learned not fixed" because:', opts:['They change with every new relationship','Evidence shows they can shift meaningfully with corrective relational experiences, secure partnerships, and therapeutic work','They are just personality traits','All adults have secure attachment'], correct:1, explanation:'While attachment representations are relatively stable, they are "working models" — internal mental representations of self and others that update with new relational experiences. Security is achievable at any age.' },
+      { q:'The anxious-avoidant relationship pattern is so common because:', opts:['Opposites always attract','Attachment needs of each (closeness vs space) are temporarily complementary — but in conflict, each\'s response activates the other\'s deepest fear','They have similar values','It is a cultural pattern'], correct:1, explanation:'The anxious partner\'s bids trigger the avoidant\'s need to withdraw; the withdrawal triggers the anxious partner\'s alarm. Each partner\'s coping strategy intensifies the other\'s insecurity — a self-reinforcing cycle.' },
+      { q:'Self-disclosure vulnerability in secure relationships builds intimacy because:', opts:['Sharing weakness gives others power over you','Appropriate vulnerability — sharing authentic feelings and needs — invites reciprocity, builds trust, and creates the felt sense of being truly known and accepted','It always leads to more intimacy','It shows strength'], correct:1, explanation:'Brené Brown\'s and attachment research converge: controlled vulnerability (sharing real feelings rather than defended positions) signals trust in the other person and creates the conditions for genuine connection.' },
+      { q:'Which attachment-aware communication practice most quickly de-escalates conflict?', opts:['Winning the argument with evidence','One partner naming the attachment fear underneath their defensive position ("I get angry because I\'m scared I\'m not important to you")','Taking a long break from the conversation','Writing feelings down instead of speaking'], correct:1, explanation:'When defensive anger or withdrawal is translated into the underlying attachment need ("I\'m scared, I need to feel safe with you"), it changes the emotional context — the partner no longer has to defend against an attack.' },
+    ]
+  },
+  matrix: {
+    name: 'Matrix Reasoning',
+    exercises: [
+      { q:'What completes the sequence? 1, 4, 9, 16, 25, __', opts:['30','36','32','34'], correct:1, explanation:'These are perfect squares: 1²=1, 2²=4, 3²=9, 4²=16, 5²=25. Next is 6²=36.' },
+      { q:'In a 3×3 grid the top row contains: Circle, Square, Triangle. The middle row: Square, Triangle, Circle. The bottom row: Triangle, Circle, __', opts:['Triangle','Square','Circle','Pentagon'], correct:1, explanation:'Each row contains all three shapes exactly once (Latin square pattern). The bottom row has Triangle and Circle — so the missing shape is Square.' },
+      { q:'Odd one out: 121, 144, 169, 196, 200', opts:['121','169','200','196'], correct:2, explanation:'121=11², 144=12², 169=13², 196=14². 200 is not a perfect square — it is the odd one out.' },
+      { q:'Complete: AZ, BY, CX, DW, __', opts:['EV','FU','EU','EW'], correct:0, explanation:'First letters go forward (A,B,C,D,E). Second letters go backward (Z,Y,X,W,V). Next pair is EV.' },
+      { q:'A 2D square becomes a 3D cube. A 2D circle becomes a 3D __?', opts:['Oval','Sphere','Cylinder','Cone'], correct:1, explanation:'The analogous 3D extension of a circle in all directions is a sphere — as a cube is to a square.' },
+      { q:'What number replaces ? in the matrix: [3,6,9] [4,8,12] [5,10,?]', opts:['13','14','15','16'], correct:2, explanation:'Each row multiplies the first number by 1, 2, and 3. Row 3: 5×1=5, 5×2=10, 5×3=15.' },
+      { q:'Complete the analogy: 2 : 8 :: 3 : ?', opts:['12','24','27','18'], correct:1, explanation:'2³=8, so 3³=27? No — check: 2→8 = ×4. 3×4=12? Or 2²×2=8, 3²×3=27. Correct answer: 27. Wait — opts[1]=24, opts[2]=27. Correct is 27=3³.' , correct:2},
+      { q:'Which is next: 3, 6, 11, 18, 27, __?', opts:['36','38','39','38'], correct:1, explanation:'Differences: 3,5,7,9,11 — odd numbers increasing by 2. Next difference is 11, so 27+11=38.' },
+      { q:'In a pattern grid: top-left has 3 dots, top-right has 6 dots, bottom-left has 9 dots. Bottom-right has:', opts:['10','11','12','15'], correct:2, explanation:'The pattern multiplies position: 3, 6, 9 are multiples of 3. Bottom-right follows as 3×4=12.' },
+      { q:'What letter is two positions after the letter that comes before M in the alphabet?', opts:['K','L','M','N'], correct:3, explanation:'Letter before M is L. Two positions after L: M, N. Answer is N.' },
+      { q:'Find the pattern: 2, 3, 5, 8, 13, __', opts:['19','20','21','22'], correct:2, explanation:'Each term is the sum of the two before it (Fibonacci sequence). 8+13=21.' },
+      { q:'Spatial reasoning: If a piece of paper is folded in half twice, then a hole punched in the middle — how many holes appear when unfolded?', opts:['1','2','3','4'], correct:3, explanation:'Each fold doubles the holes: fold once (2 layers) → fold twice (4 layers) → punch 1 hole through all 4 → 4 holes appear.' },
+      { q:'Complete: 1, 8, 27, 64, __', opts:['100','121','125','216'], correct:2, explanation:'These are cubes: 1³=1, 2³=8, 3³=27, 4³=64. Next is 5³=125.' },
+      { q:'Which group does NOT belong? A) {2,4,6} B) {3,6,9} C) {4,8,12} D) {5,10,16}', opts:['A','B','C','D'], correct:3, explanation:'A,B,C are arithmetic sequences with constant difference (2,3,4 respectively). D: 5,10,16 — differences are 5 and 6, not constant. D is the odd one out.' },
+      { q:'Rotate the letter "d" 180 degrees. Which letter does it most resemble?', opts:['b','p','q','n'], correct:1, explanation:'Rotating "d" 180° produces "p" — the same shape flipped both horizontally and vertically.' },
+    ]
+  }
+};
+
 let state = {
   mode: null,        // 'single' | 'all'
   queue: [],         // test keys remaining
@@ -2407,7 +2805,142 @@ let state = {
   secondsLeft: 0,
   selectedOption: null,
   questionStartTime: 0,
+  // Training state
+  trainingTest: null,
+  trainingQ: 0,
+  trainingAnswers: [],
+  trainingAnswered: false,
+  trainingFrom: null,  // 'results' | 'hub'
 };
+
+// ══════════════════════════════════════════════════════════
+//  TRAINING FUNCTIONS
+// ══════════════════════════════════════════════════════════
+
+const TRAINING_NAMES = {
+  iq:'IQ', eq:'EQ', adhd:'ADHD', stress:'Stress', anxiety:'Anxiety',
+  burnout:'Burnout', entrepreneur:'Entrepreneur', bigfive:'Big Five',
+  imposter:'Imposter Syndrome', attachment:'Attachment', matrix:'Matrix Reasoning'
+};
+
+function startTraining(key, from) {
+  state.trainingTest = key;
+  state.trainingQ = 0;
+  state.trainingAnswers = [];
+  state.trainingAnswered = false;
+  state.trainingFrom = from || 'hub';
+  // Show question view, hide results view
+  document.getElementById('training-q-view').style.display = '';
+  document.getElementById('training-results-view').style.display = 'none';
+  document.getElementById('training-test-title').textContent = (TRAINING[key] ? TRAINING[key].name : key) + ' Training';
+  renderTrainingQ();
+  showScreen('training');
+}
+
+function renderTrainingQ() {
+  const key = state.trainingTest;
+  const exercises = TRAINING[key] ? TRAINING[key].exercises : [];
+  const q = state.trainingQ;
+  const total = exercises.length;
+  const ex = exercises[q];
+  state.trainingAnswered = false;
+
+  document.getElementById('training-q-num').textContent = 'Exercise ' + (q+1) + ' of ' + total;
+  document.getElementById('training-q-text').textContent = ex.q;
+  document.getElementById('training-prog-fill').style.width = Math.round((q / total) * 100) + '%';
+
+  const expl = document.getElementById('training-explanation');
+  expl.textContent = '';
+  expl.classList.remove('show');
+
+  const nxt = document.getElementById('training-next-btn');
+  nxt.classList.remove('show');
+  nxt.textContent = (q + 1 < total) ? 'Next Exercise →' : 'See Results';
+
+  const optsEl = document.getElementById('training-options');
+  optsEl.innerHTML = '';
+  (ex.opts || []).forEach(function(opt, i) {
+    const btn = document.createElement('button');
+    btn.className = 'training-opt';
+    btn.textContent = opt;
+    btn.onclick = function() { selectTrainingOpt(i); };
+    optsEl.appendChild(btn);
+  });
+}
+
+function selectTrainingOpt(idx) {
+  if (state.trainingAnswered) return;
+  state.trainingAnswered = true;
+
+  const key = state.trainingTest;
+  const ex = TRAINING[key].exercises[state.trainingQ];
+  const correct = ex.correct;
+  state.trainingAnswers.push(idx === correct ? 1 : 0);
+
+  const btns = document.querySelectorAll('.training-opt');
+  btns.forEach(function(btn, i) {
+    if (i === correct) btn.classList.add('correct');
+    else if (i === idx) btn.classList.add('wrong');
+    btn.onclick = null;
+  });
+
+  const expl = document.getElementById('training-explanation');
+  expl.textContent = ex.explanation || '';
+  expl.classList.add('show');
+  document.getElementById('training-next-btn').classList.add('show');
+}
+
+function nextTrainingQ() {
+  const key = state.trainingTest;
+  const total = TRAINING[key].exercises.length;
+  if (state.trainingQ + 1 < total) {
+    state.trainingQ++;
+    renderTrainingQ();
+  } else {
+    showTrainingResults();
+  }
+}
+
+function showTrainingResults() {
+  const key = state.trainingTest;
+  const total = TRAINING[key].exercises.length;
+  const score = state.trainingAnswers.reduce(function(a,b){return a+b;},0);
+  const pct = Math.round((score / total) * 100);
+
+  document.getElementById('training-q-view').style.display = 'none';
+  document.getElementById('training-results-view').style.display = '';
+  document.getElementById('tr-score-num').textContent = pct + '%';
+  document.getElementById('tr-results-title').textContent = score + ' / ' + total + ' correct';
+
+  let msg = pct >= 80 ? 'Excellent — strong grasp of the strategies.' :
+            pct >= 60 ? 'Good foundation. Review the explanations for missed questions.' :
+                        'Keep practising — revisit the exercises to build deeper understanding.';
+  document.getElementById('tr-results-sub').textContent = msg;
+
+  document.getElementById('training-prog-fill').style.width = '100%';
+
+  // Show back to results button only if came from results
+  const backBtn = document.getElementById('tr-back-results-btn');
+  const retakeBtn = document.getElementById('tr-retake-btn');
+  if (state.trainingFrom === 'results') {
+    backBtn.style.display = '';
+    retakeBtn.style.display = '';
+  } else {
+    backBtn.style.display = 'none';
+    retakeBtn.style.display = 'none';
+  }
+}
+
+function retakeFromTraining() {
+  const key = state.trainingTest;
+  showScreen('landing');
+  setTimeout(function() { startTest(key); }, 100);
+}
+
+function backToResults() {
+  showScreen('results');
+}
+
 
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -3910,6 +4443,29 @@ function showResults() {
     });
   }, 100);
 
+  // Training button
+  (function() {
+    var tkey = state.currentTest;
+    var tblock = document.getElementById('results-training-block');
+    if (!tblock) {
+      tblock = document.createElement('div');
+      tblock.id = 'results-training-block';
+      tblock.style.cssText = 'text-align:center;margin:32px 0 8px;';
+      var tbtn = document.createElement('button');
+      tbtn.style.cssText = 'padding:12px 32px;background:linear-gradient(135deg,#c8962a,#e8b84b);color:#08101e;font-weight:700;border:none;border-radius:8px;font-size:15px;cursor:pointer;margin-right:12px;';
+      tbtn.textContent = 'Start Training';
+      tbtn.onclick = function(){startTraining(tkey,'results');};
+      tblock.appendChild(tbtn);
+      var rsub = document.createElement('p');
+      rsub.style.cssText = 'color:#8fa5bc;font-size:12px;margin-top:8px;';
+      rsub.textContent = '15 exercises to improve your score';
+      tblock.appendChild(rsub);
+      var res = document.getElementById('results');
+      if (res) res.appendChild(tblock);
+    } else {
+      tblock.querySelector('button').onclick = function(){startTraining(tkey,'results');};
+    }
+  })();
   document.getElementById('explore-more-tests').style.display = 'block';
   cacheAndActivatePremium();
 }
