@@ -657,14 +657,25 @@
   .quiz-header {
     background: var(--navy2);
     border-bottom: 1px solid rgba(200,150,42,0.15);
-    padding: 1rem 2rem;
+    padding: 0.75rem 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    gap: 12px;
   }
+  .quiz-home-btn {
+    background: transparent;
+    border: 1px solid rgba(200,150,42,0.35);
+    color: var(--gold);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .2s;
+  }
+  .quiz-home-btn:hover { background: rgba(200,150,42,0.12); }
 
   .quiz-brand {
     font-family: 'Space Mono', monospace;
@@ -1994,6 +2005,7 @@
   <!-- Question view -->
   <div id="training-q-view">
     <div class="training-header">
+      <button onclick="showScreen('landing')" style="background:transparent;border:1px solid rgba(200,150,42,0.35);color:var(--gold);padding:6px 14px;border-radius:6px;font-size:12px;font-family:'Space Mono',monospace;cursor:pointer;white-space:nowrap;">&#8592; Home</button>
       <span class="training-brand">MINDMETRICS — TRAINING</span>
       <span id="training-test-title" class="training-test-name"></span>
       <div class="training-progress-bar">
@@ -2029,7 +2041,7 @@
 
 <div id="quiz" class="screen">
   <div class="quiz-header">
-    <div class="quiz-brand">MINDMETRICS</div>
+    <button class="quiz-home-btn" onclick="goHome()">&#8592; Home</button>
     <div class="quiz-test-name" id="quiz-test-name">IQ Test</div>
     <div class="quiz-timer" id="quiz-timer"></div>
   </div>
@@ -2056,6 +2068,11 @@
 
 <!-- ══════════════ RESULTS ══════════════ -->
 <div id="results" class="screen">
+  <div style="background:var(--navy2);border-bottom:1px solid rgba(200,150,42,0.2);padding:10px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50;">
+    <button onclick="goHome()" style="background:transparent;border:1px solid rgba(200,150,42,0.35);color:var(--gold);padding:6px 16px;border-radius:6px;font-size:12px;font-family:'Space Mono',monospace;cursor:pointer;">&#8592; Home</button>
+    <button onclick="showScreen('landing')" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--steel-light);padding:6px 16px;border-radius:6px;font-size:12px;font-family:'Space Mono',monospace;cursor:pointer;">All Tests</button>
+    <span style="flex:1;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--steel);letter-spacing:.08em;">MINDMETRICS</span>
+  </div>
   <div class="results-inner">
     <div class="results-header">
       <div class="brand-line">MindMetrics — Your Results</div>
@@ -2067,7 +2084,7 @@
     <div id="explore-more-tests" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:2rem;margin-bottom:1.5rem;text-align:center;display:none">
       <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--cream);margin-bottom:0.5rem">Keep Exploring Your Potential</div>
       <p style="font-size:0.88rem;color:var(--steel-light);max-width:520px;margin:0 auto 1.5rem;line-height:1.7">You've taken the first step. Go deeper and uncover what drives your decisions, mental health, relationships, and blind spots.</p>
-      <button onclick="showScreen('home');window.scrollTo(0,0)" style="background:var(--gold);color:var(--navy);padding:0.85rem 2rem;border:none;border-radius:3px;cursor:pointer;font-size:0.9rem;font-family:'Jost',sans-serif;font-weight:600">Explore All Tests →</button>
+      <button onclick="goHome();window.scrollTo(0,0)" style="background:var(--gold);color:var(--navy);padding:0.85rem 2rem;border:none;border-radius:3px;cursor:pointer;font-size:0.9rem;font-family:'Jost',sans-serif;font-weight:600">Explore All Tests →</button>
     </div>
     <div class="disclaimer">
       <p>These assessments are for educational and self-reflection purposes only. They are not clinical diagnostic instruments and should not replace evaluation by a qualified psychologist or medical professional. IQ scores are estimates based on a condensed test; standardised IQ tests administered by professionals are more accurate.</p>
