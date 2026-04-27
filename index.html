@@ -484,9 +484,9 @@
   }
 
   /* ── Screens ── */
-  .screen { display: none; }
+  .screen { display: none !important; }
   .screen.active {
-    display: block;
+    display: block !important;
     position: fixed;
     inset: 0;
     overflow-y: auto;
@@ -497,14 +497,13 @@
   /* ══════════════ LANDING ══════════════ */
   #landing {
     min-height: 100vh;
-    display: flex;
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
     padding: 0;
     text-align: center;
   }
-  #landing.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  #landing.active { display: flex !important; flex-direction: column; align-items: stretch; justify-content: flex-start; }
 
   /* ══════════════════ LANDING PAGE ══════════════════ */
   /* Navbar */
@@ -766,11 +765,10 @@
   /* ══════════════ QUIZ SCREEN ══════════════ */
   #quiz {
     min-height: 100vh;
-    display: flex;
     flex-direction: column;
     padding: 0;
   }
-  #quiz.active { display: flex; flex-direction: column; }
+  #quiz.active { display: flex !important; flex-direction: column; }
 
   .quiz-header {
     background: var(--navy2);
@@ -839,9 +837,10 @@
   .quiz-body {
     flex: 1;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding: 2rem;
+    padding: 2rem 1rem;
+    min-height: 0;
   }
 
   .question-wrap {
@@ -1000,7 +999,7 @@
     min-height: 100vh;
     padding: 3rem 2rem;
   }
-  #results.active { display: block; }
+  #results.active { display: block !important; }
 
   .results-inner { max-width: 900px; margin: 0 auto; }
 
@@ -1835,8 +1834,8 @@
   .cert-seal { font-size: 48px; margin-bottom: 4px; }
 
 /* ════════════════ TRAINING SCREEN ════════════════ */
-#training { min-height:100vh; display:none; flex-direction:column; }
-#training.active { display:flex; }
+#training { min-height:100vh; flex-direction:column; }
+#training.active { display:flex !important; }
 .training-header {
   background:var(--navy2); border-bottom:1px solid rgba(200,150,42,0.25);
   padding:16px 24px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;
