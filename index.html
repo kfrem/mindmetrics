@@ -506,144 +506,233 @@
   }
   #landing.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
-  .brand-line {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.5em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    opacity: 0.8;
+  /* ══════════════════ LANDING PAGE ══════════════════ */
+  /* Navbar */
+  .mm-navbar {
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(8,16,30,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,150,42,0.2);
+    padding: 0 32px;
+    display: flex; align-items: center; gap: 24px;
+    height: 56px;
   }
+  .mm-navbar .nav-brand {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; letter-spacing: .15em;
+    color: var(--gold); font-weight: 400;
+    flex-shrink: 0;
+  }
+  .mm-navbar .nav-links {
+    display: flex; gap: 4px; margin-left: 8px; flex: 1;
+  }
+  .mm-navbar .nav-links a {
+    padding: 6px 14px; border-radius: 6px;
+    font-family: 'Jost', sans-serif; font-size: 13px;
+    color: var(--steel-light); text-decoration: none;
+    cursor: pointer; transition: all .2s;
+  }
+  .mm-navbar .nav-links a:hover { color: var(--cream); background: rgba(255,255,255,0.06); }
+  .mm-navbar .nav-cta {
+    background: var(--gold); color: var(--navy);
+    border: none; padding: 8px 20px; border-radius: 6px;
+    font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: all .2s; white-space: nowrap;
+  }
+  .mm-navbar .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
 
+  /* Hero */
+  .hero-section {
+    padding: 80px 32px 64px;
+    max-width: 900px; margin: 0 auto;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(200,150,42,0.1); border: 1px solid rgba(200,150,42,0.3);
+    border-radius: 100px; padding: 6px 16px;
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    letter-spacing: .12em; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 28px;
+  }
+  .hero-eyebrow::before { content: '●'; font-size: 8px; color: var(--gold); }
   h1.main-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -0.01em;
-    color: var(--cream);
-    margin-bottom: 0.3rem;
+    font-size: clamp(3.2rem, 7vw, 6rem);
+    font-weight: 300; line-height: 1.05;
+    color: var(--cream); margin-bottom: 20px;
+    letter-spacing: -.01em;
   }
-
-  h1.main-title span {
-    color: var(--gold);
-    font-style: italic;
-  }
-
+  h1.main-title span { color: var(--gold); font-style: italic; }
   .subtitle {
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    font-size: 1rem;
-    color: var(--steel-light);
-    letter-spacing: 0.15em;
-    margin-bottom: 3.5rem;
+    font-family: 'Jost', sans-serif; font-weight: 300;
+    font-size: 1.05rem; color: var(--steel-light);
+    line-height: 1.7; margin-bottom: 36px;
+    max-width: 580px; margin-left: auto; margin-right: auto;
   }
-
-  .divider {
-    width: 80px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 0 auto 3.5rem;
+  .hero-btns {
+    display: flex; gap: 12px; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 56px;
   }
+  .hero-btn-primary {
+    background: var(--gold); color: var(--navy);
+    border: none; padding: 14px 36px; border-radius: 8px;
+    font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: all .25s;
+    box-shadow: 0 4px 20px rgba(200,150,42,0.3);
+  }
+  .hero-btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 6px 28px rgba(200,150,42,0.4); }
+  .hero-btn-secondary {
+    background: transparent; color: var(--cream);
+    border: 1px solid rgba(255,255,255,0.2); padding: 14px 36px;
+    border-radius: 8px; font-family: 'Jost', sans-serif;
+    font-size: 15px; font-weight: 500; cursor: pointer; transition: all .25s;
+  }
+  .hero-btn-secondary:hover { border-color: rgba(200,150,42,0.5); color: var(--gold); background: rgba(200,150,42,0.06); }
 
+  /* Stats bar */
+  .stats-bar {
+    display: flex; gap: 0; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
+    overflow: hidden; max-width: 700px; margin: 0 auto 72px;
+  }
+  .stat-item {
+    flex: 1; padding: 20px 16px; text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Space Mono', monospace; font-size: 24px;
+    color: var(--gold); font-weight: 700; display: block;
+    margin-bottom: 4px;
+  }
+  .stat-label { font-size: 11px; color: var(--steel); letter-spacing: .06em; }
+
+  /* Section headers */
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    max-width: 960px; width: 100%; margin: 0 auto 20px;
+    padding: 0 4px;
+  }
+  .section-badge {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    letter-spacing: .2em; color: var(--gold);
+    background: rgba(200,150,42,0.1); border: 1px solid rgba(200,150,42,0.25);
+    padding: 5px 12px; border-radius: 4px; text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .section-line { flex: 1; height: 1px; background: rgba(255,255,255,0.07); }
+
+  /* Test grid & cards */
   .test-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 1.2rem;
-    max-width: 960px;
-    width: 100%;
-    margin-bottom: 3rem;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    max-width: 960px; width: 100%;
+    margin: 0 auto 48px;
   }
-
   .test-card {
     background: var(--navy2);
-    border: 1px solid rgba(200,150,42,0.2);
-    border-radius: 4px;
-    padding: 2rem 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: left;
-    position: relative;
-    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 24px 20px;
+    cursor: pointer; transition: all 0.25s ease;
+    text-align: left; position: relative; overflow: hidden;
   }
-
-  .test-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 100%;
-    background: var(--gold);
-    transform: scaleY(0);
-    transition: transform 0.3s ease;
-    transform-origin: top;
+  .test-card::after {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transform: scaleX(0); transition: transform .3s ease;
+    transform-origin: left;
   }
-
   .test-card:hover {
-    border-color: rgba(200,150,42,0.5);
+    border-color: rgba(200,150,42,0.4);
     background: var(--navy3);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
   }
-
-  .test-card:hover::before { transform: scaleY(1); }
-
-  .card-icon {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    display: block;
-  }
-
+  .test-card:hover::after { transform: scaleX(1); }
+  .card-icon { font-size: 28px; margin-bottom: 14px; display: block; }
   .card-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.55rem;
-    letter-spacing: 0.35em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 0.4rem;
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    letter-spacing: .25em; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 6px; opacity: .85;
   }
-
   .card-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--cream);
-    margin-bottom: 0.6rem;
+    font-size: 22px; font-weight: 600; color: var(--cream);
+    margin-bottom: 8px; line-height: 1.2;
   }
-
-  .card-desc {
-    font-size: 0.8rem;
-    color: var(--steel-light);
-    line-height: 1.6;
-    margin-bottom: 1rem;
-  }
-
+  .card-desc { font-size: 13px; color: var(--steel-light); line-height: 1.65; margin-bottom: 16px; }
   .card-meta {
-    display: flex;
-    gap: 1rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--steel);
+    display: flex; gap: 12px;
+    font-family: 'Space Mono', monospace; font-size: 10px; color: var(--steel);
   }
 
-  .card-meta span { display: flex; align-items: center; gap: 0.3rem; }
-
+  /* Suite buttons row */
+  .suite-row {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    justify-content: center; padding: 0 16px;
+    max-width: 900px; width: 100%; margin: 0 auto 80px;
+  }
   .start-all-btn {
-    background: var(--gold);
-    color: var(--navy);
-    border: none;
-    padding: 1rem 3rem;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: all 0.2s;
+    background: var(--gold); color: var(--navy);
+    border: none; padding: 14px 28px;
+    font-family: 'Jost', sans-serif; font-size: 13px;
+    font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; cursor: pointer;
+    border-radius: 8px; transition: all .2s;
+    box-shadow: 0 4px 16px rgba(200,150,42,0.25);
   }
+  .start-all-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
 
-  .start-all-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+  /* Training Hub inside landing */
+  .training-hub-section {
+    max-width: 960px; width: 100%; margin: 0 auto 80px;
+  }
+  .training-hub-section .th-header {
+    text-align: center; margin-bottom: 32px;
+  }
+  .training-hub-section .th-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: var(--cream); font-weight: 400; margin-bottom: 8px;
+  }
+  .training-hub-section .th-header p {
+    color: var(--steel-light); font-size: 14px; line-height: 1.7;
+  }
+  .training-hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  .training-hub-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 10px; padding: 20px 14px;
+    text-align: center; cursor: pointer; transition: all .22s;
+  }
+  .training-hub-card:hover {
+    background: rgba(200,150,42,0.08);
+    border-color: rgba(200,150,42,0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .thc-icon { font-size: 26px; margin-bottom: 10px; }
+  .thc-name { color: var(--cream); font-size: 13px; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
+  .thc-count { color: var(--steel); font-size: 11px; font-family: 'Space Mono', monospace; }
+
+  /* Landing footer */
+  .landing-footer {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 32px; text-align: center;
+    color: var(--steel); font-size: 12px; line-height: 1.8;
+  }
+  .landing-footer a { color: var(--steel-light); text-decoration: none; }
+
+  /* Remove old styles that were overridden */
+  .brand-line { display: none; }
+  .divider { display: none; }
 
   /* ══════════════ QUIZ SCREEN ══════════════ */
   #quiz {
@@ -1790,214 +1879,179 @@
 
 <!-- ══════════════ LANDING ══════════════ -->
 <div id="landing" class="screen active">
-  <div class="brand-line">MindMetrics Assessment Suite</div>
-  <h1 class="main-title">Know Your <span>Mind</span></h1>
-  <p class="subtitle">10 Scientific Assessments — Instant Results — No Account Required</p>
-  <div class="divider"></div>
 
-  <div style="font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;opacity:0.85">Cognitive</div>
-  <div class="test-grid">
-    <div class="test-card" onclick="startSingle('iq')">
-      <span class="card-icon">🧩</span>
-      <div class="card-label">Assessment 01</div>
-      <div class="card-title">IQ Test</div>
-      <div class="card-desc">Logic sequences, numerical patterns, verbal analogies, and spatial reasoning across 20 calibrated questions.</div>
-      <div class="card-meta">
-        <span>⏱ 21 min</span>
-        <span>📋 35 questions</span>
-      </div>
+  <!-- ── Navbar ── -->
+  <nav class="mm-navbar">
+    <div class="nav-brand">MINDMETRICS</div>
+    <div class="nav-links">
+      <a onclick="document.getElementById('assessments-section').scrollIntoView({behavior:'smooth'})">Assessments</a>
+      <a onclick="document.getElementById('training-hub-section').scrollIntoView({behavior:'smooth'})">Training Hub</a>
     </div>
+    <button class="nav-cta" onclick="startAll()">Start All Tests →</button>
+  </nav>
 
-    <div class="test-card" onclick="startSingle('matrix')" style="border-color:rgba(80,180,255,0.35);background:rgba(14,25,45,0.9)">
-      <span class="card-icon" style="color:#50b4ff">⬡</span>
-      <div class="card-label" style="color:#50b4ff">Assessment 02</div>
-      <div class="card-title">Visual Matrix IQ</div>
-      <div class="card-desc">Non-verbal reasoning — identify the rule governing each 3×3 pattern and select the missing piece. No language or prior knowledge required.</div>
-      <div class="card-meta">
-        <span>⏱ 15 min</span>
-        <span>📋 15 questions</span>
-      </div>
+  <!-- ── Hero ── -->
+  <div class="hero-section">
+    <div class="hero-eyebrow">11 Scientific Assessments</div>
+    <h1 class="main-title">Know Your<br><span>Mind</span></h1>
+    <p class="subtitle">Discover your cognitive profile, emotional intelligence, personality, and mental wellness — with instant, in-depth results and personalised training.</p>
+    <div class="hero-btns">
+      <button class="hero-btn-primary" onclick="startAll()">Take All Assessments →</button>
+      <button class="hero-btn-secondary" onclick="document.getElementById('assessments-section').scrollIntoView({behavior:'smooth'})">Browse Tests ↓</button>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-item"><span class="stat-num">11</span><span class="stat-label">Assessments</span></div>
+      <div class="stat-item"><span class="stat-num">165</span><span class="stat-label">Training Exercises</span></div>
+      <div class="stat-item"><span class="stat-num">~60</span><span class="stat-label">Minutes Full Suite</span></div>
+      <div class="stat-item"><span class="stat-num">Free</span><span class="stat-label">No Account Needed</span></div>
     </div>
   </div>
 
-  <div style="font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin:1.5rem 0 1rem;opacity:0.85">Personality</div>
-  <div class="test-grid">
-    <div class="test-card" onclick="startSingle('eq')">
-      <span class="card-icon">💡</span>
-      <div class="card-label">Assessment 03</div>
-      <div class="card-title">EQ Test</div>
-      <div class="card-desc">Emotional intelligence across four domains: self-awareness, self-regulation, empathy, and social skills.</div>
-      <div class="card-meta">
-        <span>⏱ 8 min</span>
-        <span>📋 20 questions</span>
+  <!-- ── Assessment Grid ── -->
+  <div id="assessments-section" style="padding:0 16px 16px;display:flex;flex-direction:column;align-items:center;">
+
+    <div class="section-header">
+      <span class="section-badge">Cognitive</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="test-grid">
+      <div class="test-card" onclick="startSingle('iq')">
+        <span class="card-icon">🧩</span>
+        <div class="card-label">Assessment 01</div>
+        <div class="card-title">IQ Test</div>
+        <div class="card-desc">Logic sequences, numerical patterns, verbal analogies, and spatial reasoning across 35 calibrated questions.</div>
+        <div class="card-meta"><span>⏱ 21 min</span><span>📋 35 questions</span></div>
+      </div>
+      <div class="test-card" onclick="startSingle('matrix')" style="border-color:rgba(80,180,255,0.2);">
+        <span class="card-icon" style="color:#50b4ff">⬡</span>
+        <div class="card-label" style="color:#50b4ff">Assessment 02</div>
+        <div class="card-title">Visual Matrix IQ</div>
+        <div class="card-desc">Non-verbal reasoning — identify the rule governing each 3×3 pattern and select the missing piece.</div>
+        <div class="card-meta"><span>⏱ 15 min</span><span>📋 15 questions</span></div>
       </div>
     </div>
 
-    <div class="test-card" onclick="startSingle('big5')">
-      <span class="card-icon">🔬</span>
-      <div class="card-label">Assessment 04</div>
-      <div class="card-title">Big Five Personality</div>
-      <div class="card-desc">The gold-standard OCEAN model — Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism.</div>
-      <div class="card-meta">
-        <span>⏱ 13 min</span>
-        <span>📋 45 questions</span>
+    <div class="section-header">
+      <span class="section-badge">Personality</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="test-grid">
+      <div class="test-card" onclick="startSingle('eq')">
+        <span class="card-icon">💡</span>
+        <div class="card-label">Assessment 03</div>
+        <div class="card-title">EQ Test</div>
+        <div class="card-desc">Emotional intelligence across four domains: self-awareness, self-regulation, empathy, and social skills.</div>
+        <div class="card-meta"><span>⏱ 8 min</span><span>📋 20 questions</span></div>
+      </div>
+      <div class="test-card" onclick="startSingle('big5')">
+        <span class="card-icon">🔬</span>
+        <div class="card-label">Assessment 04</div>
+        <div class="card-title">Big Five Personality</div>
+        <div class="card-desc">The gold-standard OCEAN model — Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism.</div>
+        <div class="card-meta"><span>⏱ 13 min</span><span>📋 45 questions</span></div>
+      </div>
+      <div class="test-card" onclick="startSingle('entrepreneur')" style="border-color:rgba(200,150,42,0.25);">
+        <span class="card-icon">🚀</span>
+        <div class="card-label" style="color:var(--gold-light)">Assessment 05</div>
+        <div class="card-title">Entrepreneur DNA</div>
+        <div class="card-desc">Your entrepreneur archetype, business model fit, readiness to go solo, and personalised action plan across 7 dimensions.</div>
+        <div class="card-meta"><span>⏱ 7 min</span><span>📋 20 questions</span></div>
       </div>
     </div>
 
-    <div class="test-card entr-card" onclick="startSingle('entrepreneur')" style="border-color:rgba(200,150,42,0.35);background:rgba(22,34,55,0.9)">
-      <span class="card-icon">🚀</span>
-      <div class="card-label" style="color:var(--gold-light)">Assessment 05</div>
-      <div class="card-title">Entrepreneur DNA</div>
-      <div class="card-desc">Discover your entrepreneur archetype, business model fit, readiness to go solo, and a personalised action plan across 7 dimensions.</div>
-      <div class="card-meta">
-        <span>⏱ 7 min</span>
-        <span>📋 20 questions</span>
+    <div class="section-header">
+      <span class="section-badge">Mental Wellness</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="test-grid">
+      <div class="test-card" onclick="startSingle('stress')">
+        <span class="card-icon">⚡</span>
+        <div class="card-label">Assessment 06</div>
+        <div class="card-title">Stress Index</div>
+        <div class="card-desc">Perceived stress scale measuring how often you feel overwhelmed, uncontrolled, and overloaded.</div>
+        <div class="card-meta"><span>⏱ 3 min</span><span>📋 10 questions</span></div>
       </div>
+      <div class="test-card" onclick="startSingle('anxiety')" style="border-color:rgba(120,180,140,0.25);">
+        <span class="card-icon">🌀</span>
+        <div class="card-label" style="color:#78c48c">Assessment 07</div>
+        <div class="card-title">Anxiety Level</div>
+        <div class="card-desc">Generalised, social, and performance anxiety measured across key dimensions with GAD-7 framework scoring.</div>
+        <div class="card-meta"><span>⏱ 5 min</span><span>📋 14 questions</span></div>
+      </div>
+      <div class="test-card" onclick="startSingle('burnout')" style="border-color:rgba(220,120,80,0.25);">
+        <span class="card-icon">🔥</span>
+        <div class="card-label" style="color:#dc7850">Assessment 08</div>
+        <div class="card-title">Burnout Level</div>
+        <div class="card-desc">Occupational exhaustion across emotional depletion, depersonalisation, and reduced sense of accomplishment.</div>
+        <div class="card-meta"><span>⏱ 5 min</span><span>📋 15 questions</span></div>
+      </div>
+      <div class="test-card" onclick="startSingle('adhd')" style="border-color:rgba(120,80,200,0.25);">
+        <span class="card-icon">🧠</span>
+        <div class="card-label" style="color:#9b6fe0">Assessment 11</div>
+        <div class="card-title">ADHD Pattern Index</div>
+        <div class="card-desc">Adult ADHD self-report screening across inattention, hyperactivity, impulsivity, and executive function — ASRS v1.1 framework.</div>
+        <div class="card-meta"><span>⏱ 10 min</span><span>📋 40 questions</span></div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <span class="section-badge">Self-Perception &amp; Relationships</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="test-grid">
+      <div class="test-card" onclick="startSingle('imposter')" style="border-color:rgba(160,120,220,0.25);">
+        <span class="card-icon">🎭</span>
+        <div class="card-label" style="color:#a078dc">Assessment 09</div>
+        <div class="card-title">Imposter Syndrome</div>
+        <div class="card-desc">Measures the gap between your actual competence and your self-perception — how strongly the imposter experience shapes your decisions.</div>
+        <div class="card-meta"><span>⏱ 6 min</span><span>📋 20 questions</span></div>
+      </div>
+      <div class="test-card" onclick="startSingle('attachment')" style="border-color:rgba(220,100,140,0.25);">
+        <span class="card-icon">💞</span>
+        <div class="card-label" style="color:#dc648c">Assessment 10</div>
+        <div class="card-title">Love &amp; Attachment Style</div>
+        <div class="card-desc">Discover whether you are securely attached, anxiously attached, or avoidant — and what this means for your relationships.</div>
+        <div class="card-meta"><span>⏱ 6 min</span><span>📋 15 questions</span></div>
+      </div>
+    </div>
+
+    <!-- Suite buttons -->
+    <div class="suite-row">
+      <button class="start-all-btn" onclick="startAll()">Complete Full Assessment Suite →</button>
+      <button class="start-all-btn" onclick="startEntrepreneurSuite()" style="background:transparent;border:1px solid var(--gold);color:var(--gold);box-shadow:none;">Entrepreneur + Personality Suite →</button>
+      <button class="start-all-btn" onclick="startWellnessSuite()" style="background:transparent;border:1px solid #78c48c;color:#78c48c;box-shadow:none;">Mental Wellness Suite →</button>
+    </div>
+
+  </div><!-- /assessments-section -->
+
+  <!-- ── Training Hub ── -->
+  <div id="training-hub-section" class="training-hub-section">
+    <div class="th-header">
+      <h2>Training Hub</h2>
+      <p>15 evidence-based exercises per assessment — build the skills your scores revealed</p>
+    </div>
+    <div class="training-hub-grid">
+      <div class="training-hub-card" onclick="startTraining('iq','hub')"><div class="thc-icon">🧩</div><div class="thc-name">IQ Training</div><div class="thc-count">15 exercises</div></div>
+      <div class="training-hub-card" onclick="startTraining('eq','hub')"><div class="thc-icon">💡</div><div class="thc-name">EQ Training</div><div class="thc-count">15 exercises</div></div>
+      <div class="training-hub-card" onclick="startTraining('adhd','hub')"><div class="thc-icon">🧠</div><div class="thc-name">ADHD Training</div><div class="thc-count">15 exercises</div></div>
+      <div class="training-hub-card" onclick="startTraining('stress','hub')"><div class="thc-icon">⚡</div><div class="thc-name">Stress Training</div><div class="thc-count">15 exercises</div></div>
+      <div class="training-hub-card" onclick="startTraining('anxiety','hub')"><div class="thc-icon">🌀</div><div class="thc-name">Anxiety Training</div><div class="thc-count">15 exercises</div></div>
+      <div class="training-hub-card" onclick="startTraining('burnout','hub')"><div class="thc-icon">🔥</div><div class="thc-name">Burnout Training</div><div class="thc-count">15 exercises</div></div>
+      <div class="training-hub-card" onclick="startTraining('entrepreneur','hub')"><div class="thc-icon">🚀</div><div class="thc-name">Entrepreneur Training</div><div class="thc-count">15 exercises</div></div>
+      <div class="training-hub-card" onclick="startTraining('bigfive','hub')"><div class="thc-icon">🔬</div><div class="thc-name">Big Five Training</div><div class="thc-count">15 exercises</div></div>
+      <div class="training-hub-card" onclick="startTraining('imposter','hub')"><div class="thc-icon">🎭</div><div class="thc-name">Imposter Syndrome</div><div class="thc-count">15 exercises</div></div>
+      <div class="training-hub-card" onclick="startTraining('attachment','hub')"><div class="thc-icon">💞</div><div class="thc-name">Attachment Training</div><div class="thc-count">15 exercises</div></div>
+      <div class="training-hub-card" onclick="startTraining('matrix','hub')"><div class="thc-icon">⬡</div><div class="thc-name">Matrix Reasoning</div><div class="thc-count">15 exercises</div></div>
     </div>
   </div>
 
-  <div style="font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin:1.5rem 0 1rem;opacity:0.85">Mental Wellness</div>
-  <div class="test-grid">
-    <div class="test-card" onclick="startSingle('stress')">
-      <span class="card-icon">⚡</span>
-      <div class="card-label">Assessment 06</div>
-      <div class="card-title">Stress Index</div>
-      <div class="card-desc">Perceived stress scale measuring how often you feel overwhelmed, uncontrolled, and overloaded.</div>
-      <div class="card-meta">
-        <span>⏱ 3 min</span>
-        <span>📋 10 questions</span>
-      </div>
-    </div>
-
-    <div class="test-card" onclick="startSingle('anxiety')" style="border-color:rgba(120,180,140,0.35);background:rgba(10,22,14,0.9)">
-      <span class="card-icon">🌀</span>
-      <div class="card-label" style="color:#78c48c">Assessment 07</div>
-      <div class="card-title">Anxiety Level</div>
-      <div class="card-desc">Generalised, social, and performance anxiety measured across key dimensions with clinical-grade scoring (GAD-7 framework).</div>
-      <div class="card-meta">
-        <span>⏱ 5 min</span>
-        <span>📋 14 questions</span>
-      </div>
-    </div>
-
-    <div class="test-card" onclick="startSingle('burnout')" style="border-color:rgba(220,120,80,0.35);background:rgba(28,12,8,0.9)">
-      <span class="card-icon">🔥</span>
-      <div class="card-label" style="color:#dc7850">Assessment 08</div>
-      <div class="card-title">Burnout Level</div>
-      <div class="card-desc">Occupational exhaustion measured across emotional depletion, depersonalisation, and reduced sense of accomplishment.</div>
-      <div class="card-meta">
-        <span>⏱ 5 min</span>
-        <span>📋 15 questions</span>
-      </div>
-    </div>
-
-    <div class="test-card" onclick="startSingle('adhd')" style="border-color:rgba(120,80,200,0.35);background:rgba(14,10,28,0.9)">
-      <span class="card-icon">🧠</span>
-      <div class="card-label" style="color:#9b6fe0">Assessment 11</div>
-      <div class="card-title">ADHD Pattern Index</div>
-      <div class="card-desc">Adult ADHD self-report screening across inattention, hyperactivity, impulsivity, and executive function — based on the ASRS v1.1 framework.</div>
-      <div class="card-meta">
-        <span>⏱ 5 min</span>
-        <span>📋 18 questions</span>
-      </div>
-    </div>
+  <!-- ── Footer ── -->
+  <div class="landing-footer">
+    <p>These assessments are for educational and self-reflection purposes only. Not clinical diagnostic instruments.<br>
+    &copy; 2025 MindMetrics &mdash; <a href="#">Privacy</a> &mdash; <a href="#">Terms</a></p>
   </div>
 
-  <div style="font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin:1.5rem 0 1rem;opacity:0.85">Self-Perception &amp; Relationships</div>
-  <div class="test-grid">
-    <div class="test-card" onclick="startSingle('imposter')" style="border-color:rgba(160,120,220,0.35);background:rgba(18,10,28,0.9)">
-      <span class="card-icon">🎭</span>
-      <div class="card-label" style="color:#a078dc">Assessment 09</div>
-      <div class="card-title">Imposter Syndrome</div>
-      <div class="card-desc">Measures the gap between your actual competence and your self-perception — how strongly the imposter experience shapes your decisions.</div>
-      <div class="card-meta">
-        <span>⏱ 6 min</span>
-        <span>📋 20 questions</span>
-      </div>
-    </div>
-
-    <div class="test-card" onclick="startSingle('attachment')" style="border-color:rgba(220,100,140,0.35);background:rgba(28,8,14,0.9)">
-      <span class="card-icon">💞</span>
-      <div class="card-label" style="color:#dc648c">Assessment 10</div>
-      <div class="card-title">Love &amp; Attachment Style</div>
-      <div class="card-desc">Discover whether you are securely attached, anxiously attached, or avoidant — and what this means for your relationships.</div>
-      <div class="card-meta">
-        <span>⏱ 6 min</span>
-        <span>📋 15 questions</span>
-      </div>
-    </div>
-  </div>
-
-  <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:1rem;margin-top:1.5rem">
-    <button class="start-all-btn" onclick="startAll()">Complete Full Assessment Suite →</button>
-    <button class="start-all-btn" onclick="startEntrepreneurSuite()" style="background:transparent;border:1px solid var(--gold);color:var(--gold)">Entrepreneur + Personality Suite →</button>
-    <button class="start-all-btn" onclick="startWellnessSuite()" style="background:transparent;border:1px solid #78c48c;color:#78c48c">Mental Wellness Suite →</button>
-  </div>
-</div>
-
-
-<!-- ══════════════ TRAINING HUB ══════════════ -->
-<div class="training-hub-section">
-  <h2>Training Hub</h2>
-  <p class="section-sub">15 exercises per assessment — build the skills your scores revealed</p>
-  <div class="training-hub-grid">
-    <div class="training-hub-card" onclick="startTraining('iq','hub')">
-      <div class="thc-icon">🧠</div>
-      <div class="thc-name">IQ Training</div>
-      <div class="thc-count">15 exercises</div>
-    </div>
-    <div class="training-hub-card" onclick="startTraining('eq','hub')">
-      <div class="thc-icon">❤️</div>
-      <div class="thc-name">EQ Training</div>
-      <div class="thc-count">15 exercises</div>
-    </div>
-    <div class="training-hub-card" onclick="startTraining('adhd','hub')">
-      <div class="thc-icon">⚡</div>
-      <div class="thc-name">ADHD Training</div>
-      <div class="thc-count">15 exercises</div>
-    </div>
-    <div class="training-hub-card" onclick="startTraining('stress','hub')">
-      <div class="thc-icon">🌊</div>
-      <div class="thc-name">Stress Training</div>
-      <div class="thc-count">15 exercises</div>
-    </div>
-    <div class="training-hub-card" onclick="startTraining('anxiety','hub')">
-      <div class="thc-icon">🌿</div>
-      <div class="thc-name">Anxiety Training</div>
-      <div class="thc-count">15 exercises</div>
-    </div>
-    <div class="training-hub-card" onclick="startTraining('burnout','hub')">
-      <div class="thc-icon">🔋</div>
-      <div class="thc-name">Burnout Training</div>
-      <div class="thc-count">15 exercises</div>
-    </div>
-    <div class="training-hub-card" onclick="startTraining('entrepreneur','hub')">
-      <div class="thc-icon">🚀</div>
-      <div class="thc-name">Entrepreneur Training</div>
-      <div class="thc-count">15 exercises</div>
-    </div>
-    <div class="training-hub-card" onclick="startTraining('bigfive','hub')">
-      <div class="thc-icon">🎭</div>
-      <div class="thc-name">Big Five Training</div>
-      <div class="thc-count">15 exercises</div>
-    </div>
-    <div class="training-hub-card" onclick="startTraining('imposter','hub')">
-      <div class="thc-icon">🪞</div>
-      <div class="thc-name">Imposter Syndrome Training</div>
-      <div class="thc-count">15 exercises</div>
-    </div>
-    <div class="training-hub-card" onclick="startTraining('attachment','hub')">
-      <div class="thc-icon">🤝</div>
-      <div class="thc-name">Attachment Training</div>
-      <div class="thc-count">15 exercises</div>
-    </div>
-    <div class="training-hub-card" onclick="startTraining('matrix','hub')">
-      <div class="thc-icon">🔷</div>
-      <div class="thc-name">Matrix Reasoning</div>
-      <div class="thc-count">15 exercises</div>
-    </div>
-  </div>
-</div>
+</div><!-- /landing -->
 
 <!-- ══════════════ QUIZ SCREEN ══════════════ -->
 <!-- ══════════════ TRAINING SCREEN ══════════════ -->
