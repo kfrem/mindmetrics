@@ -484,9 +484,9 @@
   }
 
   /* ── Screens ── */
-  .screen { display: none !important; }
-  .screen.active {
-    display: block !important;
+  /* Screens — JS controls display via showScreen() */
+  .screen {
+    display: none;
     position: fixed;
     inset: 0;
     overflow-y: auto;
@@ -503,7 +503,6 @@
     padding: 0;
     text-align: center;
   }
-  #landing.active { display: flex !important; flex-direction: column; align-items: stretch; justify-content: flex-start; }
 
   /* ══════════════════ LANDING PAGE ══════════════════ */
   /* Navbar */
@@ -768,7 +767,6 @@
     flex-direction: column;
     padding: 0;
   }
-  #quiz.active { display: flex !important; flex-direction: column; }
 
   .quiz-header {
     background: var(--navy2);
@@ -839,8 +837,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: 2rem 1rem;
-    min-height: 0;
+    padding: 2rem 1.5rem;
   }
 
   .question-wrap {
@@ -999,7 +996,6 @@
     min-height: 100vh;
     padding: 3rem 2rem;
   }
-  #results.active { display: block !important; }
 
   .results-inner { max-width: 900px; margin: 0 auto; }
 
@@ -1835,7 +1831,6 @@
 
 /* ════════════════ TRAINING SCREEN ════════════════ */
 #training { min-height:100vh; flex-direction:column; }
-#training.active { display:flex !important; }
 .training-header {
   background:var(--navy2); border-bottom:1px solid rgba(200,150,42,0.25);
   padding:16px 24px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;
@@ -1906,7 +1901,7 @@
 <body>
 
 <!-- ══════════════ LANDING ══════════════ -->
-<div id="landing" class="screen active">
+<div id="landing" class="screen" style="display:flex;">
 
   <!-- ── Navbar ── -->
   <nav class="mm-navbar">
@@ -3043,11 +3038,17 @@ function backToResults() {
 
 
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  const flexScreens = ['landing', 'quiz', 'training'];
+  document.querySelectorAll('.screen').forEach(function(s) {
+    s.style.display = 'none';
+  });
+  const el = document.getElementById(id);
+  if (el) {
+    el.style.display = flexScreens.indexOf(id) >= 0 ? 'flex' : 'block';
+    el.scrollTop = 0;
+  }
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
-  window.scrollTo(0, 0);
 }
 
 // ══════════════════════════════════════════════════════════
