@@ -6,6 +6,7 @@
 <title>MindMetrics — Intelligence & Emotional Assessment Suite</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Space+Mono:wght@400;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   :root {
     --navy: #08101e;
@@ -716,12 +717,22 @@
     border-radius: 2px;
   }
 
+  .trait-desc {
+    font-size: 0.78rem;
+    color: var(--steel);
+    margin-left: 140px;
+    margin-top: -0.4rem;
+    margin-bottom: 0.6rem;
+    line-height: 1.5;
+  }
+
   @media (max-width: 600px) {
     .options-grid { grid-template-columns: 1fr; }
     .options-grid.likert { grid-template-columns: repeat(5, 1fr); }
     .eq-domains { grid-template-columns: 1fr; }
     .scores-row { grid-template-columns: 1fr 1fr; }
     .trait-name { min-width: 90px; font-size: 0.5rem; }
+    .trait-desc { margin-left: 0; margin-top: 0; padding-left: 0; }
   }
 
   /* ── Entrepreneur module extras ── */
@@ -945,7 +956,8 @@
   .btn-share:hover { background: rgba(200,150,42,0.12); }
   .btn-share.primary { background: var(--gold); color: var(--navy); border: none; }
   .btn-share.primary:hover { background: var(--gold-light); }
-  #qr-canvas { display: block; margin-top: 1rem; border: 4px solid white; border-radius: 2px; }
+  #qr-container { display: none; margin-top: 1rem; }
+  #qr-container img, #qr-container canvas { border: 6px solid white; border-radius: 3px; display: block; }
 
   /* ══ INTERVIEW PREP ══ */
   .prep-section { margin-bottom: 1.5rem; }
@@ -1074,6 +1086,12 @@
     <button class="start-all-btn" onclick="startAll()">Complete Full Assessment Suite →</button>
     <button class="start-all-btn" onclick="startEntrepreneurSuite()" style="background:transparent;border:1px solid var(--gold);color:var(--gold)">Entrepreneur + Personality Suite →</button>
   </div>
+
+  <div style="margin-top:0.5rem;text-align:center">
+    <input type="text" id="user-name-input" placeholder="Your name (optional — used on certificate)"
+      style="background:rgba(14,25,40,0.7);border:1px solid rgba(120,143,168,0.25);border-radius:3px;padding:0.6rem 1.2rem;font-family:'Jost',sans-serif;font-size:0.82rem;color:var(--steel-light);width:320px;max-width:90vw;text-align:center;outline:none;transition:border-color 0.2s"
+      onfocus="this.style.borderColor='rgba(200,150,42,0.5)'" onblur="this.style.borderColor='rgba(120,143,168,0.25)'">
+  </div>
 </div>
 
 <!-- ══════════════ QUIZ SCREEN ══════════════ -->
@@ -1127,11 +1145,11 @@
       <div class="share-row">
         <div class="share-url-box" id="share-url-box">Generating your profile link…</div>
         <div class="share-actions">
-          <button class="btn-share primary" onclick="copyShareUrl()">📋 Copy Link</button>
+          <button class="btn-share primary" onclick="copyShareUrl(this)">📋 Copy Link</button>
           <button class="btn-share" onclick="toggleQR()">📱 Show QR Code</button>
         </div>
       </div>
-      <canvas id="qr-canvas" width="150" height="150" style="display:none"></canvas>
+      <div id="qr-container"></div>
     </div>
 
     <div class="retake-row">
@@ -1443,8 +1461,8 @@ function renderQuestion() {
     grid.querySelectorAll('.option-btn').forEach((b, i) => b.textContent = i + 1);
   }
 
-  // Progress
-  const pct = (state.currentQ / total) * 100;
+  // Progress — show current question number as % so bar is never 0% on Q1
+  const pct = ((state.currentQ + 1) / total) * 100;
   document.getElementById('progress-fill').style.width = pct + '%';
 
   // Next button
@@ -1458,6 +1476,16 @@ function selectOption(idx, btn) {
   btn.classList.add('selected');
   state.selectedOption = idx;
   document.getElementById('btn-next').classList.add('ready');
+
+  // Auto-advance on Likert questions after a brief pause
+  const test = TESTS[state.currentTest];
+  const q = test.questions[state.currentQ];
+  if (q.likert) {
+    clearTimeout(state._autoAdvance);
+    state._autoAdvance = setTimeout(() => {
+      if (state.selectedOption === idx) nextQuestion();
+    }, 420);
+  }
 }
 
 // ══════════════════════════════════════════════════════════
@@ -1691,7 +1719,7 @@ function showResults() {
         <div class="trait-bar"><div class="trait-bar-fill" style="width:${r[t.key]}%;background:${t.color}"></div></div>
         <div class="trait-score">${r[t.key]}%</div>
       </div>
-      <p style="font-size:0.78rem;color:var(--steel);margin-left:140px;margin-top:-0.4rem;margin-bottom:0.6rem;line-height:1.5">${big5Desc(t.key, r[t.key])}</p>
+      <p class="trait-desc">${big5Desc(t.key, r[t.key])}</p>
     `).join('');
 
     detailSections.innerHTML += `
@@ -2116,22 +2144,22 @@ function scoreCareerMatch(role) {
 
   const add = (val, w) => { if (val !== null) { score += (val/100) * w; weight += w; } };
 
-  if (r.iq) add(Math.min(100,(r.iq.iq-60)/85*100) * role.iq, role.iq);
-  if (r.eq) add(r.eq.total * role.eq, role.eq);
+  if (r.iq) add(Math.min(100,(r.iq.iq-60)/85*100), role.iq);
+  if (r.eq) add(r.eq.total, role.eq);
   if (r.big5) {
-    add(r.big5.O * role.O, role.O);
-    add(r.big5.C * role.C, role.C);
-    add(r.big5.E * role.E, role.E);
-    add(r.big5.A * role.A, role.A);
+    add(r.big5.O, role.O);
+    add(r.big5.C, role.C);
+    add(r.big5.E, role.E);
+    add(r.big5.A, role.A);
     const n_score = (100 - r.big5.N); // invert neuroticism
-    add(n_score * role.N_inv, role.N_inv);
+    add(n_score, role.N_inv);
   }
   if (r.stress) {
     const stress_score = (1 - r.stress.raw / r.stress.max) * 100;
-    add(stress_score * role.stress_inv, role.stress_inv);
+    add(stress_score, role.stress_inv);
   }
   if (r.entr) {
-    add(r.entr.dnaScore * role.entr, role.entr);
+    add(r.entr.dnaScore, role.entr);
   }
 
   return weight > 0 ? Math.round((score / weight) * 100) : 50;
@@ -2272,10 +2300,20 @@ function buildShareUrl() {
   generateQR(url);
 }
 
-function copyShareUrl() {
+function copyShareUrl(btn) {
   if (!window._shareUrl) return;
   navigator.clipboard.writeText(window._shareUrl).then(() => {
-    const btn = event.target;
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => btn.textContent = '📋 Copy Link', 2000);
+  }).catch(() => {
+    // Fallback for browsers that block clipboard
+    const ta = document.createElement('textarea');
+    ta.value = window._shareUrl;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
     btn.textContent = '✓ Copied!';
     setTimeout(() => btn.textContent = '📋 Copy Link', 2000);
   });
@@ -2283,62 +2321,47 @@ function copyShareUrl() {
 
 let _qrShown = false;
 function toggleQR() {
-  const canvas = document.getElementById('qr-canvas');
+  const container = document.getElementById('qr-container');
   _qrShown = !_qrShown;
-  canvas.style.display = _qrShown ? 'block' : 'none';
+  container.style.display = _qrShown ? 'block' : 'none';
 }
 
-// Pure JS QR code (minimal QR generator — no library needed)
 function generateQR(text) {
-  const canvas = document.getElementById('qr-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const size = 150;
-  canvas.width = size; canvas.height = size;
-
-  // Simple visual hash-based pattern (not a real scannable QR — decorative)
-  // For a real QR we'd use qrcode.js from CDN — using decorative version here
-  // to avoid external dependency and keep zero-cost promise
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect(0, 0, size, size);
-  ctx.fillStyle = '#08101e';
-
-  const modules = 21;
-  const cellSize = Math.floor(size / modules);
-  const hash = [...text].reduce((h, c) => (h * 31 + c.charCodeAt(0)) & 0xFFFFFF, 0);
-
-  // Finder patterns (corners)
-  [[0,0],[0,14],[14,0]].forEach(([cx,cy]) => {
-    ctx.fillRect(cx*cellSize, cy*cellSize, 7*cellSize, 7*cellSize);
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect((cx+1)*cellSize, (cy+1)*cellSize, 5*cellSize, 5*cellSize);
-    ctx.fillStyle = '#08101e';
-    ctx.fillRect((cx+2)*cellSize, (cy+2)*cellSize, 3*cellSize, 3*cellSize);
-    ctx.fillStyle = '#08101e';
-  });
-
-  // Data area — pseudo-random from URL hash
-  let seed = hash;
-  for (let r = 0; r < modules; r++) {
-    for (let c = 0; c < modules; c++) {
-      if ((r < 8 && c < 8) || (r < 8 && c > 12) || (r > 12 && c < 8)) continue;
-      seed = (seed * 1664525 + 1013904223) & 0xFFFFFF;
-      if (seed % 3 === 0) {
-        ctx.fillStyle = '#08101e';
-        ctx.fillRect(c*cellSize, r*cellSize, cellSize-1, cellSize-1);
-      }
-    }
-  }
-
-  // Timing patterns
-  for (let i = 8; i < modules-8; i++) {
-    if (i % 2 === 0) {
-      ctx.fillStyle = '#08101e';
-      ctx.fillRect(6*cellSize, i*cellSize, cellSize-1, cellSize-1);
-      ctx.fillRect(i*cellSize, 6*cellSize, cellSize-1, cellSize-1);
-    }
+  const container = document.getElementById('qr-container');
+  if (!container) return;
+  container.innerHTML = '';
+  try {
+    new QRCode(container, {
+      text: text,
+      width: 150,
+      height: 150,
+      colorDark: '#08101e',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  } catch(e) {
+    container.innerHTML = '<p style="font-size:0.7rem;color:var(--steel)">QR unavailable</p>';
   }
 }
+
+// ══════════════════════════════════════════════════════════
+//  KEYBOARD SHORTCUTS
+// ══════════════════════════════════════════════════════════
+document.addEventListener('keydown', (e) => {
+  // Only active on quiz screen
+  if (!document.getElementById('quiz').classList.contains('active')) return;
+
+  const num = parseInt(e.key);
+  if (num >= 1 && num <= 5) {
+    const btns = document.querySelectorAll('.option-btn');
+    if (btns[num - 1]) btns[num - 1].click();
+    return;
+  }
+  if ((e.key === 'Enter' || e.key === 'ArrowRight') && !e.repeat) {
+    const next = document.getElementById('btn-next');
+    if (next && next.classList.contains('ready')) next.click();
+  }
+});
 
 // Load shared results from URL on page load
 window.addEventListener('DOMContentLoaded', () => {
@@ -2361,8 +2384,9 @@ function printCertificate() {
   const r = _lastResults;
   if (!r) { alert('No results found. Please complete a test first.'); return; }
 
-  // Name prompt
-  const name = prompt('Enter your name for the certificate (or leave blank):', '') || 'Assessment Candidate';
+  // Name — read from the landing input field, fall back gracefully
+  const nameInput = document.getElementById('user-name-input');
+  const name = (nameInput && nameInput.value.trim()) || 'Assessment Candidate';
   document.getElementById('cert-name').textContent = name;
 
   // Build scores grid
