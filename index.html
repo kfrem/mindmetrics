@@ -4362,7 +4362,8 @@ function startTraining(key, from) {
   // Show question view, hide results view
   document.getElementById('training-q-view').style.display = '';
   document.getElementById('training-results-view').style.display = 'none';
-  document.getElementById('training-test-title').textContent = (TRAINING[key] ? TRAINING[key].name : key) + ' Training';
+  const trainingName = TRAINING[key] ? TRAINING[key].name : key;
+  document.getElementById('training-test-title').textContent = /Training$/.test(trainingName) ? trainingName : trainingName + ' Training';
   renderTrainingQ();
   showScreen('training');
 }
