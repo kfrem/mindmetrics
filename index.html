@@ -493,6 +493,9 @@
     z-index: 10;
     background: var(--navy);
   }
+  .screen > * {
+    flex-shrink: 0;
+  }
 
   /* ══════════════ LANDING ══════════════ */
   #landing {
@@ -897,22 +900,22 @@
   .options-grid.single-col { grid-template-columns: 1fr; }
   .options-grid.likert { grid-template-columns: repeat(5, 1fr); }
   .options-grid.matrix { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
-  .matrix-btn { display:flex; align-items:center; justify-content:center; padding:0.6rem; min-height:76px; background:rgba(14,25,40,0.8); border:1px solid rgba(120,143,168,0.25); border-radius:3px; cursor:pointer; transition:all 0.2s; }
-  .matrix-btn:hover { border-color:var(--gold); background:rgba(200,150,42,0.08); }
-  .matrix-btn.selected { border-color:var(--gold); background:rgba(200,150,42,0.15); }
+  .matrix-btn { display:flex; align-items:center; justify-content:center; padding:0.6rem; min-height:76px; background:rgba(14,25,40,0.8); border:1px solid rgba(120,143,168,0.25); border-radius:6px; cursor:pointer; transition:all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); }
+  .matrix-btn:hover { border-color:var(--gold); background:rgba(200,150,42,0.08); transform: translateY(-1px); }
+  .matrix-btn.selected { border-color:var(--gold); background:rgba(200,150,42,0.15); box-shadow: 0 0 12px rgba(200, 150, 42, 0.25); }
   .matrix-box { margin:0.5rem auto 1.5rem; display:block; }
 
   .option-btn {
     background: rgba(14,25,40,0.8);
     border: 1px solid rgba(120,143,168,0.25);
-    border-radius: 3px;
+    border-radius: 6px;
     padding: 1rem 1.2rem;
     color: var(--steel-light);
     font-family: 'Jost', sans-serif;
     font-size: 0.9rem;
     font-weight: 400;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
     text-align: left;
     line-height: 1.4;
   }
@@ -921,12 +924,14 @@
     border-color: var(--gold);
     color: var(--cream);
     background: rgba(200,150,42,0.08);
+    transform: translateX(4px);
   }
 
   .option-btn.selected {
     border-color: var(--gold);
-    background: rgba(200,150,42,0.15);
+    background: rgba(200,150,42,0.18);
     color: var(--gold-light);
+    box-shadow: 0 0 15px rgba(200, 150, 42, 0.3);
   }
 
   .option-btn.correct {
@@ -1079,6 +1084,139 @@
     height: 100%;
     border-radius: 2px;
     transition: width 1.5s ease;
+  }
+
+  /* Premium SVG Radar Chart Animations */
+  @keyframes drawChart {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  .radar-chart-container {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(200, 150, 42, 0.12);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    backdrop-filter: blur(8px);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.01);
+  }
+
+  /* B2B Teaser Section */
+  .b2b-teaser-section {
+    background: linear-gradient(135deg, rgba(22, 34, 55, 0.95), rgba(14, 25, 40, 0.98));
+    border: 1px solid rgba(200, 150, 42, 0.25);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(200, 150, 42, 0.05);
+    border-radius: 12px;
+    padding: 2.2rem;
+    margin-top: 2rem;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+  .b2b-teaser-section::before {
+    content: '';
+    position: absolute; top: -50px; right: -50px;
+    width: 150px; height: 150px;
+    background: radial-gradient(circle, rgba(200, 150, 42, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .b2b-badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    background: rgba(200, 150, 42, 0.12);
+    border: 1px solid rgba(200, 150, 42, 0.25);
+    padding: 4px 10px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .b2b-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 0.6rem;
+  }
+  .b2b-desc {
+    font-size: 0.85rem;
+    color: var(--steel-light);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .b2b-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  @media (max-width: 600px) {
+    .b2b-grid { grid-template-columns: 1fr; }
+  }
+  .b2b-feature-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    padding: 1rem;
+  }
+  .b2b-feature-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold-pale);
+    margin-bottom: 0.3rem;
+  }
+  .b2b-feature-desc {
+    font-size: 0.75rem;
+    color: var(--steel);
+    line-height: 1.4;
+  }
+  .b2b-btn {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--navy);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .b2b-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(200, 150, 42, 0.4);
+  }
+
+  /* Real-time social proof pill */
+  .social-proof-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(42, 143, 160, 0.12);
+    border: 1px solid rgba(42, 143, 160, 0.25);
+    color: #a8e6e8;
+    font-size: 0.7rem;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 0.8rem;
+  }
+  .social-proof-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #2a8fa0;
+    border-radius: 50%;
+    animation: pulseProof 1.8s infinite ease-in-out;
+  }
+  @keyframes pulseProof {
+    0% { transform: scale(0.9); opacity: 0.6; }
+    50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 8px #2a8fa0; }
+    100% { transform: scale(0.9); opacity: 0.6; }
   }
 
   /* Result sections */
@@ -1730,16 +1868,27 @@
   .career-filter-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
   .filter-btn { font-family: "Space Mono", monospace; font-size: 0.55rem; letter-spacing: 0.2em; padding: 0.4rem 0.8rem; border-radius: 2px; border: 1px solid rgba(120,143,168,0.3); background: transparent; color: var(--steel-light); cursor: pointer; text-transform: uppercase; transition: all 0.15s; }
   .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(200,150,42,0.08); }
-  .careers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.8rem; margin-top: 0.5rem; }
-  .career-card { background: rgba(8,16,30,0.7); border: 1px solid rgba(120,143,168,0.15); border-radius: 4px; padding: 1rem; transition: border-color 0.2s; }
-  .career-card:hover { border-color: rgba(200,150,42,0.3); }
-  .career-card.top-career { border-color: rgba(200,150,42,0.5); }
-  .career-fit-pct { font-family: "Space Mono", monospace; font-size: 1.1rem; color: var(--gold-light); margin-bottom: 0.2rem; }
-  .career-name { font-family: "Cormorant Garamond", serif; font-size: 1rem; font-weight: 600; color: var(--cream); margin-bottom: 0.3rem; }
-  .career-sector { font-family: "Space Mono", monospace; font-size: 0.5rem; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.4rem; }
-  .career-bar { height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 0.5rem; }
-  .career-bar-fill { height: 100%; background: var(--gold); border-radius: 2px; }
-  .career-why { font-size: 0.75rem; color: var(--steel); line-height: 1.5; }
+  .careers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-top: 0.5rem; }
+  .career-card { background: linear-gradient(135deg, rgba(22, 34, 55, 0.85), rgba(14, 25, 40, 0.95)); border: 1px solid rgba(200,150,42,0.15); border-radius: 8px; padding: 1.2rem; transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); }
+  .career-card:hover { border-color: rgba(200,150,42,0.45); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(200, 150, 42, 0.15); }
+  .career-card.top-career { border-color: rgba(200,150,42,0.6); background: linear-gradient(135deg, rgba(22, 34, 55, 0.95), rgba(30, 40, 20, 0.95)); }
+  .career-fit-pct { font-family: "Space Mono", monospace; font-size: 1.25rem; font-weight: 700; color: var(--gold-light); margin-bottom: 0.2rem; }
+  .career-name { font-family: "Cormorant Garamond", serif; font-size: 1.15rem; font-weight: 600; color: var(--cream); margin-bottom: 0.3rem; }
+  .career-sector { font-family: "Space Mono", monospace; font-size: 0.55rem; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .career-bar { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 0.6rem; }
+  .career-bar-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius: 2px; }
+  .career-why { font-size: 0.78rem; color: var(--steel-light); line-height: 1.5; }
+
+  /* ══ LEVEL SELECT CARD HOVER EFFECTS ══ */
+  .level-card {
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  .level-card:hover {
+    border-color: rgba(200,150,42,0.5) !important;
+    background: rgba(255,255,255,0.06) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45), 0 0 15px rgba(200, 150, 42, 0.15);
+  }
 
   /* ══ SHARE PANEL ══ */
   .share-panel { background: var(--navy3); border: 1px solid rgba(200,150,42,0.2); border-radius: 4px; padding: 1.5rem; margin-top: 1.5rem; }
@@ -1770,6 +1919,192 @@
   .btn-premium.outline:hover { background: rgba(200,150,42,0.1); }
   .btn-premium.teal-btn { background: rgba(42,143,160,0.15); border: 1px solid var(--teal); color: var(--teal); }
   .btn-premium.teal-btn:hover { background: rgba(42,143,160,0.25); }
+
+  /* ══ PREMIUM PAYWALL & 4-WEEK CALENDAR SYSTEM ══ */
+  .paywall-card {
+    background: linear-gradient(135deg, rgba(8,16,30,0.85), rgba(15,28,48,0.9));
+    border: 1px solid rgba(200,150,42,0.3);
+    border-radius: 8px;
+    padding: 2.5rem;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 0 20px rgba(200,150,42,0.05);
+    margin: 2rem 0;
+    backdrop-filter: blur(10px);
+  }
+  .paywall-badge {
+    background: rgba(200,150,42,0.1);
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-family: "Space Mono", monospace;
+    letter-spacing: 1px;
+    margin-bottom: 1.2rem;
+  }
+  .paywall-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.2rem;
+    color: var(--cream);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  .paywall-lead {
+    font-size: 0.95rem;
+    color: var(--steel-light);
+    max-width: 680px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+  .paywall-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    text-align: left;
+    margin-bottom: 2.5rem;
+  }
+  .paywall-feature-item {
+    display: flex;
+    gap: 1rem;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 6px;
+    padding: 1.2rem;
+    transition: transform 0.2s;
+  }
+  .paywall-feature-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(200,150,42,0.15);
+  }
+  .paywall-feature-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--gold);
+  }
+  .paywall-feature-text strong {
+    display: block;
+    color: var(--cream);
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+  .paywall-feature-text p {
+    color: var(--steel-light);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .paywall-checkout-options {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .paywall-btn {
+    flex: 1 1 280px;
+    max-width: 360px;
+    padding: 1.2rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .paywall-btn .btn-top {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+    font-family: "Jost", sans-serif;
+  }
+  .paywall-btn .btn-bottom {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    font-family: "Space Mono", monospace;
+  }
+  .paywall-btn.btn-single {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--cream);
+  }
+  .paywall-btn.btn-single:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.25);
+  }
+  .paywall-btn.btn-all {
+    background: linear-gradient(135deg, #c8962a, #e8b84b);
+    color: #08101e;
+    box-shadow: 0 4px 15px rgba(200,150,42,0.2);
+  }
+  .paywall-btn.btn-all:hover {
+    background: linear-gradient(135deg, #d8a63a, #f8c85b);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(200,150,42,0.3);
+  }
+  .paywall-sandbox-toggle {
+    font-size: 0.8rem;
+    color: var(--steel);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  /* Calendar Styles */
+  .premium-feature-badge {
+    background: rgba(200,150,42,0.07);
+    border: 1px solid rgba(200,150,42,0.25);
+    color: var(--gold-light);
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-family: "Space Mono", monospace;
+    letter-spacing: 1px;
+    margin-bottom: 0.8rem;
+  }
+  .week-tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--steel-light);
+    font-family: "Space Mono", monospace;
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 4px 4px 0 0;
+  }
+  .week-tab-btn.active {
+    color: var(--gold);
+    border-bottom: 2px solid var(--gold);
+  }
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .calendar-day-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    padding: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .calendar-day-card:hover {
+    background: rgba(200,150,42,0.04);
+    border-color: rgba(200,150,42,0.25);
+  }
+  .calendar-day-card.completed {
+    background: rgba(120,196,140,0.04);
+    border-color: rgba(120,196,140,0.25);
+    box-shadow: 0 4px 12px rgba(120,196,140,0.03);
+  }
 
   @media (max-width: 600px) {
     .readiness-row { grid-template-columns: 1fr; }
@@ -1809,11 +2144,11 @@
     #certificate-page { display: block !important; page-break-before: always; }
   }
 
-  #certificate-page { display: none; font-family: "Jost", sans-serif; }
-  .cert-wrap { max-width: 780px; margin: 0 auto; padding: 40px; border: 3px double #c8962a; text-align: center; }
-  .cert-logo { font-family: "Space Mono", monospace; font-size: 11px; letter-spacing: 0.5em; color: #c8962a; text-transform: uppercase; margin-bottom: 16px; }
-  .cert-title { font-family: "Cormorant Garamond", serif; font-size: 42px; font-weight: 300; color: #08101e; line-height: 1; margin-bottom: 6px; }
-  .cert-subtitle { font-size: 13px; color: #666; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 28px; }
+  #certificate-page { display: none; font-family: "Jost", sans-serif; padding: 20px; background: white; }
+  .cert-wrap { max-width: 800px; margin: 0 auto; padding: 50px 40px; border: 2px solid #c8962a; outline: 6px double #c8962a; outline-offset: -12px; text-align: center; background: white; position: relative; }
+  .cert-logo { font-family: "Space Mono", monospace; font-size: 11px; letter-spacing: 0.5em; color: #c8962a; text-transform: uppercase; margin-bottom: 20px; }
+  .cert-title { font-family: "Cormorant Garamond", serif; font-size: 44px; font-weight: 300; color: #08101e; line-height: 1; margin-bottom: 8px; }
+  .cert-subtitle { font-size: 13px; color: #666; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 32px; }
   .cert-divider { width: 120px; height: 2px; background: #c8962a; margin: 0 auto 24px; }
   .cert-presented { font-size: 13px; color: #555; margin-bottom: 6px; }
   .cert-name { font-family: "Cormorant Garamond", serif; font-size: 32px; font-style: italic; color: #08101e; margin-bottom: 20px; }
@@ -1888,14 +2223,392 @@
 .training-hub-grid {
   display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px;
 }
-.training-hub-card {
-  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);
-  border-radius:12px; padding:20px 16px; text-align:center; cursor:pointer; transition:all .25s;
+/* ══════════════ MODALS & LEAD GATE STYLES ══════════════ */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(4, 8, 16, 0.85);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
 }
-.training-hub-card:hover { background:rgba(200,150,42,0.08); border-color:rgba(200,150,42,0.4); transform:translateY(-2px); }
-.training-hub-card .thc-icon { font-size:28px; margin-bottom:8px; }
-.training-hub-card .thc-name { color:var(--cream); font-size:14px; font-weight:600; margin-bottom:4px; }
-.training-hub-card .thc-count { color:var(--steel); font-size:12px; }
+.modal-overlay.show {
+  opacity: 1; pointer-events: auto;
+}
+.lead-gate-card, .payment-card {
+  background: rgba(14, 25, 40, 0.95);
+  border: 1px solid rgba(200, 150, 42, 0.25);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(200, 150, 42, 0.05);
+  border-radius: 16px; max-width: 480px; width: 90%;
+  padding: 36px; font-family: 'Jost', sans-serif;
+  color: var(--cream); position: relative;
+  transform: translateY(20px); transition: transform 0.3s ease;
+}
+.modal-overlay.show .lead-gate-card, .modal-overlay.show .payment-card {
+  transform: translateY(0);
+}
+.lead-gate-header, .payment-header {
+  margin-bottom: 24px; text-align: center;
+}
+.lead-logo, .payment-logo {
+  font-family: 'Space Mono', monospace; font-size: 11px;
+  letter-spacing: 0.4em; color: var(--gold); margin-bottom: 12px;
+}
+.lead-gate-header h3, .payment-header h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 26px;
+  font-weight: 500; color: var(--cream); margin-bottom: 8px;
+}
+.lead-gate-header p, .payment-header p {
+  font-size: 13px; color: var(--steel-light); line-height: 1.6;
+}
+.input-group {
+  margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px;
+}
+.input-group label {
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  letter-spacing: 0.1em; color: var(--steel-light); text-transform: uppercase;
+}
+.input-group input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px; padding: 12px 16px;
+  color: var(--cream); font-family: 'Jost', sans-serif; font-size: 14px;
+  transition: all 0.25s;
+}
+.input-group input:focus {
+  outline: none; border-color: var(--gold);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 12px rgba(200, 150, 42, 0.2);
+}
+.consent-group {
+  display: flex; gap: 12px; align-items: flex-start; margin-bottom: 24px;
+}
+.consent-group input[type="checkbox"] {
+  accent-color: var(--gold); width: 16px; height: 16px; margin-top: 2px; cursor: pointer;
+}
+.consent-group label {
+  font-size: 12px; color: var(--steel); line-height: 1.5; cursor: pointer;
+}
+.lead-gate-submit, .payment-submit {
+  width: 100%; background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--navy); border: none; padding: 14px; border-radius: 8px;
+  font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: all 0.25s; text-transform: uppercase;
+  letter-spacing: 0.05em; display: flex; align-items: center; justify-content: center;
+}
+.lead-gate-submit:hover, .payment-submit:hover {
+  filter: brightness(1.1); transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(200, 150, 42, 0.25);
+}
+.lead-gate-close, .payment-close {
+  width: 100%; background: transparent; border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--steel-light); padding: 12px; border-radius: 8px; margin-top: 10px;
+  font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: all 0.25s;
+}
+.lead-gate-close:hover, .payment-close:hover {
+  background: rgba(255, 255, 255, 0.04); color: var(--cream);
+}
+.lead-gate-trust, .payment-trust {
+  display: flex; justify-content: space-between; border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 24px; padding-top: 16px; font-size: 11px; color: var(--steel);
+}
+
+/* Payment Order Summary */
+.payment-order-summary {
+  background: rgba(0, 0, 0, 0.25); border-radius: 8px;
+  padding: 16px; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.04);
+}
+.order-item {
+  display: flex; justify-content: space-between; font-size: 13px; color: var(--steel-light);
+  margin-bottom: 10px;
+}
+.order-total {
+  display: flex; justify-content: space-between; font-size: 14px; font-weight: 700;
+  color: var(--cream); border-top: 1px dashed rgba(255, 255, 255, 0.12);
+  padding-top: 10px;
+}
+
+/* ══════════════ DASHBOARD & PROGRESS STYLES ══════════════ */
+.progress-container {
+  width: 100%; max-width: 900px; margin: 24px auto 0;
+  background: rgba(14, 25, 40, 0.6); border: 1px solid rgba(200, 150, 42, 0.15);
+  border-radius: 12px; padding: 20px 24px; text-align: left;
+}
+.progress-meta {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+}
+.progress-title {
+  font-family: 'Space Mono', monospace; font-size: 11px;
+  letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase;
+}
+.progress-percent {
+  font-family: 'Space Mono', monospace; font-size: 13px; font-weight: bold; color: var(--cream);
+}
+.overall-progress-bar {
+  width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px;
+  overflow: hidden;
+}
+.overall-progress-fill {
+  height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  width: 0%; border-radius: 4px; transition: width 0.6s ease;
+}
+
+/* Card Progress Badges */
+.card-badge {
+  position: absolute; top: 16px; right: 16px;
+  font-family: 'Space Mono', monospace; font-size: 9px;
+  padding: 4px 10px; border-radius: 20px; letter-spacing: 0.05em;
+  font-weight: 700; text-transform: uppercase;
+}
+.card-badge.not-started {
+  background: rgba(255, 255, 255, 0.06); color: var(--steel); border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.card-badge.in-progress {
+  background: rgba(200, 150, 42, 0.12); color: var(--gold-light); border: 1px solid rgba(200, 150, 42, 0.3);
+  box-shadow: 0 0 10px rgba(200, 150, 42, 0.1);
+}
+.card-badge.completed-basic {
+  background: rgba(58, 158, 110, 0.12); color: #78c48c; border: 1px solid rgba(58, 158, 110, 0.3);
+}
+.card-badge.completed-premium {
+  background: rgba(200, 150, 42, 0.18); color: var(--gold-pale); border: 1px solid var(--gold);
+  box-shadow: 0 0 15px rgba(200, 150, 42, 0.2);
+}
+
+/* ══════════════ PREMIUM PAYWALL SPLIT STYLES ══════════════ */
+.paywall-wrapper {
+  position: relative; margin-top: 1.5rem;
+}
+.paywall-locked-content {
+  filter: blur(7px); pointer-events: none; user-select: none;
+  opacity: 0.45; transition: filter 0.4s ease, opacity 0.4s ease;
+}
+.paywall-card {
+  position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
+  width: 95%; max-width: 620px; z-index: 100;
+  background: rgba(10, 18, 30, 0.95);
+  border: 1px solid var(--gold);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.8), 0 0 30px rgba(200, 150, 42, 0.15);
+  border-radius: 12px; padding: 40px 32px; text-align: center;
+  font-family: 'Jost', sans-serif;
+}
+.paywall-badge {
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  background: rgba(200, 150, 42, 0.15); color: var(--gold-light);
+  border: 1px solid var(--gold); border-radius: 20px;
+  padding: 4px 14px; display: inline-block; letter-spacing: 0.15em;
+  text-transform: uppercase; margin-bottom: 18px;
+}
+.paywall-card h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 32px;
+  font-weight: 300; color: var(--cream); margin-bottom: 12px;
+  line-height: 1.2;
+}
+.paywall-card p {
+  font-size: 14px; color: var(--steel-light); line-height: 1.6;
+  max-width: 500px; margin: 0 auto 24px;
+}
+.paywall-value-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  text-align: left; margin: 0 auto 28px; max-width: 520px;
+}
+.paywall-val-item {
+  display: flex; gap: 10px; font-size: 13px; color: var(--cream);
+  align-items: flex-start;
+}
+.paywall-val-icon {
+  color: var(--gold-light); font-size: 14px;
+}
+.paywall-pricing-trio {
+  display: flex; gap: 16px; margin: 2rem 0;
+  justify-content: center; flex-wrap: wrap;
+}
+.paywall-price-card {
+  background: linear-gradient(135deg, rgba(22, 34, 55, 0.8), rgba(14, 25, 40, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px; padding: 24px 20px; flex: 1 1 220px; max-width: 280px;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; position: relative;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.paywall-price-card:hover {
+  background: rgba(22, 34, 55, 0.95); border-color: rgba(200, 150, 42, 0.4);
+  transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+.paywall-price-card.popular {
+  border-color: var(--gold); background: linear-gradient(135deg, rgba(22, 34, 55, 0.9), rgba(30, 40, 20, 0.9));
+  box-shadow: 0 0 20px rgba(200, 150, 42, 0.15);
+}
+.paywall-price-card.enterprise {
+  border-color: rgba(120, 80, 200, 0.3);
+  background: linear-gradient(135deg, rgba(22, 34, 55, 0.9), rgba(20, 10, 40, 0.9));
+}
+.paywall-price-card.enterprise:hover {
+  border-color: rgba(120, 80, 200, 0.6);
+  box-shadow: 0 10px 25px rgba(120, 80, 200, 0.15);
+}
+.price-badge-popular {
+  position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+  font-family: 'Space Mono', monospace; font-size: 8px; font-weight: 700;
+  background: var(--gold); color: var(--navy); border-radius: 10px;
+  padding: 3px 12px; text-transform: uppercase; letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.price-title {
+  font-family: 'Space Mono', monospace; font-size: 11px; color: var(--steel-light); text-transform: uppercase;
+  letter-spacing: 0.15em; margin-bottom: 8px;
+}
+.price-val {
+  font-size: 32px; font-weight: 800; color: var(--cream);
+}
+.price-sub {
+  font-size: 10px; color: var(--steel); margin-top: 4px; margin-bottom: 12px;
+}
+.price-features-list {
+  list-style: none; padding: 0; margin: 1.2rem 0; width: 100%;
+  display: flex; flex-direction: column; gap: 0.6rem; text-align: left;
+  border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1rem;
+}
+.price-features-list li {
+  font-size: 0.76rem; color: var(--steel-light); line-height: 1.45;
+  display: flex; align-items: flex-start; gap: 6px;
+}
+.price-features-list li strong {
+  color: var(--cream);
+}
+.paywall-btn-unlock {
+  width: 100%; margin-top: auto; border: none; padding: 10px 16px; border-radius: 6px;
+  font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 700;
+  cursor: pointer; transition: all 0.25s; text-transform: uppercase;
+  letter-spacing: 0.05em; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+}
+.btn-trio-primary {
+  background: transparent; border: 1px solid var(--gold); color: var(--gold);
+}
+.btn-trio-primary:hover {
+  background: rgba(200, 150, 42, 0.1);
+}
+.btn-trio-popular {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy);
+}
+.btn-trio-popular:hover {
+  filter: brightness(1.1); box-shadow: 0 4px 15px rgba(200, 150, 42, 0.35);
+}
+.btn-trio-enterprise {
+  background: transparent; border: 1px solid #9d4edd; color: #c39aff;
+}
+.btn-trio-enterprise:hover {
+  background: rgba(120, 80, 200, 0.1);
+}
+
+/* Paywall lock overlay badge */
+.locked-badge-overlay {
+  position: absolute; top: 12px; right: 12px; display: flex; align-items: center; gap: 6px;
+  font-family: 'Space Mono', monospace; font-size: 8px;
+  background: rgba(201, 64, 64, 0.15); color: #f0a0a0; border: 1px solid rgba(201, 64, 64, 0.3);
+  border-radius: 4px; padding: 3px 8px; text-transform: uppercase; z-index: 10;
+}
+.locked-badge-overlay.unlocked {
+  background: rgba(58, 158, 110, 0.15); color: #a8e6c8; border: 1px solid rgba(58, 158, 110, 0.3);
+}
+
+/* B2B Teaser & Corporate Workspace Styling */
+.b2b-teaser-card {
+  background: linear-gradient(135deg, rgba(20, 10, 42, 0.85), rgba(10, 15, 30, 0.95));
+  border: 1px solid rgba(120, 80, 200, 0.35);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(120, 80, 200, 0.15);
+  border-radius: 8px;
+  padding: 2.5rem;
+  text-align: center;
+  margin-top: 2rem;
+  backdrop-filter: blur(10px);
+}
+.b2b-badge {
+  background: rgba(120, 80, 200, 0.1);
+  border: 1px solid rgba(120, 80, 200, 0.6);
+  color: #c39aff;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 1.2rem;
+}
+.b2b-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  color: var(--cream);
+  margin-bottom: 0.8rem;
+}
+.b2b-lead {
+  font-size: 0.9rem;
+  color: var(--steel-light);
+  max-width: 680px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+.b2b-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.2rem;
+  text-align: left;
+  margin-bottom: 2.2rem;
+}
+.b2b-feature {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 1.2rem;
+  border-radius: 8px;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.b2b-feature:hover {
+  border-color: rgba(120, 80, 200, 0.4);
+  background: rgba(120, 80, 200, 0.05);
+  transform: translateY(-2px);
+}
+.b2b-feature-icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.6rem;
+}
+.b2b-feature-title {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 0.4rem;
+}
+.b2b-feature-desc {
+  font-size: 0.78rem;
+  color: var(--steel);
+  line-height: 1.4;
+}
+.b2b-btn {
+  background: linear-gradient(135deg, #7b2cbf, #9d4edd);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 6px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.b2b-btn:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 5px 20px rgba(120, 80, 200, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Print Specific Overrides */
+@media print {
+  .paywall-wrapper { page-break-inside: avoid; }
+  .paywall-locked-content { filter: none !important; opacity: 1 !important; pointer-events: auto !important; }
+  .paywall-card { display: none !important; }
+  .locked-badge-overlay { display: none !important; }
+}
 </style>
 </head>
 <body>
@@ -1929,7 +2642,7 @@
       <div class="stat-item"><span class="stat-num">~60</span><span class="stat-label">Minutes Full Suite</span></div>
       <div class="stat-item"><span class="stat-num">Free</span><span class="stat-label">No Account Needed</span></div>
     </div>
-  </div>
+  </div></div>
 
   <!-- ── Assessment Grid ── -->
   <div id="assessments-section" style="padding:60px 24px 24px;display:flex;flex-direction:column;align-items:center;">
@@ -1952,6 +2665,13 @@
         <div class="card-title">Visual Matrix IQ</div>
         <div class="card-desc">Non-verbal reasoning — identify the rule governing each 3×3 pattern and select the missing piece.</div>
         <div class="card-meta"><span>⏱ 15 min</span><span>📋 15 questions</span></div>
+      </div>
+      <div class="test-card" onclick="startSingle('critical')" style="border-color:rgba(200,150,42,0.3);">
+        <span class="card-icon" style="color:var(--gold-light)">📜</span>
+        <div class="card-label" style="color:var(--gold-light)">Assessment 12</div>
+        <div class="card-title">Critical Thinking</div>
+        <div class="card-desc">Evaluate your logical rigor, reasoning structure, Socratic dialectics, and fallacy detection across progressive Academy tiers.</div>
+        <div class="card-meta"><span>⏱ 12 min</span><span>📋 3 Tiers (16 Qs)</span></div>
       </div>
     </div>
 
@@ -1989,7 +2709,7 @@
     </div>
     <div class="test-grid">
       <div class="test-card" onclick="startSingle('stress')">
-        <span class="card-icon">⚡</span>
+        <span class="card-icon">âš¡</span>
         <div class="card-label">Assessment 06</div>
         <div class="card-title">Stress Index</div>
         <div class="card-desc">Perceived stress scale measuring how often you feel overwhelmed, uncontrolled, and overloaded.</div>
@@ -2058,7 +2778,7 @@
       <div class="training-hub-card" onclick="startTraining('iq','hub')"><div class="thc-icon">🧩</div><div class="thc-name">IQ Training</div><div class="thc-count">15 exercises</div></div>
       <div class="training-hub-card" onclick="startTraining('eq','hub')"><div class="thc-icon">💡</div><div class="thc-name">EQ Training</div><div class="thc-count">15 exercises</div></div>
       <div class="training-hub-card" onclick="startTraining('adhd','hub')"><div class="thc-icon">🧠</div><div class="thc-name">ADHD Training</div><div class="thc-count">15 exercises</div></div>
-      <div class="training-hub-card" onclick="startTraining('stress','hub')"><div class="thc-icon">⚡</div><div class="thc-name">Stress Training</div><div class="thc-count">15 exercises</div></div>
+      <div class="training-hub-card" onclick="startTraining('stress','hub')"><div class="thc-icon">âš¡</div><div class="thc-name">Stress Training</div><div class="thc-count">15 exercises</div></div>
       <div class="training-hub-card" onclick="startTraining('anxiety','hub')"><div class="thc-icon">🌀</div><div class="thc-name">Anxiety Training</div><div class="thc-count">15 exercises</div></div>
       <div class="training-hub-card" onclick="startTraining('burnout','hub')"><div class="thc-icon">🔥</div><div class="thc-name">Burnout Training</div><div class="thc-count">15 exercises</div></div>
       <div class="training-hub-card" onclick="startTraining('entrepreneur','hub')"><div class="thc-icon">🚀</div><div class="thc-name">Entrepreneur Training</div><div class="thc-count">15 exercises</div></div>
@@ -2066,6 +2786,7 @@
       <div class="training-hub-card" onclick="startTraining('imposter','hub')"><div class="thc-icon">🎭</div><div class="thc-name">Imposter Syndrome</div><div class="thc-count">15 exercises</div></div>
       <div class="training-hub-card" onclick="startTraining('attachment','hub')"><div class="thc-icon">💞</div><div class="thc-name">Attachment Training</div><div class="thc-count">15 exercises</div></div>
       <div class="training-hub-card" onclick="startTraining('matrix','hub')"><div class="thc-icon">⬡</div><div class="thc-name">Matrix Reasoning</div><div class="thc-count">15 exercises</div></div>
+      <div class="training-hub-card" onclick="startTraining('critical','hub')"><div class="thc-icon">📜</div><div class="thc-name">Critical Thinking</div><div class="thc-count">3 Tiers (45 Ex)</div></div>
     </div>
   </div>
 
@@ -2178,8 +2899,7 @@
       <div class="share-row">
         <div class="share-url-box" id="share-url-box">Generating your profile link…</div>
         <div class="share-actions">
-          <button class="btn-share primary" onclick="copyShareUrl()">📋 Copy Link</button>
-          <button class="btn-share" onclick="toggleQR()">📱 Show QR Code</button>
+          <button class="btn-share primary" onclick="copyShareUrl(event)">Copy Link</button>
         </div>
       </div>
       <canvas id="qr-canvas" width="150" height="150" style="display:none"></canvas>
@@ -2187,6 +2907,7 @@
 
     <div class="retake-row">
       <button class="btn-retake" onclick="goHome()">← Take Another Test</button>
+      <button class="btn-retake" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--steel-light);" onclick="retakeCurrentTest()">🔄 Retake Assessment</button>
       <button class="btn-print" onclick="window.print()">🖨 Print / Save Results</button>
     </div>
   </div>
@@ -2200,7 +2921,122 @@
   <button class="transition-btn" id="tr-btn" onclick="continueNext()">Begin →</button>
 </div>
 
+<!-- ══════════════ MODALS & REGISTRATION ══════════════ -->
+
+<!-- Lead Capture Gate Modal -->
+<div id="lead-gate-modal" class="modal-overlay" style="display:none;">
+  <div class="lead-gate-card">
+    <div class="lead-gate-header">
+      <div class="lead-logo">MINDMETRICS</div>
+      <h3>Establish Your Profile</h3>
+      <p>Enter your details to register your secure assessment profile. We will cache your progress and email your certified results scoresheet upon completion.</p>
+    </div>
+    <form id="lead-gate-form" onsubmit="handleLeadGateSubmit(event)">
+      <div class="input-group">
+        <label for="lead-name">Full Name</label>
+        <input type="text" id="lead-name" placeholder="John Doe" required autocomplete="name">
+      </div>
+      <div class="input-group">
+        <label for="lead-email">Email Address</label>
+        <input type="email" id="lead-email" placeholder="john@example.com" required autocomplete="email">
+      </div>
+      <div class="consent-group">
+        <input type="checkbox" id="lead-consent" required>
+        <label for="lead-consent">I consent to receiving my digital credentials and evaluation reports via email.</label>
+      </div>
+      <button type="submit" class="lead-gate-submit">Register &amp; Begin Assessment →</button>
+      <button type="button" class="lead-gate-close" onclick="closeLeadGate()">Cancel</button>
+    </form>
+    <div class="lead-gate-trust">
+      <span>🔒 GDPR Secure</span>
+      <span>⏱ Auto-Save Active</span>
+      <span>🔬 Validated Psychometrics</span>
+    </div>
+  </div>
+</div>
+
+<!-- Premium Payment Checkout Simulator Modal -->
+<div id="payment-modal" class="modal-overlay" style="display:none;">
+  <div class="payment-card">
+    <div class="payment-header">
+      <div class="payment-logo">MINDMETRICS PREMIUM</div>
+      <h3>Complete Premium Unlock</h3>
+      <p>You are unlocking the <strong>Executive Psychometric Blueprint &amp; Verified Certificate</strong>. Please complete the secure sandbox payment process below.</p>
+    </div>
+    <div class="payment-order-summary">
+      <div class="order-item">
+        <span id="payment-item-name">All-Access Lifetime Suite Upgrade</span>
+        <span id="payment-item-price">$39.99</span>
+      </div>
+      <div class="order-total">
+        <span>Total Due</span>
+        <span id="payment-item-total">$39.99</span>
+      </div>
+    </div>
+    <form id="payment-form" onsubmit="handlePaymentSubmit(event)">
+      <div class="input-group">
+        <label for="pay-cardholder">Cardholder Name</label>
+        <input type="text" id="pay-cardholder" placeholder="John Doe" required autocomplete="cc-name">
+      </div>
+      <div class="input-group">
+        <label for="pay-cardnum">Credit Card Number</label>
+        <input type="text" id="pay-cardnum" placeholder="4242 4242 4242 4242" required autocomplete="cc-number" maxlength="19" oninput="formatCardNumber(this)">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="input-group">
+          <label for="pay-expiry">Expiry Date</label>
+          <input type="text" id="pay-expiry" placeholder="MM/YY" required autocomplete="cc-exp" maxlength="5" oninput="formatExpiry(this)">
+        </div>
+        <div class="input-group">
+          <label for="pay-cvv">CVV</label>
+          <input type="text" id="pay-cvv" placeholder="123" required autocomplete="cc-csc" maxlength="4">
+        </div>
+      </div>
+      <button type="submit" class="payment-submit" id="payment-submit-btn">🔐 Pay and Unlock Instantly</button>
+      <button type="button" class="payment-close" onclick="closePaymentModal()">Cancel &amp; Go Back</button>
+    </form>
+    <div class="payment-trust">
+      <span>🛡️ 256-Bit SSL Encryption</span>
+      <span>💳 Sandbox Test Environment</span>
+    </div>
+  </div>
+</div>
+
 <script>
+const CONFIG = {
+  // Use TEST_UNLOCK until real Stripe payment links are configured.
+  PAYMENT_MODE: 'TEST_UNLOCK',
+
+  // Configured Stripe Payment Links for Live Mode (business owners can paste their Stripe Links here)
+  STRIPE_LINKS: {
+    all: 'https://buy.stripe.com/test_all_access_suite_link', // Paywall link to unlock all tests
+    iq: 'https://buy.stripe.com/test_iq_link',
+    matrix: 'https://buy.stripe.com/test_matrix_link',
+    eq: 'https://buy.stripe.com/test_eq_link',
+    big5: 'https://buy.stripe.com/test_big5_link',
+    stress: 'https://buy.stripe.com/test_stress_link',
+    anxiety: 'https://buy.stripe.com/test_anxiety_link',
+    burnout: 'https://buy.stripe.com/test_burnout_link',
+    adhd: 'https://buy.stripe.com/test_adhd_link',
+    imposter: 'https://buy.stripe.com/test_imposter_link',
+    attachment: 'https://buy.stripe.com/test_attachment_link',
+    entrepreneur: 'https://buy.stripe.com/test_entrepreneur_link',
+    critical: 'https://buy.stripe.com/test_critical_link',
+  },
+
+  // Configured prices for each purchase card (in USD/GBP)
+  PRICES: {
+    all: '$39.99',
+    single: '$19.99'
+  },
+
+  // Webhook endpoint to sync captured leads and final scores (Zapier / CRM / Make / ActiveCampaign Webhook)
+  CRM_WEBHOOK_URL: 'https://webhook.finaccord.pro/mindmetrics/sync',
+
+  // Enable Developer Logs in Console
+  DEV_LOGS: false
+};
+
 // ══════════════════════════════════════════════════════════
 //  VISUAL MATRIX SVG ENGINE
 // ══════════════════════════════════════════════════════════
@@ -2652,6 +3488,69 @@ adhd: {
     { cat:'Emotional Regulation', text:'How often do you experience boredom as genuinely painful or physically uncomfortable — creating a powerful urge to escape the task or situation?', options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
     { cat:'Emotional Regulation', text:"How often does your emotional state hijack your ability to think clearly or function — making it nearly impossible to work until the feeling passes?", options:['Never','Rarely','Sometimes','Often','Very Often'], likert:true },
   ]
+},
+
+// ─── CRITICAL THINKING & PHILOSOPHICAL INQUIRY ─────────────
+// ─── CRITICAL THINKING & PHILOSOPHICAL INQUIRY ─────────────
+critical: {
+  name: 'Critical Thinking Test', label: 'Philosophical Reasoning & Logic', timed: false,
+  questions: [],
+  levels: {
+    tier1: [
+      { cat:'Aristotelian Logic', domain:'logic', text:'All virtues are habits. Courage is a virtue. Therefore, which of the following is logically sound according to Aristotle\'s deductive reasoning?', options:['Courage is a habit','All habits are courage','Some virtues are not habits','No habits are virtues'], answer:0, explain:'This is a classic categorical syllogism (Barbara). If all A are B, and C is A, then C must be B. Therefore, courage is a habit.' },
+      { cat:'Platonic Epistemology', domain:'dialectics', text:'In Plato\'s famous Allegory of the Cave, what do the shadows projected on the wall represent for the prisoners?', options:['Absolute, eternal truths of the universe','Sensory illusions and subjective perceptions of reality','Direct knowledge of the Forms','The scientific method'], answer:1, explain:'In Plato\'s allegory, the shadows represent sensory illusions and subjective appearances. Escaping the cave represents the journey of the mind into rational knowledge of true reality (the Forms).' },
+      { cat:'Logical Fallacies', domain:'fallacies', text:'A politician argues: "Crime rates fell 5% immediately after we introduced the new streetlight program. Therefore, streetlights are the direct cause of this drop." What fallacy is committed here?', options:['Straw Man (misrepresenting an opponent\'s argument)','Post Hoc Ergo Propter Hoc (assuming correlation implies causation)','Ad Hominem (attacking the character of a person)','False Equivalence'], answer:1, explain:'Post Hoc Ergo Propter Hoc ("after this, therefore because of this") is the fallacy of assuming that because one event followed another, the first event caused the second.' },
+      { cat:'Socratic Method', domain:'dialectics', text:'The primary goal of Socratic questioning (Elenchus) is to:', options:['Win a debate by overwhelming the opponent with rhetoric','Expose inconsistencies in beliefs to stimulate deeper self-inquiry','Establish absolute, unshakeable dogmatic rules','Teach passive students facts through lectures'], answer:1, explain:'Socratic Elenchus is a dialectical method of inquiry designed to challenge assumptions and expose logical contradictions, helping the interlocutor discover their own latent wisdom.' },
+      { cat:'Metaphysics & Identity', domain:'heuristics', text:'If every wooden plank of a ship is replaced one by one over time until no original wood remains, is it still the same ship? This classical paradox (Ship of Theseus) primarily explores:', options:['The thermodynamics of wood deterioration','The nature of personal and material identity over time','The fluid mechanics of sailing vessels','The economic cost of shipping repairs'], answer:1, explain:'The Ship of Theseus paradox explores metaphysics, specifically identity, continuity, and whether identity is defined by the material components or the formal structure.' },
+      { cat:'Formal Logic', domain:'logic', text:'An argument is logically "Valid" but "Unsound" when:', options:['The conclusion does not follow from the premises at all','The logical structure is correct, but at least one premise is factually false','All premises are true and the conclusion is true','The argument relies entirely on emotional appeals'], answer:1, explain:'Validity is purely structural: if the premises were true, the conclusion must follow. Soundness requires BOTH validity and that all premises are factually true.' },
+      { cat:'Reasoning Methods', domain:'logic', text:'"Every swan we have ever observed is white. Therefore, all swans are white." This is an example of what type of reasoning?', options:['Deductive Reasoning','Inductive Reasoning','Socratic Irony','Circular Reasoning'], answer:1, explain:'Inductive reasoning moves from specific observations (observing individual white swans) to broad generalizations (all swans are white). It is probabilistic, not logically absolute.' },
+      { cat:'Scientific Philosophy', domain:'heuristics', text:'Occam\'s Razor is an epistemological principle that states:', options:['The most complex theory is usually the most accurate','Among competing hypotheses, the one with the fewest assumptions should be preferred','Every effect must have an equal and opposite cause','Truth is entirely relative to individual cultural context'], answer:1, explain:'Occam\'s Razor suggests that when presented with competing explanations for a phenomenon, one should select the simplest explanation that makes the fewest assumptions.' },
+      { cat:'Ethical Reasoning', domain:'heuristics', text:'A runaway trolley is heading toward five tied-up people. You can pull a lever to redirect it to a track with one person. If you pull it to save the five at the expense of one, you are primarily acting under which ethical framework?', options:['Deontological Ethics (duty-based)','Utilitarian Ethics (consequence-based)','Virtue Ethics (character-based)','Nihilism'], answer:1, explain:'Utilitarianism (consequentialism) argues that the morally right action is the one that produces the greatest happiness/utility for the greatest number.' },
+      { cat:'Aristotelian Ethics', domain:'dialectics', text:'According to Aristotle\'s Nicomachean Ethics, moral virtue is defined as a "Golden Mean" between:', options:['Absolute truth and absolute falsehood','The extremes of excess and deficiency','Pleasure and pain','Intellect and emotion'], answer:1, explain:'Aristotle\'s Golden Mean states that virtue lies in the middle path between two vices: excess and deficiency. For example, courage lies between cowardice (deficiency) and rashness (excess).' },
+      { cat:'Logical Fallacies', domain:'fallacies', text:'Someone claims: "Either you support our geopolitical policy, or you hate our country." What fallacy is this?', options:['Ad Hominem','False Dichotomy (Either-Or Fallacy)','Slippery Slope','Circular Argument'], answer:1, explain:'A False Dichotomy limits options to only two extremes when, in reality, other intermediate or alternative viewpoints exist.' },
+      { cat:'Logical Fallacies', domain:'fallacies', text:'An opponent responds: "We cannot trust this scientist\'s climate model because she is funded by a corporate green initiative." What type of logical fallacy is this?', options:['Circumstantial Ad Hominem','Straw Man','Red Herring','Begging the Question'], answer:0, explain:'Ad Hominem attacks the person or their circumstances (funding, affiliations) rather than refuting the logical validity of their actual data or argument.' },
+      { cat:'Stoic Philosophy', domain:'dialectics', text:'Stoic philosophy, practiced by Epictetus and Marcus Aurelius, argues that human distress is caused by:', options:['External events that occur in our lives','Our judgements and opinions about external events','A lack of wealth and societal standing','Refusing to pursue hedonistic pleasures'], answer:1, explain:'Stoicism asserts that external events are indifferent; it is our cognitive judgements, interpretations, and desires regarding those events that cause distress.' },
+      { cat:'Cognitive Biases', domain:'heuristics', text:'A person only reads news outlets that agree with their political views and dismisses opposing viewpoints as fake. What cognitive bias is this?', options:['Anchor Bias','Confirmation Bias','Availability Heuristic','Dunning-Kruger Effect'], answer:1, explain:'Confirmation bias is the tendency to search for, interpret, favor, and recall information in a way that confirms one\'s preexisting beliefs.' },
+      { cat:'Formal Logic', domain:'logic', text:'"If it is raining, the grass is wet. The grass is wet, therefore it is raining." What logical error is committed here?', options:['Affirming the Consequent','Denying the Antecedent','Ad Hominem','Correlation implies Causation'], answer:0, explain:'Affirming the Consequent is a formal fallacy of the form: If P then Q. Q, therefore P. The grass could be wet for other reasons, such as a sprinkler.' },
+      { cat:'Logical Fallacies', domain:'fallacies', text:'An opponent claims: "Proponents of green energy want to destroy our entire industrial grid and send us back to the Stone Age." What fallacy is this?', options:['Ad Hominem','Straw Man Fallacy','Circular Reasoning','False Dilemma'], answer:1, explain:'A Straw Man fallacy involves misrepresenting or over-simplifying an opponent\'s argument to make it easier to attack.' }
+    ],
+    tier2: [
+      { cat:'Decision Theory', domain:'heuristics', text:'You are presented with two boxes: Box A (contains $1,000) and Box B (contains either $1,000,000 or nothing). A superintelligent Predictor has already predicted whether you will take only Box B, or both boxes. If she predicted you will take both, she left Box B empty. If she predicted you will take only Box B, she put $1,000,000 in it. The prediction is already fixed in the past. To maximize your expected utility, what does rational choice theory suggest?', options:['Take only Box B (Evidential Decision Theory)','Take both boxes (Causal Decision Theory)','The problem is logically impossible to solve','Flip a coin to decide'], answer:0, explain:'This is Newcomb\'s Paradox. Evidential decision theory argues you should take Box B only because the Predictor has a 99%+ accuracy rate, yielding a higher probability of getting $1,000,000. Causal decision theory argues you should take both because the prediction is already fixed in the past; taking both guarantees an extra $1,000 regardless of Box B\'s state.' },
+      { cat:'Game Theory', domain:'heuristics', text:'In a standard Prisoner\'s Dilemma, two partners in crime are interrogated separately. If both betray each other (Defect), they serve 2 years. If one betrays and the other stays silent (Cooperate), the betrayer goes free and the other serves 3 years. If both stay silent, they serve 1 year. From a strictly individual rational standpoint (Nash Equilibrium), what is the optimal strategy?', options:['Cooperate (stay silent) to minimize collective jail time','Defect (betray) because it yields the best individual outcome regardless of the other\'s choice','Flip a coin to introduce unpredictability','Refuse to participate in the choice'], answer:1, explain:'In game theory, defection is the dominant strategy for both players, leading to the Nash Equilibrium (both defecting, serving 2 years). Even though mutual cooperation yields a better collective outcome (1 year each), individual rational self-interest drives both to defect.' },
+      { cat:'Kantian Ethics', domain:'dialectics', text:'According to Immanuel Kant\'s deontological ethics, what makes an action morally permissible?', options:['It produces the greatest amount of happiness for the greatest number of people','It is motivated by self-interest and yields positive outcomes','The underlying rule/maxim of the action can be consistently willed as a universal law for everyone','It aligns with the laws and cultural standards of the state'], answer:2, explain:'Kant\'s Categorical Imperative states: "Act only according to that maxim whereby you can at the same time will that it should become a universal law." Morality is defined by duty and universalizability of rules, not by consequences.' },
+      { cat:'Philosophy of Science', domain:'heuristics', text:'Karl Popper argued that the defining characteristic of a genuinely scientific theory is that it must be:', options:['Proven 100% correct by empirical observations','Capable of being tested and potentially shown to be false (falsifiable)','Supported by consensus of the scientific community','Logically deductive and absolute'], answer:1, explain:'Popper\'s criterion of falsifiability asserts that for a theory to be scientific, there must be a logically possible observation that could prove it false. If a theory can explain every possible state of affairs, it is non-falsifiable (pseudoscience).' },
+      { cat:'Formal Logic', domain:'logic', text:'Kurt Gödel\'s First Incompleteness Theorem mathematically demonstrated that in any consistent, formal axiomatic system capable of basic arithmetic:', options:['All mathematical truths can eventually be proven within the system','There are true statements within the system that can never be proven using the system\'s own axioms','The system is guaranteed to contain a logical contradiction','Arithmetic is the only complete field of mathematics'], answer:1, explain:'Gödel\'s First Incompleteness Theorem proved that any consistent formal system containing basic arithmetic is incomplete: there will always be true mathematical statements that cannot be proven or disproven using the axioms of that system.' },
+      { cat:'Vagueness & Semantics', domain:'logic', text:'A single grain of sand is not a "heap." Adding one grain does not make it a heap. Yet, repeatedly adding grains eventually produces a heap. The difficulty in defining the exact threshold where a "heap" forms is known as the Sorites Paradox. What core logical problem does it highlight?', options:['The physical limits of granular materials','The problem of vagueness and the limits of binary bivalent logic','The mathematical infinity of set theory','The failure of inductive probability'], answer:1, explain:'The Sorites Paradox (paradox of the heap) exposes the logical problem of vagueness and shows how bivalent logic (true/false) struggles with continuous predicates that lack sharp boundaries.' },
+      { cat:'Rational Choice', domain:'heuristics', text:'A hypothetical donkey is placed exactly midway between two identical, equally appealing bales of hay. Lacking any logical reason to choose one over the other, the donkey starves to death. What philosophical problem does this illustrate?', options:['The limits of strictly deterministic rational choice without a randomizing trigger','The biological necessity of eating hay','The absolute superiority of deductive reasoning over induction','The fallacy of the excluded middle'], answer:0, explain:'Buridan\'s Ass is a philosophical illustration of the limits of purely deterministic, symmetric rational choice. If a rational agent only acts when there is a clear preference, it can become paralyzed in a state of perfect symmetry.' },
+      { cat:'Philosophy of Mind', domain:'dialectics', text:'John Searle\'s "Chinese Room" thought experiment places a non-Chinese speaker in a room with a rulebook (program) that allows them to process Chinese input symbols and output correct Chinese responses, convincing outsiders they understand Chinese. This experiment primarily argues that:', options:['Computers will never be fast enough to translate languages','Syntactic processing (running a program) does not produce semantic understanding (consciousness)','Human minds are exactly identical to digital computers','Socratic questioning is the only way to learn Chinese'], answer:1, explain:'Searle\'s Chinese Room argument challenges "Strong AI", asserting that digital computers merely manipulate symbols based on syntax (rules) without any genuine semantic understanding or conscious comprehension of what the symbols mean.' },
+      { cat:'Epistemology', domain:'logic', text:'David Hume argued that we cannot logically justify our belief in the uniformity of nature (the future will behave like the past) because any attempt to prove induction is reliable must rely on:', options:['Deductive syllogisms of the highest validity','Induction itself, creating circular reasoning','Direct sensory proof that is completely indubitable','Occam\'s Razor'], answer:1, explain:'Hume\'s Problem of Induction shows that we justify induction by saying "induction has worked in the past, so it will work in the future," which is itself an inductive argument—making the justification logically circular.' },
+      { cat:'Argumentation Theory', domain:'dialectics', text:'The philosophical practice of "Steel Manning" an opponent\'s argument is:', options:['Exposing their moral character flaws to discredit them','Constructing the strongest, most charitable possible version of their argument before refuting it','Interrupting them with rapid-fire logical questions','Revising your own argument to make it completely unshakeable'], answer:1, explain:'Steel manning is the opposite of straw manning. It involves building the strongest possible version of your opponent\'s argument. Refuting a "steel man" makes your counterargument far more robust and intellectually honest.' },
+      { cat:'Epistemology', domain:'logic', text:'Edmund Gettier famously challenged the classical definition of knowledge as "Justified True Belief" (JTB) by showing cases where a person has a belief that is both justified and true, but:', options:['It relies on absolute mathematical axioms','The truth of the belief is entirely a matter of luck or coincidence','The person does not actually believe it themselves','The justification is based on Socratic irony'], answer:1, explain:'Gettier cases show that a person can have a Justified True Belief that does not qualify as knowledge because the connection between the justification and the truth is coincidental (luck), exposing a fundamental flaw in classical epistemology.' },
+      { cat:'Epistemology', domain:'heuristics', text:'The Münchhausen Trilemma asserts that it is impossible to prove any absolute truth because all justifications must fall into one of three logical traps. What are these three traps?', options:['Observation, deduction, induction','Infinite regress, circularity, or dogmatic assumption','Validity, soundness, truth','Skepticism, dogmatism, pragmatism'], answer:1, explain:'The Münchhausen Trilemma demonstrates that any attempt to prove a claim must either: 1. lead to an infinite chain of proofs (infinite regress), 2. circle back on itself (circularity), or 3. stop at an unproven axiom (dogmatism).' },
+      { cat:'Political Philosophy', domain:'fallacies', text:'Karl Popper\'s Paradox of Tolerance states that if a society is tolerant without limits, its ability to remain tolerant will eventually be:', options:['Strengthened because everyone feels validated','Destroyed because the intolerant will seize power and eliminate tolerance','Unchanged because tolerance is a natural human state','Successfully integrated into a utilitarian framework'], answer:1, explain:'Popper\'s Paradox of Tolerance argues that unlimited tolerance must lead to the disappearance of tolerance. If a society tolerates the intolerant without self-preservation, the intolerant will eventually suppress and destroy the tolerant society.' },
+      { cat:'Decision Theory', domain:'heuristics', text:'Blaise Pascal argued that even if the existence of a deity is highly improbable, a rational person should live as if they exist because the decision matrix yields:', options:['Finite gain and finite loss','Infinite expected utility (eternal heaven) versus finite earthly loss','A perfectly balanced Nash Equilibrium','Occam\'s Razor approval'], answer:1, explain:'Pascal\'s Wager uses decision theory to argue that because the potential reward of belief is infinite (heaven) and the potential cost is finite, the mathematically rational choice is to act as if the deity exists.' },
+      { cat:'Cognitive Psychology', domain:'heuristics', text:'The Dunning-Kruger Effect is a cognitive bias in which people with low ability in a specific domain:', options:['Accurately assess their own limitations','Suffer from illusory superiority, severely overestimating their own competence','Have exceptionally high emotional intelligence','Refuse to make decisions due to task paralysis'], answer:1, explain:'The Dunning-Kruger effect shows that individuals lacking expertise in a field struggle with metacognition, leaving them unable to recognize their own incompetence, which leads to highly inflated self-assessments.' },
+      { cat:'Formal Logic', domain:'logic', text:'"If you are a philosopher, you can think critically. You are not a philosopher. Therefore, you cannot think critically." What formal fallacy is committed here?', options:['Affirming the Consequent','Denying the Antecedent','Ad Hominem','Equivocation'], answer:1, explain:'Denying the Antecedent is a formal fallacy of the form: If P then Q. Not P, therefore not Q. Being a philosopher is a sufficient condition for critical thinking, but not a necessary one; non-philosophers can think critically too.' }
+    ],
+    tier3: [
+      { cat:'Epistemology', domain:'logic', text:'The "Brain in a Vat" thought experiment asks you to consider the possibility that you are a disembodied brain kept alive in a vat, stimulated by an absolute supercomputer to experience a perfect virtual reality. Philosophically, what is the primary implication of this scenario?', options:['It proves that the physical world is definitely made of wood','It demonstrates that empirical sensory data alone cannot provide indubitable proof of the external world','It shows that computer simulations are mathematically impossible','It justifies utilitarian consequentialism'], answer:1, explain:'The Brain in a Vat is a modern version of Descartes\' Evil Demon, illustrating radical skepticism. It demonstrates that since all sensory inputs could be simulated perfectly, empirical observations alone cannot logically prove the existence of an external, material reality.' },
+      { cat:'Metaphysics & Infinity', domain:'logic', text:'Zeno\'s Dichotomy Paradox states that to travel a distance, an object must first travel half the distance, then half the remaining, and so on infinitely. Since this requires completing an infinite number of tasks in a finite time, Zeno concluded that motion is logically impossible. Mathematically and philosophically, how is this paradox primarily addressed today?', options:['By accepting that motion is indeed an illusion','Through calculus (convergent infinite series showing that an infinite sum can yield a finite value) and physical spacetime quantization','By proving that infinity does not exist in any form','By applying Socratic elenchus to Zeno\'s axioms'], answer:1, explain:'Zeno\'s Dichotomy Paradox is resolved mathematically by showing that the infinite series (1/2 + 1/4 + 1/8 + ...) converges to exactly 1. Spacetime theories also suggest that space may not be infinitely divisible (Planck length).' },
+      { cat:'Philosophy of Religion', domain:'dialectics', text:'In Plato\'s Euthyphro, Socrates asks: "Is the pious loved by the gods because it is pious, or is it pious because it is loved by the gods?" This dilemma primarily challenges what ethical framework?', options:['Utilitarianism','Divine Command Theory (morality is defined solely by divine decree)','Deontological ethics','Virtue Ethics'], answer:1, explain:'The Euthyphro Dilemma challenges Divine Command Theory: if things are moral only because a deity decrees them, morality is arbitrary. If the deity decrees them because they are inherently moral, then morality exists independently of the deity\'s decree.' },
+      { cat:'Philosophy of Mind', domain:'dialectics', text:'Mary is a brilliant scientist who has lived her entire life in a black-and-white room, learning every physical fact about the neurophysiology of color vision. When she is finally released and sees a red apple for the first time, does she learn something new? The "Knowledge Argument" asserts yes, which directly implies:', options:['Physicalism (everything is purely physical) is incomplete; there are subjective, non-physical properties (Qualia)','Mary was not actually a good scientist','Color is an objective, mathematical wavelength that cannot be experienced','Mary should have stayed in the room to study more'], answer:0, explain:'Mary\'s Room (Frank Jackson) argues that Mary learns what it *feels like* to see red (qualia). Since she knew all physical facts beforehand, this subjective experience represents new knowledge, implying physicalism cannot fully explain consciousness.' },
+      { cat:'Epistemology & Semantics', domain:'heuristics', text:'W.V.O. Quine challenged the "analytic-synthetic distinction"—the dogma that some truths are purely conceptual/linguistic (analytic: "all bachelors are unmarried") and others are factual/empirical (synthetic: "the cat is on the mat"). Quine argued instead for:', options:['Absolute rationalism where all truth is mathematical','A "Web of Belief" where our beliefs face the tribunal of experience as a whole, and no statement is immune to revision','Cultural relativism where truth is defined by language games','The absolute verificationism of logical positivism'], answer:1, explain:'Quine\'s holism suggests that our knowledge is a unified "Web of Belief." Experience can force us to modify any part of this web—even mathematical or logical laws at the center—meaning there is no absolute boundary between analytic and synthetic statements.' },
+      { cat:'Ethical Philosophy', domain:'heuristics', text:'Robert Nozick proposed a thought experiment: an "Experience Machine" that can simulate any pleasurable experience perfectly, making you believe you are writing a novel or making friends while you actually float in a tank. If given the choice to plug in for life, most people refuse. Nozick argues this shows:', options:['Hedonism (pleasure is the sole intrinsic good) is false; we value actual contact with real reality and active agency','Simulation technology is highly dangerous to mental health','Utilitarianism is the only valid ethical framework','Humans are inherently irrational decision-makers'], answer:0, explain:'Nozick\'s Experience Machine challenges psychological and ethical hedonism. The widespread refusal to plug in suggests that humans value *actually doing* things and *being* a certain kind of person in contact with real reality, rather than merely experiencing the feelings.' },
+      { cat:'Philosophy of Induction', domain:'logic', text:'Nelson Goodman defined a predicate "grue": an object is grue if it is observed to be green before a future date T, and blue if observed after T. Every emerald observed so far is green, which supports "all emeralds are green." However, it also perfectly supports "all emeralds are grue." This "New Riddle of Induction" exposes:', options:['A physical mutation in gemstone properties over time','The difficulty in defining which inductive generalizations are valid ("projectible") without relying on linguistic convention','The absolute validity of deductive categorical logic','A simple error in color measurement'], answer:1, explain:'Goodman\'s Grue Paradox shows that standard rules of induction cannot distinguish between reasonable hypotheses (emeralds are green) and absurd ones (emeralds are grue) since both are supported by identical observational evidence, exposing a deep puzzle in how we project language onto nature.' },
+      { cat:'Metaphysics & Identity', domain:'heuristics', text:'A teleporter scanned every atom of your body, destroyed it, and instantly reconstructed an exact replica of you at a destination. The replica has your exact memories, character, and cells. Philosophically, did "you" survive the teleportation?', options:['Yes, because psychological continuity and physical similarity are identical to personal identity','No, the scanning and destruction process killed you; the replica is merely a duplicate who believes they are you','Identity is mathematically impossible to define','The question is resolved by the Law of Non-Contradiction'], answer:1, explain:'This paradox (explored by Derek Parfit) challenges our concept of personal identity. If identity requires continuity of the same physical substance, the teleporter kills you and creates a copy. If identity is merely psychological continuity (memories, personality), then you survived.' },
+      { cat:'Metaphysics & Modal Logic', domain:'logic', text:'David Lewis proposed "Modal Realism," the highly radical metaphysical view that:', options:['Possible worlds are merely useful mathematical abstractions with no physical existence','All logically possible worlds physically exist as concrete, independent universes just as real as our own','Only the actual physical world exists; counterfactuals are logical illusions','Logical laws vary randomly across different countries'], answer:1, explain:'Lewis\' Modal Realism asserts that possible worlds are actual, concrete, physically existing entities. When we say "it could have rained," we are saying "there exists a possible world where it is raining," which Lewis treats as literally true.' },
+      { cat:'Ontology', domain:'dialectics', text:'Martin Heidegger formulated the "Ontological Difference," which is the crucial distinction between:', options:['Being itself (Sein) and individual entities/things that exist (Seiendes)','Physical matter and mental consciousness','Logical validity and empirical soundness','Stoicism and Epicureanism'], answer:0, explain:'The Ontological Difference is the difference between *Being* (the background horizon of intelligibility that allows things to show up as meaningful) and *entities* (the specific objects, tools, or concepts that exist within that horizon).' },
+      { cat:'Probability & Rationality', domain:'heuristics', text:'Sleeping Beauty is put to sleep on Sunday. A fair coin is tossed. If Heads, she is awakened on Monday and interviewed. If Tails, she is awakened on Monday, interviewed, has her memory erased, and awakened/interviewed again on Tuesday. When she is awakened and asked "What is your belief that the coin landed Heads?", what is the rational response?', options:['1/2 (Halfer position, based on prior probability)','1/3 (Thirder position, based on self-locating evidence)','1/4 (based on coin bias)','The coin must land Tails'], answer:1, explain:'This is the Sleeping Beauty Problem. "Thirders" argue that Beauty has three indistinguishable waking states: Mon-Heads, Mon-Tails, Tue-Tails. Each has equal probability, so the chance of Heads is 1/3. "Halfers" argue that no new objective information has been learned since Sunday, so the probability remains 1/2.' },
+      { cat:'Philosophy of Induction', domain:'logic', text:'Hempel\'s Paradox of the Ravens states that the hypothesis "All ravens are black" is logically equivalent to "All non-black things are non-ravens." Therefore, observing a green apple (which is a non-black non-raven) must logically:', options:['Have absolutely no relevance to the raven hypothesis','Provide inductive evidence that supports the hypothesis that all ravens are black','Disprove the hypothesis that all ravens are black','Prove that green apples are actually ravens'], answer:1, explain:'Hempel\'s Paradox shows that because "All ravens are black" is logically equivalent to "All non-black things are non-ravens," any observation that confirms the latter (e.g., a green apple or purple shoe) must also mathematically confirm the former—a highly counterintuitive result for induction.' },
+      { cat:'Utilitarian Ethics', domain:'heuristics', text:'Robert Nozick challenged utilitarianism with the hypothetical "Utility Monster"—a creature that converts resources into happiness far more efficiently than humans. Under pure utilitarianism (maximizing total happiness), what would be the morally required action?', options:['Distribute resources equally among all humans','Sacrifice all human resources, rights, and lives to feed the Utility Monster\'s infinite capacity for pleasure','Destroy the Utility Monster immediately','The Utility Monster should feed humans'], answer:1, explain:'The Utility Monster thought experiment shows a major vulnerability in utilitarianism: if one entity is vastly better at experiencing happiness than others, utilitarian logic requires sacrificing everyone else\'s wellbeing to maximize total cosmic utility.' },
+      { cat:'Determinism & Free Will', domain:'dialectics', text:'Galen Strawson\'s "Basic Argument" asserts that to be truly morally responsible for your actions, you must be the cause of your own mental character (causa sui). However, since you cannot choose your genetics, early childhood, or physical brain structure, Strawson concludes:', options:['True moral responsibility is logically impossible, regardless of whether determinism is true or false','Human free will is completely proven by quantum mechanics','Compatibilism has solved the problem of moral responsibility','You can retroactively change your childhood using mental willpower'], answer:0, explain:'Strawson\'s Basic Argument shows that since you cannot be the ultimate creator of yourself (your own mental constitution), you cannot be ultimately responsible for the actions that flow from that constitution, making absolute moral responsibility impossible.' },
+      { cat:'Non-Classical Logic', domain:'logic', text:'The law of non-contradiction states that a statement cannot be both true and false. However, the philosophical school of Dialetheism argues that:', options:['Contradictions are physically illegal','There exist actual, true contradictions (statements that are both true and false simultaneously)','Logic is entirely subjective to individual opinion','All mathematical statements are false'], answer:1, explain:'Dialetheism (championed by Graham Priest) is a non-classical logic system that permits true contradictions. It is famously applied to resolve semantic paradoxes like the Liar Paradox ("This statement is false") by accepting that the statement is indeed both true and false.' },
+      { cat:'Philosophy of Truth', domain:'logic', text:'Alfred Tarski\'s semantic theory of truth resolves semantic paradoxes (like the Liar Paradox) by establishing that truth can only be defined by separating:', options:['Subjective opinions from objective scientific data','An "object-language" (the language being studied) from a "meta-language" (the language used to talk about the object-language)','The logic of Aristotle from the logic of Gödel','Nouns from verbs'], answer:1, explain:'Tarski showed that a language cannot consistently contain its own truth predicate without generating contradictions (like the Liar Paradox). To resolve this, truth must be defined in a higher "meta-language" that talks about the "object-language" from the outside.' }
+    ]
+  }
 }
 
 };
@@ -2851,7 +3750,64 @@ const TRAINING = {
     {q:'Which group does NOT belong? A={2,4,6} B={3,6,9} C={4,8,12} D={5,10,16}',opts:['A','B','C','D'],correct:3,explanation:'A,B,C are arithmetic sequences with constant differences. D: 5,10,16 — differences are 5 and 6, not constant. D is the odd one out.'},
     {q:'Rotate the letter d 180 degrees. Which letter does it most resemble?',opts:['b','p','q','n'],correct:1,explanation:'Rotating d 180 degrees produces p — the same shape flipped both horizontally and vertically.'},
     {q:'Next in series: 2, 6, 18, 54, ?',opts:['108','162','180','216'],correct:1,explanation:'Each term is multiplied by 3. 54 x 3 = 162.'}
-  ]}
+  ]},
+  critical:{
+    name:'Critical Thinking Training',
+    exercises:[],
+    levels:{
+      tier1:[
+        {q:'All humans are mortal. Socrates is a human. Therefore, Socrates is mortal. This is a classic syllogism. Which term is the "middle term" that links the premises?',opts:['Socrates','Human','Mortal','None of the above'],correct:1,explanation:'In categorical logic, the middle term is the one that appears in both premises but not in the conclusion. Here, "human" (or "humans") is the middle term.'},
+        {q:'When Socrates engages in dialogue, he often begins by pretending to be ignorant and asking simple-looking questions. This philosophical stance is called:',opts:['Socratic Irony','Sophistic Cynicism','Dogmatic Paternalism','Aristotelian Deduction'],correct:0,explanation:'Socratic Irony is the feigned ignorance practiced by Socrates, which encourages the interlocutor to state their assumptions clearly, making it easier to expose their logical flaws.'},
+        {q:'According to Plato\'s Theory of Forms, which of the following possesses the highest level of reality and truth?',opts:['The physical, touchable objects in our daily life','The eternal, abstract ideas or "Forms" (e.g. perfect Beauty or Justice)','Our subjective feelings and emotions','Scientific measurements of physical matter'],correct:1,explanation:'For Plato, the physical world is merely a shadow or copy of the true reality, which consists of the eternal, unchanging Forms accessible only through philosophical reason.'},
+        {q:'According to Aristotle, the virtue of "Truthfulness" about oneself lies as a mean between which two vices?',opts:['Boastfulness (excess) and Self-depreciation/Mock-modesty (deficiency)','Arrogance and Politeness','Honesty and Deception','Intellect and Empathy'],correct:0,explanation:'Aristotle\'s Nicomachean Ethics defines truthfulness as the golden mean between boastful exaggeration and mock-modest understatement.'},
+        {q:'Which of the following is the best example of a Circumstantial Ad Hominem fallacy?',opts:['"You are too young to understand this complex economic model."','"Of course you advocate for the tax cut; you are a business owner and stand to profit from it!"','"Your argument is invalid because you made a spelling mistake."','"We should buy this car because a famous actor drives it."'],correct:1,explanation:'A Circumstantial Ad Hominem attacks an opponent\'s argument by citing their personal circumstances (e.g., self-interest or employment) as the reason their logic is invalid.'},
+        {q:'In Socratic questioning, which question is specifically designed to challenge an underlying "assumption"?',opts:['"What is the logical consequence of your theory?"','"What are you assuming to be true here, and is it always true?"','"Can you give me an example of what you mean?"','"How does this relate to our main discussion?"'],correct:1,explanation:'Asking "What are you assuming here?" directly targets the unspoken premises or foundations upon which the argument rests.'},
+        {q:'Epictetus famously wrote: "Some things are in our control and others not." According to Stoic thought, what is strictly under our control?',opts:['Our reputation and social standing','Our health and physical body','Our opinion, impulse, desire, and aversion','The behavior of our family and colleagues'],correct:2,explanation:'Stoics define what is in our control as our internal mental processes—our judgements, choices, opinions, and desires. External events, health, and reputations are "indifferents" not strictly in our control.'},
+        {q:'Plato\'s "dialectic" is best described as:',opts:['A long lecture delivered by a master philosopher to passive listeners','A cooperative dialogue of question and answer to strip away illusions and discover truth','A mathematical proof used to calculate physical distances','A rhetoric technique designed to win political arguments regardless of truth'],correct:1,explanation:'Platonic dialectic is a collaborative verbal exchange designed to systematically dismantle false beliefs, moving from opinion (doxa) to true knowledge (episteme).'},
+        {q:'Ice cream sales and drowning rates both increase in July. Concluding that ice cream causes drowning is an error of:',opts:['Affirming the Consequent','Confusing correlation with causation (cum hoc ergo propter hoc)','Ad Hominem','Appeal to Ignorance'],correct:1,explanation:'This is a classic correlation fallacy. Both ice cream sales and drowning are correlated with a third variable (hot summer weather), but they do not cause each other.'},
+        {q:'A crop circle appears in a wheat field. Occam\'s Razor suggests we should prefer which explanation?',opts:['An elaborate hoax created by pranksters using planks and ropes overnight','An extraterrestrial spacecraft landing to leave a message','A highly localized, magnetic whirlwind with geometric properties','A government conspiracy testing top-secret microwave weapons'],correct:0,explanation:'Hoaxing by pranksters requires the fewest new or unproven scientific assumptions (since human hoaxes are well-proven to occur), making it the preferred explanation under Occam\'s Razor.'},
+        {q:'Francis Bacon identified four "Idols" that distort human reasoning. The "Idols of the Tribe" refer to:',opts:['Biases arising from language and social intercourse','Biases inherent in human nature and our sensory/cognitive limitations','Biases stemming from philosophical dogmas and authority','Biases unique to an individual\'s background, education, and temperament'],correct:1,explanation:'Idols of the Tribe (Idola Tribus) are the cognitive errors inherent in human nature—such as our tendency to see order where there is none, or to trust our senses blindly.'},
+        {q:'When is an "Appeal to Authority" considered a logical fallacy?',opts:['When the cited authority is an expert in the exact field being debated','When the authority is cited outside their area of expertise, or their opinion is treated as absolute proof','When multiple independent peer-reviewed experts agree','When a scientist presents mathematical data'],correct:1,explanation:'Appealing to authority is a fallacy (argumentum ad verecundiam) when the person cited is not a relevant expert in that specific topic, or when their testimony is treated as absolute, infallible truth.'},
+        {q:'René Descartes\' famous statement "Cogito, ergo sum" (I think, therefore I am) was established by using what philosophical method?',opts:['Empirical observation of animal behavior','Radical, systematic doubt of all senses and assumptions','Deduction from historical scriptures','Statistical probability calculations'],correct:1,explanation:'Descartes used radical skepticism (Cartesian doubt) to strip away everything that could possibly be doubted, finding that the only indubitable truth was that he was doubting (thinking).'},
+        {q:'According to Aristotle\'s physics, a bronze statue\'s "Formal Cause" is:',opts:['The bronze metal of which it is made','The shape, design, or blueprint of the statue','The sculptor who carved it','The purpose of honoring a hero or beauty'],correct:1,explanation:'Aristotle\'s Four Causes: 1. Material (bronze), 2. Formal (the shape/design), 3. Efficient (the sculptor), 4. Final (the ultimate purpose/honor).'},
+        {q:'A person refuses to travel by plane after seeing a news report about a crash, despite driving being statistically far more dangerous. What bias is this?',opts:['Confirmation Bias','Availability Heuristic','Anchoring Bias','Dunning-Kruger Effect'],correct:1,explanation:'The Availability Heuristic is the mental shortcut of estimating the likelihood of an event based on how easily examples of it come to mind (e.g., highly publicized, dramatic crashes).'}
+      ],
+      tier2:[
+        {q:'Sleeping Beauty is put to sleep. If a coin lands Heads, she is awakened Mon. If Tails, she is awakened Mon & Tue (with memory erased in between). When awakened, what is Beauty\'s belief that the coin landed Heads?',opts:['1/2 (prior probability)','1/3 (Thirder position)','2/3 (coin bias)','The coin must land Tails'],correct:1,explanation:'The "Thirder" position (1/3 belief) argues Beauty has 3 indistinguishable awakenings: Mon-Heads, Mon-Tails, Tue-Tails. Each waking has equal subjective probability, so Heads is 1/3.'},
+        {q:'The Münchhausen Trilemma states that proving any absolute truth is impossible because all logical proofs fall into circularity, infinite regress, or:',opts:['Sensory doubt','Pragmatic utility','Dogmatic assumption (unproven starting axiom)','Socratic elenchus'],correct:2,explanation:'Any logical proof must either go on infinitely (regress), prove itself using itself (circularity), or stop at an unproven starting point (dogmatic assumption).'},
+        {q:'Under Karl Popper\'s falsifiability criterion, a theory is non-scientific if it:',opts:['Is mathematically highly complex','Is supported by the majority of peer-reviewed journals','Cannot be tested by any conceivable empirical observation that could disprove it','Relies on deductive logic instead of induction'],correct:2,explanation:'Falsifiability is the requirement that a scientific theory must make predictions that can be empirically disproven. If no conceivable test can disprove it, it is non-scientific (pseudoscience).'},
+        {q:'Pascal\'s Wager uses decision theory to argue that even if the existence of a deity is highly improbable, believing in it is mathematically rational because:',opts:['Earthly loss is infinite','Expected utility of belief is infinite (eternal reward) versus finite earthly loss','Ethics requires the belief','Socrates approved of the wager'],correct:1,explanation:'Pascal\'s Wager shows that multiplying a tiny probability by an infinite reward (heaven) yields infinite expected utility, making belief mathematically rational.'},
+        {q:'Buridan\'s Ass starves to death between two identical bales of hay because it cannot choose. This illustrates a failure of:',opts:['Deductive syllogisms','Deterministic rational choice lacking a randomizing trigger to break perfect symmetry','Inductive categorization','Bivalent logical truth'],correct:1,explanation:'If a rational agent only acts when there is a clear preference, it can become trapped in a state of perfect symmetry (indifference), showing the limits of deterministic rationality.'},
+        {q:'Immanuel Kant\'s deontological maxim, the "Categorical Imperative," states that you should act only according to rules that:',opts:['Provide maximum happiness to you individually','Can be consistently willed as a universal law for everyone to follow','Are legally approved by the state','Avoid any personal discomfort'],correct:1,explanation:'The Categorical Imperative asserts that morally sound rules must be universalizable—meaning they could be willed as a law for all humans without logical contradiction.'},
+        {q:'Occam\'s Razor is an epistemological tool of parsimony that suggests when evaluating competing hypotheses, we should prefer the one that:',opts:['Has the most variables and complexity','Makes the fewest new assumptions','Is the most popular in society','Is based entirely on emotional appeal'],correct:1,explanation:'Occam\'s Razor asserts that the explanation requiring the fewest unproven entities or assumptions is probabilistically the most likely to be correct.'},
+        {q:'John Searle\'s Chinese Room experiment argues that a computer executing a program cannot possess genuine consciousness because:',opts:['Computers are not made of organic cells','Syntax (manipulating symbols based on rules) is not identical to Semantics (understanding meaning)','Programming languages are mathematically incomplete','The computer cannot pass the Turing test'],correct:1,explanation:'The Chinese Room illustrates that running a symbolic program allows a computer to look like it understands, but it is merely executing rules (syntax) without any inner comprehension of meaning (semantics).'},
+        {q:'The cognitive bias known as the Dunning-Kruger Effect demonstrates that people with low ability in a domain:',opts:['Have a very accurate view of their limitations','Suffer from illusory superiority, severely overestimating their competence','Are highly skilled at Socratic inquiry','Avoid making any decisions'],correct:1,explanation:'Dunning-Kruger shows that domain incompetence prevents people from accurately evaluating their own limitations, leading to inflated self-assessments.'},
+        {q:'In dialogue, "Steel Manning" is the intellectual practice of:',opts:['Exposing the weakest points of your opponent\'s character','Rebuilding your opponent\'s argument into its strongest, most logical form before refuting it','Refusing to change your mind under any circumstances','Interrupting your opponent with rhetorical questions'],correct:1,explanation:'Steel manning is the opposite of straw manning. It involves addressing the strongest, most charitable version of an opponent\'s argument, which builds high intellectual rigor.'},
+        {q:'A Gettier case in epistemology presents a scenario where a person has a "Justified True Belief" (JTB), but it fails to be true knowledge because:',opts:['The person did not research enough','The truth of the belief is purely a matter of coincidence or luck','The belief is logically inconsistent','It lacks deductive validity'],correct:1,explanation:'Gettier proved that JTB is not sufficient for knowledge because a person\'s justification can be completely disconnected from the actual truth, which turns out to be correct purely by luck.'},
+        {q:'In Newcomb\'s Paradox, a Predictor has predicted your choice between Box A ($1k) and Box B ($1m or nothing). Evidential Decision Theory suggest you should:',opts:['Take only Box B (One-Boxing)','Take both boxes (Two-Boxing)','Walk away without choosing','Flip a coin'],correct:0,explanation:'Evidential Decision Theory suggests "one-boxing" (only Box B) because the predictor is highly accurate, so taking only Box B gives a highly favorable diagnostic evidence of receiving the $1,000,000.'},
+        {q:'In a Prisoner\'s Dilemma, if both betray (Defect), they get 2 years. If both cooperate, they get 1 year. If one defects and the other cooperates, the defector goes free while the cooperator gets 3 years. The dominant strategy is to:',opts:['Cooperate, because it is collectively best','Defect, because it yields the best individual outcome regardless of the partner\'s choice','Refuse to choose','Flip a coin'],correct:1,explanation:'Betrayal (Defect) is the dominant strategy because regardless of what the other prisoner does, defecting always yields a better individual outcome (0 years instead of 1, or 2 years instead of 3).'},
+        {q:'Karl Popper\'s "Paradox of Tolerance" warns that if a society tolerates intolerance without limit, tolerance will eventually be:',opts:['Strengthened by diversity','Destroyed as the intolerant suppress and eliminate the tolerant','Maintained through law','Converted into a utilitarian consensus'],correct:1,explanation:'Popper argued that unlimited tolerance must lead to the self-destruction of tolerance, as intolerant forces will inevitably seize power and eliminate all tolerant structures.'},
+        {q:'"If you study, you pass the test. You did not study. Therefore, you did not pass the test." What logical error is this?',opts:['Affirming the Consequent','Denying the Antecedent','Ad Hominem','Equivocation'],correct:1,explanation:'Denying the Antecedent is a formal logical fallacy (If P then Q. Not P, therefore not Q). Studying is a sufficient condition to pass, but not the only way; you could pass through luck or prior knowledge.'}
+      ],
+      tier3:[
+        {q:'The "Brain in a Vat" thought experiment demonstrates that:',opts:['Our brains need physical nourishment to survive','Empirical observations of our senses cannot provide indubitable proof of the external physical world','Computers will soon exceed human intelligence','Spacetime is infinitely divisible'],correct:1,explanation:'Since a brain in a vat could have all its sensory nerves stimulated by a computer to experience a perfect reality, empirical observation alone cannot prove the external world exists.'},
+        {q:'Zeno\'s Dichotomy Paradox argues that motion is impossible because moving any distance requires completing an infinite number of half-steps in finite time. Modern calculus resolves this by proving that:',opts:['Infinity is a physical illusion','Spacetime is entirely empty','An infinite series of fractional steps can mathematically converge to a finite sum','Deductive logic is superior to induction'],correct:2,explanation:'Calculus shows that the infinite geometric series (1/2 + 1/4 + 1/8 + ...) converges to exactly 1, proving that an infinite sum of decreasing steps can represent a finite distance.'},
+        {q:'The Euthyphro Dilemma challenges Divine Command Theory by asking: "Is something moral because the gods command it, or do they command it because it is moral?" If the gods command it because it is moral, then:',opts:['Morality is completely arbitrary','Morality exists independently of the gods decrees','The gods are not all-powerful','Deontological ethics is false'],correct:1,explanation:'If moral actions are commanded because they are *already* moral, then the standard of morality exists independently of divine commands, which challenges the view that moral truth is defined solely by divine decree.'},
+        {q:'The "Mary\'s Room" thought experiment in philosophy of mind challenges physicalism (materialism) by arguing that:',opts:['Scientists are prone to cognitive biases','Mary did not actually understand neuroscience','Subjective conscious experience (Qualia) represents real knowledge that physical facts alone cannot fully explain','Color does not physically exist'],correct:2,explanation:'Even if Mary knows all physical facts about color, seeing red for the first time gives her new subjective experience (Qualia), implying physical facts alone do not fully describe consciousness.'},
+        {q:'W.V.O. Quine\'s rejection of the analytic-synthetic distinction leads to the "Web of Belief," which implies that:',opts:['Logical laws are completely separate from empirical observations','No beliefs or logical laws are completely immune to revision when faced with new experience','Language is entirely subjective and meaningless','Truth is defined solely by cultural consensus'],correct:1,explanation:'Quine\'s holism suggests our knowledge is a single web. New experiences can force us to adjust any part of it, meaning even logical and mathematical laws are theoretically open to revision.'},
+        {q:'Robert Nozick\'s "Experience Machine" thought experiment challenges hedonism (the view that pleasure is the only good) because:',opts:['Most people refuse to plug in, proving we value actual contact with real reality and active agency over simulated pleasure','Pleasure is biologically harmful','Virtual reality is highly addictive','Computers cannot simulate human emotion'],correct:0,explanation:'If pleasure were the only good, everyone would plug into a machine that simulates perfect pleasure. The widespread refusal to plug in proves we value actual achievement and contact with reality.'},
+        {q:'Hempel\'s Paradox of the Ravens shows that "All ravens are black" is equivalent to "All non-black things are non-ravens." This logically implies that observing a purple shoe:',opts:['Has absolutely no logical connection to ravens','Provides inductive confirmation that all ravens are black','Disproves the raven hypothesis','Proves the shoe is actually a raven'],correct:1,explanation:'Because the two statements are logically equivalent, any evidence that confirms "All non-black things are non-ravens" (like a purple shoe) must mathematically confirm "All ravens are black" under standard inductive logic.'},
+        {q:'Derek Parfit\'s Teleportation Paradox (destroying your body and building an exact replica with identical memories elsewhere) challenges personal identity by showing:',opts:['Bodily survival is mathematically proven','Personal identity might be defined by psychological continuity rather than continuous material substance','Teleporters are physically impossible','Consciousness cannot be duplicated'],correct:1,explanation:'If identity is continuous material substance, teleportation kills you. If identity is merely psychological continuity (memories, personality), then you survived. It shows identity may not be a simple all-or-nothing substance.'},
+        {q:'David Lewis\' "Modal Realism" is the metaphysical view that:',opts:['Possible worlds are useful conceptual tools but do not exist','All logically possible worlds physically exist as concrete, independent universes just as real as our own','Only our actual universe is real','Logical laws are identical in all countries'],correct:1,explanation:'Lewis argued that counterfactual statements are made true by physically existing possible worlds. Therefore, every logically possible universe exists as a concrete physical reality.'},
+        {q:'Martin Heidegger\'s "Ontological Difference" is the crucial distinction between:',opts:['Physical matter and spiritual consciousness','Being itself (Sein) and individual entities/things that exist (Seiendes)','Formal validity and factual soundness','Empathy and intellect'],correct:1,explanation:'Heidegger distinguished between *entities* (specific existing objects or concepts) and *Being* itself (the background horizon of intelligibility that allows entities to show up as meaningful).'},
+        {q:'Robert Nozick\'s "Utility Monster" thought experiment challenges utilitarianism by showing that if a creature converts resources into pleasure far better than others, utilitarianism requires:',opts:['Distributing resources equally','Sacrificing all human rights, resources, and lives to feed the monster\'s pleasure','Destroying the monster immediately','Converting the monster into a human'],correct:1,explanation:'If a creature experiences exponentially more utility per unit of resource than humans, utilitarian logic (maximize total utility) requires feeding everything to this "monster," justifying human enslavement.'},
+        {q:'Galen Strawson\'s "Basic Argument" against moral responsibility concludes that because you cannot be the cause of your own mental character (causa sui):',opts:['We have absolute compatibilist free will','True moral responsibility is logically impossible, regardless of whether determinism is true or false','We should punish all crimes equally','Genetics is the only factor in choice'],correct:1,explanation:'Strawson argued that since you did not create your own genetics or early childhood, you cannot be ultimately responsible for the mental constitution that produces your choices, making moral responsibility impossible.'},
+        {q:'Dialetheism is the non-classical logic system that permits "true contradictions," which is famously applied to resolve:',opts:['The Paradox of the Heap','The Liar Paradox ("This statement is false")','Occam\'s Razor inconsistencies','Stoic ethical dilemmas'],correct:1,explanation:'By accepting that the Liar Paradox statement is *both* true and false, Dialetheism resolves the contradiction without needing complex metalanguages or dismissing the paradox as meaningless.'},
+        {q:'Alfred Tarski\'s semantic theory of truth resolves semantic paradoxes (like the Liar Paradox) by establishing that truth can only be defined by separating:',opts:['Empirical data from logical axioms','An "object-language" from a "meta-language" (a higher language used to describe the object-language)','The logic of Socrates from the logic of Aristotle','Nouns from verbs'],correct:1,explanation:'Tarski proved that a language cannot contain its own truth predicate without contradictions. Thus, truth must be defined in a higher "meta-language" that talks about the "object-language" from the outside.'},
+        {q:'Goodman\'s Grue Paradox (defining "grue" as green observed before T, and blue after T) exposes a fundamental puzzle in induction, which is:',opts:[' gemstone properties mutate over time','Inductive rules cannot distinguish between valid generalizations (green) and absurd ones (grue) since both are supported by identical observations','Spacetime is not continuous','Induction is superior to deduction'],correct:1,explanation:'Goodman showed that identical observational evidence supports both "all emeralds are green" and "all emeralds are grue," proving that the rules of induction alone cannot tell us which predicates are valid to project.'}
+      ]
+    }
+  }
 };
 
 
@@ -2883,15 +3839,330 @@ let state = {
 const TRAINING_NAMES = {
   iq:'IQ', eq:'EQ', adhd:'ADHD', stress:'Stress', anxiety:'Anxiety',
   burnout:'Burnout', entrepreneur:'Entrepreneur', bigfive:'Big Five',
-  imposter:'Imposter Syndrome', attachment:'Attachment', matrix:'Matrix Reasoning'
+  imposter:'Imposter Syndrome', attachment:'Attachment', matrix:'Matrix Reasoning',
+  critical:'Critical Thinking'
 };
 
+// ══════════════════════════════════════════════════════════
+//  DYNAMIC TRAINING EXERCISE VARIATION ENGINE
+// ══════════════════════════════════════════════════════════
+
+function randomizeIQExercise(ex, idx) {
+  const randomElement = arr => arr[Math.floor(Math.random() * arr.length)];
+  const randRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+  try {
+    if (idx === 0) { // Sequence multiplication: 2, 6, 18, 54
+      const S = randomElement([2, 3, 4, 5]);
+      const M = randomElement([2, 3, 4]);
+      const val1 = S;
+      const val2 = S * M;
+      const val3 = S * M * M;
+      const val4 = S * M * M * M;
+      const ans = S * M * M * M * M;
+      ex.q = `Which number comes next: ${val1}, ${val2}, ${val3}, ${val4}, ?`;
+      ex.opts = [String(ans - S), String(ans), String(ans + S), String(ans * 2)];
+      ex.correct = 1;
+      ex.explanation = `Each term is multiplied by ${M}. ${val4} x ${M} = ${ans}.`;
+    }
+    else if (idx === 1) { // Analogy
+      const analogies = [
+        { q: 'Book is to Library as Painting is to __', opts: ['Canvas', 'Museum', 'Artist', 'Colour'], correct: 1, explanation: 'A library stores books; a museum stores paintings.' },
+        { q: 'Star is to Galaxy as Island is to __', opts: ['Ocean', 'Archipelago', 'Map', 'Reef'], correct: 1, explanation: 'A galaxy is a group of stars; an archipelago is a group of islands.' },
+        { q: 'Petal is to Flower as Blade is to __', opts: ['Grass', 'Knife', 'Wind', 'Lawn'], correct: 0, explanation: 'A petal is a component of a flower; a blade is a component of grass.' },
+        { q: 'Water is to Pipe as Electricity is to __', opts: ['Switch', 'Wire', 'Generator', 'Spark'], correct: 1, explanation: 'Water flows through a pipe; electricity flows through a wire.' },
+        { q: 'Key is to Piano as String is to __', opts: ['Violin', 'Bow', 'Music', 'Case'], correct: 0, explanation: 'A key is played to make sound on a piano; a string is played on a violin.' },
+        { q: 'Chef is to Kitchen as Actor is to __', opts: ['Stage', 'Theatre', 'Script', 'Screen'], correct: 0, explanation: 'A chef works in a kitchen; an actor performs on a stage.' }
+      ];
+      const selected = randomElement(analogies);
+      ex.q = selected.q;
+      ex.opts = selected.opts;
+      ex.correct = selected.correct;
+      ex.explanation = selected.explanation;
+    }
+    else if (idx === 2) { // Syllogism
+      const sets = [
+        { a: 'Bloops', b: 'Razzles', c: 'Lazzles' },
+        { a: 'Torgs', b: 'Flims', c: 'Gribbles' },
+        { a: 'Zips', b: 'Zaps', c: 'Zops' },
+        { a: 'Kroms', b: 'Draxes', c: 'Vurns' }
+      ];
+      const s = randomElement(sets);
+      ex.q = `If all ${s.a} are ${s.b} and all ${s.b} are ${s.c}, are all ${s.a} ${s.c}?`;
+      ex.opts = ['Yes', 'No', 'Cannot tell', 'Only some'];
+      ex.correct = 0;
+      ex.explanation = `Transitive logic: Since all ${s.a} are ${s.b}, and all ${s.b} are ${s.c}, it follows that all ${s.a} must be ${s.c}.`;
+    }
+    else if (idx === 3) { // Odd one out multiples
+      const divisor = randomElement([3, 4, 5, 6, 7]);
+      const start = randRange(2, 6);
+      const mults = [];
+      for (let i = 0; i < 5; i++) {
+        mults.push((start + i) * divisor);
+      }
+      let odd = mults[2] + randRange(1, divisor - 1);
+      mults.push(odd);
+      const oddValue = odd;
+      mults.sort((a,b) => a-b);
+      ex.q = `Odd one out: ${mults.join(', ')}`;
+      ex.opts = mults.slice(0, 4).map(String);
+      if (!ex.opts.includes(String(oddValue))) {
+        ex.opts[randRange(0, 3)] = String(oddValue);
+      }
+      ex.correct = ex.opts.indexOf(String(oddValue));
+      ex.explanation = `All other numbers are divisible by ${divisor}. ${oddValue} is not divisible by ${divisor}.`;
+    }
+    else if (idx === 4) { // Fibonacci
+      const starts = [[1, 1], [1, 2], [2, 3], [1, 3]];
+      const pair = randomElement(starts);
+      const seq = [pair[0], pair[1]];
+      for (let i = 2; i < 8; i++) {
+        seq.push(seq[i-1] + seq[i-2]);
+      }
+      const ans = seq[6] + seq[7];
+      ex.q = `Next in Fibonacci-style sequence: ${seq.join(', ')}, ?`;
+      ex.opts = [String(ans - 2), String(ans - 1), String(ans), String(ans + 2)];
+      ex.correct = 2;
+      ex.explanation = `Each term is the sum of the two before it. ${seq[6]} + ${seq[7]} = ${ans}.`;
+    }
+    else if (idx === 5) { // Speed Distance Time
+      const speed = randomElement([60, 80, 90, 100, 120]);
+      const time = randomElement([15, 30, 45, 20]);
+      const dist = (speed * time) / 60;
+      ex.q = `A vehicle travels ${dist} km in ${time} minutes. Speed in km/h?`;
+      ex.opts = [String(speed - 10), String(speed - 5), String(speed), String(speed + 10)];
+      ex.correct = 2;
+      ex.explanation = `${dist} km in ${time} minutes is the same as ${dist} / (${time}/60) hours = ${speed} km/h.`;
+    }
+    else if (idx === 6) { // Shapes alternator
+      const shapes = [
+        ['Circle', 'Square', 'Triangle', 'Pentagon'],
+        ['Diamond', 'Star', 'Oval', 'Hexagon'],
+        ['Heart', 'Cross', 'Crescent', 'Arrow']
+      ];
+      const s = randomElement(shapes);
+      ex.q = `Which shape completes: ${s[0]}, ${s[1]}, ${s[0]}, ${s[2]}, ${s[0]}, ?`;
+      ex.opts = [s[0], s[1], s[2], s[3]];
+      ex.correct = 1;
+      ex.explanation = `The pattern alternates the first shape (${s[0]}) with the next shape in the sequence. Next is ${s[1]}.`;
+    }
+    else if (idx === 7) { // Letter gaps
+      const starts = [
+        { name: 'A', val: 0 },
+        { name: 'B', val: 1 },
+        { name: 'C', val: 2 }
+      ];
+      const start = randomElement(starts);
+      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const seq = [];
+      let cur = start.val;
+      seq.push(letters[cur]);
+      for (let i = 2; i <= 6; i++) {
+        cur += i;
+        if (cur < letters.length) {
+          seq.push(letters[cur]);
+        }
+      }
+      const ans = seq.pop();
+      ex.q = `What letter comes next: ${seq.join(', ')}, ?`;
+      ex.opts = [letters[letters.indexOf(ans) - 2] || 'A', letters[letters.indexOf(ans) - 1] || 'B', ans, letters[letters.indexOf(ans) + 1] || 'Z'];
+      ex.correct = 2;
+      ex.explanation = `The alphabetical gaps increase by 1 at each step (+2, +3, +4, +5...). Next is ${ans}.`;
+    }
+    else if (idx === 8) { // Divide by half
+      const base = randomElement([20, 30, 40, 50]);
+      const add = randomElement([5, 10, 15, 20]);
+      const ans = base * 2 + add;
+      ex.q = `Divide ${base} by half (0.5) and add ${add}. What is the answer?`;
+      ex.opts = [String(base / 2 + add), String(base + add), String(ans), String(ans + 10)];
+      ex.correct = 2;
+      ex.explanation = `Dividing by half (0.5) is equivalent to multiplying by 2: ${base} * 2 = ${base * 2}. Then add ${add} = ${ans}.`;
+    }
+    else if (idx === 9) { // Fraction largest
+      const sets = [
+        { opts: ['1/2', '1/3', '2/5', '3/8'], correct: 0, explanation: 'Decimals: 1/2 = 0.5, 1/3 = 0.33, 2/5 = 0.4, 3/8 = 0.375. 1/2 is the largest.' },
+        { opts: ['2/3', '3/5', '4/7', '5/9'], correct: 0, explanation: 'Decimals: 2/3 = 0.67, 3/5 = 0.60, 4/7 = 0.57, 5/9 = 0.55. 2/3 is the largest.' },
+        { opts: ['3/4', '5/8', '7/10', '11/16'], correct: 0, explanation: 'Decimals: 3/4 = 0.75, 5/8 = 0.625, 7/10 = 0.70, 11/16 = 0.6875. 3/4 is the largest.' }
+      ];
+      const selected = randomElement(sets);
+      ex.q = `Which is the largest fraction?`;
+      ex.opts = selected.opts;
+      ex.correct = selected.correct;
+      ex.explanation = selected.explanation;
+    }
+    else if (idx === 10) { // Clock Hand Angle
+      const sets = [
+        { time: '3:15', angle: '7.5', explanation: 'At 3:15, the minute hand is exactly on the 3. However, the hour hand has moved 15 minutes past the 3 (which is 15/60 = 1/4 of the way to 4). Since each hour represents 30 degrees, the hour hand has moved 30 * (1/4) = 7.5 degrees past the 3. The difference is 7.5 degrees.' },
+        { time: '4:20', angle: '10', explanation: 'At 4:20, the minute hand is on the 4. The hour hand has moved 20/60 = 1/3 of the way to 5. The hour hand has moved 30 * (1/3) = 10 degrees past the 4. The difference is 10 degrees.' },
+        { time: '2:10', angle: '5', explanation: 'At 2:10, the minute hand is on the 2. The hour hand has moved 10/60 = 1/6 of the way to 3. The hour hand has moved 30 * (1/6) = 5 degrees past the 2. The difference is 5 degrees.' }
+      ];
+      const selected = randomElement(sets);
+      ex.q = `A clock displays ${selected.time}. What is the exact angle in degrees between the hour and minute hands?`;
+      ex.opts = ['0', selected.angle, '15', '30'];
+      ex.correct = 1;
+      ex.explanation = selected.explanation;
+    }
+    else if (idx === 11) { // Pattern squaring
+      const num = randomElement([7, 8, 9]);
+      const prev1 = num - 2;
+      const prev2 = num - 1;
+      ex.q = `Pattern: ${prev1} gives ${prev1*prev1}, ${prev2} gives ${prev2*prev2}, ${num} gives ?`;
+      ex.opts = [String(num*2), String(num*num), String(num*num + 2), String(num*prev2)];
+      ex.correct = 1;
+      ex.explanation = `Each input number is squared. ${num} squared = ${num*num}.`;
+    }
+    else if (idx === 12) { // Price equations
+      const sets = [
+        { q: 'Three apples and two oranges cost £1.30. Two apples and three oranges cost £1.20. One apple costs?', opts: ['20p', '22p', '26p', '30p'], correct: 2, explanation: 'Simultaneous equations: 3A + 2O = 130 and 2A + 3O = 120. Solving gives A = 26p and O = 16p.' },
+        { q: 'Four apples and three oranges cost £1.90. Three apples and four oranges cost £1.60. One apple costs?', opts: ['30p', '35p', '40p', '45p'], correct: 2, explanation: 'Simultaneous equations: 4A + 3O = 190 and 3A + 4O = 160. Solving gives A = 40p and O = 10p.' }
+      ];
+      const selected = randomElement(sets);
+      ex.q = selected.q;
+      ex.opts = selected.opts;
+      ex.correct = selected.correct;
+      ex.explanation = selected.explanation;
+    }
+    else if (idx === 13) { // Synonyms odd one out
+      const sets = [
+        { q: 'Odd one out: Swift, Quick, Rapid, Sluggish, Fast', opts: ['Swift', 'Rapid', 'Sluggish', 'Fast'], correct: 2, explanation: 'Swift, Rapid, and Fast all mean high speed. Sluggish means slow.' },
+        { q: 'Odd one out: Wealthy, Affluent, Loaded, Destitute, Rich', opts: ['Wealthy', 'Affluent', 'Destitute', 'Rich'], correct: 2, explanation: 'Wealthy, Affluent, and Rich all mean having money. Destitute means poor.' },
+        { q: 'Odd one out: Brief, Transient, Fleeting, Permanent, Short', opts: ['Transient', 'Fleeting', 'Permanent', 'Short'], correct: 2, explanation: 'Transient, Fleeting, and Short all mean of brief duration. Permanent means lasting.' }
+      ];
+      const selected = randomElement(sets);
+      ex.q = selected.q;
+      ex.opts = selected.opts;
+      ex.correct = selected.correct;
+      ex.explanation = selected.explanation;
+    }
+    else if (idx === 14) { // Cube sequence
+      const num = randomElement([5, 6]);
+      const seq = [1, 8, 27, 64];
+      const ans = num * num * num;
+      if (num === 6) {
+        seq.push(125);
+      }
+      ex.q = `Complete the sequence: ${seq.join(', ')}, ?`;
+      ex.opts = [String(ans - 25), String(ans - 10), String(ans), String(ans + 25)];
+      ex.correct = 2;
+      ex.explanation = `The sequence consists of cubic numbers (1³, 2³, 3³, 4³...). Next is ${num}³ = ${ans}.`;
+    }
+  } catch (err) {
+    console.error('Error randomising IQ question:', err);
+  }
+
+  return ex;
+}
+
+function randomizeTextualExercise(ex) {
+  const names = ['Jordan', 'Alex', 'Taylor', 'Morgan', 'Casey', 'Robin', 'Skyler', 'Jamie', 'Sam', 'Drew', 'Avery', 'Riley', 'Peyton', 'Parker', 'Dakota', 'Hayden'];
+  const chosenName = names[Math.floor(Math.random() * names.length)];
+
+  const subs = {
+    'colleague': ['co-worker', 'teammate', 'peer', 'associate'],
+    'manager': ['supervisor', 'team leader', 'manager', 'director'],
+    'company': ['organisation', 'firm', 'business', 'enterprise'],
+    'client': ['customer', 'stakeholder', 'client partner', 'buyer'],
+    'furious': ['angry', 'upset', 'irritated', 'agitated'],
+    'anxious': ['stressed', 'nervous', 'anxious', 'apprehensive'],
+    'meeting': ['discussion', 'briefing', 'session', 'assembly'],
+    'project': ['initiative', 'assignment', 'task', 'engagement']
+  };
+
+  const applySubs = (text) => {
+    if (!text) return '';
+
+    // Replace names
+    text = text.replace(/\bAlex\b/g, chosenName);
+    text = text.replace(/\bSarah\b/g, chosenName);
+    text = text.replace(/\bJohn\b/g, chosenName);
+    text = text.replace(/\bDavid\b/g, chosenName);
+    text = text.replace(/\bEmily\b/g, chosenName);
+    text = text.replace(/\bChris\b/g, chosenName);
+    text = text.replace(/\bJane\b/g, chosenName);
+
+    // Replace keys with randomized synonyms
+    for (const key in subs) {
+      const reg = new RegExp('\\b' + key + '\\b', 'gi');
+      text = text.replace(reg, () => {
+        const pool = subs[key];
+        return pool[Math.floor(Math.random() * pool.length)];
+      });
+    }
+    return text;
+  };
+
+  ex.q = applySubs(ex.q);
+  if (ex.opts) {
+    ex.opts = ex.opts.map(opt => applySubs(opt));
+  }
+  if (ex.explanation) {
+    ex.explanation = applySubs(ex.explanation);
+  }
+
+  return ex;
+}
+
+function shuffleOptions(ex) {
+  if (!ex.opts || ex.opts.length === 0) return ex;
+  const opts = [...ex.opts];
+  const correctOptText = opts[ex.correct];
+
+  for (let i = opts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [opts[i], opts[j]] = [opts[j], opts[i]];
+  }
+
+  const newCorrect = opts.indexOf(correctOptText);
+
+  return {
+    q: ex.q,
+    opts: opts,
+    correct: newCorrect !== -1 ? newCorrect : ex.correct,
+    explanation: ex.explanation
+  };
+}
+
+function generateDynamicExercises(key) {
+  if (!TRAINING[key] || !TRAINING[key].exercises) return [];
+
+  const originalExercises = TRAINING[key].exercises;
+  const result = [];
+
+  originalExercises.forEach((ex, idx) => {
+    let cloned = JSON.parse(JSON.stringify(ex)); // Deep clone
+
+    if (key === 'iq') {
+      cloned = randomizeIQExercise(cloned, idx);
+    } else {
+      cloned = randomizeTextualExercise(cloned);
+    }
+
+    cloned = shuffleOptions(cloned);
+    result.push(cloned);
+  });
+
+  return result;
+}
+
 function startTraining(key, from) {
+  if (!isPremiumUnlocked(key)) {
+    startCheckout(key);
+    return;
+  }
+  state.trainingFrom = from || 'hub';
+  if (key === 'critical') {
+    openCriticalLevelsModal('training');
+    return;
+  }
   state.trainingTest = key;
   state.trainingQ = 0;
   state.trainingAnswers = [];
   state.trainingAnswered = false;
   state.trainingFrom = from || 'hub';
+
+  // Generate highly randomized varied exercises for this specific run
+  state.activeTrainingExercises = generateDynamicExercises(key);
+
   // Show question view, hide results view
   document.getElementById('training-q-view').style.display = '';
   document.getElementById('training-results-view').style.display = 'none';
@@ -2902,7 +4173,7 @@ function startTraining(key, from) {
 
 function renderTrainingQ() {
   const key = state.trainingTest;
-  const exercises = TRAINING[key] ? TRAINING[key].exercises : [];
+  const exercises = state.activeTrainingExercises || [];
   const q = state.trainingQ;
   const total = exercises.length;
   const ex = exercises[q];
@@ -2936,7 +4207,7 @@ function selectTrainingOpt(idx) {
   state.trainingAnswered = true;
 
   const key = state.trainingTest;
-  const ex = TRAINING[key].exercises[state.trainingQ];
+  const ex = state.activeTrainingExercises[state.trainingQ];
   const correct = ex.correct;
   state.trainingAnswers.push(idx === correct ? 1 : 0);
 
@@ -2954,8 +4225,7 @@ function selectTrainingOpt(idx) {
 }
 
 function nextTrainingQ() {
-  const key = state.trainingTest;
-  const total = TRAINING[key].exercises.length;
+  const total = state.activeTrainingExercises.length;
   if (state.trainingQ + 1 < total) {
     state.trainingQ++;
     renderTrainingQ();
@@ -2965,8 +4235,7 @@ function nextTrainingQ() {
 }
 
 function showTrainingResults() {
-  const key = state.trainingTest;
-  const total = TRAINING[key].exercises.length;
+  const total = state.activeTrainingExercises.length;
   const score = state.trainingAnswers.reduce(function(a,b){return a+b;},0);
   const pct = Math.round((score / total) * 100);
 
@@ -2996,8 +4265,7 @@ function showTrainingResults() {
 
 function retakeFromTraining() {
   const key = state.trainingTest;
-  showScreen('landing');
-  setTimeout(function() { startTest(key); }, 100);
+  startTraining(key, state.trainingFrom || 'hub');
 }
 
 function backToResults() {
@@ -3020,38 +4288,376 @@ function showScreen(id) {
 }
 
 // ══════════════════════════════════════════════════════════
+//  LEAD CAPTURE GATE & PAYMENT SIMULATOR ENGINE
+// ══════════════════════════════════════════════════════════
+
+let _pendingCallback = null;
+
+function updateLandingDashboard() {
+  const assessmentsSection = document.getElementById('assessments-section');
+  if (!assessmentsSection) return;
+
+  // 1. Create or update the overall progress bar
+  let progressContainer = document.getElementById('overall-progress-container');
+  if (!progressContainer) {
+    progressContainer = document.createElement('div');
+    progressContainer.id = 'overall-progress-container';
+    progressContainer.className = 'progress-container';
+    progressContainer.innerHTML = `
+      <div class="progress-meta">
+        <span class="progress-title">Your Profile Completion</span>
+        <span class="progress-percent" id="overall-progress-percent">0%</span>
+      </div>
+      <div class="overall-progress-bar">
+        <div class="overall-progress-fill" id="overall-progress-fill" style="width:0%"></div>
+      </div>
+    `;
+    // Insert progress bar at the very top of assessments section, right after section header
+    const header = assessmentsSection.querySelector('.section-header');
+    if (header) {
+      assessmentsSection.insertBefore(progressContainer, header);
+    } else {
+      assessmentsSection.prepend(progressContainer);
+    }
+  }
+
+  // 2. Count completed tests
+  const completedKeys = state.allAnswers ? Object.keys(state.allAnswers) : [];
+  const totalTests = Math.max(1, document.querySelectorAll('.test-card').length);
+  const completionPercentage = Math.round((completedKeys.length / totalTests) * 100);
+
+  document.getElementById('overall-progress-percent').textContent = `${completionPercentage}%`;
+  document.getElementById('overall-progress-fill').style.width = `${completionPercentage}%`;
+
+  // 3. Update each individual test card
+  const cards = document.querySelectorAll('.test-card');
+  cards.forEach(card => {
+    card.style.position = 'relative'; // Ensure relative positioning for absolute badge
+
+    // Extract key from onclick attribute
+    const onClickStr = card.getAttribute('onclick') || '';
+    const match = onClickStr.match(/startSingle\('([^']+)'\)/);
+    if (!match) return;
+    const key = match[1];
+
+    const isCompleted = state.allAnswers && !!state.allAnswers[key];
+    const isUnlocked = isPremiumUnlocked(key);
+
+    // Create or update card badge
+    let badge = card.querySelector('.card-badge');
+    if (!badge) {
+      badge = document.createElement('div');
+      badge.className = 'card-badge';
+      card.appendChild(badge);
+    }
+
+    if (isCompleted) {
+      if (isUnlocked) {
+        badge.className = 'card-badge completed-premium';
+        badge.innerHTML = '🏅 Premium';
+        card.style.borderColor = 'var(--gold)';
+      } else {
+        badge.className = 'card-badge completed-basic';
+        badge.innerHTML = '✅ Completed';
+        card.style.borderColor = 'rgba(58, 158, 110, 0.4)';
+      }
+
+      // Update meta text to indicate completed
+      const meta = card.querySelector('.card-meta');
+      if (meta) {
+        meta.innerHTML = `<span style="color:#78c48c">✓ Report compiled</span><span style="color:var(--gold-light)">View Results →</span>`;
+      }
+    } else {
+      badge.className = 'card-badge not-started';
+      badge.innerHTML = '● Locked';
+      card.style.borderColor = ''; // reset border
+
+      // Reset meta text if needed
+      const meta = card.querySelector('.card-meta');
+      if (meta) {
+        const times = {
+          iq:'21 min | 35 questions',
+          matrix:'15 min | 15 questions',
+          eq:'8 min | 20 questions',
+          big5:'13 min | 45 questions',
+          entrepreneur:'7 min | 20 questions',
+          stress:'3 min | 10 questions',
+          anxiety:'5 min | 14 questions',
+          burnout:'5 min | 15 questions',
+          adhd:'10 min | 40 questions',
+          imposter:'6 min | 20 questions',
+          attachment:'6 min | 15 questions',
+          critical:'10 min | 16 questions'
+        };
+        const parts = (times[key] || 'Ready | Start test').split(' | ');
+        meta.innerHTML = `<span>${parts[0]}</span><span>${parts[1]}</span>`;
+      }
+    }
+  });
+}
+
+function retakeCurrentTest() {
+  const key = state.currentTest;
+  if (!key) return;
+  if (confirm(`Are you sure you want to retake the ${TESTS[key].name}? This will clear your current score.`)) {
+    // Clear score in state
+    delete state.allAnswers[key];
+    delete state.allAnswerTimes[key];
+    localStorage.setItem('mm_all_answers', JSON.stringify(state.allAnswers));
+    localStorage.setItem('mm_all_times', JSON.stringify(state.allAnswerTimes));
+
+    // Refresh landing dashboard
+    updateLandingDashboard();
+
+    // Launch test
+    checkRegistrationAndRun(() => {
+      state.mode = 'single';
+      state.queue = [];
+      launchTest(key);
+    });
+  }
+}
+
+function checkRegistrationAndRun(callback) {
+  const email = localStorage.getItem('mm_user_email');
+  const name = localStorage.getItem('mm_user_name');
+  if (email && name) {
+    callback();
+  } else {
+    _pendingCallback = callback;
+    const modal = document.getElementById('lead-gate-modal');
+    modal.style.display = 'flex';
+    setTimeout(() => { modal.classList.add('show'); }, 10);
+  }
+}
+
+function closeLeadGate() {
+  const modal = document.getElementById('lead-gate-modal');
+  modal.classList.remove('show');
+  setTimeout(() => { modal.style.display = 'none'; }, 300);
+  _pendingCallback = null;
+}
+
+function handleLeadGateSubmit(event) {
+  event.preventDefault();
+  const name = document.getElementById('lead-name').value.trim();
+  const email = document.getElementById('lead-email').value.trim();
+
+  if (!name || !email) return;
+
+  localStorage.setItem('mm_user_name', name);
+  localStorage.setItem('mm_user_email', email);
+
+  // Send data to CRM Webhook
+  syncLeadWithCRM(email, name, 'register', { timestamp: new Date().toISOString() });
+
+  closeLeadGate();
+
+  if (_pendingCallback) {
+    const cb = _pendingCallback;
+    _pendingCallback = null;
+    cb();
+  }
+}
+
+// ══════════════ CRM WEBHOOK INTEGRATION ══════════════
+function syncLeadWithCRM(email, name, action, payload = {}) {
+  if (!CONFIG.CRM_WEBHOOK_URL) return;
+
+  const body = {
+    email: email,
+    name: name,
+    action: action, // 'register' | 'score' | 'purchase'
+    source: 'MindMetrics Web App',
+    ...payload
+  };
+
+  if (CONFIG.DEV_LOGS) {
+    console.log(`[CRM SYNC] Dispatching payload for action: ${action}`, body);
+  }
+
+  fetch(CONFIG.CRM_WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  }).then(response => {
+    if (CONFIG.DEV_LOGS) {
+      console.log(`[CRM SYNC] CRM response status: ${response.status}`);
+    }
+  }).catch(error => {
+    if (CONFIG.DEV_LOGS) {
+      console.warn('[CRM SYNC] CRM sync failed (graceful fallback active):', error);
+    }
+  });
+}
+
+// ══════════════ PREMIUM LOCKING UTILITIES ══════════════
+function isPremiumUnlocked(testKey) {
+  if (CONFIG.PAYMENT_MODE === 'TEST_UNLOCK' || state.simulatorUnlockedAll) return true;
+  const unlocks = JSON.parse(localStorage.getItem('mm_unlocked_tests') || '{}');
+  return !!(unlocks['all'] || (testKey && unlocks[testKey]));
+}
+
+function unlockPremium(testKey) {
+  const unlocks = JSON.parse(localStorage.getItem('mm_unlocked_tests') || '{}');
+  unlocks[testKey || 'all'] = true;
+  localStorage.setItem('mm_unlocked_tests', JSON.stringify(unlocks));
+
+  const email = localStorage.getItem('mm_user_email') || 'anonymous@example.com';
+  const name = localStorage.getItem('mm_user_name') || 'Anonymous User';
+
+  // Sync purchase with CRM
+  syncLeadWithCRM(email, name, 'purchase', { sku: testKey || 'all' });
+
+  if (CONFIG.DEV_LOGS) {
+    console.log(`[PAYMENT] Unlocked premium for key: ${testKey || 'all'}`);
+  }
+
+  // Re-render results to remove paywall instantly
+  if (state.currentTest || Object.keys(state.allAnswers).length > 0) {
+    showResults();
+  }
+
+  // Also refresh landing page test cards to reflect premium unlocked status
+  updateLandingDashboard();
+}
+
+// ══════════════ PAYMENT CHECKOUT MODAL ══════════════
+let _activeCheckoutKey = null;
+
+function startCheckout(testKey) {
+  if (CONFIG.PAYMENT_MODE === 'TEST_UNLOCK') {
+    unlockPremium(testKey || 'all');
+    return;
+  }
+  if (CONFIG.PAYMENT_MODE === 'LIVE') {
+    // Redirect directly to Stripe Payment Link
+    const url = CONFIG.STRIPE_LINKS[testKey] || CONFIG.STRIPE_LINKS['all'];
+    if (CONFIG.DEV_LOGS) {
+      console.log(`[PAYMENT] Redirecting client to Stripe Payment URL: ${url}`);
+    }
+    window.location.href = url;
+  } else {
+    // Open Sandbox Checkout Modal
+    _activeCheckoutKey = testKey;
+    const modal = document.getElementById('payment-modal');
+
+    // Set pricing copy
+    const isAll = testKey === 'all';
+    const priceText = isAll ? CONFIG.PRICES.all : CONFIG.PRICES.single;
+    const nameText = isAll ? 'All-Access Lifetime Suite Upgrade' : `Premium ${TESTS[testKey]?.name || 'Single Assessment'} Report`;
+
+    document.getElementById('payment-item-name').textContent = nameText;
+    document.getElementById('payment-item-price').textContent = priceText;
+    document.getElementById('payment-item-total').textContent = priceText;
+
+    modal.style.display = 'flex';
+    setTimeout(() => { modal.classList.add('show'); }, 10);
+  }
+}
+
+function closePaymentModal() {
+  const modal = document.getElementById('payment-modal');
+  modal.classList.remove('show');
+  setTimeout(() => { modal.style.display = 'none'; }, 300);
+  _activeCheckoutKey = null;
+}
+
+function formatCardNumber(input) {
+  let v = input.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+  let matches = v.match(/\d{4,16}/g);
+  let match = matches && matches[0] || '';
+  let parts = [];
+  for (let i=0, len=match.length; i<len; i+=4) {
+    parts.push(match.substring(i, i+4));
+  }
+  if (parts.length > 0) {
+    input.value = parts.join(' ');
+  } else {
+    input.value = v;
+  }
+}
+
+function formatExpiry(input) {
+  let v = input.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+  if (v.length >= 2) {
+    input.value = v.substring(0, 2) + '/' + v.substring(2, 4);
+  } else {
+    input.value = v;
+  }
+}
+
+function handlePaymentSubmit(event) {
+  event.preventDefault();
+  const btn = document.getElementById('payment-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'âš¡ Validating Sandbox Transaction...';
+
+  setTimeout(() => {
+    btn.textContent = '🔒 Unlocking Certified Blueprint...';
+    setTimeout(() => {
+      unlockPremium(_activeCheckoutKey);
+      closePaymentModal();
+      btn.disabled = false;
+      btn.textContent = '🔐 Pay and Unlock Instantly';
+
+      // Beautiful popup alert
+      alert(`Success! MindMetrics Premium Blueprint has been successfully unlocked. Custom narrative insights, training plans, and print layouts are now fully available.`);
+    }, 1000);
+  }, 1200);
+}
+
+// ══════════════════════════════════════════════════════════
 //  START
 // ══════════════════════════════════════════════════════════
 
 function startAll() {
-  state.mode = 'all';
-  state.queue = ['iq','eq','big5','stress','entrepreneur','matrix','anxiety','burnout','adhd','imposter','attachment'];
-  state.allAnswers = {};
-  launchTest(state.queue.shift());
+  checkRegistrationAndRun(() => {
+    state.mode = 'all';
+    state.queue = ['iq','eq','big5','stress','entrepreneur','matrix','anxiety','burnout','adhd','imposter','attachment','critical'];
+    state.allAnswers = {};
+    launchTest(state.queue.shift());
+  });
 }
 
 function startEntrepreneurSuite() {
-  state.mode = 'all';
-  state.queue = ['big5','eq','entrepreneur'];
-  state.allAnswers = {};
-  launchTest(state.queue.shift());
+  checkRegistrationAndRun(() => {
+    state.mode = 'all';
+    state.queue = ['big5','eq','entrepreneur'];
+    state.allAnswers = {};
+    launchTest(state.queue.shift());
+  });
 }
 
 function startWellnessSuite() {
-  state.mode = 'all';
-  state.queue = ['stress','anxiety','burnout','adhd','imposter'];
-  state.allAnswers = {};
-  launchTest(state.queue.shift());
+  checkRegistrationAndRun(() => {
+    state.mode = 'all';
+    state.queue = ['stress','anxiety','burnout','adhd','imposter'];
+    state.allAnswers = {};
+    launchTest(state.queue.shift());
+  });
 }
 
 function startSingle(key) {
-  state.mode = 'single';
-  state.queue = [];
-  state.allAnswers = {};
-  launchTest(key);
+  if (key === 'critical') {
+    openCriticalLevelsModal('quiz');
+    return;
+  }
+  checkRegistrationAndRun(() => {
+    state.mode = 'single';
+    state.queue = [];
+    state.allAnswers = {};
+    launchTest(key);
+  });
 }
 
+
 function launchTest(key) {
+  if (!TESTS[key] || !Array.isArray(TESTS[key].questions) || TESTS[key].questions.length === 0) {
+    alert('This assessment is not available yet. Please choose another test.');
+    showScreen('landing');
+    return;
+  }
   state.currentTest = key;
   state.currentQ = 0;
   state.answers = [];
@@ -3128,6 +4734,7 @@ function renderQuestion() {
 
   // Likert labels
   const ll = document.getElementById('likert-labels');
+  ll.innerHTML = '<span>Strongly Disagree</span><span>Disagree</span><span>Neutral</span><span>Agree</span><span>Strongly Agree</span>';
   if (q.likert && q.options[0] === '1') { ll.style.display = 'grid'; }
   else ll.style.display = 'none';
 
@@ -3186,7 +4793,12 @@ function selectOption(idx, btn) {
 // ══════════════════════════════════════════════════════════
 
 function nextQuestion() {
-  if (state.selectedOption === null) return;
+  if (state.selectedOption === null) {
+    const nb = document.getElementById('btn-next');
+    nb.classList.add('ready');
+    setTimeout(() => nb.classList.remove('ready'), 250);
+    return;
+  }
   const elapsed = Math.round((Date.now() - state.questionStartTime) / 1000);
   state.answerTimes.push(elapsed);
   state.answers.push(state.selectedOption);
@@ -3205,6 +4817,23 @@ function finishTest() {
   state.allAnswers[state.currentTest] = [...state.answers];
   state.allAnswerTimes[state.currentTest] = [...state.answerTimes];
 
+  // Save to local storage for persistence
+  localStorage.setItem('mm_all_answers', JSON.stringify(state.allAnswers));
+  localStorage.setItem('mm_all_times', JSON.stringify(state.allAnswerTimes));
+
+  // Send score to CRM webhook
+  const email = localStorage.getItem('mm_user_email');
+  const name = localStorage.getItem('mm_user_name');
+  if (email && name) {
+    syncLeadWithCRM(email, name, 'score', {
+      test: state.currentTest,
+      score: state.answers
+    });
+  }
+
+  // Update Progress dashboard on landing page
+  updateLandingDashboard();
+
   if (state.mode === 'all' && state.queue.length > 0) {
     showTransition(state.queue[0]);
   } else {
@@ -3212,10 +4841,24 @@ function finishTest() {
   }
 }
 
+
 // Transition screen
 function showTransition(nextKey) {
   const test = TESTS[nextKey];
-  const times = {iq:'21 min · 35 questions', eq:'8 min · 20 questions', big5:'13 min · 45 questions', stress:'3 min · 10 questions', entrepreneur:'7 min · 20 questions', matrix:'15 min · 15 questions'};
+  const times = {
+    iq:'21 min · 35 questions',
+    eq:'8 min · 20 questions',
+    big5:'13 min · 45 questions',
+    stress:'3 min · 10 questions',
+    entrepreneur:'7 min · 20 questions',
+    matrix:'15 min · 15 questions',
+    anxiety:'5 min · 14 questions',
+    burnout:'5 min · 15 questions',
+    adhd:'10 min · 40 questions',
+    imposter:'6 min · 20 questions',
+    attachment:'6 min · 15 questions',
+    critical:'10 min · 16 questions'
+  };
   document.getElementById('tr-title').textContent = `Next: ${test.name}`;
   document.getElementById('tr-desc').textContent = `${test.label} — ${times[nextKey]}`;
   document.getElementById('test-transition').classList.add('show');
@@ -3287,6 +4930,24 @@ function scoreStress(answers) {
     total += val;
   });
   return { raw: total, max: 40 };
+}
+
+function scoreCritical(answers) {
+  const qs = TESTS.critical.questions;
+  let correct = 0;
+  const domainScores = { logic:[], dialectics:[], fallacies:[], heuristics:[] };
+  answers.forEach((a, i) => {
+    if (i >= qs.length) return;
+    const q = qs[i];
+    const isCorrect = a === q.answer ? 1 : 0;
+    if (isCorrect) correct++;
+    if (q.domain && domainScores[q.domain] !== undefined) domainScores[q.domain].push(isCorrect);
+  });
+  const domPct = arr => arr.length ? Math.round((arr.reduce((a,b)=>a+b,0)/arr.length)*100) : 0;
+  const domains = {};
+  for (const k in domainScores) domains[k] = domPct(domainScores[k]);
+  const score = Math.round(60 + (correct / 16) * 90);
+  return { raw: correct, score, max: 16, domains };
 }
 
 // ══════════════════════════════════════════════════════════
@@ -3427,6 +5088,81 @@ function generateIQNarrative(r, band) {
     <p style="margin-top:1rem">${weaknessDetail[weakest[0]]}</p>`;
 }
 
+function generateRadarChartSVG(data, labels, maxVal = 100) {
+  const size = 300;
+  const center = size / 2;
+  const radius = size * 0.35;
+  const angleSlice = (Math.PI * 2) / data.length;
+
+  // Background concentric polygons (grid lines)
+  const levels = 4;
+  let gridLines = '';
+  for (let i = 1; i <= levels; i++) {
+    const r = (radius / levels) * i;
+    const points = [];
+    for (let j = 0; j < data.length; j++) {
+      const x = center + r * Math.cos(angleSlice * j - Math.PI / 2);
+      const y = center + r * Math.sin(angleSlice * j - Math.PI / 2);
+      points.push(`${x},${y}`);
+    }
+    gridLines += `<polygon points="${points.join(' ')}" fill="none" stroke="rgba(200, 150, 42, ${0.08 * i})" stroke-width="1" />`;
+  }
+
+  // Axis lines & labels
+  let axes = '';
+  for (let j = 0; j < data.length; j++) {
+    const angle = angleSlice * j - Math.PI / 2;
+    const xOuter = center + radius * Math.cos(angle);
+    const yOuter = center + radius * Math.sin(angle);
+    const xText = center + (radius + 24) * Math.cos(angle);
+    const yText = center + (radius + 24) * Math.sin(angle);
+
+    // Adjust text alignment based on position
+    let textAnchor = 'middle';
+    if (Math.cos(angle) > 0.1) textAnchor = 'start';
+    else if (Math.cos(angle) < -0.1) textAnchor = 'end';
+
+    axes += `
+      <line x1="${center}" y1="${center}" x2="${xOuter}" y2="${yOuter}" stroke="rgba(200, 150, 42, 0.15)" stroke-width="1" />
+      <text x="${xText}" y="${yText + 4}" fill="var(--steel-light)" font-size="9" font-family="'Space Mono', monospace" text-anchor="${textAnchor}">${labels[j]}</text>
+    `;
+  }
+
+  // Data points polygon
+  const dataPoints = [];
+  const vertexDots = [];
+  for (let j = 0; j < data.length; j++) {
+    const val = data[j];
+    const r = (radius * val) / maxVal;
+    const angle = angleSlice * j - Math.PI / 2;
+    const x = center + r * Math.cos(angle);
+    const y = center + r * Math.sin(angle);
+    dataPoints.push(`${x},${y}`);
+    vertexDots.push(`<circle cx="${x}" cy="${y}" r="3.5" fill="var(--gold-light)" stroke="var(--navy)" stroke-width="1" />`);
+  }
+
+  const polygonPoints = dataPoints.join(' ');
+
+  return `
+    <svg width="100%" height="100%" viewBox="0 0 ${size} ${size}" style="max-height: 250px; margin: 0 auto; display: block;">
+      <defs>
+        <radialGradient id="radarGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(200, 150, 42, 0.25)" />
+          <stop offset="100%" stop-color="rgba(200, 150, 42, 0.0)" />
+        </radialGradient>
+      </defs>
+      <!-- Concentric grid levels -->
+      ${gridLines}
+      <!-- Axis lines and labels -->
+      ${axes}
+      <!-- Filled Area -->
+      <polygon points="${polygonPoints}" fill="url(#radarGlow)" stroke="var(--gold)" stroke-width="2" style="stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawChart 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;" />
+      <!-- Vertex markers -->
+      ${vertexDots.join('')}
+    </svg>
+  `;
+}
+
 function generateEQNarrative(r, band) {
   const d = r.domains;
   const dLabels = { awareness:'Self-Awareness', regulation:'Self-Regulation', empathy:'Empathy', social:'Social Skills' };
@@ -3555,6 +5291,27 @@ function generateMatrixNarrative(r, band) {
 <p>Work through free Raven's Progressive Matrices practice sets, starting at easier levels and progressing gradually. Even two or three short sessions per week can produce meaningful improvement in four to six weeks. Return to this test after a period of practice to track your progress.</p>`;
 }
 
+function generateCriticalNarrative(r, band) {
+  const correct = r.raw;
+  if (correct >= 14) {
+    return `<p>Your performance on the Critical Thinking and Philosophical Inquiry test is exceptional. You demonstrated outstanding mastery of formal Aristotelian logic, Socratic dialectic questioning, identification of logical fallacies, and epistemological heuristics.</p>
+<p>An intellectual profile at this level is rare and indicates an highly analytical and self-reflective mind. You excel at isolating the formal validity of arguments from their subjective emotional appeal, detecting subtle fallacies, and exposing hidden assumptions in dialogue. This rigor makes you an extremely formidable strategic planner, philosopher, or legal analyst.</p>
+<p><strong>Leveraging this strength:</strong> To prevent intellectual isolation, pair this high analytical rigor with intellectual humility (Socratic irony). Cultivate patience when discussing ideas with others who may rely more on emotional heuristics (pathos) rather than structured logic (logos).</p>`;
+  } else if (correct >= 10) {
+    return `<p>Your performance on the Critical Thinking test is above average, demonstrating a solid grasp of rational inquiry and dialectic frameworks. You successfully identified most common fallacies (like Ad Hominem or False Dichotomy) and showed good logical reasoning capabilities.</p>
+<p>This profile indicates a strong capacity for critical self-reflection. You do not easily accept claims at face value and are capable of questioning both your own assumptions and those of others. Your reasoning is generally structured and evidence-based.</p>
+<p><strong>Areas for Growth:</strong> You can sharpen your logical acuity by studying formal deductive logic (categorical syllogisms) and learning to identify more subtle cognitive biases (such as the Availability Heuristic) in your daily decision-making.</p>`;
+  } else if (correct >= 6) {
+    return `<p>Your Critical Thinking score sits in the average range. You have a solid foundation in basic logical reasoning and recognize clear fallacies, but had some difficulty with the more rigorous formal logic, metaphysical identities (like the Ship of Theseus), or subtle cognitive biases.</p>
+<p>Average critical thinking skills are entirely adequate for general decision-making. However, in an era of intense media manipulation and polarization, sharpening these tools can significantly improve your career prospects and personal sovereignty.</p>
+<p><strong>Areas for Growth:</strong> Practice separating the "logos" (logic) of an argument from its "pathos" (emotional resonance). Familiarize yourself with the 12 most common logical fallacies and actively try to spot them in daily news reports and social media discussions.</p>`;
+  } else {
+    return `<p>Your Critical Thinking score suggests that structured philosophical reasoning and formal logic are currently relative challenge areas. First sittings of philosophical tests can be highly challenging due to unfamiliar academic terminology (e.g. Socratic Elenchus, Occam's Razor, or categorical syllogisms).</p>
+<p>Critical thinking is not a fixed trait; it is a highly trainable cognitive skill. Your score represents a baseline that can be rapidly improved with structured practice and exposure to philosophical frameworks.</p>
+<p><strong>Actionable Next Step:</strong> Begin by reading introductory texts on logic and philosophical method (like Socratic dialogues). Practice questioning everyday assumptions by asking: "What evidence supports this claim? Are there alternative explanations? Does the conclusion logically follow?"</p>`;
+  }
+}
+
 function eqPercentile(score) {
   if (score >= 90) return 97;
   if (score >= 85) return 92;
@@ -3617,7 +5374,7 @@ function big5Archetype(r) {
   if (high('E') && high('A'))  return { name:'The Natural Diplomat', icon:'🤝', desc:'Warm, charismatic, and empathetic — you make people feel at ease, build strong relationships naturally, and have a talent for bringing groups into alignment.' };
   if (high('O'))  return { name:'The Curious Explorer', icon:'🧭', desc:'Driven by ideas, novelty, and depth of understanding. You are most alive when learning something new or working on something that has never been done before.' };
   if (high('C'))  return { name:'The Systematic Achiever', icon:'📋', desc:'Goal-oriented, methodical, and reliable. You deliver what you promise, build trust through consistency, and thrive in environments that reward precision and follow-through.' };
-  if (high('E'))  return { name:'The Social Catalyst', icon:'⚡', desc:'Energetic, expressive, and network-driven. You perform at your best in collaborative, high-energy environments and naturally draw others toward shared goals.' };
+  if (high('E'))  return { name:'The Social Catalyst', icon:'âš¡', desc:'Energetic, expressive, and network-driven. You perform at your best in collaborative, high-energy environments and naturally draw others toward shared goals.' };
   if (high('A'))  return { name:'The Harmoniser', icon:'☯️', desc:'Cooperative, empathetic, and other-focused. You create psychological safety around you, making you invaluable in team environments and caregiving roles.' };
   if (low('N'))   return { name:'The Unshakeable', icon:'🪨', desc:'Emotionally stable and resilient — you remain calm when others panic, make decisions under pressure without being clouded by anxiety, and set a grounding tone for those around you.' };
   return { name:'The Balanced Individual', icon:'⚖️', desc:'Your personality profile is well-balanced across the five dimensions — a genuine strength. You adapt naturally to different contexts without being pulled to extremes by any single trait.' };
@@ -3819,7 +5576,7 @@ function generateADHDNarrative(r, band) {
 
   const domainNarratives = {
     inattention: {
-      high: `<strong>Inattention (${d.inattention}/100)</strong> is a prominent feature of your profile. You regularly find it difficult to sustain focus on tasks requiring mental effort, are easily derailed by stimuli, miss important details, and struggle to follow projects through to completion. This is not disinterest — your brain’s attention regulation system involuntarily shifts focus rather than making a deliberate choice. Inattentive ADHD often goes unrecognised for years because sufferers are intellectually capable and mask symptoms through compensatory effort. Key strategies: <em>time-blocking with a visible timer</em> (Pomodoro), <em>externalising all commitments</em> to written capture systems, working in low-stimulation environments, and noise-cancelling headphones to remove auditory distraction.`,
+      high: `<strong>Inattention (${d.inattention}/100)</strong> is a prominent feature of your profile. You regularly find it difficult to sustain focus on tasks requiring mental effort, are easily derailed by stimuli, miss important details, and struggle to follow projects through to completion. This is not disinterest — your brain's attention regulation system involuntarily shifts focus rather than making a deliberate choice. Inattentive ADHD often goes unrecognised for years because sufferers are intellectually capable and mask symptoms through compensatory effort. Key strategies: <em>time-blocking with a visible timer</em> (Pomodoro), <em>externalising all commitments</em> to written capture systems, working in low-stimulation environments, and noise-cancelling headphones to remove auditory distraction.`,
       low: `<strong>Inattention (${d.inattention}/100)</strong> is not a primary feature of your profile. While occasional focus difficulties are universal, your attention regulation appears broadly functional and is not a significant driver of daily impairment.`
     },
     hyperactivity: {
@@ -3827,7 +5584,7 @@ function generateADHDNarrative(r, band) {
       low: `<strong>Hyperactivity (${d.hyperactivity}/100)</strong> is not a primary concern in your profile. You do not appear to experience the persistent internal restlessness or compulsive activation that characterises the hyperactive-impulsive pattern.`
     },
     impulsivity: {
-      high: `<strong>Impulsivity (${d.impulsivity}/100)</strong> is a significant feature of your profile. You act on thoughts before fully processing them, speak before thinking, and make decisions in the moment that you later reassess. Impulsivity in ADHD reflects dysregulation of the brain’s inhibitory control system — the mechanism that ordinarily inserts a pause between stimulus and response. This affects social interactions, financial decisions, career choices, and relationship dynamics. Practical strategies: <em>deliberate pause protocols</em> before important decisions (a 24-hour rule before non-urgent commitments), <em>environmental design</em> that removes impulsive action opportunities, and using structured scripts for high-stakes conversations.`,
+      high: `<strong>Impulsivity (${d.impulsivity}/100)</strong> is a significant feature of your profile. You act on thoughts before fully processing them, speak before thinking, and make decisions in the moment that you later reassess. Impulsivity in ADHD reflects dysregulation of the brain's inhibitory control system — the mechanism that ordinarily inserts a pause between stimulus and response. This affects social interactions, financial decisions, career choices, and relationship dynamics. Practical strategies: <em>deliberate pause protocols</em> before important decisions (a 24-hour rule before non-urgent commitments), <em>environmental design</em> that removes impulsive action opportunities, and using structured scripts for high-stakes conversations.`,
       low: `<strong>Impulsivity (${d.impulsivity}/100)</strong> is a lower-scoring area in your profile. You generally maintain reasonable inhibitory control and are not significantly affected by the impulsivity challenges central to the hyperactive-impulsive pattern.`
     },
     executive: {
@@ -3835,7 +5592,7 @@ function generateADHDNarrative(r, band) {
       low: `<strong>Executive Function (${d.executive}/100)</strong> is relatively intact in your profile. Task initiation, planning, and time management are not primary challenge areas — your executive system appears broadly functional relative to the ADHD profile.`
     },
     emotional: {
-      high: `<strong>Emotional Dysregulation (${d.emotional}/100)</strong> is a significant and often underrecognised feature of ADHD. Research by Dr. Russell Barkley and others has established that emotional dysregulation is a core feature of ADHD — not merely a separate comorbidity. High scores reflect intense emotional reactions, sensitivity to criticism and rejection (sometimes described as Rejection Sensitive Dysphoria — RSD), rapid emotional cycling, and a low frustration threshold. These experiences are neurologically driven: ADHD impairs the prefrontal cortex’s ability to regulate emotional intensity in real time. Strategies: <em>naming the emotion explicitly</em> before responding (this activates frontal regulation circuitry), <em>building mandatory delays</em> before acting on strong emotions, regular exercise to stabilise baseline mood, and — in cases of severe RSD — discussing with a GP whether alpha-adrenergic medication (guanfacine, clonidine) may help.`,
+      high: `<strong>Emotional Dysregulation (${d.emotional}/100)</strong> is a significant and often underrecognised feature of ADHD. Research by Dr. Russell Barkley and others has established that emotional dysregulation is a core feature of ADHD — not merely a separate comorbidity. High scores reflect intense emotional reactions, sensitivity to criticism and rejection (sometimes described as Rejection Sensitive Dysphoria — RSD), rapid emotional cycling, and a low frustration threshold. These experiences are neurologically driven: ADHD impairs the prefrontal cortex's ability to regulate emotional intensity in real time. Strategies: <em>naming the emotion explicitly</em> before responding (this activates frontal regulation circuitry), <em>building mandatory delays</em> before acting on strong emotions, regular exercise to stabilise baseline mood, and — in cases of severe RSD — discussing with a GP whether alpha-adrenergic medication (guanfacine, clonidine) may help.`,
       low: `<strong>Emotional Regulation (${d.emotional}/100)</strong> appears relatively stable in your profile. You do not report significant patterns of emotional dysregulation, rejection sensitivity, or rapid emotional cycling — this dimension of ADHD is not a primary concern for you.`
     }
   };
@@ -4064,6 +5821,11 @@ function showResults() {
 
         <div style="margin-bottom:1.5rem">${generateEQNarrative(r, band)}</div>
 
+        <div class="radar-chart-container">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--gold-pale);text-align:center;margin-bottom:1rem">Interactive Emotional Profile Mapping</div>
+          ${generateRadarChartSVG(Object.values(r.domains), Object.keys(r.domains).map(k => dLabels[k]))}
+        </div>
+
         <div class="domain-blueprint">
           <div class="domain-blueprint-title">Your EQ Domain Blueprint</div>
           ${eqDomainDeep}
@@ -4134,6 +5896,11 @@ function showResults() {
           <div class="b5-archetype-type">Your Personality Archetype</div>
           <div class="b5-archetype-name">${archetype.icon} ${archetype.name}</div>
           <div class="b5-archetype-desc">${archetype.desc}</div>
+        </div>
+
+        <div class="radar-chart-container">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--gold-pale);text-align:center;margin-bottom:1rem">Interactive Big Five OCEAN Mapping</div>
+          ${generateRadarChartSVG([r.O, r.C, r.E, r.A, r.N], ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Neuroticism'])}
         </div>
 
         <div class="trait-bars" style="margin-bottom:1.5rem">${barsHTML}</div>
@@ -4214,7 +5981,7 @@ function showResults() {
     const archetype = getArchetype(r.dims);
     scoresRow.innerHTML += `
       <div class="score-card">
-        <div class="score-label">Entrepreneur DNA™</div>
+        <div class="score-label">Entrepreneur DNAâ"¢</div>
         <div class="score-number">${r.dnaScore}</div>
         <div class="score-max">out of 100</div>
         <div class="score-band" style="color:var(--gold-light)">${archetype.name}</div>
@@ -4259,6 +6026,76 @@ function showResults() {
             return `<div class="ar-item ${isRight?'ar-correct':'ar-wrong'}">
               <div class="ar-badge">${isRight?'✓':'✗'}</div>
               <div><div class="answer-q-text">Q${i+1}: ${q.cat}</div><div class="ar-explain">${q.explain}</div></div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+  }
+
+  // ── CRITICAL THINKING ──
+  if (aa.critical) {
+    const r = scoreCritical(aa.critical);
+    const band = iqBand(r.score);
+    scoresRow.innerHTML += `
+      <div class="score-card">
+        <div class="score-label">Critical Thinking</div>
+        <div class="score-number">${r.score}</div>
+        <div class="score-max">${r.raw}/${r.max} correct</div>
+        <div class="score-band" style="color:${band.color}">${band.label}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${Math.min(100,(r.score-60)/90*100)}%;background:${band.color}"></div></div>
+      </div>`;
+    const pct = iqPercentile(r.score);
+    const domMeta = {
+      logic:      { name:'Formal Logic',        color:'#c8962a', desc:'Deductive & inductive reasoning, syllogisms, and validity.' },
+      dialectics: { name:'Socratic Dialectic',  color:'#2a8fa0', desc:'Elenchus method, uncovering assumptions, and search for definitions.' },
+      fallacies:  { name:'Fallacy Detection',   color:'#9b59b6', desc:'Spotting Ad Hominem, Straw Man, and other rhetorical errors.' },
+      heuristics: { name:'Cognitive Heuristics',color:'#3a9e6e', desc:'Recognising mental shortcuts, cognitive biases, and intuitive errors.' },
+    };
+    const cogBars = Object.entries(r.domains).map(([k,v])=>{
+      const m = domMeta[k];
+      return `<div class="cog-item">
+        <div class="cog-item-header">
+          <span class="cog-item-name">${m.name}</span>
+          <span class="cog-item-score">${v}/100</span>
+        </div>
+        <div class="cog-bar"><div class="cog-bar-fill" style="width:${v}%;background:${m.color}"></div></div>
+        <div class="cog-item-desc">${m.desc}</div>
+      </div>`;
+    }).join('');
+
+    detailSections.innerHTML += `
+      <div class="detail-section">
+        <h2 class="section-title">Critical Thinking & Philosophical Inquiry</h2>
+        <div style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;margin-bottom:1.5rem">
+          ${drawBellCurve(r.score)}
+          <div style="flex:1;min-width:180px">
+            <div style="font-size:2.8rem;font-weight:300;color:${band.color};letter-spacing:-1px">${r.score}</div>
+            <div style="font-size:0.85rem;color:var(--steel-light);margin-bottom:0.3rem">${band.label} · Top ${100-pct}%</div>
+            <div style="font-size:0.78rem;color:var(--steel);line-height:1.5">${r.raw} of ${r.max} questions answered correctly</div>
+          </div>
+        </div>
+        <div class="insight-box" style="margin-bottom:1.5rem">
+          <div class="insight-title">What this measures</div>
+          <div class="insight-body">Critical Thinking measures your proficiency in formal logical structures, fallacy identification, Socratic dialectic questioning, and cognitive heuristics. High performance correlates with strong strategic foresight, objective analysis, and exceptional debate and reasoning capabilities.</div>
+        </div>
+
+        <div style="margin:1.5rem 0">
+          <div style="font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;opacity:0.9">Critical Thinking Domain Breakdown</div>
+          ${cogBars}
+        </div>
+
+        <div class="narrative-block" style="margin-top:1.5rem">${generateCriticalNarrative(r, band)}</div>
+        <div class="answer-review" style="margin-top:2rem">
+          <div class="ar-title">Question Review & Explanations</div>
+          ${TESTS.critical.questions.map((q,i)=>{
+            const given=aa.critical[i],correct=q.answer,isRight=given===correct;
+            return `<div class="ar-item ${isRight?'ar-correct':'ar-wrong'}">
+              <div class="ar-badge">${isRight?'✓':'✗'}</div>
+              <div>
+                <div class="answer-q-text">Q${i+1}: ${q.text}</div>
+                <div style="font-size:0.78rem;color:var(--steel-light);margin-bottom:0.3rem">Given: <span style="color:${isRight?'var(--mint)':'#c94040'}">${q.choices[given] !== undefined ? q.choices[given] : 'None'}</span> (Correct: <span>${q.choices[q.answer]}</span>)</div>
+                <div class="ar-explain">${q.explanation}</div>
+              </div>
             </div>`;
           }).join('')}
         </div>
@@ -4535,6 +6372,25 @@ function showResults() {
       tblock.querySelector('button').onclick = function(){startTraining(tkey,'results');};
     }
   })();
+
+  // ── PREMIUM LOCK CHECK & RENDERING ──
+  const isUnlocked = isPremiumUnlocked(state.currentTest);
+  if (!isUnlocked) {
+    detailSections.innerHTML = renderPaywall(state.currentTest);
+    document.getElementById('premium-actions').style.display = 'none';
+    document.getElementById('share-panel').style.display = 'none';
+    const tb = document.getElementById('results-training-block');
+    if (tb) tb.style.display = 'none';
+  } else {
+    // Append premium reports & calendar
+    injectPremiumResultsFeatures(state.currentTest);
+
+    document.getElementById('premium-actions').style.display = 'flex';
+    document.getElementById('share-panel').style.display = 'block';
+    const tb = document.getElementById('results-training-block');
+    if (tb) tb.style.display = 'block';
+  }
+
   document.getElementById('explore-more-tests').style.display = 'block';
   cacheAndActivatePremium();
 }
@@ -4839,7 +6695,7 @@ function buildEntrepreneurSection(r, archetype, aa) {
     </div>
 
     <div class="result-section">
-      <div class="result-section-title">Self-Employment Readiness <span class="badge">Entrepreneur DNA™</span></div>
+      <div class="result-section-title">Self-Employment Readiness <span class="badge">Entrepreneur DNAâ"¢</span></div>
       <p style="font-size:0.75rem;color:var(--steel);margin-bottom:1rem;padding:0.8rem;background:rgba(255,255,255,0.03);border-left:2px solid rgba(200,150,42,0.3);border-radius:0 3px 3px 0"><em><strong style="color:var(--steel-light)">Framework note:</strong> Entrepreneur DNA is a proprietary structured self-assessment framework, not a clinically validated psychometric instrument. There is no equivalent consumer benchmark to compare it against — no competitor offers a scored entrepreneur archetype profile at this level. Results reflect self-reported tendencies and are designed for guided reflection and action planning.</em></p>
 
       <div class="readiness-row">
@@ -4904,6 +6760,380 @@ function goHome() {
 // ══════════════════════════════════════════════════════════
 let _lastResults = null; // store scored results for use by all 3 features
 
+function renderPaywall(testKey) {
+  const singlePrice = CONFIG.PRICES.single;
+  const allPrice = CONFIG.PRICES.all;
+
+  return `
+    <div class="paywall-card">
+      <div class="paywall-badge">âš¡ PREMIUM BLUEPRINT LOCKED</div>
+      <h2 class="paywall-title">Unlock Your Certified Analytical Narrative & Training Blueprint</h2>
+      <p class="paywall-lead">You've successfully completed the assessment! Your core score is visible above. Unlock the certified MindMetrics premium suite to decode your psychological blueprint and maximize your cognitive & emotional potential.</p>
+
+      <div class="paywall-features">
+        <div class="paywall-feature-item">
+          <span class="paywall-feature-icon">🧠</span>
+          <div class="paywall-feature-text">
+            <strong>Deep Multi-Dimensional Narrative</strong>
+            <p>A comprehensive custom diagnostic narrative connecting your cognitive styles, personality drivers, and self-employment readiness traits.</p>
+          </div>
+        </div>
+        <div class="paywall-feature-item">
+          <span class="paywall-feature-icon">📈</span>
+          <div class="paywall-feature-text">
+            <strong>Personalized Cognitive & Resiliency Training Program</strong>
+            <p>4-week action-oriented daily training schedules designed by industrial psychologists to target your unique profile needs.</p>
+          </div>
+        </div>
+        <div class="paywall-feature-item">
+          <span class="paywall-feature-icon">🎓</span>
+          <div class="paywall-feature-text">
+            <strong>Print-Ready Verified Certificate</strong>
+            <p>An official PDF certificate of completion featuring a unique global validation ID, perfect for resumes and portfolios.</p>
+          </div>
+        </div>
+        <div class="paywall-feature-item">
+          <span class="paywall-feature-icon">🎯</span>
+          <div class="paywall-feature-text">
+            <strong>Interactive Career & Interview Match Engine</strong>
+            <p>Direct premium access to map your profile against 60+ global career tracks, plus tailored behavioral interview questions.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="paywall-pricing-trio">
+        <!-- Single Test Card -->
+        <div class="paywall-price-card" onclick="startCheckout('${testKey}')">
+          <div class="price-title">Single Unlock</div>
+          <div class="price-val">${singlePrice}</div>
+          <div class="price-sub">This Premium Report Only</div>
+          <ul class="price-features-list">
+            <li>✓ Custom 1-Test Diagnostic</li>
+            <li>✓ 4-Week Targeted Worksheets</li>
+            <li>✓ 1 Print-Ready Certificate</li>
+            <li>✓ 60+ Career Fit Mapping</li>
+          </ul>
+          <button class="paywall-btn-unlock btn-trio-primary">Unlock Single Report →</button>
+        </div>
+
+        <!-- All Access Card (Popular) -->
+        <div class="paywall-price-card popular" onclick="startCheckout('all')">
+          <div class="price-badge-popular">⚡ BEST VALUE · SAVE 80%</div>
+          <div class="price-title" style="color: var(--gold-light);">All-Access Suite</div>
+          <div class="price-val" style="color: var(--gold-light);">${allPrice}</div>
+          <div class="price-sub">Lifetime Unlimited Everything</div>
+          <ul class="price-features-list">
+            <li>✓ <strong>All 11 Diagnostic Profiles</strong></li>
+            <li>✓ <strong>All 165+ Training Exercises</strong></li>
+            <li>✓ Print Certificates for <strong>All Tests</strong></li>
+            <li>✓ Interview Prep Guide & Career Matching</li>
+            <li>✓ Free Lifetime Updates & New Tests</li>
+          </ul>
+          <button class="paywall-btn-unlock btn-trio-popular">Get All-Access Suite âš¡</button>
+        </div>
+
+        <!-- Corporate Workspace Teaser Card -->
+        <div class="paywall-price-card enterprise" onclick="document.querySelector('.b2b-teaser-card').scrollIntoView({behavior:'smooth'})">
+          <div class="price-title" style="color: #c39aff;">Corporate / B2B</div>
+          <div class="price-val" style="font-size: 1.25rem; margin: 0.5rem 0;">Custom Teams</div>
+          <div class="price-sub">Aggregated Team Metrics</div>
+          <ul class="price-features-list">
+            <li>✓ Team Analytics Dashboard</li>
+            <li>✓ Pre-Employment Screenings</li>
+            <li>✓ Dedicated Account Architect</li>
+            <li>✓ Fully Compliant GDPR & SSO</li>
+          </ul>
+          <button class="paywall-btn-unlock btn-trio-enterprise">Explore Team Suite ↓</button>
+        </div>
+      </div>
+
+      <!-- Trust Proof & Badges Row -->
+      <div class="paywall-trust-row" style="display:flex; justify-content:center; gap:20px; margin-top:1.5rem; margin-bottom:2rem; flex-wrap:wrap; border-top:1px solid rgba(255,255,255,0.06); padding-top:1.2rem;">
+        <span style="font-size:0.75rem; color:var(--steel-light); display:inline-flex; align-items:center; gap:6px;">
+          🔒 Secure Stripe Checkout
+        </span>
+        <span style="font-size:0.75rem; color:var(--steel-light); display:inline-flex; align-items:center; gap:6px;">
+          ✨ Instant Reports & Certificates
+        </span>
+        <span style="font-size:0.75rem; color:var(--steel-light); display:inline-flex; align-items:center; gap:6px;">
+          🛡️ 100% Risk-Free Guarantee
+        </span>
+      </div>
+
+      <div class="paywall-sandbox-toggle">
+        <span>🛠 Developer Sandbox:</span>
+        <button onclick="unlockPremium('${testKey}')" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:var(--gold-light);padding:0.4rem 1rem;font-size:0.75rem;cursor:pointer;border-radius:3px;">
+          âš¡ Fast-Track Sandbox Unlock
+        </button>
+      </div>
+    </div>
+
+    <!-- B2B & Corporate Team Teaser -->
+    <div class="b2b-teaser-card">
+      <div class="b2b-badge">âš¡ CORPORATE & B2B SUITE</div>
+      <h3 class="b2b-title">MindMetrics for Workplaces & Teams</h3>
+      <p class="b2b-lead">Deploy cognitive mapping, wellness analysis, and resilience training across your entire organization. Benchmark high-performers, align communication styles, and reduce burnout risk with team-wide dashboard analytics.</p>
+
+      <div class="b2b-features-grid">
+        <div class="b2b-feature">
+          <div class="b2b-feature-icon">📊</div>
+          <div class="b2b-feature-title">Team Analytics Dashboard</div>
+          <div class="b2b-feature-desc">Monitor aggregated wellness, burnout indices, and communication benchmarks in real time.</div>
+        </div>
+        <div class="b2b-feature">
+          <div class="b2b-feature-icon">👤</div>
+          <div class="b2b-feature-title">Tailored Candidate Screening</div>
+          <div class="b2b-feature-desc">Filter candidates by core cognitive readiness, self-motivation patterns, and emotional intelligence.</div>
+        </div>
+        <div class="b2b-feature">
+          <div class="b2b-feature-icon">🛡️</div>
+          <div class="b2b-feature-title">Enterprise Security & SSO</div>
+          <div class="b2b-feature-desc">GDPR compliant, encrypted data models, and simple single-sign-on integration for employee privacy.</div>
+        </div>
+      </div>
+
+      <div class="b2b-cta-row">
+        <button class="b2b-btn" onclick="alert('Thank you for your interest! A corporate suite sandbox configuration has been sent to your clipboard. Let\'s connect to set up your team.'); navigator.clipboard.writeText('MindMetrics B2B Workspace Trial Request Token: ' + Math.random().toString(36).substring(2,15).toUpperCase());">
+          Request Team Workspace Trial
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function injectPremiumResultsFeatures(key) {
+  const detailSections = document.getElementById('detail-sections');
+  if (!detailSections) return;
+
+  // Calculate specific metrics for narrative personalization
+  const answers = state.allAnswers;
+  const isIq = answers.iq ? scoreIQ(answers.iq).iq : 100;
+  const isEq = answers.eq ? scoreEQ(answers.eq).total : 75;
+  const isStress = answers.stress ? scoreStress(answers.stress).raw : 15;
+
+  // 1. Generate Custom Psychology Narrative (Freemium Paywall feature)
+  let profileTitle = "Balanced Practitioner";
+  let cognitiveType = "Analytical Thinker";
+  let narrativeBody = "";
+
+  if (isIq >= 120) {
+    if (isStress > 20) {
+      profileTitle = "High-Cognitive Overachiever (Burnout Risk)";
+      cognitiveType = "Hyper-Analytical Strategist";
+      narrativeBody = "Your cognitive profile ranks in the upper percentiles globally, characterized by exceptional spatial synthesis and verbal logical processing. However, your elevated stress index indicates that this high-octane cognitive processing is coupled with a tendency to over-analyze, causing cognitive fatigue. You possess a brilliant problem-solving apparatus, but it frequently runs hot, creating stress loops that can mimic anxiety. Managing cognitive bandwidth is your primary lever for sustained high performance.";
+    } else {
+      profileTitle = "High-Capacity Strategic Thinker";
+      cognitiveType = "Efficient Synthesizer";
+      narrativeBody = "You pair an elite level of reasoning capability with a highly stable emotional baseline. This rare combination allows you to process complex datasets, abstract relationships, and high-pressure scenarios without triggering executive distress. You excel at structural pattern matching and systemic design. Your chief opportunity is leveraging this cognitive excess into collaborative leadership, ensuring your high-speed mental models are effectively communicated to stakeholders.";
+    }
+  } else {
+    if (isEq >= 80) {
+      profileTitle = "Empathic & Emotionally Grounded Catalyst";
+      cognitiveType = "Intuitive Systems Thinker";
+      narrativeBody = "Your emotional quotient represents a powerful operational superpower. While your cognitive reasoning is robust, your true distinction lies in your interpersonal intelligence—decoding subtle human dynamics, managing social distress, and calibrating your emotional reactions to volatile contexts. You are highly resilient and act as a stabilizing presence in high-pressure organizational environments. Your ideal career alignment capitalizes heavily on collaboration and leadership.";
+    } else {
+      profileTitle = "Methodical Executor";
+      cognitiveType = "Practical Specialist";
+      narrativeBody = "Your profile highlights a preference for structured, practical execution over high-risk abstractions. You operate with steady cognitive focus and appreciate predictable operational patterns. Your stress management is balanced, meaning you thrive when clear frameworks are present. Focus on building emotional agility to navigate ambiguous situations where rules are undefined.";
+    }
+  }
+
+  const narrativeHtml = `
+    <div class="result-section premium-feature-block" style="margin-top:2.5rem;border:1px solid rgba(200,150,42,0.3);background:linear-gradient(135deg, rgba(8,16,30,0.8), rgba(200,150,42,0.03));">
+      <div class="premium-feature-badge">âš¡ PREMIUM REPORT EXCLUSIVE</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold-light);margin-bottom:1rem;">
+        Multi-Dimensional Psychological Analysis
+      </h2>
+      <div style="font-family:'Space Mono',monospace;color:var(--steel-light);font-size:0.8rem;margin-bottom:1.5rem;text-transform:uppercase;letter-spacing:1px;">
+        Profile Archetype: <span style="color:var(--gold);font-weight:600;">${profileTitle}</span> | Style: ${cognitiveType}
+      </div>
+      <div style="font-size:0.95rem;line-height:1.75;color:var(--cream);opacity:0.9;margin-bottom:1.5rem;">
+        ${narrativeBody}
+      </div>
+      <p style="font-size:0.88rem;line-height:1.7;color:var(--steel-light);">
+        <strong>Strategic Advisory:</strong> Based on the cross-correlation of your scores across all taken modules, we advise a high-autonomy career track where analytical precision is valued but bounded by structured operational hours. To strengthen your minor cognitive dimensions, engage in regular non-verbal, non-numerical visual puzzles to boost fluid reasoning without triggering analytical stress.
+      </p>
+    </div>
+  `;
+
+  // 2. Generate Interactive 4-Week Training Calendar (Gated premium feature)
+  const calendarDays = [
+    { week: 1, day: 1, title: "Executive Refocus", task: "Perform a 5-minute mindfulness breathing exercise before starting your highest cognitive task today.", done: false },
+    { week: 1, day: 2, title: "Logical Patterning", task: "Solve three non-verbal pattern matrix problems without time pressure to build fluid capacity.", done: false },
+    { week: 1, day: 3, title: "Emotional Labeling", task: "Whenever you feel a micro-frustration today, write down the exact sensory emotion on a notepad.", done: false },
+    { week: 1, day: 4, title: "Anxiety Demolition", task: "Spend 3 minutes scripting the absolute 'worst-case outcome' of an active worry. Realize its low probability.", done: false },
+    { week: 1, day: 5, title: "Stress De-escalation", task: "Step away from all screens for exactly 15 minutes in the middle of the afternoon. Walk without sound.", done: false },
+    { week: 1, day: 6, title: "Social Calibrator", task: "In a conversation today, count to 2 after the other person finishes speaking before you respond.", done: false },
+    { week: 1, day: 7, title: "Weekly Integration", task: "Review your mental performance this week. Record one high point and one boundary breakdown.", done: false },
+
+    { week: 2, day: 1, title: "Fluid Expansion", task: "Work through a spatial reasoning exercise. Practice mental rotation of objects in your room.", done: false },
+    { week: 2, day: 2, title: "Stress Boundary", task: "Implement a strict 'No Notifications' window between 9 AM and 11 AM to protect executive function.", done: false },
+    { week: 2, day: 3, title: "Vibe Check", task: "Ask a close colleague or family member for a quick feedback check on your emotional tone today.", done: false },
+    { week: 2, day: 4, title: "Imposter Override", task: "List three concrete accomplishments you completed in the last 12 months. Own the success.", done: false },
+    { week: 2, day: 5, title: "Attention Gym", task: "Read a long-form article on a complex subject for 20 minutes without shifting tabs once.", done: false },
+    { week: 2, day: 6, title: "Vulnerability Drill", task: "Share a minor operational struggle or doubt with a teammate. Gauge the high trust return.", done: false },
+    { week: 2, day: 7, title: "Rest Protocol", task: "Engage in a non-intellectual physical activity (exercise, gardening, cleaning) for at least 1 hour.", done: false },
+
+    { week: 3, day: 1, title: "Focus Calibration", task: "Define your single 'Core Focus' for today. Eliminate all tertiary tasks until it is completed.", done: false },
+    { week: 3, day: 2, title: "Mental Sandbox", task: "Spend 10 minutes drawing a conceptual map of your current career goals on physical paper.", done: false },
+    { week: 3, day: 3, title: "EQ Active Listening", task: "Paraphrase another person's point back to them in a conversation before adding your own thoughts.", done: false },
+    { week: 3, day: 4, title: "Resiliency Buffer", task: "Whenever an unexpected problem occurs today, frame it explicitly as a 'challenge' rather than a 'threat'.", done: false },
+    { week: 3, day: 5, title: "Social Mirror", task: "Notice three micro-expressions on others in your meetings today. Note their baseline stress state.", done: false },
+    { week: 3, day: 6, title: "Cognitive Agility", task: "Read an article or opinion that directly contradicts one of your deeply held beliefs. Try to validate their points.", done: false },
+    { week: 3, day: 7, title: "Weekly Synthesis", task: "Assess your weekly cognitive strain. Has your mental endurance or calm improved?", done: false },
+
+    { week: 4, day: 1, title: "Deep Synthesis", task: "Synthesize two completely unrelated topics (e.g. art and code) to construct a creative solution concept.", done: false },
+    { week: 4, day: 2, title: "Boundary Shield", task: "Declare a definitive 'logoff' time today and stick to it. Allow no work communications past that hour.", done: false },
+    { week: 4, day: 3, title: "EQ Calibration", task: "Provide a sincere, highly specific praise to a colleague or family member about their work ethic.", done: false },
+    { week: 4, day: 4, title: "Stress Anchor", task: "Practice a box-breathing cycle (4s inhale, 4s hold, 4s exhale, 4s hold) for 3 minutes before a key meeting.", done: false },
+    { week: 4, day: 5, title: "Cognitive Mastery", task: "Explain a highly complex concept you know to someone else in under 60 seconds using simple analogies.", done: false },
+    { week: 4, day: 6, title: "Gratitude Logic", task: "Write down three micro-things you are grateful for today. Appreciate the simplicity.", done: false },
+    { week: 4, day: 7, title: "Final Alignment", task: "Review your full 4-week growth metrics. Schedule a reminder to retake the MindMetrics suite in 90 days.", done: false }
+  ];
+
+  const progressKey = `mm_training_progress_${key}`;
+  let completedDays = {};
+  try {
+    completedDays = JSON.parse(localStorage.getItem(progressKey) || '{}');
+  } catch(e) {}
+
+  const daysHtml = calendarDays.map(d => {
+    const isDone = !!completedDays[`w${d.week}d${d.day}`];
+    return `
+      <div class="calendar-day-card ${isDone ? 'completed' : ''}"
+           data-week="${d.week}" data-day="${d.day}"
+           onclick="toggleCalendarDay('${key}', ${d.week}, ${d.day})">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+          <span style="font-family:'Space Mono',monospace;font-size:0.75rem;color:${isDone ? '#78c48c' : 'var(--gold-light)'}">
+            WEEK ${d.week} · DAY ${d.day}
+          </span>
+          <span class="day-check-icon" style="color:${isDone ? '#78c48c' : 'rgba(255,255,255,0.15)'}; font-size:0.8rem;">
+            ${isDone ? '✓ Completed' : '○ Active'}
+          </span>
+        </div>
+        <div style="font-weight:600;font-size:0.9rem;color:var(--cream);margin-bottom:0.3rem;">${d.title}</div>
+        <div style="font-size:0.8rem;line-height:1.4;color:var(--steel-light);">${d.task}</div>
+      </div>
+    `;
+  }).join('');
+
+  const totalDays = calendarDays.length;
+  const completedCount = Object.values(completedDays).filter(Boolean).length;
+  const percentComplete = Math.round((completedCount / totalDays) * 100);
+
+  const calendarHtml = `
+    <div class="result-section premium-feature-block" style="margin-top:2rem;">
+      <div class="premium-feature-badge">âš¡ PREMIUM BLUEPRINT EXCLUSIVE</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold-light);margin-bottom:0.5rem;">
+        Personalized 4-Week Cognitive & Emotional Training Calendar
+      </h2>
+      <p style="font-size:0.88rem;color:var(--steel-light);margin-bottom:1.5rem;max-width:650px;">
+        This evidence-based operational training plan correlates your results to provide micro-actions that build neurological capacity, emotional intelligence, and stress resiliency. Track your progress daily.
+      </p>
+
+      <div class="calendar-progress-wrapper" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:1rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:0.4rem;font-family:'Space Mono',monospace;">
+            <span style="color:var(--steel-light);">Training Calendar Progress</span>
+            <span style="color:var(--gold);" id="cal-progress-percent">${percentComplete}%</span>
+          </div>
+          <div style="height:4px;background:rgba(255,255,255,0.1);border-radius:2px;">
+            <div id="cal-progress-fill" style="height:100%;background:var(--gold);border-radius:2px;width:${percentComplete}%;transition:width 0.3s;"></div>
+          </div>
+        </div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--steel-light);">
+          Checked: <span id="cal-checked-count" style="color:var(--cream);font-weight:600;">${completedCount}</span> / 28 Days
+        </div>
+      </div>
+
+      <div class="calendar-week-tabs" style="display:flex;gap:0.5rem;margin-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:0.5rem;">
+        <button class="week-tab-btn active" onclick="switchCalendarWeek(1)">Week 1</button>
+        <button class="week-tab-btn" onclick="switchCalendarWeek(2)">Week 2</button>
+        <button class="week-tab-btn" onclick="switchCalendarWeek(3)">Week 3</button>
+        <button class="week-tab-btn" onclick="switchCalendarWeek(4)">Week 4</button>
+      </div>
+
+      <div class="calendar-grid" id="calendar-days-container">
+        ${daysHtml}
+      </div>
+    </div>
+  `;
+
+  detailSections.innerHTML += narrativeHtml + calendarHtml;
+
+  // Initialize to show Week 1 by default
+  setTimeout(() => {
+    switchCalendarWeek(1);
+  }, 10);
+}
+
+function switchCalendarWeek(weekNum) {
+  // Update week tabs
+  const tabBtns = document.querySelectorAll('.week-tab-btn');
+  tabBtns.forEach((btn, idx) => {
+    if (idx + 1 === weekNum) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  // Filter day cards to display only cards for selected week
+  const dayCards = document.querySelectorAll('.calendar-day-card');
+  dayCards.forEach(card => {
+    const cardWeek = parseInt(card.getAttribute('data-week'));
+    if (cardWeek === weekNum) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+function toggleCalendarDay(testKey, week, day) {
+  const progressKey = `mm_training_progress_${testKey}`;
+  let completedDays = {};
+  try {
+    completedDays = JSON.parse(localStorage.getItem(progressKey) || '{}');
+  } catch(e) {}
+
+  const dayId = `w${week}d${day}`;
+  const isCurrentlyDone = !!completedDays[dayId];
+
+  // Toggle status
+  if (isCurrentlyDone) {
+    completedDays[dayId] = false;
+  } else {
+    completedDays[dayId] = true;
+  }
+
+  localStorage.setItem(progressKey, JSON.stringify(completedDays));
+
+  // Visual feedback update on the clicked card
+  const card = document.querySelector(`.calendar-day-card[data-week="${week}"][data-day="${day}"]`);
+  if (card) {
+    const isDoneNow = completedDays[dayId];
+    if (isDoneNow) {
+      card.classList.add('completed');
+      card.querySelector('.day-check-icon').innerHTML = '✓ Completed';
+      card.querySelector('.day-check-icon').style.color = '#78c48c';
+    } else {
+      card.classList.remove('completed');
+      card.querySelector('.day-check-icon').innerHTML = 'â—‹ Active';
+      card.querySelector('.day-check-icon').style.color = 'rgba(255,255,255,0.15)';
+    }
+  }
+
+  // Update progress bar
+  const totalDays = 28;
+  const completedCount = Object.values(completedDays).filter(Boolean).length;
+  const percentComplete = Math.round((completedCount / totalDays) * 100);
+
+  document.getElementById('cal-progress-percent').textContent = `${percentComplete}%`;
+  document.getElementById('cal-progress-fill').style.width = `${percentComplete}%`;
+  document.getElementById('cal-checked-count').textContent = completedCount;
+}
+
 function cacheAndActivatePremium() {
   const aa = state.allAnswers;
   _lastResults = {
@@ -4912,6 +7142,8 @@ function cacheAndActivatePremium() {
     big5: aa.big5 ? scoreBig5(aa.big5) : null,
     stress: aa.stress ? scoreStress(aa.stress) : null,
     entr: aa.entrepreneur ? scoreEntrepreneur(aa.entrepreneur) : null,
+    matrix: aa.matrix ? scoreMatrix(aa.matrix) : null,
+    critical: aa.critical ? scoreCritical(aa.critical) : null,
     raw: aa
   };
   // Show premium panel if at least 2 tests done
@@ -5047,6 +7279,10 @@ let _careerScored = null;
 let _activeSector = 'All';
 
 function openCareerMatch() {
+  if (!isPremiumUnlocked(state.currentTest)) {
+    startCheckout(state.currentTest);
+    return;
+  }
   if (!_lastResults) { alert('Please complete at least one test first.'); return; }
 
   // Score all roles
@@ -5092,6 +7328,55 @@ function closeModal(id) {
   document.getElementById(id).classList.remove('open');
 }
 
+let _criticalSelectionMode = 'quiz'; // 'quiz' or 'training'
+
+function openCriticalLevelsModal(mode) {
+  _criticalSelectionMode = mode || 'quiz';
+  document.getElementById('critical-levels-modal').classList.add('open');
+}
+
+function selectCriticalLevel(tier) {
+  closeModal('critical-levels-modal');
+
+  const test = TESTS.critical;
+  const training = TRAINING.critical;
+
+  const tierNames = {
+    tier1: 'Socratic Foundation',
+    tier2: 'The Epistemic Crucible',
+    tier3: 'Metaphysical Grandmaster'
+  };
+
+  if (_criticalSelectionMode === 'quiz') {
+    test.questions = test.levels[tier];
+    test.name = 'Critical Thinking — ' + tierNames[tier];
+
+    // Trigger assessment flow directly
+    checkRegistrationAndRun(() => {
+      state.mode = 'single';
+      state.queue = [];
+      state.allAnswers = {};
+      launchTest('critical');
+    });
+  } else {
+    training.exercises = training.levels[tier];
+    training.name = 'Critical Thinking — ' + tierNames[tier];
+
+    state.trainingTest = 'critical';
+    state.trainingQ = 0;
+    state.trainingAnswers = [];
+    state.trainingAnswered = false;
+    state.trainingFrom = state.trainingFrom || 'hub';
+    state.activeTrainingExercises = generateDynamicExercises('critical');
+
+    document.getElementById('training-q-view').style.display = '';
+    document.getElementById('training-results-view').style.display = 'none';
+    document.getElementById('training-test-title').textContent = training.name + ' Training';
+    renderTrainingQ();
+    showScreen('training');
+  }
+}
+
 // ══════════════════════════════════════════════════════════
 //  INTERVIEW PREP GUIDE
 // ══════════════════════════════════════════════════════════
@@ -5132,6 +7417,10 @@ const INTERVIEW_PREP = {
 };
 
 function openInterviewPrep() {
+  if (!isPremiumUnlocked(state.currentTest)) {
+    startCheckout(state.currentTest);
+    return;
+  }
   if (!_lastResults || !_lastResults.eq) {
     alert('Complete the EQ test to unlock your personalised interview prep guide.');
     return;
@@ -5178,12 +7467,13 @@ function buildShareUrl() {
   generateQR(url);
 }
 
-function copyShareUrl() {
+function copyShareUrl(event) {
   if (!window._shareUrl) return;
   navigator.clipboard.writeText(window._shareUrl).then(() => {
-    const btn = event.target;
-    btn.textContent = '✓ Copied!';
-    setTimeout(() => btn.textContent = '📋 Copy Link', 2000);
+    const btn = event && event.target;
+    if (!btn) return;
+    btn.textContent = 'Copied';
+    setTimeout(() => btn.textContent = 'Copy Link', 2000);
   });
 }
 
@@ -5249,14 +7539,17 @@ function generateQR(text) {
 // Clear stale local cache once per deployed version. This fixes broken cached
 // assessment state without changing shared result links or the assessment suite.
 function clearMindMetricsCacheIfNeeded() {
-  const cacheVersion = 'mindmetrics-cache-2026-05-07-full-suite-restore-1';
+  const cacheVersion = 'mindmetrics-cache-2026-05-30-production-ready-1';
+  const stalePrefixes = ['mindmetrics', 'mm_'];
   try {
     if (localStorage.getItem('mindmetrics.cacheVersion') === cacheVersion) return;
     Object.keys(localStorage).forEach(key => {
-      if (key.toLowerCase().startsWith('mindmetrics')) localStorage.removeItem(key);
+      const k = key.toLowerCase();
+      if (stalePrefixes.some(prefix => k.startsWith(prefix))) localStorage.removeItem(key);
     });
     Object.keys(sessionStorage).forEach(key => {
-      if (key.toLowerCase().startsWith('mindmetrics')) sessionStorage.removeItem(key);
+      const k = key.toLowerCase();
+      if (stalePrefixes.some(prefix => k.startsWith(prefix))) sessionStorage.removeItem(key);
     });
     localStorage.setItem('mindmetrics.cacheVersion', cacheVersion);
   } catch(e) {
@@ -5264,9 +7557,42 @@ function clearMindMetricsCacheIfNeeded() {
   }
 }
 
-// Load shared results from URL on page load
+// Load shared results from URL on page load & initialize premium locks/progress dashboard
 window.addEventListener('DOMContentLoaded', () => {
   clearMindMetricsCacheIfNeeded();
+
+  // 1. Load persisted states (if any)
+  try {
+    const savedAnswers = localStorage.getItem('mm_all_answers');
+    const savedTimes = localStorage.getItem('mm_all_times');
+    if (savedAnswers) state.allAnswers = JSON.parse(savedAnswers);
+    if (savedTimes) state.allAnswerTimes = JSON.parse(savedTimes);
+  } catch(e) {
+    if (CONFIG.DEV_LOGS) console.error('[INIT] Failed to load persisted answers', e);
+  }
+
+  // 2. Check for redirect query parameters for payment unlocks (Live redirect flow)
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const unlockKey = urlParams.get('unlock');
+    if (unlockKey) {
+      unlockPremium(unlockKey);
+
+      // Remove query param without refreshing to keep URL clean
+      const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash;
+      window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
+
+      // Beautiful welcome popup
+      alert(`Payment Confirmed! Your MindMetrics Premium Blueprint (${unlockKey === 'all' ? 'All-Access Lifetime Suite' : unlockKey.toUpperCase() + ' Report'}) has been successfully activated.`);
+    }
+  } catch(e) {
+    if (CONFIG.DEV_LOGS) console.warn('[INIT] Query parameter check failed', e);
+  }
+
+  // 3. Update dashboard progress bar & badges
+  updateLandingDashboard();
+
+  // 4. Check for URL shared results hashes
   const hash = window.location.hash;
   if (hash.startsWith('#results=')) {
     try {
@@ -5283,6 +7609,10 @@ window.addEventListener('DOMContentLoaded', () => {
 // ══════════════════════════════════════════════════════════
 
 function printCertificate() {
+  if (!isPremiumUnlocked(state.currentTest)) {
+    startCheckout(state.currentTest);
+    return;
+  }
   const r = _lastResults;
   if (!r) { alert('No results found. Please complete a test first.'); return; }
 
@@ -5300,6 +7630,7 @@ function printCertificate() {
   }
   if (r.stress) scores.push({ val: r.stress.raw, label: 'Stress Index' });
   if (r.entr) scores.push({ val: r.entr.dnaScore, label: 'Entrepreneur DNA' });
+  if (r.critical) scores.push({ val: r.critical.score, label: 'Critical Thinking' });
 
   document.getElementById('cert-scores-grid').innerHTML = scores.map(s => `
     <div class="cert-score-item">
@@ -5342,6 +7673,44 @@ function printCertificate() {
     <div class="modal-title">Interview Preparation Guide</div>
     <div class="modal-sub">Personalised to your lowest-scoring EQ domains — questions an interviewer will ask</div>
     <div id="prep-content"></div>
+  </div>
+</div>
+
+<!-- ══════════ CRITICAL THINKING LEVEL SELECTOR MODAL ══════════ -->
+<div class="modal-overlay" id="critical-levels-modal">
+  <div class="modal-box" style="max-width:650px;">
+    <button class="modal-close" onclick="closeModal('critical-levels-modal')">✕</button>
+    <div class="modal-title" style="color:var(--gold-light); font-family:'Cormorant Garamond',serif; font-size:2rem;">Rational Inquiry Academy</div>
+    <div class="modal-sub" style="margin-bottom:1.5rem;">Select your training or assessment tier. Deep intellectual growth requires progressive, arduous mental training.</div>
+
+    <div style="display:flex; flex-direction:column; gap:1rem;" id="critical-levels-container">
+      <div class="level-card" onclick="selectCriticalLevel('tier1')" style="padding:1.2rem; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius:6px; cursor:pointer; display:flex; flex-direction:column; gap:0.4rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-family:'Space Mono',monospace; font-size:0.75rem; letter-spacing:0.1em; color:var(--gold); text-transform:uppercase;">Tier I: Socratic Foundation</span>
+          <span style="font-size:0.65rem; padding:0.2rem 0.5rem; background:rgba(58,158,110,0.15); color:#78c48c; border:1px solid rgba(58,158,110,0.3); border-radius:3px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Calibrated</span>
+        </div>
+        <div style="font-size:0.9rem; color:var(--cream); font-weight:600;">Socratic Inquiry & Deductive Logic</div>
+        <div style="font-size:0.78rem; color:var(--steel-light); line-height:1.4;">Aristotelian categorical logic, Socratic elenchus, common informal fallacies (Straw Man, False Dichotomy), and introductory cognitive heuristics. Ideal for establishing a secure epistemic foundation. (16 Puzzles)</div>
+      </div>
+
+      <div class="level-card" onclick="selectCriticalLevel('tier2')" style="padding:1.2rem; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius:6px; cursor:pointer; display:flex; flex-direction:column; gap:0.4rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-family:'Space Mono',monospace; font-size:0.75rem; letter-spacing:0.1em; color:var(--gold); text-transform:uppercase;">Tier II: The Epistemic Crucible</span>
+          <span style="font-size:0.65rem; padding:0.2rem 0.5rem; background:rgba(200,150,42,0.15); color:var(--gold-light); border:1px solid rgba(200,150,42,0.3); border-radius:3px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Arduous</span>
+        </div>
+        <div style="font-size:0.9rem; color:var(--cream); font-weight:600;">Advanced Rationality & Cognitive Illusions</div>
+        <div style="font-size:0.78rem; color:var(--steel-light); line-height:1.4;">Deep dive into cognitive biases, decision theory paradoxes (Newcomb's Paradox, Prisoner's Dilemma), Popperian falsifiability, Kantian deontology, and formal logical fallacies. For rigorous analytical thinkers. (16 Puzzles)</div>
+      </div>
+
+      <div class="level-card" onclick="selectCriticalLevel('tier3')" style="padding:1.2rem; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius:6px; cursor:pointer; display:flex; flex-direction:column; gap:0.4rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-family:'Space Mono',monospace; font-size:0.75rem; letter-spacing:0.1em; color:var(--gold); text-transform:uppercase;">Tier III: Metaphysical Grandmaster</span>
+          <span style="font-size:0.65rem; padding:0.2rem 0.5rem; background:rgba(201,64,64,0.15); color:#e8814b; border:1px solid rgba(201,64,64,0.3); border-radius:3px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Elite Level</span>
+        </div>
+        <div style="font-size:0.9rem; color:var(--cream); font-weight:600;">Deep Epistemology & Mind-Bending Paradoxes</div>
+        <div style="font-size:0.78rem; color:var(--steel-light); line-height:1.4;">Highly challenging formal epistemology, philosophy of mind (Chinese Room, Mary's Room), ontological puzzles (Ship of Theseus, Zeno's Dichotomy), radical skepticism, and extreme moral dilemmas (Utility Monsters). (16 Puzzles)</div>
+      </div>
+    </div>
   </div>
 </div>
 
